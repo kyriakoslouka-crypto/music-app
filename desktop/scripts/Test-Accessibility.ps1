@@ -103,7 +103,9 @@ try{
     $buttonCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand')
     $button=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,$buttonCondition)
     if(!$button){throw 'Piano installation button not exposed.'}
-    $button.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke()
+    $invokePattern=$null
+    if(!$button.TryGetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern,[ref]$invokePattern)){throw 'Piano installation button lacks InvokePattern.'}
+    $button.SetFocus();$keyboard.SendKeys('{ENTER}')
     Start-Sleep -Milliseconds 300
     $title=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Εγκατάσταση πραγματικού πιάνου')
     $dialog=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,$title)
@@ -115,7 +117,7 @@ try{
     $dialog.GetCurrentPattern([System.Windows.Automation.WindowPattern]::Pattern).Close()
     Write-Output 'PASS all application tabs and piano installer UIA coverage. No download was started.'
     Write-Output 'NOT TESTED: NVDA speech, physical keyboard traversal, Windows FLAC codec, audio hardware or listening quality.'
-}finally{if(!$process.HasExited){$process.CloseMainWindow()|Out-Null}}
+}finally{if(!$process.HasExited){$process.CloseMainWindow()|Out-Null;if(!$process.WaitForExit(3000)){$process.Kill()}}}
 
 $audit=Get-Content $Report -Raw | ConvertFrom-Json
 $audit | Add-Member -NotePropertyName UIAutomationPassed -NotePropertyValue $true -Force

@@ -12,10 +12,6 @@ namespace Studio.Windows;
 public sealed class AccessibleTabControl : TabControl
 {
     private TabProvider? provider;
-    [DllImport("UIAutomationCore.dll",PreserveSig=false)]
-    [return:MarshalAs(UnmanagedType.Interface)]
-    private static extern IRawElementProviderSimple UiaProviderFromIAccessible([MarshalAs(UnmanagedType.Interface)] Accessibility.IAccessible accessible,int childId,uint flags);
-
     protected override void WndProc(ref Message message)
     {
         if(message.Msg==0x003D && unchecked((int)message.LParam)==-25)
@@ -134,11 +130,6 @@ public sealed class AccessibleTabControl : TabControl
     [ComVisible(true)]
     private sealed class PageProvider(AccessibleTabControl owner,TabProvider root,TabPage page) : IRawElementProviderFragmentRoot
     {
-        private IRawElementProviderFragment? Child(bool last)=>owner.Read(()=>{
-            if(page.Controls.Count==0)return null;
-            var control=page.Controls[last?page.Controls.Count-1:0];
-            return UiaProviderFromIAccessible((Accessibility.IAccessible)control.AccessibilityObject,0,1) as IRawElementProviderFragment;
-        });
         public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider;
         public IRawElementProviderSimple HostRawElementProvider=>owner.Read(()=>AutomationInteropProvider.HostProviderFromHandle(page.Handle));
         public object? GetPatternProvider(int patternId)=>null;
@@ -155,16 +146,16 @@ public sealed class AccessibleTabControl : TabControl
             NavigateDirection.Parent=>root,
             NavigateDirection.PreviousSibling=>owner.Read(()=>root.Header(owner.TabCount-1)),
             NavigateDirection.NextSibling=>null,
-            NavigateDirection.FirstChild=>Child(false),
-            NavigateDirection.LastChild=>Child(true),
+            NavigateDirection.FirstChild=>null,
+            NavigateDirection.LastChild=>null,
             _=>null};
         public int[] GetRuntimeId()=>owner.Read(()=>new[]{AutomationInteropProvider.AppendRuntimeId,unchecked((int)page.Handle),0});
         public Rect BoundingRectangle=>owner.Read(()=>ScreenBounds(page,page.ClientRectangle));
         public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>null;
         public void SetFocus()=>owner.Act(()=>page.SelectNextControl(null,true,true,true,false));
         public IRawElementProviderFragmentRoot FragmentRoot=>root;
-        public IRawElementProviderFragment? ElementProviderFromPoint(double x,double y)=>Child(false);
-        public IRawElementProviderFragment? GetFocus()=>owner.Read(()=>page.ContainsFocus?Child(false):null);
+        public IRawElementProviderFragment? ElementProviderFromPoint(double x,double y)=>this;
+        public IRawElementProviderFragment? GetFocus()=>null;
     }
     private static Rect ScreenBounds(Control owner,System.Drawing.Rectangle rectangle)
     {

@@ -49,7 +49,12 @@ try
         try {
             var window = FindWindow(fixture); Thread.Sleep(200);
             var tabs = Tabs(window); var names = Names(tabs);
-            references.Add(new { Mode = mode, ReferenceOnly = mode != "explicit", Count = tabs.Count, Names = names });
+            var parents=Enumerable.Range(0,tabs.Count).Select(i=>{
+                var chain=new List<string>();var node=tabs[i];
+                for(var depth=0;depth<5&&node is not null;depth++){chain.Add(node.Current.ControlType.ProgrammaticName+":"+node.Current.Name+":"+string.Join(".",node.GetRuntimeId()));node=TreeWalker.RawViewWalker.GetParent(node);}
+                return chain.ToArray();
+            }).ToArray();
+            references.Add(new { Mode = mode, ReferenceOnly = mode != "explicit", Count = tabs.Count, Names = names,Parents=parents });
             if (mode == "explicit") Check(names.SequenceEqual(expected), "Explicit provider exposes exactly five named fixture headers");
         } finally { Close(fixture); }
     }
