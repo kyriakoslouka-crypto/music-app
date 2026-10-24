@@ -24,3 +24,8 @@
 - WASAPI/ASIO σε φυσική συσκευή, input latency, ακρόαση και επαγγελματική αξιολόγηση του ήχου.
 
 Το GitHub Actions workflow μπορεί να κάνει πραγματικό Windows build/UIA έλεγχο εκτός αυτού του Linux. Αν εκτελεστεί, το `WINDOWS-CHECKS.json` καταγράφει ξεχωριστά επιτυχία ή αποτυχία UIA. Δεν μετατρέπει ποτέ NVDA/hardware/listening σε true επειδή πέρασε το build. Μέχρι να υπάρξει τέτοιο report, η Windows δοκιμή παραμένει άγνωστη.
+
+
+## Πραγματικός έλεγχος Windows CI
+
+Το run [40068172865](https://github.com/kyriakoslouka-crypto/music-app/actions/runs/40068172865) εκτέλεσε 53 core tests σε Windows: 53 passed, 0 failed. [Αρχικό JSON](https://raw.githubusercontent.com/kyriakoslouka-crypto/music-app/fc9dc07ec66e07b3cac8ce08f218c0cfc37f01ed/downloads/windows-checks/40068172865/tests-0.5.0.json). Τα private piano integrations δεν εκτελέστηκαν στον runner. Η συσκευασία standalone απέτυχε στη μεταβίβαση MSBuild παραμέτρων PowerShell· διορθώθηκαν τα quotes και ξεκίνησε run 40068296151. UIA δεν εκτελέστηκε στο αποτυχημένο run. Αυτή η απόδειξη δεν είναι δοκιμή NVDA, Windows 11 προσωπικού υπολογιστή ή ακουστικής ποιότητας.

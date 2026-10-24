@@ -32,4 +32,4 @@ for f in sorted(folder.rglob('*')):
 (folder/'SHA256SUMS.txt').write_text('\n'.join(lines)+'\n')
 (base/'deliverables'/'LATEST.json').write_text(json.dumps({'Version':version,'Folder':str(folder.relative_to(base)),'PublicUrl':None,'DownloadFromUserDeviceVerified':False},indent=2))
 print('Complete local delivery folder:',folder)
-print('No public upload or user-side download has been verified.')
+print('Assembly alone does not verify external delivery or user-side download; see downloads/0.5.0/DELIVERY-VERIFICATION.json for separate evidence.')
