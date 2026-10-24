@@ -158,6 +158,7 @@ public sealed class AccessibleTabControl : TabControl
 
 public sealed class AccessibleTabPage(string title) : TabPage(title)
 {
+    protected override AccessibleObject CreateAccessibilityInstance()=>new ControlAccessibleObject(this);
     protected override void WndProc(ref Message message)
     {
         if(message.Msg==0x003D&&unchecked((int)message.LParam)==-25&&Parent is AccessibleTabControl owner){

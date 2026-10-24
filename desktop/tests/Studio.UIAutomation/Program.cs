@@ -10,10 +10,10 @@ if (args[0] == "--fixture")
     var thread = new Thread(() => {
         System.Windows.Forms.Application.EnableVisualStyles();
         var form = new System.Windows.Forms.Form { Text = "UIA fixture", Width = 1000, Height = 800, Font = new System.Drawing.Font("Segoe UI", 11) };
-        System.Windows.Forms.TabControl tabs = args[1] == "explicit" ? new Studio.Windows.AccessibleTabControl() : new System.Windows.Forms.TabControl();
+        System.Windows.Forms.TabControl tabs = args[1] == "explicit" ? new Studio.Windows.AccessibleTabControl() : args[1]=="native"?new Studio.Windows.NativeAccessibleTabControl():new System.Windows.Forms.TabControl();
         tabs.Dock = System.Windows.Forms.DockStyle.Fill;
         foreach (var name in expected) {
-            System.Windows.Forms.TabPage page=args[1]=="explicit"?new Studio.Windows.AccessibleTabPage(name):new System.Windows.Forms.TabPage(name);
+            System.Windows.Forms.TabPage page=(args[1]=="explicit"||args[1]=="native")?new Studio.Windows.AccessibleTabPage(name):new System.Windows.Forms.TabPage(name);
             page.Controls.Add(new System.Windows.Forms.TextBox { Text = name, Dock = System.Windows.Forms.DockStyle.Fill, AccessibleName = name });
             tabs.TabPages.Add(page);
         }
@@ -44,7 +44,7 @@ string[] Names(AutomationElementCollection tabs) => Enumerable.Range(0, tabs.Cou
 void Close(Process? process) { if (process is not null && !process.HasExited) { process.CloseMainWindow(); if (!process.WaitForExit(3000)) process.Kill(); } }
 try
 {
-    foreach (var mode in new[] { "baseline", "contract", "explicit" }) {
+    foreach (var mode in new[] { "baseline", "contract", "native", "explicit" }) {
         using var fixture = Process.Start(new ProcessStartInfo(Environment.ProcessPath!, "--fixture " + mode) { UseShellExecute = false })!;
         try {
             var window = FindWindow(fixture); Thread.Sleep(200);
