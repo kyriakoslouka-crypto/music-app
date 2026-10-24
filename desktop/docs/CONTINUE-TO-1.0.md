@@ -13,3 +13,8 @@
 Σύντομη εντολή επόμενης συνέχισης: «Συνέχισε από τη 0.5.0, διάβασε desktop/docs/CONTINUE-TO-1.0.md, επαλήθευσε τα Windows/παράδοση και διόρθωσε τα ευρήματα πριν προαγάγεις σε 1.0.0».
 
 Έλεγχος τελικής ετοιμότητας: `python scripts/release-readiness.py --output artifacts/readiness.json --require-final`. Αυτή τη στιγμή αποτυγχάνει σκόπιμα επειδή λείπουν πραγματικά Windows/NVDA/hardware/listening/download και αποδοχή των ανοικτών scope θεμάτων. Δεν συμπληρώνουμε manual flags χωρίς αντίστοιχη δοκιμή. Η συναρμολόγηση αρνείται να δηλώσει ατεκμηρίωτη τελική `1.0.0`.
+
+
+## Τελευταίο συγκεκριμένο εύρημα προς διόρθωση
+
+Το Windows run 40069165860 (commit 6af6d75) κατασκευάζει/συσκευάζει την εφαρμογή, αλλά το native UIA audit βρίσκει 4 TabItem αντί 5: λείπει η Οδηγίες. Ο managed audit έχει 109+9 controls και 28 παρουσιάσεις. Το Multiline=true δεν έλυσε την παράλειψη. Μη χαμηλώσεις τον αναμενόμενο αριθμό καρτελών και μη δηλώσεις πλήρη UIA/NVDA αποδοχή. Πρωτότυπο report: https://raw.githubusercontent.com/kyriakoslouka-crypto/music-app/d1bbc4c3b54ff99e5aadfa041b9a29bdb6466b07/downloads/windows-checks/40069165860/accessibility-audit.json . Επόμενο βήμα: διάγνωση native TabControl accessibility provider/fragment enumeration και επαλήθευση όλων των καρτελών και του piano dialog. Τα νεότερα τοπικά binaries στο artifacts περιλαμβάνουν Multiline=true, αλλά δεν αντικατέστησαν τα εξωτερικά πακέτα μέχρι να κλείσει το εύρημα. Τα εξωτερικά πακέτα εξακολουθούν να έχουν τα επαληθευμένα SHA στο downloads/0.5.0. Το πριν-τη-διόρθωση checkpoint διατηρείται στο deliverables/releases/0.5.0-before-tab-fix.

@@ -5,7 +5,7 @@
   "DownloadedBytes": 49877101,
   "SHA256": "16190f45b3181e7995dbc6ab1497b652a25982b5dc52c5bb74204f2e3fa3872f",
   "UserDeviceDownloadVerified": false,
-  "WindowsCI": "53 core tests passed on Windows; standalone packaging failed. PowerShell arguments corrected; rerun pending. UIA not yet tested.",
+  "WindowsCI": "Build and packaging passed; 53/53 core tests passed; native UIA regression remains under investigation.",
   "NVDAValidated": false,
   "PortableHttpDownloadVerified": true,
   "PortableSHA256": "5afcbce294906f781516cbd49969bf604f19335b5ff3b85975e590c7f9d13757",
@@ -16,5 +16,15 @@
     "Failed": 0,
     "Run": "https://github.com/kyriakoslouka-crypto/music-app/actions/runs/40068172865",
     "Report": "https://raw.githubusercontent.com/kyriakoslouka-crypto/music-app/fc9dc07ec66e07b3cac8ce08f218c0cfc37f01ed/downloads/windows-checks/40068172865/tests-0.5.0.json"
-  }
+  },
+  "WindowsBuildAndPackagingVerified": true,
+  "WindowsBuildRun": "https://github.com/kyriakoslouka-crypto/music-app/actions/runs/40068529574",
+  "ManagedAccessibilityAudit": {
+    "MainControls": 109,
+    "PianoSetupControls": 9,
+    "ExercisePresentations": 28,
+    "Passed": true
+  },
+  "NativeUIAutomationPassed": false,
+  "NativeUIAutomationIssue": "Run 40069165860 still finds 4 rather than 5 TabItems (Help absent); Multiline did not resolve it. Native UIA remains failed, NVDA untested."
 }
