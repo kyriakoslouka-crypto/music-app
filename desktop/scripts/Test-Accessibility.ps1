@@ -67,6 +67,9 @@ try{
         $pattern=$tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern)
         $pattern.Select();Start-Sleep -Milliseconds 100
         Check-Controls $window $tab.Current.Name
+        $sentinels=@{'Ρυθμίσεις'='Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand';'Εξάσκηση'='Οδηγία τρέχουσας άσκησης';'Πρόοδος'='Στατιστικά και ιστορικό';'Εξετάσεις και προσαρμογή'='Εκπαιδευτικό εξεταστικό προφίλ';'Οδηγίες'='Οδηγίες και περιορισμοί έκδοσης'}
+        $sentinel=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,$sentinels[$tab.Current.Name]))
+        if(!$sentinel){throw "Selected page content is missing: $($tab.Current.Name)"}
     }
     $keyboard=New-Object -ComObject WScript.Shell
     if(!$keyboard.AppActivate($process.Id)){throw 'Cannot activate application for keyboard tests.'}
