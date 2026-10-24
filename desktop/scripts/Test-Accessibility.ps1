@@ -6,6 +6,7 @@ if(!$Exe){
 }
 if(!$Report){$Report=Join-Path $env:TEMP 'ProfessionalEarTrainingStudio-accessibility-audit.json'}
 $ErrorActionPreference='Stop'
+try {
 $Exe=(Resolve-Path $Exe).Path
 # First audit the actual managed AccessibleObjects of every tab and the installer form.
 if(Test-Path $Report){Move-Item $Report ($Report+".previous") -Force}
@@ -61,3 +62,16 @@ try{
     Write-Output 'PASS all application tabs and piano installer UIA coverage. No download was started.'
     Write-Output 'NOT TESTED: NVDA speech, physical keyboard traversal, Windows FLAC codec, audio hardware or listening quality.'
 }finally{if(!$process.HasExited){$process.CloseMainWindow()|Out-Null}}
+
+$audit=Get-Content $Report -Raw | ConvertFrom-Json
+$audit | Add-Member -NotePropertyName UIAutomationPassed -NotePropertyValue $true -Force
+$audit | ConvertTo-Json -Depth 30 | Set-Content $Report -Encoding utf8
+} catch {
+    if(Test-Path $Report){
+        $audit=Get-Content $Report -Raw | ConvertFrom-Json
+        $audit | Add-Member -NotePropertyName UIAutomationPassed -NotePropertyValue $false -Force
+        $audit | Add-Member -NotePropertyName UIAutomationError -NotePropertyValue $_.Exception.Message -Force
+        $audit | ConvertTo-Json -Depth 30 | Set-Content $Report -Encoding utf8
+    }
+    throw
+}
