@@ -15,6 +15,8 @@ jobs:
   windows:
     permissions:
       contents: write
+    env:
+      PYTHONUTF8: '1'
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -53,7 +55,9 @@ jobs:
           @{ NativeWindowsBuildSucceeded=$true; ProgrammaticUIASucceeded=('${{ steps.uia.outcome }}' -eq 'success'); NvdaTested=$false; PhysicalAudioTested=$false; ListeningQualityTested=$false } | ConvertTo-Json | Set-Content desktop/artifacts/WINDOWS-CHECKS.json -Encoding utf8
       - name: Assemble complete source and binary delivery
         shell: pwsh
-        run: python desktop/scripts/assemble-delivery.py
+        run: |
+          python -X utf8 desktop/scripts/assemble-delivery.py *>&1 | Tee-Object -FilePath "$env:RUNNER_TEMP/pets-assembly.txt"
+          if ($LASTEXITCODE -ne 0) { throw 'Delivery assembly failed; see assembly diagnostic' }
       - name: Upload downloadable GitHub Actions artifact
         uses: actions/upload-artifact@v4
         with:
@@ -78,6 +82,7 @@ jobs:
           New-Item -ItemType Directory $target -Force | Out-Null
           if (Test-Path "$env:RUNNER_TEMP/pets-build.txt") { Copy-Item "$env:RUNNER_TEMP/pets-build.txt" "$target/build.txt" }
           if (Test-Path "$env:RUNNER_TEMP/pets-native-output.txt") { Copy-Item "$env:RUNNER_TEMP/pets-native-output.txt" "$target/native-output.txt" }
+          if (Test-Path "$env:RUNNER_TEMP/pets-assembly.txt") { Copy-Item "$env:RUNNER_TEMP/pets-assembly.txt" "$target/assembly.txt" }
           Get-ChildItem desktop/artifacts/*.json -ErrorAction SilentlyContinue | Copy-Item -Destination $target
           git config user.name 'PETS Windows build'
           git config user.email 'pets-build@users.noreply.github.com'

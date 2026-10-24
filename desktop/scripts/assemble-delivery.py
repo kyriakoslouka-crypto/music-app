@@ -29,7 +29,7 @@ for f in sorted(folder.rglob('*')):
  if f.is_file()and f.name!='SHA256SUMS.txt':
   with f.open('rb')as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
   lines.append(digest+'  '+str(f.relative_to(folder)))
-(folder/'SHA256SUMS.txt').write_text('\n'.join(lines)+'\n')
-(base/'deliverables'/'LATEST.json').write_text(json.dumps({'Version':version,'Folder':str(folder.relative_to(base)),'PublicUrl':None,'DownloadFromUserDeviceVerified':False},indent=2))
+(folder/'SHA256SUMS.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+(base/'deliverables'/'LATEST.json').write_text(json.dumps({'Version':version,'Folder':str(folder.relative_to(base)),'PublicUrl':None,'DownloadFromUserDeviceVerified':False},indent=2),encoding='utf-8')
 print('Complete local delivery folder:',folder)
 print('Assembly alone does not verify external delivery or user-side download; see downloads/0.5.0/DELIVERY-VERIFICATION.json for separate evidence.')
