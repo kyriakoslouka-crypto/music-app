@@ -443,6 +443,8 @@ public sealed partial class MainForm : Form
     {
         switch (keyData)
         {
+            case Keys.Control | Keys.Tab: tabs.SelectedIndex=(tabs.SelectedIndex+1)%tabs.TabPages.Count;tabs.Focus();return true;
+            case Keys.Control | Keys.Shift | Keys.Tab: tabs.SelectedIndex=(tabs.SelectedIndex+tabs.TabPages.Count-1)%tabs.TabPages.Count;tabs.Focus();return true;
             case Keys.Control | Keys.Shift | Keys.R: _=PreviewAnswer();return true;
             case Keys.F8: RecordTap();return true;
             case Keys.Control | Keys.I: Stop();tabs.SelectedIndex=1;prompt.Focus();prompt.SelectAll();return true;
