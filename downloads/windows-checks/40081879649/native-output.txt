@@ -1,0 +1,74 @@
+  Determining projects to restore...
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Core\Studio.Core.csproj (in 32.11 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Audio\Studio.Audio.csproj (in 32.16 sec).
+  Restored D:\a\music-app\music-app\desktop\tests\Studio.Tests\Studio.Tests.csproj (in 32.16 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj (in 32.18 sec).
+  Studio.Core -> D:\a\music-app\music-app\desktop\src\Studio.Core\bin\Release\net8.0\Studio.Core.dll
+  Studio.Audio -> D:\a\music-app\music-app\desktop\src\Studio.Audio\bin\Release\net8.0\Studio.Audio.dll
+  Studio.Tests -> D:\a\music-app\music-app\desktop\tests\Studio.Tests\bin\Release\net8.0\Studio.Tests.dll
+  Studio.Windows -> D:\a\music-app\music-app\desktop\src\Studio.Windows\bin\Release\net10.0-windows\ProfessionalEarTrainingStudio.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:15.48
+NOT RUN: Maestro integration (provide --maestro installed-manifest). Windows codec/UIA/NVDA/hardware remain untested here.
+NOT RUN: real SF2 render (provide --soundfont path). No Windows/NVDA/hardware tests run by this runner.
+PASS All levels/categories/directions: 21,600 exercises in range with correct answer
+PASS Known music theory formulas and inversions
+PASS Chord answer matches independently reconstructed pitch-class formula
+PASS Symmetric chords are never given ambiguous inversion labels
+PASS Root filter, descending first-note semantics, keyboard extremes
+PASS Invalid and impossible settings rejected
+PASS Seeded generation is reproducible, not a fixed canned list
+PASS Session scores exactly once and rejects arbitrary answer IDs
+PASS Progress/preferences roundtrip, backup, corrupt history preserved
+PASS Audio timeline: exact tempo, ordering, sustain release, repeat counts
+PASS Theory verifier rejects corrupted exercises and wrong inversions
+PASS Missing/invalid SoundFont fails explicitly, without synthetic fallback
+PASS Independent reference covers all ten chord qualities and their inversion formulas
+PASS Major and natural minor pitch sets agree with independent tonal references
+PASS All 24 tonalities constrain actual notes, not only answer labels
+PASS Inversions retain valid voicings whose unplayed root is below the selected range
+PASS Continuous repeat wraps indefinitely; finite cursor and stop boundary are exact
+PASS BPM changes only event times and preserves pitches and velocities
+PASS Harmonic unison triggers one piano key, not two overlapping sample voices
+PASS Semantically corrupt history is preserved, not accepted as progress
+PASS Unverified piano archives are rejected before extraction
+PASS 0.2: all seven new categories, six levels, 2,520 generated/scored performances
+PASS 0.2: perfect/imperfect authentic, half, plagal and deceptive harmonic endpoints
+PASS 0.2: independent scale/mode reference steps and classical melodic-minor descent
+PASS 0.2: meter grouping, compound/accent grids and exact fractional event timing
+PASS 0.2: rhythm notation parses ties/rests/dots and validates every bar
+PASS 0.2: written dictation grading preserves retry on invalid syntax and scores wrong rhythms
+PASS 0.2: keyboard taps score exact tempo, bad timing/count and final boundary
+PASS 0.2: new score/response/history snapshots survive atomic save and restore
+PASS 0.2: corrupt timings and resource-overlong examples are rejected
+PASS 0.3: all six categories and difficulty levels generate valid scores and correct responses
+PASS 0.3: Greek, scientific and MIDI notation preserve exact pitches including B and enharmonics
+PASS 0.3: functional chord roots, qualities and inversion formulas match independent references
+PASS 0.3: dictation wrong note/duration/case are scored wrong while equivalent note spelling passes
+PASS 0.3: selected fragments clip sustained notes, rebase timing and keep assessment target unchanged
+PASS 0.3: independent MIDI voice channels prevent cross-voice note-off scheduling
+PASS 0.3: memory/solfege data restores with per-item error feedback and original snapshot
+PASS 0.4: eleven categories, six levels, twelve tonics generate and score valid advanced exercises
+PASS 0.4: independent polyphonic rhythms, register order, target voice and solo channels
+PASS 0.4: twelve-tone P/I/R/RI algebra, all transpositions and unique pitch classes
+PASS 0.4: secondary dominants, Neapolitan and augmented-sixth pitch references
+PASS 0.4: ninth/eleventh/thirteenth chords and 36-semitone intervals retain actual pitches
+PASS 0.4: advanced snapshots, row metadata and target voices survive progress restore
+PASS 0.4: corrupt polyphonic target and serial transformations are rejected
+PASS 0.5: all ten independent exam profiles generate balanced valid question sets
+PASS 0.5: exam play limits, failed-output refund, duplicate grading and completion
+PASS 0.5: unanswered/skipped questions remain zero and cannot inflate the percentage
+PASS 0.5: simulated time limit survives resume and rejects late submissions
+PASS 0.5: exact exam progress/play counters/current index and completed history restore
+PASS 0.5: forged scores, invalid replay counters and corrupt exam files are rejected
+PASS 0.5: adaptive practice targets weak concepts while retaining contrast examples
+PASS 0.5: legacy progress and partial scores have correct learning analytics
+PASS 0.5: playback cache cannot return the previous question or stale tempo/voice/segment audio
+53 passed; 0 failed; 53 executed.
+System.Exception: Native page content remains exposed: Ρυθμίσεις
+   at Program.<>c__DisplayClass0_0.<<Main>$>g__Check|0(Boolean passed, String name) in D:\a\music-app\music-app\desktop\tests\Studio.UIAutomation\Program.cs:line 30
+   at Program.<Main>$(String[] args) in D:\a\music-app\music-app\desktop\tests\Studio.UIAutomation\Program.cs:line 71
