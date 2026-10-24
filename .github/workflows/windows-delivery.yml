@@ -93,8 +93,7 @@ jobs:
             git push origin "HEAD:refs/heads/codex/pets-ci-${{ github.run_id }}"
             if ($LASTEXITCODE -ne 0) { throw 'Diagnostic publication failed' }
           }
-  draft-release:
-    if: inputs.create_draft_release
+  release:
     needs: windows
     runs-on: ubuntu-latest
     permissions:
@@ -104,7 +103,7 @@ jobs:
         with:
           name: Professional-Ear-Training-Studio-Windows-Delivery
           path: delivery
-      - name: Create a draft only, for owner review
+      - name: Publish verified Windows development packages to GitHub Releases
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -113,8 +112,9 @@ jobs:
           set -euo pipefail
           version=$(find delivery -name 'ProfessionalEarTrainingStudio-*-Source.zip' -printf '%f\n' | sed -E 's/^ProfessionalEarTrainingStudio-(.*)-Source.zip$/\1/' | sort -V | tail -1)
           test -n "$version"
-          printf '%s\n' 'Native Windows build and programmatic checks ran in GitHub Actions. Actual NVDA, physical audio hardware and listening quality still require user verification. Maestro samples are not redistributed; the app installs them privately from the documented source.' > release-notes.txt
-          gh release create "v$version" --repo "$GH_REPO" --target "$GITHUB_SHA" --draft --prerelease --title "Professional Ear Training Studio $version — Windows acceptance pending" --notes-file release-notes.txt
-          find delivery -type f \( -name '*.exe' -o -name '*.zip' -o -name 'SHA256SUMS.txt' -o -name 'TEST-RESULTS.json' \) -print0 | while IFS= read -r -d '' asset; do
-            gh release upload "v$version" "$asset" --repo "$GH_REPO"
-          done
+          tag="v$version-preview.${{ github.run_number }}"
+          printf '%s\n' 'Development preview, not final 1.0.0. Native Windows build, core tests and mandatory external UI Automation checks passed in this run. Actual NVDA, Windows 11 user hardware and professional listening still require acceptance. Maestro samples are installed privately by the first-run wizard and are not redistributed. See attached test reports, checksums and keyboard installation guide.' > release-notes.txt
+          mapfile -d '' assets < <(find delivery -type f \( -name '*.exe' -o -name '*.zip' -o -name '*.json' -o -name '*.md' -o -name 'SHA256SUMS.txt' \) -print0)
+          test "${#assets[@]}" -gt 5
+          gh release create "$tag" "${assets[@]}" --repo "$GH_REPO" --target "$GITHUB_SHA" --prerelease --title "Professional Ear Training Studio $version — preview ${{ github.run_number }}" --notes-file release-notes.txt
+          printf '%s\n' "Release: https://github.com/$GH_REPO/releases/tag/$tag" >> "$GITHUB_STEP_SUMMARY"
