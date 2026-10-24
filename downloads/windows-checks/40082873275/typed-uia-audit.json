@@ -1,0 +1,192 @@
+{
+  "Passed": false,
+  "Executed": 14,
+  "Failed": 1,
+  "Error": "System.Exception: Native ComboBox SelectionPattern retained\r\n   at Program.\u003C\u003Ec__DisplayClass0_0.\u003C\u003CMain\u003E$\u003Eg__Check|0(Boolean passed, String name) in D:\\a\\music-app\\music-app\\desktop\\tests\\Studio.UIAutomation\\Program.cs:line 30\r\n   at Program.\u003CMain\u003E$(String[] args) in D:\\a\\music-app\\music-app\\desktop\\tests\\Studio.UIAutomation\\Program.cs:line 73",
+  "Client": "C:\\Program Files\\dotnet\\shared\\Microsoft.WindowsDesktop.App\\10.0.13\\UIAutomationClient.dll",
+  "References": [
+    {
+      "Mode": "baseline",
+      "ReferenceOnly": true,
+      "Count": 4,
+      "Names": [
+        "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+        "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+        "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+        "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE"
+      ],
+      "Parents": [
+        [
+          "ControlType.TabItem:\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2:42.131466.4.1",
+          "ControlType.Tab::42.131466",
+          "ControlType.Window:UIA fixture:42.197006",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7:42.131466.4.2",
+          "ControlType.Tab::42.131466",
+          "ControlType.Window:UIA fixture:42.197006",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2:42.131466.4.3",
+          "ControlType.Tab::42.131466",
+          "ControlType.Window:UIA fixture:42.197006",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE:42.131466.4.4",
+          "ControlType.Tab::42.131466",
+          "ControlType.Window:UIA fixture:42.197006",
+          "ControlType.Pane::42.65548"
+        ]
+      ]
+    },
+    {
+      "Mode": "contract",
+      "ReferenceOnly": true,
+      "Count": 4,
+      "Names": [
+        "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+        "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+        "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+        "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE"
+      ],
+      "Parents": [
+        [
+          "ControlType.TabItem:\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2:42.327796.4.1",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.327796",
+          "ControlType.Window:UIA fixture:42.262542",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7:42.327796.4.2",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.327796",
+          "ControlType.Window:UIA fixture:42.262542",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2:42.327796.4.3",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.327796",
+          "ControlType.Window:UIA fixture:42.262542",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE:42.327796.4.4",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.327796",
+          "ControlType.Window:UIA fixture:42.262542",
+          "ControlType.Pane::42.65548"
+        ]
+      ]
+    },
+    {
+      "Mode": "native",
+      "ReferenceOnly": true,
+      "Count": 0,
+      "Names": [],
+      "Parents": []
+    },
+    {
+      "Mode": "explicit",
+      "ReferenceOnly": false,
+      "Count": 5,
+      "Names": [
+        "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+        "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+        "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+        "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE",
+        "\u039F\u03B4\u03B7\u03B3\u03AF\u03B5\u03C2"
+      ],
+      "Parents": [
+        [
+          "ControlType.TabItem:\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2:42.524684.4.524684.41773672",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.524684",
+          "ControlType.Window:UIA fixture:42.393614",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7:42.524684.4.524684.4831898",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.524684",
+          "ControlType.Window:UIA fixture:42.393614",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2:42.524684.4.524684.34361009",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.524684",
+          "ControlType.Window:UIA fixture:42.393614",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE:42.524684.4.524684.50492551",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.524684",
+          "ControlType.Window:UIA fixture:42.393614",
+          "ControlType.Pane::42.65548"
+        ],
+        [
+          "ControlType.TabItem:\u039F\u03B4\u03B7\u03B3\u03AF\u03B5\u03C2:42.524684.4.524684.53710617",
+          "ControlType.Tab:UIA fixture \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1:42.524684",
+          "ControlType.Window:UIA fixture:42.393614",
+          "ControlType.Pane::42.65548"
+        ]
+      ]
+    }
+  ],
+  "Checks": [
+    {
+      "Name": "Explicit provider exposes exactly five named fixture headers",
+      "Passed": true
+    },
+    {
+      "Name": "Application exposes exactly five correctly ordered named tabs",
+      "Passed": true
+    },
+    {
+      "Name": "All five headers have unique automation identifiers",
+      "Passed": true
+    },
+    {
+      "Name": "SelectionItem selects \u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Passed": true
+    },
+    {
+      "Name": "Native page content remains exposed: \u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Passed": true
+    },
+    {
+      "Name": "SelectionItem selects \u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Passed": true
+    },
+    {
+      "Name": "Native page content remains exposed: \u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Passed": true
+    },
+    {
+      "Name": "Native TextPattern retained: \u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Passed": true
+    },
+    {
+      "Name": "SelectionItem selects \u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+      "Passed": true
+    },
+    {
+      "Name": "Native page content remains exposed: \u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+      "Passed": true
+    },
+    {
+      "Name": "Native TextPattern retained: \u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+      "Passed": true
+    },
+    {
+      "Name": "SelectionItem selects \u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE",
+      "Passed": true
+    },
+    {
+      "Name": "Native page content remains exposed: \u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE",
+      "Passed": true
+    },
+    {
+      "Name": "Native ComboBox SelectionPattern retained",
+      "Passed": false
+    }
+  ]
+}
