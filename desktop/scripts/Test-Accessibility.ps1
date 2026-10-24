@@ -17,7 +17,10 @@ if($audit.MainForm.Count -lt 40 -or $audit.PianoSetupDialog.Count -lt 8 -or $aud
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 function Find-Window($id){
-    $condition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$id)
+    $processCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$id)
+    $windowCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Window)
+    $visibleCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::IsOffscreenProperty,$false)
+    $condition=[System.Windows.Automation.AndCondition]::new($processCondition,$windowCondition,$visibleCondition)
     return [System.Windows.Automation.AutomationElement]::RootElement.FindFirst([System.Windows.Automation.TreeScope]::Children,$condition)
 }
 function Check-Controls($window,$label){
@@ -39,7 +42,15 @@ try{
     if(!$window){throw 'No native UIA window found.'}
     $condition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::TabItem)
     $tabs=$window.FindAll([System.Windows.Automation.TreeScope]::Descendants,$condition)
-    if($tabs.Count -lt 5){throw 'Expected all five application tabs including examinations.'}
+    for($i=0;$i -lt 50 -and $tabs.Count -lt 5;$i++){
+        Start-Sleep -Milliseconds 200
+        $window=Find-Window $process.Id
+        if($window){$tabs=$window.FindAll([System.Windows.Automation.TreeScope]::Descendants,$condition)}
+    }
+    if($tabs.Count -lt 5){
+        $details=@($window.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition) | ForEach-Object { $_.Current.ControlType.ProgrammaticName+': '+$_.Current.Name }) -join '; '
+        throw "Expected five application tabs; found $($tabs.Count) on $($window.Current.Name). Tree: $details"
+    }
     foreach($tab in $tabs){
         $pattern=$tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern)
         $pattern.Select();Start-Sleep -Milliseconds 100
