@@ -35,6 +35,18 @@ function Check-Controls($window,$label){
     if($named -lt 1){throw "No accessible controls: $label"}
     Write-Output "PASS UIA $label : $named named focusable controls"
 }
+function Wait-ControlFocus($target){
+    for($attempt=0;$attempt -lt 40;$attempt++){
+        $node=[System.Windows.Automation.AutomationElement]::FocusedElement
+        for($depth=0;$node -and $depth -lt 10;$depth++){
+            if($node.Equals($target)){return}
+            $node=[System.Windows.Automation.TreeWalker]::RawViewWalker.GetParent($node)
+        }
+        Start-Sleep -Milliseconds 50
+    }
+    $actual=[System.Windows.Automation.AutomationElement]::FocusedElement
+    throw "Focus did not reach $($target.Current.Name); actual=$($actual.Current.Name), type=$($actual.Current.ControlType.ProgrammaticName)"
+}
 $process=Start-Process $Exe -ArgumentList @('--uia-test-mode','--uia-state-path',('"'+$Report+'.live.json"')) -PassThru
 try{
     $window=$null
@@ -101,15 +113,15 @@ try{
     $tabs[3].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
     $profile=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Εκπαιδευτικό εξεταστικό προφίλ'))
     $profileValue=$profile.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
-    $beforeProfile=$profileValue.Current.Value;$profile.SetFocus();$keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
-    if($profileValue.Current.Value -eq $beforeProfile){throw 'Keyboard Down did not change the accessible exam profile value.'}
+    $beforeProfile=$profileValue.Current.Value;$profile.SetFocus();Wait-ControlFocus $profile;$keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
+    if($profileValue.Current.Value -eq $beforeProfile){throw "Keyboard Down did not change exam profile value; before=$beforeProfile; after=$($profileValue.Current.Value); focused=$([System.Windows.Automation.AutomationElement]::FocusedElement.Current.Name)"}
     $keyboard.SendKeys('{UP}');Start-Sleep -Milliseconds 100
     if($profileValue.Current.Value -ne $beforeProfile){throw 'Keyboard Up did not restore the exam profile value.'}
     $keyboardChecks+='Exam profile: Down/Up changes and restores accessible selected value'
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
     $speed=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Ταχύτητα BPM'))
     $speedRange=$speed.GetCurrentPattern([System.Windows.Automation.RangeValuePattern]::Pattern)
-    $beforeSpeed=$speedRange.Current.Value;$speed.SetFocus();$keyboard.SendKeys('{UP}');Start-Sleep -Milliseconds 100
+    $beforeSpeed=$speedRange.Current.Value;$speed.SetFocus();Wait-ControlFocus $speed;$keyboard.SendKeys('{UP}');Start-Sleep -Milliseconds 100
     if($speedRange.Current.Value -ne ($beforeSpeed+1)){throw 'Keyboard Up did not increase the accessible tempo value.'}
     $keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
     if($speedRange.Current.Value -ne $beforeSpeed){throw 'Keyboard Down did not restore the accessible tempo value.'}
@@ -142,6 +154,7 @@ $audit | ConvertTo-Json -Depth 30 | Set-Content $Report -Encoding utf8
 } catch {
     if(Test-Path $Report){
         $audit=Get-Content $Report -Raw | ConvertFrom-Json
+        if($keyboardChecks){$audit | Add-Member -NotePropertyName KeyboardChecks -NotePropertyValue $keyboardChecks -Force}
         $audit | Add-Member -NotePropertyName UIAutomationPassed -NotePropertyValue $false -Force
         $audit | Add-Member -NotePropertyName UIAutomationError -NotePropertyValue $_.Exception.Message -Force
         $audit | ConvertTo-Json -Depth 30 | Set-Content $Report -Encoding utf8
