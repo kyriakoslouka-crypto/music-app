@@ -10,7 +10,7 @@ mkdir -p "$XDG_RUNTIME_DIR"
 chmod 700 "$XDG_RUNTIME_DIR"
 studio_dotnet=/workspace/.dotnet/dotnet
 if [[ ! -x "$studio_dotnet" ]]; then
-  echo 'Install .NET SDK 8.0.426 in /workspace/.dotnet from the official Microsoft distribution first.' >&2
+  echo 'Install .NET SDK 10.0.402 in /workspace/.dotnet from the official Microsoft distribution first.' >&2
   exit 1
 fi
 "$studio_dotnet" restore ProfessionalEarTrainingStudio.sln --locked-mode
