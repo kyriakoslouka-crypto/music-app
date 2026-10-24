@@ -9,7 +9,7 @@ public static class AccessibilityContract
         var accessible=tabs.AccessibilityObject;
         return new{ManagedCount=tabs.TabPages.Count,NativeCount=(int)SendMessage(tabs.Handle,0x1304,0,0),AccessibleCount=accessible.GetChildCount(),
             Pages=tabs.TabPages.Cast<TabPage>().Select(p=>new{p.Text,p.Name,p.Visible,p.TabIndex}).ToArray(),
-            Children=Enumerable.Range(0,Math.Max(0,accessible.GetChildCount())).Select(i=>new{Index=i,Name=accessible.GetChild(i)?.Name,Role=accessible.GetChild(i)?.Role.ToString()}).ToArray()};
+            Children=Enumerable.Range(0,Math.Max(0,accessible.GetChildCount())).Select(i=>new{Index=i,Name=accessible.GetChild(i)?.Name,Role=accessible.GetChild(i)?.Role.ToString(),State=accessible.GetChild(i)?.State.ToString(),Bounds=accessible.GetChild(i)?.Bounds.ToString(),Hash=accessible.GetChild(i)?.GetHashCode()}).ToArray()};
     }
 
     public static void Apply(Control root)

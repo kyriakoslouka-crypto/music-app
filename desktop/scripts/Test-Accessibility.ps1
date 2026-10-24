@@ -49,7 +49,12 @@ try{
     }
     if($tabs.Count -lt 5){
         $details=@($window.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition) | ForEach-Object { $_.Current.ControlType.ProgrammaticName+': '+$_.Current.Name }) -join '; '
-        throw "Expected five application tabs; found $($tabs.Count) on $($window.Current.Name). Tree: $details"
+        $tabContainer=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Tab))
+        $walker=[System.Windows.Automation.TreeWalker]::RawViewWalker
+        $last=$walker.GetLastChild($tabContainer)
+        $backwards=@();for($j=0;$last -and $j -lt 8;$j++){$backwards+=$last.Current.Name;$last=$walker.GetPreviousSibling($last)}
+        $directCount=$window.FindAll([System.Windows.Automation.TreeScope]::Descendants,$condition).Count
+        throw "Direct count=$directCount; collection=$($tabs.GetType().FullName); reverse=$($backwards -join ','); Expected five application tabs; found $($tabs.Count) on $($window.Current.Name). Tree: $details"
     }
     foreach($tab in $tabs){
         $pattern=$tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern)
