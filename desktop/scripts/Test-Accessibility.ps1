@@ -19,7 +19,23 @@ Add-Type -AssemblyName UIAutomationTypes
 Add-Type -TypeDefinition @'
 using System;
 using System.Runtime.InteropServices;
-public static class PetsInputWindow { [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow(); }
+public static class PetsInputWindow {
+ [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
+ [StructLayout(LayoutKind.Sequential)] struct Input { public uint Type; public Payload Data; }
+ [StructLayout(LayoutKind.Explicit)] struct Payload { [FieldOffset(0)] public Keyboard Key; [FieldOffset(0)] public Mouse Mouse; }
+ [StructLayout(LayoutKind.Sequential)] struct Keyboard { public ushort Vk,Scan; public uint Flags,Time; public UIntPtr Extra; }
+ [StructLayout(LayoutKind.Sequential)] struct Mouse { public int X,Y; public uint Data,Flags,Time; public UIntPtr Extra; }
+ [DllImport("user32.dll",SetLastError=true)] static extern uint SendInput(uint count,Input[] inputs,int size);
+ public static void TabChord(bool shift) {
+  // Submit the complete chord, including modifier releases, in one native input batch.
+  // WScript.SendKeys can return before modifier transitions are delivered on a busy CI desktop.
+  var inputs=new System.Collections.Generic.List<Input>();
+  Action<ushort,bool> add=(vk,up)=>inputs.Add(new Input {Type=1,Data=new Payload {Key=new Keyboard {Vk=vk,Flags=up?2u:0u}}});
+  add(0x11,false);if(shift)add(0x10,false);add(0x09,false);add(0x09,true);if(shift)add(0x10,true);add(0x11,true);
+  var batch=inputs.ToArray();if(SendInput((uint)batch.Length,batch,Marshal.SizeOf<Input>())!=batch.Length)
+   throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+ }
+}
 '@
 function Wait-Foreground($targetWindow){
     for($attempt=0;$attempt -lt 50;$attempt++){
@@ -120,12 +136,12 @@ try{
     $tabs[0].SetFocus();Wait-Foreground $window;Wait-ControlFocus $tabs[0]
     $keyboardChecks=@()
     for($i=1;$i -le 5;$i++){
-        $keyboard.SendKeys('^{TAB}');Start-Sleep -Milliseconds 150
+        Wait-Foreground $window;[PetsInputWindow]::TabChord($false);Start-Sleep -Milliseconds 150
         $wanted=$i%5
         Wait-SelectedTab $tabs[$wanted]
         $keyboardChecks+="Ctrl+Tab: $($expected[$wanted])"
     }
-    $keyboard.SendKeys('^+{TAB}');Start-Sleep -Milliseconds 150
+    Wait-Foreground $window;[PetsInputWindow]::TabChord($true);Start-Sleep -Milliseconds 150
     Wait-SelectedTab $tabs[4]
     $keyboardChecks+='Ctrl+Shift+Tab: Οδηγίες'
     $keyboard.SendKeys('{F1}');Start-Sleep -Milliseconds 150
