@@ -49,10 +49,13 @@ jobs:
         id: uia
         shell: pwsh
         run: ./desktop/scripts/Test-Accessibility.ps1 -Exe "$PWD/desktop/artifacts/win-x64/ProfessionalEarTrainingStudio.exe" -Report "$PWD/desktop/artifacts/accessibility-audit.json"
+      - name: Verify real installer, portable archive and standalone startup
+        shell: pwsh
+        run: ./desktop/scripts/Test-WindowsPackages.ps1
       - name: Record actual Windows checks
         shell: pwsh
         run: |
-          @{ NativeWindowsBuildSucceeded=$true; ProgrammaticUIASucceeded=('${{ steps.uia.outcome }}' -eq 'success'); NvdaTested=$false; PhysicalAudioTested=$false; ListeningQualityTested=$false } | ConvertTo-Json | Set-Content desktop/artifacts/WINDOWS-CHECKS.json -Encoding utf8
+          @{ NativeWindowsBuildSucceeded=$true; WindowsPackageSmokeSucceeded=$true; ProgrammaticUIASucceeded=('${{ steps.uia.outcome }}' -eq 'success'); NvdaTested=$false; PhysicalAudioTested=$false; ListeningQualityTested=$false } | ConvertTo-Json | Set-Content desktop/artifacts/WINDOWS-CHECKS.json -Encoding utf8
       - name: Assemble complete source and binary delivery
         shell: pwsh
         run: |
