@@ -69,6 +69,7 @@ public sealed class AccessibleTabControl : TabControl
             var p when p==AutomationElementIdentifiers.ControlTypeProperty.Id=>ControlType.Tab.Id,
             var p when p==AutomationElementIdentifiers.NameProperty.Id=>owner.AccessibleName??"Κύριες ενότητες",
             var p when p==AutomationElementIdentifiers.AutomationIdProperty.Id=>owner.Name,
+            var p when p==AutomationElementIdentifiers.HelpTextProperty.Id=>owner.AccessibleDescription,
             var p when p==AutomationElementIdentifiers.IsEnabledProperty.Id=>owner.Enabled,
             var p when p==AutomationElementIdentifiers.IsControlElementProperty.Id=>true,
             var p when p==AutomationElementIdentifiers.IsContentElementProperty.Id=>true,

@@ -12,15 +12,20 @@ public static class AccessibilityContract
             Children=Enumerable.Range(0,Math.Max(0,accessible.GetChildCount())).Select(i=>new{Index=i,Name=accessible.GetChild(i)?.Name,Role=accessible.GetChild(i)?.Role.ToString(),State=accessible.GetChild(i)?.State.ToString(),Bounds=accessible.GetChild(i)?.Bounds.ToString(),Hash=accessible.GetChild(i)?.GetHashCode()}).ToArray()};
     }
 
+    private static void DescribeControl(object? sender,QueryAccessibilityHelpEventArgs e)
+    {if(sender is Control control)e.HelpString=control.AccessibleDescription;}
     public static void Apply(Control root)
     {
         if(string.IsNullOrWhiteSpace(root.Name))root.Name=root.GetType().Name;
         if(string.IsNullOrWhiteSpace(root.AccessibleName)) root.AccessibleName=root.Text.Replace("&","").Trim();
         if(root is Form || root is TabControl)root.AccessibleDescription="Χειρισμός με Tab, Shift+Tab, βέλη και πλήκτρα συντόμευσης. F1 για οδηγίες.";
+        root.QueryAccessibilityHelp-=DescribeControl;
+        if(!string.IsNullOrWhiteSpace(root.AccessibleDescription))root.QueryAccessibilityHelp+=DescribeControl;
         var index=0;
         foreach(Control child in root.Controls)
         {
             child.TabIndex=index++;
+            if(root is NumericUpDown&&string.IsNullOrWhiteSpace(child.AccessibleDescription))child.AccessibleDescription=root.AccessibleDescription;
             if((child is Label && child is not LinkLabel)||child is Panel||child is TabPage)child.TabStop=false;
             if(child is LinkLabel)child.TabStop=true;
             if(string.IsNullOrWhiteSpace(child.Name))child.Name=(root.Name.Length==0?"studio":root.Name)+"_"+child.TabIndex;
