@@ -70,6 +70,12 @@ jobs:
         run: |
           python -X utf8 desktop/scripts/assemble-delivery.py *>&1 | Tee-Object -FilePath "$env:RUNNER_TEMP/pets-assembly.txt"
           if ($LASTEXITCODE -ne 0) { throw 'Delivery assembly failed; see assembly diagnostic' }
+      - name: Verify frozen restore and native build from the actual source ZIP
+        shell: pwsh
+        run: |
+          ./desktop/scripts/Test-SourcePackage.ps1
+          python -X utf8 desktop/scripts/assemble-delivery.py
+          if ($LASTEXITCODE -ne 0) { throw 'Could not attach source-package verification evidence' }
       - name: Upload downloadable GitHub Actions artifact
         uses: actions/upload-artifact@v4
         with:
