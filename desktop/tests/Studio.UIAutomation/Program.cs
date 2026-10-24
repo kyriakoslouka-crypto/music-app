@@ -70,7 +70,10 @@ try
         var sentinel = appWindow.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, content[i]));
         Check(sentinel is not null, "Native page content remains exposed: " + expected[i]);
         if(i is 1 or 2 or 4)Check(sentinel!.TryGetCurrentPattern(TextPattern.Pattern,out _),"Native TextPattern retained: "+expected[i]);
-        if(i==3)Check(sentinel!.TryGetCurrentPattern(SelectionPattern.Pattern,out _),"Native ComboBox SelectionPattern retained");
+        if(i==3){
+            Check(sentinel!.TryGetCurrentPattern(ExpandCollapsePattern.Pattern,out _),"Native ComboBox ExpandCollapsePattern retained");
+            Check(sentinel.TryGetCurrentPattern(ValuePattern.Pattern,out _),"Native ComboBox selected value remains readable");
+        }
     }
 }
 catch (Exception ex) {

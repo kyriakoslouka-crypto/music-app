@@ -84,6 +84,7 @@ try{
     }
     $keyboard.SendKeys('^+{TAB}');Start-Sleep -Milliseconds 150
     if(!$tabs[4].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Current.IsSelected){throw 'Ctrl+Shift+Tab failed.'}
+    $keyboardChecks+='Ctrl+Shift+Tab: Οδηγίες'
     $keyboard.SendKeys('{F1}');Start-Sleep -Milliseconds 150
     $focused=[System.Windows.Automation.AutomationElement]::FocusedElement
     if($focused.Current.ProcessId -ne $process.Id -or $focused.Current.Name -ne 'Οδηγίες και περιορισμοί έκδοσης'){throw 'F1 did not focus the help text.'}
@@ -97,6 +98,22 @@ try{
             $keyboardChecks+="$($tab.Current.Name): $key : $($focus.Current.Name)"
         }
     }
+    $tabs[3].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
+    $profile=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Εκπαιδευτικό εξεταστικό προφίλ'))
+    $profileValue=$profile.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
+    $beforeProfile=$profileValue.Current.Value;$profile.SetFocus();$keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
+    if($profileValue.Current.Value -eq $beforeProfile){throw 'Keyboard Down did not change the accessible exam profile value.'}
+    $keyboard.SendKeys('{UP}');Start-Sleep -Milliseconds 100
+    if($profileValue.Current.Value -ne $beforeProfile){throw 'Keyboard Up did not restore the exam profile value.'}
+    $keyboardChecks+='Exam profile: Down/Up changes and restores accessible selected value'
+    $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
+    $speed=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Ταχύτητα BPM'))
+    $speedRange=$speed.GetCurrentPattern([System.Windows.Automation.RangeValuePattern]::Pattern)
+    $beforeSpeed=$speedRange.Current.Value;$speed.SetFocus();$keyboard.SendKeys('{UP}');Start-Sleep -Milliseconds 100
+    if($speedRange.Current.Value -ne ($beforeSpeed+1)){throw 'Keyboard Up did not increase the accessible tempo value.'}
+    $keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
+    if($speedRange.Current.Value -ne $beforeSpeed){throw 'Keyboard Down did not restore the accessible tempo value.'}
+    $keyboardChecks+='Tempo: Up/Down changes and restores accessible range value'
     $audit | Add-Member -NotePropertyName KeyboardChecks -NotePropertyValue $keyboardChecks -Force
     $audit | ConvertTo-Json -Depth 30 | Set-Content $Report -Encoding utf8
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
