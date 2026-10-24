@@ -1,0 +1,65 @@
+name: Windows build and downloadable delivery
+on:
+  workflow_dispatch:
+    inputs:
+      create_draft_release:
+        description: Create an owner-reviewable draft GitHub Release after successful checks
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: desktop/global.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install NSIS with package verification enabled
+        shell: pwsh
+        run: |
+          choco install nsis --version=3.11 -y --no-progress
+          if ($LASTEXITCODE -ne 0) { throw 'NSIS installation failed' }
+          'C:\Program Files (x86)\NSIS' | Out-File $env:GITHUB_PATH -Append -Encoding utf8
+      - name: Core checks, native build and programmatic accessibility audit
+        shell: pwsh
+        run: ./desktop/scripts/build-windows.ps1 -Installer -Accessibility
+      - name: Assemble complete source and binary delivery
+        shell: pwsh
+        run: python desktop/scripts/assemble-delivery.py
+      - name: Upload downloadable GitHub Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Professional-Ear-Training-Studio-Windows-Delivery
+          path: desktop/deliverables/releases/
+          if-no-files-found: error
+          retention-days: 90
+  draft-release:
+    if: inputs.create_draft_release
+    needs: windows
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Professional-Ear-Training-Studio-Windows-Delivery
+          path: delivery
+      - name: Create a draft only, for owner review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(find delivery -name 'ProfessionalEarTrainingStudio-*-Source.zip' -printf '%f\n' | sed -E 's/^ProfessionalEarTrainingStudio-(.*)-Source.zip$/\1/' | sort -V | tail -1)
+          test -n "$version"
+          printf '%s\n' 'Native Windows build and programmatic checks ran in GitHub Actions. Actual NVDA, physical audio hardware and listening quality still require user verification. Maestro samples are not redistributed; the app installs them privately from the documented source.' > release-notes.txt
+          gh release create "v$version" --repo "$GH_REPO" --target "$GITHUB_SHA" --draft --prerelease --title "Professional Ear Training Studio $version — Windows acceptance pending" --notes-file release-notes.txt
+          find delivery -type f \( -name '*.exe' -o -name '*.zip' -o -name 'SHA256SUMS.txt' -o -name 'TEST-RESULTS.json' \) -print0 | while IFS= read -r -d '' asset; do
+            gh release upload "v$version" "$asset" --repo "$GH_REPO"
+          done

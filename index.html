@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="el">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ακουστική εκπαίδευση — Μουσικά διαστήματα</title></head>
+<body>
+<a class="skip" href="#practice">Μετάβαση στην άσκηση</a>
+<main>
+<h1>Μουσικά διαστήματα</h1>
+<p>Άκουσε δύο νότες και αναγνώρισε το διάστημα. Δεν χρειάζεται μουσική σημειογραφία.</p>
+<section aria-labelledby="settings-title"><h2 id="settings-title">Ρυθμίσεις</h2>
+<label for="level">Επίπεδο</label><select id="level"><option value="beginner">Αρχάριο — 6 διαστήματα</option><option value="all">Όλα τα διαστήματα — 13</option></select>
+<label for="mode">Τρόπος ακρόασης</label><select id="mode"><option value="ascending">Ανιόν — διαδοχικές νότες</option><option value="descending">Κατιόν — διαδοχικές νότες</option><option value="harmonic">Αρμονικό — ταυτόχρονες νότες</option></select>
+<label for="volume">Ένταση</label><input id="volume" type="range" min="0" max="100" value="40">
+<button id="samples" type="button">Φόρτωση ρεαλιστικού πιάνου</button>
+<p id="instrument" role="status">Ήχος: συνθετικός. Τα δείγματα πιάνου απαιτούν σύνδεση στο διαδίκτυο.</p>
+</section>
+<section id="practice" aria-labelledby="practice-title" tabindex="-1"><h2 id="practice-title">Εξάσκηση</h2>
+<p id="help">Tab: μετακίνηση. Enter ή Space: ενεργοποίηση κουμπιού. Στις απαντήσεις χρησιμοποίησε τα βέλη και Space για επιλογή.</p>
+<div class="actions"><button id="next" type="button">Νέα άσκηση</button><button id="replay" type="button" disabled>Ακρόαση ξανά</button><button id="stop" type="button">Διακοπή ήχου</button></div>
+<form id="answer-form"><fieldset id="answers" disabled aria-describedby="help"><legend>Ποιο διάστημα άκουσες;</legend><div id="choices"></div></fieldset><button id="check" disabled>Έλεγχος απάντησης</button></form>
+<p id="feedback" role="status" aria-live="polite" aria-atomic="true">Πάτησε Νέα άσκηση για να ξεκινήσεις.</p>
+<p id="score">Σωστά: 0 από 0</p>
+</section>
+<footer><p>Πιάνο: δείγματα Salamander Grand Piano του Alexander Holm (CC BY 3.0), μέσω Tone.js. <a href="https://creativecommons.org/licenses/by/3.0/">Άδεια δειγμάτων</a>. Τα δείγματα μεταφέρονται στο τονικό ύψος της κάθε νότας.</p></footer>
+</main><script type="module" src="/src/main.js"></script>
+</body></html>
