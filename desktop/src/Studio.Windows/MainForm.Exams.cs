@@ -15,7 +15,7 @@ public sealed partial class MainForm
     private sealed record WrongItem(Attempt Attempt){public override string ToString()=>$"{Attempt.At.LocalDateTime:g} — {CategoryName(Attempt.Category)} — {Attempt.Percentage:F0}%";}
     private void BuildExams()
     {
-        var page=new TabPage("Εξετάσεις και προσαρμογή");var table=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=1,Padding=new(12),RowCount=7};
+        var page=new AccessibleTabPage("Εξετάσεις και προσαρμογή");var table=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=1,Padding=new(12),RowCount=7};
         table.RowStyles.Add(new(SizeType.AutoSize));table.RowStyles.Add(new(SizeType.Absolute,95));table.RowStyles.Add(new(SizeType.AutoSize));table.RowStyles.Add(new(SizeType.Percent,50));table.RowStyles.Add(new(SizeType.Absolute,80));table.RowStyles.Add(new(SizeType.Absolute,80));table.RowStyles.Add(new(SizeType.AutoSize));
         var settings=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};settings.Controls.AddRange([new Label{Text="Ανεξάρτητο προφίλ",AutoSize=true},examProfile,new Label{Text="Λεπτά, 0 = χωρίς όριο",AutoSize=true},examMinutes]);table.Controls.Add(settings);table.Controls.Add(examInfo);
         var commands=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};

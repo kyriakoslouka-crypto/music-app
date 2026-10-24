@@ -117,7 +117,7 @@ public sealed partial class MainForm : Form
     }
     private void BuildSettings()
     {
-        var page = new TabPage("Ρυθμίσεις"); var table = SettingsLayout();
+        var page = new AccessibleTabPage("Ρυθμίσεις"); var table = SettingsLayout();
         Row(table,"Προτεινόμενο concert grand",setup); Row(table, "Δική σου βιβλιοθήκη πιάνου", load); Row(table, "Όργανο", presets);
         Row(table, "Έξοδος", devices);
         var refresh = new Button { Text = "Ανανέωση συσκευών", AutoSize = true }; refresh.Click += (_, _) => RefreshDevices(); Row(table, "Συσκευές", refresh);
@@ -132,7 +132,7 @@ public sealed partial class MainForm : Form
     }
     private void BuildPractice()
     {
-        var page=new TabPage("Εξάσκηση");
+        var page=new AccessibleTabPage("Εξάσκηση");
         var layout=new TableLayoutPanel {Dock=DockStyle.Fill,ColumnCount=1,RowCount=5,Padding=new(16)};
         layout.RowStyles.Add(new(SizeType.Absolute,110));layout.RowStyles.Add(new(SizeType.Percent,100));
         layout.RowStyles.Add(new(SizeType.AutoSize));layout.RowStyles.Add(new(SizeType.AutoSize));layout.RowStyles.Add(new(SizeType.Absolute,100));
@@ -144,13 +144,13 @@ public sealed partial class MainForm : Form
     }
     private void BuildHistory()
     {
-        var page = new TabPage("Πρόοδος"); page.Controls.Add(stats); tabs.TabPages.Add(page);
+        var page = new AccessibleTabPage("Πρόοδος"); page.Controls.Add(stats); tabs.TabPages.Add(page);
     }
     private void BuildHelp()
     {
         var help = new TextBox { Multiline = true, ReadOnly = true, Dock = DockStyle.Fill, ScrollBars = ScrollBars.Vertical, AccessibleName = "Οδηγίες και περιορισμοί έκδοσης", Text =
             "VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3)+" — Ακουστική εκπαίδευση\r\n\r\nΣτην πρώτη εκκίνηση εμφανίζεται οδηγός εγκατάστασης Maestro Concert Grand (Yamaha CF-3, 5 δυναμικές). Alt+Ε κατεβάζει την επιλεγμένη βιβλιοθήκη από την πηγή της και την εγκαθιστά τοπικά. Απαιτούνται περίπου 263 MB λήψης και 3 GB ελεύθερα. Μετά λειτουργεί offline. Η βιβλιοθήκη έχει περιοριστική άδεια και δεν αναδιανέμεται από την εφαρμογή.\r\n\r\nCtrl+N: νέα άσκηση. Ctrl+R: απεριόριστες επαναλήψεις του ίδιου παραδείγματος. Επαναλήψεις 0: συνεχής βρόχος μέχρι Esc ή υποβολή. Ctrl+P: παύση/συνέχεια. Ctrl+Enter: υποβολή. Esc: διακοπή. Ctrl+Home: ρυθμίσεις. Ctrl+Shift+S: διακοπή και ανάγνωση κατάστασης. Ctrl+Tab: καρτέλες. F1: οδηγίες. Tab/Shift+Tab, βέλη, Space και Enter: φυσικά controls Windows.\r\n\r\nΑλλαγή BPM, δυναμικής, πεντάλ ή επαναλήψεων διατηρεί την τρέχουσα άσκηση. Πάτησε Ctrl+R για νέο rendering, χωρίς αλλαγή τονικού ύψους. Αλλαγή τονικότητας, έκτασης ή τύπου άσκησης απαιτεί Ctrl+N. Στα βασικά διαστήματα και τις νότες η τονικότητα περιορίζει τους φθόγγους. Στις κλίμακες και τους τρόπους ορίζει το κέντρο. Στις πτώσεις ορίζει μείζονα ή ελάσσονα. Οι νέες ακολουθίες ανακοινώνουν πρώτα την οδηγία και αρχίζουν με Ctrl+R. Ctrl+I διαβάζει την οδηγία ξανά.\r\n\r\nΗ εφαρμογή δεν αποστέλλει ανακοινώσεις όσο παίζει μουσική. Οι απαντήσεις ανακοινώνονται μέσω UI Automation αφού σταματήσει ο ήχος. Η ίδια η πλοήγηση μπορεί να προκαλεί ομιλία NVDA. Προαιρετικό επίσημο nvdaControllerClient64.dll επιτρέπει ακύρωση τρέχουσας ομιλίας πριν την αναπαραγωγή.\r\n\r\nΔιαστήματα 0–24 ημιτονίων, δέκα τύποι συγχορδιών, ακουστικά διακριτές αναστροφές και νότες 21–108. Συμμετρικές συγχορδίες αποκλείονται από τις αναστροφές. Η αναγνώριση μεμονωμένων νοτών είναι άσκηση απόλυτου ύψους. Η τονική ορθογραφία εναρμονίων δεν εξετάζεται.\r\n\r\nΗ πρόοδος και οι έγκυρες ρυθμίσεις αποθηκεύονται αυτόματα στο LocalAppData\\ProfessionalEarTrainingStudio. Δεν υπάρχει τηλεμετρία ή επίσημη σχέση ABRSM. Η πραγματική συμβατότητα NVDA, WASAPI/ASIO και η ακουστική ποιότητα χρειάζονται δοκιμές σε Windows 11. Νέες ασκήσεις: πτώσεις με τονικό πλαίσιο, κλίμακες σε άνοδο/κάθοδο, τρόποι, ρυθμικά σχήματα και μέτρα. Στη ρυθμική υπαγόρευση γράφεις διάρκειες όπως 1/4 1/8 1/8 1/2, r για παύση και | ανά μέτρο. Στα κτυπήματα χρησιμοποιείς F8 σε κάθε έναρξη και μια επιπλέον φορά στο τελικό όριο. Δεν βαθμολογείται μικρόφωνο ή φωνή. Μελωδικό ντικτέ: Ντο4:1/4 ή 60:1/4. Αρμονικό: I ii6 V7 I. Σολφέζ/μνήμη: Ντο4 Ρε4 ή 60 62, σταθερό ντο. Ctrl+Shift+R παίζει τη γραπτή απάντηση. Η φωνή δεν καταγράφεται ή βαθμολογείται. Η αρχή και το τέλος τμήματος επιλέγονται στις Ρυθμίσεις. Δες και τις οδηγίες docs στον φάκελο εγκατάστασης." };
-        var page = new TabPage("Οδηγίες"); page.Controls.Add(help); tabs.TabPages.Add(page);
+        var page = new AccessibleTabPage("Οδηγίες"); page.Controls.Add(help); tabs.TabPages.Add(page);
     }
     private Settings ReadSettings() => new((Category)category.SelectedIndex, (Level)level.SelectedIndex, (Direction)direction.SelectedIndex,
         (int)minimum.Value, (int)maximum.Value, root.SelectedIndex == 0 ? null : root.SelectedIndex - 1, (int)tempo.Value, (int)repeats.Value, (int)velocity.Value, pedal.Checked, tonality.SelectedIndex==0?null:(tonality.SelectedIndex-1)%12,tonality.SelectedIndex>12?TonalityMode.NaturalMinor:TonalityMode.Major,TheoryV2.Meters[meter.SelectedIndex].Id,(int)bars.Value,(double)segmentStart.Value,segmentEnd.Value==0?null:(double)segmentEnd.Value,soloVoice.SelectedIndex-1);

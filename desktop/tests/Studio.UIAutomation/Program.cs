@@ -13,7 +13,7 @@ if (args[0] == "--fixture")
         System.Windows.Forms.TabControl tabs = args[1] == "explicit" ? new Studio.Windows.AccessibleTabControl() : new System.Windows.Forms.TabControl();
         tabs.Dock = System.Windows.Forms.DockStyle.Fill;
         foreach (var name in expected) {
-            var page = new System.Windows.Forms.TabPage(name);
+            System.Windows.Forms.TabPage page=args[1]=="explicit"?new Studio.Windows.AccessibleTabPage(name):new System.Windows.Forms.TabPage(name);
             page.Controls.Add(new System.Windows.Forms.TextBox { Text = name, Dock = System.Windows.Forms.DockStyle.Fill, AccessibleName = name });
             tabs.TabPages.Add(page);
         }
@@ -64,6 +64,8 @@ try
         Check(selection.Current.IsSelected, "SelectionItem selects " + expected[i]);
         var sentinel = appWindow.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, content[i]));
         Check(sentinel is not null, "Native page content remains exposed: " + expected[i]);
+        if(i is 1 or 2 or 4)Check(sentinel!.TryGetCurrentPattern(TextPattern.Pattern,out _),"Native TextPattern retained: "+expected[i]);
+        if(i==3)Check(sentinel!.TryGetCurrentPattern(SelectionPattern.Pattern,out _),"Native ComboBox SelectionPattern retained");
     }
 }
 catch (Exception ex) {
