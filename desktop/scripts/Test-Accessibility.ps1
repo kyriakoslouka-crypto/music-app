@@ -47,6 +47,18 @@ function Wait-ControlFocus($target){
     $actual=[System.Windows.Automation.AutomationElement]::FocusedElement
     throw "Focus did not reach $($target.Current.Name); actual=$($actual.Current.Name), type=$($actual.Current.ControlType.ProgrammaticName)"
 }
+function Focus-ByKeyboard($tab,$target){
+    $tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select();$tab.SetFocus()
+    for($attempt=0;$attempt -lt 100;$attempt++){
+        $node=[System.Windows.Automation.AutomationElement]::FocusedElement
+        for($depth=0;$node -and $depth -lt 10;$depth++){
+            if($node.Equals($target)){return}
+            $node=[System.Windows.Automation.TreeWalker]::RawViewWalker.GetParent($node)
+        }
+        $keyboard.SendKeys('{TAB}');Start-Sleep -Milliseconds 50
+    }
+    throw "Tab traversal did not reach $($target.Current.Name)"
+}
 $process=Start-Process $Exe -ArgumentList @('--uia-test-mode','--uia-state-path',('"'+$Report+'.live.json"')) -PassThru
 try{
     $window=$null
@@ -113,7 +125,7 @@ try{
     $tabs[3].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
     $profile=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Εκπαιδευτικό εξεταστικό προφίλ'))
     $profileValue=$profile.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
-    $beforeProfile=$profileValue.Current.Value;$profile.SetFocus();Wait-ControlFocus $profile;$keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
+    $beforeProfile=$profileValue.Current.Value;Focus-ByKeyboard $tabs[3] $profile;$keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
     if($profileValue.Current.Value -eq $beforeProfile){throw "Keyboard Down did not change exam profile value; before=$beforeProfile; after=$($profileValue.Current.Value); focused=$([System.Windows.Automation.AutomationElement]::FocusedElement.Current.Name)"}
     $keyboard.SendKeys('{UP}');Start-Sleep -Milliseconds 100
     if($profileValue.Current.Value -ne $beforeProfile){throw 'Keyboard Up did not restore the exam profile value.'}
@@ -121,9 +133,12 @@ try{
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
     $speed=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Ταχύτητα BPM'))
     $speedRange=$speed.GetCurrentPattern([System.Windows.Automation.RangeValuePattern]::Pattern)
-    $beforeSpeed=$speedRange.Current.Value;$speed.SetFocus();Wait-ControlFocus $speed;$keyboard.SendKeys('{UP}');Start-Sleep -Milliseconds 100
-    if($speedRange.Current.Value -ne ($beforeSpeed+1)){throw 'Keyboard Up did not increase the accessible tempo value.'}
-    $keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
+    $beforeSpeed=$speedRange.Current.Value;Focus-ByKeyboard $tabs[0] $speed
+    $delta=if($beforeSpeed -lt $speedRange.Current.Maximum){1}else{-1}
+    $changeKey=if($delta -eq 1){'{UP}'}else{'{DOWN}'};$restoreKey=if($delta -eq 1){'{DOWN}'}else{'{UP}'}
+    $keyboard.SendKeys($changeKey);Start-Sleep -Milliseconds 100
+    if($speedRange.Current.Value -ne ($beforeSpeed+$delta)){throw 'Keyboard arrow did not change the accessible tempo value.'}
+    $keyboard.SendKeys($restoreKey);Start-Sleep -Milliseconds 100
     if($speedRange.Current.Value -ne $beforeSpeed){throw 'Keyboard Down did not restore the accessible tempo value.'}
     $keyboardChecks+='Tempo: Up/Down changes and restores accessible range value'
     $audit | Add-Member -NotePropertyName KeyboardChecks -NotePropertyValue $keyboardChecks -Force
@@ -134,7 +149,7 @@ try{
     if(!$button){throw 'Piano installation button not exposed.'}
     $invokePattern=$null
     if(!$button.TryGetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern,[ref]$invokePattern)){throw 'Piano installation button lacks InvokePattern.'}
-    $button.SetFocus();$keyboard.SendKeys('{ENTER}')
+    Focus-ByKeyboard $tabs[0] $button;$keyboard.SendKeys('{ENTER}')
     Start-Sleep -Milliseconds 300
     $title=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Εγκατάσταση πραγματικού πιάνου')
     $dialog=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,$title)
