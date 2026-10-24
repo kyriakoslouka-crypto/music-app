@@ -12,6 +12,9 @@ namespace Studio.Windows;
 public sealed class AccessibleTabControl : TabControl
 {
     private TabProvider? provider;
+    // Preserve native MSAA child IDs; the explicit UIA fragment supplies the modern
+    // header patterns and repositions the native page HWND through HwndOverride.
+    protected override AccessibleObject CreateAccessibilityInstance()=>new ControlAccessibleObject(this);
     protected override void WndProc(ref Message message)
     {
         if(message.Msg==0x003D && unchecked((int)message.LParam)==-25)
