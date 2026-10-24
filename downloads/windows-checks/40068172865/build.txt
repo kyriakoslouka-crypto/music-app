@@ -1,0 +1,31 @@
+**********************
+PowerShell transcript start
+Start time: 20261024055621
+Username: runnervmdaln5\runneradmin
+RunAs User: runnervmdaln5\runneradmin
+Configuration Name: 
+Machine: runnervmdaln5 (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Program Files\PowerShell\7\pwsh.dll -command . 'D:\a\_temp\9bdde003-eadc-4859-a1fa-fe7091ebaa3a.ps1'
+Process ID: 3616
+PSVersion: 7.6.7
+PSEdition: Core
+GitCommitId: 7.6.7
+OS: Microsoft Windows 10.0.26100
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is D:\a\_temp/pets-build.txt
+
+
+
+
+
+PS>TerminatingError(): "dotnet failed: publish src/Studio.Windows/Studio.Windows.csproj -c Release -r win-x64 --self-contained true --no-restore -p: PublishSingleFile=true -p: IncludeNativeLibrariesForSelfExtract=true -p: EnableCompressionInSingleFile=true -p: DebugType=none -p: DebugSymbols=false -o artifacts/standalone-win-x64"
+>> TerminatingError(): "dotnet failed: publish src/Studio.Windows/Studio.Windows.csproj -c Release -r win-x64 --self-contained true --no-restore -p: PublishSingleFile=true -p: IncludeNativeLibrariesForSelfExtract=true -p: EnableCompressionInSingleFile=true -p: DebugType=none -p: DebugSymbols=false -o artifacts/standalone-win-x64"
+**********************
+PowerShell transcript end
+End time: 20261024055705
+**********************
