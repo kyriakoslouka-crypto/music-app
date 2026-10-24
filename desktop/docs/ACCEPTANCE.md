@@ -4,11 +4,11 @@
 
 ## Έλεγχοι που εκτελέστηκαν εδώ
 
-61 tests στο Linux: reference θεωρίας, 21.600 βασικές παραγωγές και χιλιάδες νέες, πτώσεις/κλίμακες/ρυθμός/ντικτέ/πολυφωνία/χρωματική/σειρές, όλες οι κατηγορίες σε πραγματικό Maestro PCM, SF2 integration, timing/segments/voice channels, ακεραιότητα download, αποθήκευση/restore, εξεταστική μηχανή, adaptive practice και stale-cache regression. Build με 0 warnings/errors. Αυτά είναι αναγκαία, όχι επαρκή για Windows/NVDA αποδοχή.
+63 tests στο Linux: reference θεωρίας, 21.600 βασικές παραγωγές και χιλιάδες νέες, πτώσεις/κλίμακες/ρυθμός/ντικτέ/πολυφωνία/χρωματική/σειρές, όλες οι κατηγορίες σε πραγματικό Maestro PCM, SF2 integration, timing/segments/voice channels, ακεραιότητα download, αποθήκευση/restore, εξεταστική μηχανή, adaptive practice και stale-cache regression. Build με 0 warnings/errors. Αυτά είναι αναγκαία, όχι επαρκή για Windows/NVDA αποδοχή.
 
 ## Προγραμματιστικοί έλεγχοι Windows
 
-Το `tools/Test-Accessibility.ps1` (ή το αντίστοιχο στο source) πρέπει να εκτελεστεί σε Windows:
+Τα typed UIA και `tools/Test-Accessibility.ps1` εκτελέστηκαν σε Windows Server CI (20 structural και 19 keyboard checks). Επανεκτελούνται σε κάθε νέο build και απαιτείται επίσης ο πραγματικός Windows 11/NVDA έλεγχος χρήστη:
 
 - Managed AccessibleObject audit όλων των controls και του piano setup, μη κενές ελληνικές προσβάσιμες ονομασίες, roles και μοναδικά TabIndex ανά container.
 - Native παρουσίαση και των **28 κατηγοριών** χωρίς προεπιλεγμένη απάντηση, χωρίς αυτόματη μουσική πάνω από την οδηγία, με σωστό choice/text/tap πεδίο και invalidation παλιού audio cache.
