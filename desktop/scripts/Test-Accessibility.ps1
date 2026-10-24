@@ -150,16 +150,21 @@ try{
     if($profileValue.Current.Value -ne $beforeProfile){throw 'Keyboard Up did not restore the exam profile value.'}
     $keyboardChecks+='Exam profile: Down/Up changes and restores accessible selected value'
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
-    $speed=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Ταχύτητα BPM'))
-    $speedRange=$speed.GetCurrentPattern([System.Windows.Automation.RangeValuePattern]::Pattern)
-    $beforeSpeed=$speedRange.Current.Value;Focus-ByKeyboard $tabs[0] $speed
-    $delta=if($beforeSpeed -lt $speedRange.Current.Maximum){1}else{-1}
+    $speedCondition=[System.Windows.Automation.AndCondition]::new(
+        [System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Ταχύτητα BPM'),
+        [System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Spinner))
+    $speed=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,$speedCondition)
+    $speedEdit=$speed.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Edit))
+    if(!$speedEdit){throw 'Numeric tempo edit is not exposed.'}
+    $speedValue=$speedEdit.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
+    $beforeSpeed=[int]$speedValue.Current.Value;Focus-ByKeyboard $tabs[0] $speedEdit
+    $delta=if($beforeSpeed -lt 240){1}else{-1}
     $changeKey=if($delta -eq 1){'{UP}'}else{'{DOWN}'};$restoreKey=if($delta -eq 1){'{DOWN}'}else{'{UP}'}
-    $keyboard.SendKeys($changeKey);Start-Sleep -Milliseconds 100
-    if($speedRange.Current.Value -ne ($beforeSpeed+$delta)){throw 'Keyboard arrow did not change the accessible tempo value.'}
-    $keyboard.SendKeys($restoreKey);Start-Sleep -Milliseconds 100
-    if($speedRange.Current.Value -ne $beforeSpeed){throw 'Keyboard Down did not restore the accessible tempo value.'}
-    $keyboardChecks+='Tempo: Up/Down changes and restores accessible range value'
+    $keyboard.SendKeys($changeKey);Start-Sleep -Milliseconds 150
+    if([int]$speedValue.Current.Value -ne ($beforeSpeed+$delta)){throw 'Keyboard arrow did not change the accessible tempo edit value.'}
+    $keyboard.SendKeys($restoreKey);Start-Sleep -Milliseconds 150
+    if([int]$speedValue.Current.Value -ne $beforeSpeed){throw 'Keyboard arrow did not restore the accessible tempo edit value.'}
+    $keyboardChecks+='Tempo: Up/Down changes and restores accessible edit value' 
     $audit | Add-Member -NotePropertyName KeyboardChecks -NotePropertyValue $keyboardChecks -Force
     $audit | ConvertTo-Json -Depth 30 | Set-Content $Report -Encoding utf8
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()

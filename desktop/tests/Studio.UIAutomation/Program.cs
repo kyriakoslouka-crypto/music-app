@@ -75,6 +75,11 @@ try
             Check(sentinel.TryGetCurrentPattern(ValuePattern.Pattern,out _),"Native ComboBox selected value remains readable");
         }
     }
+    ((SelectionItemPattern)appTabs[0].GetCurrentPattern(SelectionItemPattern.Pattern)).Select();
+    var speed=appWindow.FindFirst(TreeScope.Descendants,new AndCondition(new PropertyCondition(AutomationElement.NameProperty,"Ταχύτητα BPM"),new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Spinner)));
+    var speedEdit=speed?.FindFirst(TreeScope.Descendants,new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Edit));
+    Check(speedEdit is not null&&speedEdit.TryGetCurrentPattern(ValuePattern.Pattern,out _),"Numeric tempo exposes its native editable ValuePattern");
+    Check(speed is not null&&speed.Current.HelpText.Contains("30")&&speed.Current.HelpText.Contains("240"),"Numeric tempo exposes its Greek minimum/maximum help text");
 }
 catch (Exception ex) {
     error = ex.ToString();

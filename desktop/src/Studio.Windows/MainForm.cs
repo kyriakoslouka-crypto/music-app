@@ -107,7 +107,7 @@ public sealed partial class MainForm : Form
         var combo = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, AccessibleName = name, Width = 430 };
         combo.Items.AddRange(values); if (values.Length > 0) combo.SelectedIndex = 0; return combo;
     }
-    private static NumericUpDown Number(string name, int min, int max, int value) => new() { Minimum = min, Maximum = max, Value = value, AccessibleName = name, Width = 160 };
+    private static NumericUpDown Number(string name, int min, int max, int value) => new() { Minimum = min, Maximum = max, Value = value, AccessibleName = name, AccessibleDescription = $"Ελάχιστο {min}, μέγιστο {max}. Χρησιμοποίησε τα βέλη ή πληκτρολόγησε τιμή.", Width = 160 };
     private static TableLayoutPanel SettingsLayout() => new() { Dock = DockStyle.Fill, AutoScroll = true, ColumnCount = 2, Padding = new(16), AutoSize = false };
     private static void Row(TableLayoutPanel table, string label, Control control)
     {
