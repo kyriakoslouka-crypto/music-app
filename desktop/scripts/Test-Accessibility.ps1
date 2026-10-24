@@ -35,7 +35,7 @@ function Check-Controls($window,$label){
     if($named -lt 1){throw "No accessible controls: $label"}
     Write-Output "PASS UIA $label : $named named focusable controls"
 }
-$process=Start-Process $Exe -ArgumentList '--uia-test-mode' -PassThru
+$process=Start-Process $Exe -ArgumentList @('--uia-test-mode','--uia-state-path',('"'+$Report+'.live.json"')) -PassThru
 try{
     $window=$null
     for($i=0;$i -lt 50 -and !$window;$i++){Start-Sleep -Milliseconds 200;$window=Find-Window $process.Id}

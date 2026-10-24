@@ -95,6 +95,10 @@ public sealed partial class MainForm : Form
                 Close();return;
             }
             await Initialize();
+            if(uiTestMode){
+                var args=Environment.GetCommandLineArgs();var marker=Array.IndexOf(args,"--uia-state-path");
+                if(marker>=0&&marker+1<args.Length)File.WriteAllText(args[marker+1],System.Text.Json.JsonSerializer.Serialize(AccessibilityContract.TabSnapshot(tabs),new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));
+            }
         };
         FormClosing += (_, _) => { examTimer.Stop();examTimer.Dispose();if(exam is not null)SaveExam();preferenceSave.Stop(); if(!auditOnly&&!uiTestMode){SavePreferences();if(storageHealthy)try{store.Save(history);}catch(Exception ex){Error("Η τελευταία αποθήκευση ιστορικού απέτυχε: "+ex.Message);}} Stop(); audio.Dispose(); preferenceSave.Dispose(); };
     }

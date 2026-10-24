@@ -2,6 +2,16 @@ using System.Text.Json;
 namespace Studio.Windows;
 public static class AccessibilityContract
 {
+    [System.Runtime.InteropServices.DllImport("user32.dll",CharSet=System.Runtime.InteropServices.CharSet.Auto)]
+    private static extern nint SendMessage(nint window,uint message,nint wParam,nint lParam);
+    public static object TabSnapshot(TabControl tabs)
+    {
+        var accessible=tabs.AccessibilityObject;
+        return new{ManagedCount=tabs.TabPages.Count,NativeCount=(int)SendMessage(tabs.Handle,0x1304,0,0),AccessibleCount=accessible.GetChildCount(),
+            Pages=tabs.TabPages.Cast<TabPage>().Select(p=>new{p.Text,p.Name,p.Visible,p.TabIndex}).ToArray(),
+            Children=Enumerable.Range(0,Math.Max(0,accessible.GetChildCount())).Select(i=>new{Index=i,Name=accessible.GetChild(i)?.Name,Role=accessible.GetChild(i)?.Role.ToString()}).ToArray()};
+    }
+
     public static void Apply(Control root)
     {
         if(string.IsNullOrWhiteSpace(root.Name))root.Name=root.GetType().Name;

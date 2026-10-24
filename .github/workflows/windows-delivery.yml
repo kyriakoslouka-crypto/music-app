@@ -36,7 +36,7 @@ jobs:
         shell: pwsh
         run: |
           Start-Transcript -Path "$env:RUNNER_TEMP/pets-build.txt"
-          try { & ./desktop/scripts/build-windows.ps1 -Installer *>&1 | Tee-Object -FilePath "$env:RUNNER_TEMP/pets-native-output.txt" }
+          try { & ./desktop/scripts/build-windows.ps1 -Installer -Accessibility *>&1 | Tee-Object -FilePath "$env:RUNNER_TEMP/pets-native-output.txt" }
           finally {
             Stop-Transcript
             '### Native build diagnostic tail' | Out-File $env:GITHUB_STEP_SUMMARY -Append
@@ -46,7 +46,6 @@ jobs:
           }
       - name: Native UI Automation checks (report limitations without disguising failures)
         id: uia
-        continue-on-error: true
         shell: pwsh
         run: ./desktop/scripts/Test-Accessibility.ps1 -Exe "$PWD/desktop/artifacts/win-x64/ProfessionalEarTrainingStudio.exe" -Report "$PWD/desktop/artifacts/accessibility-audit.json"
       - name: Record actual Windows checks
