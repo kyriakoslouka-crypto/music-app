@@ -42,7 +42,7 @@ public sealed class AccessibleTabControl : TabControl
     private T Read<T>(Func<T> action)=>InvokeRequired?(T)Invoke(action):action();
     private void Act(Action action){if(InvokeRequired)Invoke(action);else action();}
     [ComVisible(true)]
-    private sealed class TabProvider(AccessibleTabControl owner) : IRawElementProviderFragmentRoot,ISelectionProvider
+    private sealed class TabProvider(AccessibleTabControl owner) : IRawElementProviderFragmentRoot,ISelectionProvider,IRawElementProviderHwndOverride
     {
         private readonly Dictionary<TabPage,HeaderProvider> headers=[];
         private readonly Dictionary<TabPage,PageProvider> pages=[];
@@ -51,7 +51,7 @@ public sealed class AccessibleTabControl : TabControl
             return ContentFor(page);
         });
         internal PageProvider ContentFor(TabPage page)=>owner.Read(()=>{
-            if(!pages.TryGetValue(page,out var value))pages[page]=value=new PageProvider(owner,page);
+            if(!pages.TryGetValue(page,out var value))pages[page]=value=new PageProvider(owner,this,page);
             return value;
         });
         internal HeaderProvider Header(int i)=>owner.Read(()=>{
@@ -74,11 +74,12 @@ public sealed class AccessibleTabControl : TabControl
             _=>null});
         public IRawElementProviderFragment? Navigate(NavigateDirection direction)=>owner.Read<IRawElementProviderFragment?>(()=>direction switch{
             NavigateDirection.FirstChild when owner.TabCount>0=>Header(0),
-            NavigateDirection.LastChild when owner.TabCount>0=>Header(owner.TabCount-1),
+            NavigateDirection.LastChild=>Content(),
             _=>null});
         public int[] GetRuntimeId()=>owner.Read(()=>new[]{AutomationInteropProvider.AppendRuntimeId,unchecked((int)owner.Handle),0});
         public Rect BoundingRectangle=>owner.Read(()=>ScreenBounds(owner,owner.ClientRectangle));
-        public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>Content() is { } content?new IRawElementProviderSimple[]{content}:null;
+        public IRawElementProviderSimple? GetOverrideProviderForHwnd(nint hwnd)=>owner.Read<IRawElementProviderSimple?>(()=>owner.SelectedTab is { IsHandleCreated:true } page&&page.Handle==hwnd?ContentFor(page):null);
+        public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>null;
         public void SetFocus()=>owner.Act(()=>owner.Focus());
         public IRawElementProviderFragmentRoot FragmentRoot=>this;
         public IRawElementProviderFragment? ElementProviderFromPoint(double x,double y)=>owner.Read<IRawElementProviderFragment?>(()=>{
@@ -112,6 +113,7 @@ public sealed class AccessibleTabControl : TabControl
             return direction switch{
                 NavigateDirection.Parent=>root,
                 NavigateDirection.NextSibling when i>=0&&i+1<owner.TabCount=>root.Header(i+1),
+                NavigateDirection.NextSibling when i==owner.TabCount-1=>root.Content(),
                 NavigateDirection.PreviousSibling when i>0=>root.Header(i-1),
                 _=>null};
         });
@@ -127,9 +129,9 @@ public sealed class AccessibleTabControl : TabControl
         public void RemoveFromSelection()=>throw new InvalidOperationException("Μία καρτέλα πρέπει να παραμένει επιλεγμένη.");
     }
     [ComVisible(true)]
-    private sealed class PageProvider(AccessibleTabControl owner,TabPage page) : IRawElementProviderFragmentRoot
+    private sealed class PageProvider(AccessibleTabControl owner,TabProvider root,TabPage page) : IRawElementProviderFragment
     {
-        public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider;
+        public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider|ProviderOptions.OverrideProvider;
         public IRawElementProviderSimple HostRawElementProvider=>owner.Read(()=>AutomationInteropProvider.HostProviderFromHandle(page.Handle));
         public object? GetPatternProvider(int patternId)=>null;
         public object? GetPropertyValue(int propertyId)=>owner.Read<object?>(()=>propertyId switch{
@@ -141,14 +143,15 @@ public sealed class AccessibleTabControl : TabControl
             var p when p==AutomationElementIdentifiers.IsEnabledProperty.Id=>page.Enabled,
             var p when p==AutomationElementIdentifiers.NativeWindowHandleProperty.Id=>unchecked((int)page.Handle),
             _=>null});
-        public IRawElementProviderFragment? Navigate(NavigateDirection direction)=>null;
+        public IRawElementProviderFragment? Navigate(NavigateDirection direction)=>direction switch{
+            NavigateDirection.Parent=>root,
+            NavigateDirection.PreviousSibling=>owner.Read(()=>root.Header(owner.TabCount-1)),
+            _=>null};
         public int[] GetRuntimeId()=>owner.Read(()=>new[]{AutomationInteropProvider.AppendRuntimeId,unchecked((int)page.Handle),0});
         public Rect BoundingRectangle=>owner.Read(()=>ScreenBounds(page,page.ClientRectangle));
         public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>null;
         public void SetFocus()=>owner.Act(()=>page.SelectNextControl(null,true,true,true,false));
-        public IRawElementProviderFragmentRoot FragmentRoot=>this;
-        public IRawElementProviderFragment? ElementProviderFromPoint(double x,double y)=>this;
-        public IRawElementProviderFragment? GetFocus()=>null;
+        public IRawElementProviderFragmentRoot FragmentRoot=>root;
     }
     private static Rect ScreenBounds(Control owner,System.Drawing.Rectangle rectangle)
     {
@@ -159,11 +162,4 @@ public sealed class AccessibleTabControl : TabControl
 public sealed class AccessibleTabPage(string title) : TabPage(title)
 {
     protected override AccessibleObject CreateAccessibilityInstance()=>new ControlAccessibleObject(this);
-    protected override void WndProc(ref Message message)
-    {
-        if(message.Msg==0x003D&&unchecked((int)message.LParam)==-25&&Parent is AccessibleTabControl owner){
-            message.Result=AutomationInteropProvider.ReturnRawElementProvider(Handle,message.WParam,message.LParam,owner.PageRoot(this));return;
-        }
-        base.WndProc(ref message);
-    }
 }

@@ -24,7 +24,7 @@ public sealed partial class MainForm : Form
     private Settings activeSettings = new();
     private bool storageHealthy = true, loading, playing, answered, heard;
     private int playbackGeneration;
-    private readonly NativeAccessibleTabControl tabs = new() { Dock = DockStyle.Fill, Multiline = true, Name="mainSections", AccessibleName="Κύριες ενότητες εφαρμογής" };
+    private readonly AccessibleTabControl tabs = new() { Dock = DockStyle.Fill, Multiline = true, Name="mainSections", AccessibleName="Κύριες ενότητες εφαρμογής" };
     private readonly ComboBox category = Combo("Κατηγορία άσκησης", ["Διαστήματα", "Συγχορδίες", "Αναστροφές συγχορδιών", "Μεμονωμένες νότες", "Πτώσεις", "Κλίμακες", "Εκκλησιαστικοί τρόποι", "Ρυθμικά σχήματα", "Μέτρα", "Ρυθμική υπαγόρευση", "Ρυθμική αναπαραγωγή", "Μελωδικό ντικτέ", "Αρμονικό ντικτέ", "Βαθμίδες και λειτουργίες", "Τονικό σολφέζ", "Ατονικό σολφέζ", "Μελωδική μνήμη", "Δίφωνη πολυφωνία", "Τρίφωνη πολυφωνία", "Τετράφωνη πολυφωνία", "Εσωτερική μελωδική γραμμή", "Χρωματική αρμονία", "Δωδεκαφθογγικές σειρές", "Μετασχηματισμοί σειράς", "Τροπικά χαρακτηριστικά", "Προχωρημένη αρμονική ανάλυση", "Προχωρημένα σύνθετα διαστήματα", "Εκτεταμένες συγχορδίες"]);
     private readonly ComboBox level = Combo("Επίπεδο", ["Beginner — Αρχάριο", "Elementary — Στοιχειώδες", "Intermediate — Μέσο", "Advanced — Προχωρημένο", "Expert — Ειδικός", "Professional / Pro"]);
     private readonly ComboBox direction = Combo("Τρόπος ακρόασης", ["Ανιόν", "Κατιόν", "Αρμονικό"]);
