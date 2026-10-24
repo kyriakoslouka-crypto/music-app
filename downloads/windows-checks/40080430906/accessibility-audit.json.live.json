@@ -1,0 +1,89 @@
+{
+  "Runtime": ".NET 10.0.13",
+  "WinForms": "10.0.13\u002B4099f83977f4d29604a9aeb971fb0a7bc1d5f699",
+  "ManagedCount": 5,
+  "NativeCount": 5,
+  "AccessibleCount": 6,
+  "Pages": [
+    {
+      "Text": "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Name": "mainSections_0",
+      "Visible": true,
+      "TabIndex": 0
+    },
+    {
+      "Text": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Name": "mainSections_1",
+      "Visible": false,
+      "TabIndex": 1
+    },
+    {
+      "Text": "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+      "Name": "mainSections_2",
+      "Visible": false,
+      "TabIndex": 2
+    },
+    {
+      "Text": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE",
+      "Name": "mainSections_3",
+      "Visible": false,
+      "TabIndex": 3
+    },
+    {
+      "Text": "\u039F\u03B4\u03B7\u03B3\u03AF\u03B5\u03C2",
+      "Name": "mainSections_4",
+      "Visible": false,
+      "TabIndex": 4
+    }
+  ],
+  "Children": [
+    {
+      "Index": 0,
+      "Name": "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Role": "Client",
+      "State": "Focusable",
+      "Bounds": "{X=24,Y=60,Width=976,Height=716}",
+      "Hash": 13840400
+    },
+    {
+      "Index": 1,
+      "Name": "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Role": "PageTab",
+      "State": "Selected, Focused, Focusable, Selectable",
+      "Bounds": "{X=22,Y=33,Width=77,Height=25}",
+      "Hash": 45707473
+    },
+    {
+      "Index": 2,
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Role": "PageTab",
+      "State": "Focusable, Selectable",
+      "Bounds": "{X=99,Y=33,Width=80,Height=25}",
+      "Hash": 57326237
+    },
+    {
+      "Index": 3,
+      "Name": "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+      "Role": "PageTab",
+      "State": "Focusable, Selectable",
+      "Bounds": "{X=179,Y=33,Width=75,Height=25}",
+      "Hash": 7043582
+    },
+    {
+      "Index": 4,
+      "Name": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE",
+      "Role": "PageTab",
+      "State": "Focusable, Selectable",
+      "Bounds": "{X=254,Y=33,Width=195,Height=25}",
+      "Hash": 24457708
+    },
+    {
+      "Index": 5,
+      "Name": "\u039F\u03B4\u03B7\u03B3\u03AF\u03B5\u03C2",
+      "Role": "PageTab",
+      "State": "Focusable, Selectable",
+      "Bounds": "{X=449,Y=33,Width=67,Height=25}",
+      "Hash": 49514754
+    }
+  ]
+}
