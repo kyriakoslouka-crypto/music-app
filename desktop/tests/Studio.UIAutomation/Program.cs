@@ -5,8 +5,34 @@ using System.Windows.Automation;
 
 // Runs with the supported .NET WindowsDesktop client, independently of PowerShell's assembly resolver.
 var expected = new[] { "Ρυθμίσεις", "Εξάσκηση", "Πρόοδος", "Εξετάσεις και προσαρμογή", "Οδηγίες" };
+if(args[0]=="--fixture")
+{
+    var thread=new Thread(()=>{
+        System.Windows.Forms.Application.EnableVisualStyles();
+        var form=new System.Windows.Forms.Form{Text="UIA fixture",Width=1000,Height=800,Font=new System.Drawing.Font("Segoe UI",11)};
+        var tabs=new System.Windows.Forms.TabControl{Dock=System.Windows.Forms.DockStyle.Fill};
+        foreach(var name in expected){var page=new System.Windows.Forms.TabPage(name);page.Controls.Add(new System.Windows.Forms.TextBox{Text=name,Dock=System.Windows.Forms.DockStyle.Fill,AccessibleName=name});tabs.TabPages.Add(page);}
+        form.Controls.Add(tabs);
+        if(args[1]=="contract")Studio.Windows.AccessibilityContract.Apply(form);
+        System.Windows.Forms.Application.Run(form);
+    });
+    thread.SetApartmentState(ApartmentState.STA);thread.Start();thread.Join();return 0;
+}
+var fixtureRecords=new List<object>();
+foreach(var mode in new[]{"baseline","contract"})
+{
+    using var fixture=Process.Start(new ProcessStartInfo(Environment.ProcessPath!,"--fixture "+mode){UseShellExecute=false})!;
+    try{
+        AutomationElement? fixtureWindow=null;
+        for(var i=0;i<100&&fixtureWindow is null;i++){Thread.Sleep(100);fixtureWindow=AutomationElement.RootElement.FindFirst(TreeScope.Children,new PropertyCondition(AutomationElement.ProcessIdProperty,fixture.Id));}
+        if(fixtureWindow is null)throw new Exception("Fixture failed to open");
+        Thread.Sleep(200);
+        var fixtureTabs=fixtureWindow.FindAll(TreeScope.Descendants,new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.TabItem));
+        fixtureRecords.Add(new{Mode=mode,Count=fixtureTabs.Count,Names=Enumerable.Range(0,fixtureTabs.Count).Select(i=>fixtureTabs[i].Current.Name).ToArray()});
+    }finally{if(!fixture.HasExited){fixture.CloseMainWindow();if(!fixture.WaitForExit(2000))fixture.Kill();}}
+}
 using var process = Process.Start(new ProcessStartInfo(args[0], "--uia-test-mode") { UseShellExecute = false })!;
-var records = new List<object>();
+var records = new List<object>(fixtureRecords);
 try
 {
     var windowCondition = new AndCondition(
