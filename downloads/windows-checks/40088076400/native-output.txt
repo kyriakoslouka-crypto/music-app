@@ -1,0 +1,127 @@
+  Determining projects to restore...
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Core\Studio.Core.csproj (in 13.41 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Audio\Studio.Audio.csproj (in 13.45 sec).
+  Restored D:\a\music-app\music-app\desktop\tests\Studio.Tests\Studio.Tests.csproj (in 13.45 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj (in 14.04 sec).
+  Studio.Core -> D:\a\music-app\music-app\desktop\src\Studio.Core\bin\Release\net8.0\Studio.Core.dll
+  Studio.Audio -> D:\a\music-app\music-app\desktop\src\Studio.Audio\bin\Release\net8.0\Studio.Audio.dll
+  Studio.Tests -> D:\a\music-app\music-app\desktop\tests\Studio.Tests\bin\Release\net8.0\Studio.Tests.dll
+  Studio.Windows -> D:\a\music-app\music-app\desktop\src\Studio.Windows\bin\Release\net10.0-windows\ProfessionalEarTrainingStudio.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:15.77
+NOT RUN: Maestro integration (provide --maestro installed-manifest). Windows codec/UIA/NVDA/hardware remain untested here.
+NOT RUN: real SF2 render (provide --soundfont path). No Windows/NVDA/hardware tests run by this runner.
+PASS All levels/categories/directions: 21,600 exercises in range with correct answer
+PASS Known music theory formulas and inversions
+PASS Chord answer matches independently reconstructed pitch-class formula
+PASS Symmetric chords are never given ambiguous inversion labels
+PASS Root filter, descending first-note semantics, keyboard extremes
+PASS Invalid and impossible settings rejected
+PASS Seeded generation is reproducible, not a fixed canned list
+PASS Session scores exactly once and rejects arbitrary answer IDs
+PASS Progress/preferences roundtrip, backup, corrupt history preserved
+PASS Audio timeline: exact tempo, ordering, sustain release, repeat counts
+PASS Theory verifier rejects corrupted exercises and wrong inversions
+PASS Missing/invalid SoundFont fails explicitly, without synthetic fallback
+PASS Independent reference covers all ten chord qualities and their inversion formulas
+PASS Major and natural minor pitch sets agree with independent tonal references
+PASS All 24 tonalities constrain actual notes, not only answer labels
+PASS Inversions retain valid voicings whose unplayed root is below the selected range
+PASS Continuous repeat wraps indefinitely; finite cursor and stop boundary are exact
+PASS BPM changes only event times and preserves pitches and velocities
+PASS Harmonic unison triggers one piano key, not two overlapping sample voices
+PASS Semantically corrupt history is preserved, not accepted as progress
+PASS Unverified piano archives are rejected before extraction
+PASS FLAC integrity: independent STREAMINFO/PCM vector verifies lossless frames and fingerprint
+PASS FLAC integrity: altered PCM, sample rate and incomplete frames are rejected
+PASS 0.2: all seven new categories, six levels, 2,520 generated/scored performances
+PASS 0.2: perfect/imperfect authentic, half, plagal and deceptive harmonic endpoints
+PASS 0.2: independent scale/mode reference steps and classical melodic-minor descent
+PASS 0.2: meter grouping, compound/accent grids and exact fractional event timing
+PASS 0.2: rhythm notation parses ties/rests/dots and validates every bar
+PASS 0.2: written dictation grading preserves retry on invalid syntax and scores wrong rhythms
+PASS 0.2: keyboard taps score exact tempo, bad timing/count and final boundary
+PASS 0.2: new score/response/history snapshots survive atomic save and restore
+PASS 0.2: corrupt timings and resource-overlong examples are rejected
+PASS 0.3: all six categories and difficulty levels generate valid scores and correct responses
+PASS 0.3: Greek, scientific and MIDI notation preserve exact pitches including B and enharmonics
+PASS 0.3: functional chord roots, qualities and inversion formulas match independent references
+PASS 0.3: dictation wrong note/duration/case are scored wrong while equivalent note spelling passes
+PASS 0.3: selected fragments clip sustained notes, rebase timing and keep assessment target unchanged
+PASS 0.3: independent MIDI voice channels prevent cross-voice note-off scheduling
+PASS 0.3: memory/solfege data restores with per-item error feedback and original snapshot
+PASS 0.4: eleven categories, six levels, twelve tonics generate and score valid advanced exercises
+PASS 0.4: independent polyphonic rhythms, register order, target voice and solo channels
+PASS 0.4: twelve-tone P/I/R/RI algebra, all transpositions and unique pitch classes
+PASS 0.4: secondary dominants, Neapolitan and augmented-sixth pitch references
+PASS 0.4: ninth/eleventh/thirteenth chords and 36-semitone intervals retain actual pitches
+PASS 0.4: advanced snapshots, row metadata and target voices survive progress restore
+PASS 0.4: corrupt polyphonic target and serial transformations are rejected
+PASS 0.5: all ten independent exam profiles generate balanced valid question sets
+PASS 0.5: exam play limits, failed-output refund, duplicate grading and completion
+PASS 0.5: unanswered/skipped questions remain zero and cannot inflate the percentage
+PASS 0.5: simulated time limit survives resume and rejects late submissions
+PASS 0.5: exact exam progress/play counters/current index and completed history restore
+PASS 0.5: forged scores, invalid replay counters and corrupt exam files are rejected
+PASS 0.5: adaptive practice targets weak concepts while retaining contrast examples
+PASS 0.5: legacy progress and partial scores have correct learning analytics
+PASS 0.5: playback cache cannot return the previous question or stale tempo/voice/segment audio
+55 passed; 0 failed; 55 executed.
+PASS UIA Ρυθμίσεις : 48 named focusable controls
+PASS UIA Εξάσκηση : 15 named focusable controls
+PASS UIA Πρόοδος : 9 named focusable controls
+PASS UIA Εξετάσεις και προσαρμογή : 24 named focusable controls
+PASS UIA Οδηγίες : 9 named focusable controls
+PASS UIA PianoSetupDialog : 8 named focusable controls
+PASS all application tabs and piano installer UIA coverage. No download was started.
+NOT TESTED: NVDA speech, physical keyboard traversal, Windows FLAC codec, audio hardware or listening quality.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Studio.Core -> D:\a\music-app\music-app\desktop\src\Studio.Core\bin\Release\net8.0\win-x64\Studio.Core.dll
+  Studio.Audio -> D:\a\music-app\music-app\desktop\src\Studio.Audio\bin\Release\net8.0\win-x64\Studio.Audio.dll
+  Studio.Windows -> D:\a\music-app\music-app\desktop\src\Studio.Windows\bin\Release\net10.0-windows\win-x64\ProfessionalEarTrainingStudio.dll
+  Studio.Windows -> D:\a\music-app\music-app\desktop\artifacts\win-x64\
+  Determining projects to restore...
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Audio\Studio.Audio.csproj (in 1.48 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Core\Studio.Core.csproj (in 1.48 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj (in 1.48 sec).
+  Studio.Core -> D:\a\music-app\music-app\desktop\src\Studio.Core\bin\Release\net8.0\win-x64\Studio.Core.dll
+  Studio.Audio -> D:\a\music-app\music-app\desktop\src\Studio.Audio\bin\Release\net8.0\win-x64\Studio.Audio.dll
+  Studio.Windows -> D:\a\music-app\music-app\desktop\src\Studio.Windows\bin\Release\net10.0-windows\win-x64\ProfessionalEarTrainingStudio.dll
+  Studio.Windows -> D:\a\music-app\music-app\desktop\artifacts\standalone-win-x64\
+Command line defined: "APP_VERSION=0.5.0"
+Processing config: C:\Program Files (x86)\NSIS\nsisconf.nsh
+Processing script file: "installer/Studio.nsi" (ACP)
+
+Processed 1 file, writing output (x86-unicode):
+
+Output: "D:\a\music-app\music-app\desktop\artifacts\ProfessionalEarTrainingStudio-0.5.0-Setup.exe"
+Install: 4 pages (256 bytes), 1 section (2072 bytes), 886 instructions (24808 bytes), 553 strings (28238 bytes), 2 language tables (604 bytes).
+Uninstall: 2 pages (192 bytes), 1 section (2072 bytes), 573 instructions (16044 bytes), 659 strings (42282 bytes), 2 language tables (500 bytes).
+Datablock optimizer saved 1350 KiB (~0.7%).
+
+Using lzma (compress whole) compression.
+
+EXE header size:               51712 / 38912 bytes
+Install code:                          (56442 bytes)
+Install data:                          (179603967 bytes)
+Uninstall code+data:                   (75454 bytes)
+Compressed data:            52218456 / 179735863 bytes
+CRC (0x880E87AF):                  4 / 4 bytes
+
+Total size:                 52270172 / 179774779 bytes (29.0%)
+
+Algorithm       Hash                                                                   Path
+---------       ----                                                                   ----
+SHA256          559DAC04A767F955EF6A2B7E021D3DDCCD65959109F44F62D60848A42775F972       D:\a\music-app\music-app\desktop…
+SHA256          F7F9E2CAE60C60119CCC3D2C136BBD570FEDB4EE144F45FDAFDB587D4ED01929       D:\a\music-app\music-app\desktop…
+SHA256          01F5998C2DF12B11C1E35826441DB53BC64AD93390192F5BB9D846434AE65F4F       D:\a\music-app\music-app\desktop…
+SHA256          A88082A1F0C519B18000230A5B8FE79932255FE736EB3827B7B3092017FBAF25       D:\a\music-app\music-app\desktop…
+SHA256          0C5020ED1AFEEEC1C035A3D986E3664B27267A2CA21AF149E19CE810E642A83A       D:\a\music-app\music-app\desktop…
+SHA256          03447E8EB9CCCEF8E41E9D94052BF825F99D76C44C07298384873518FF998C37       D:\a\music-app\music-app\desktop…
+SHA256          14B93F72FDF4416B49BC755E1D5AC8901DE3CA49457D7202A4751EFD287D1F48       D:\a\music-app\music-app\desktop…
+
