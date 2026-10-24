@@ -30,7 +30,16 @@ jobs:
           'C:\Program Files (x86)\NSIS' | Out-File $env:GITHUB_PATH -Append -Encoding utf8
       - name: Core checks, native build and programmatic accessibility audit
         shell: pwsh
-        run: ./desktop/scripts/build-windows.ps1 -Installer
+        run: |
+          Start-Transcript -Path "$env:RUNNER_TEMP/pets-build.txt"
+          try { ./desktop/scripts/build-windows.ps1 -Installer }
+          finally {
+            Stop-Transcript
+            '### Native build diagnostic tail' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            '```text' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            Get-Content "$env:RUNNER_TEMP/pets-build.txt" -Tail 100 | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            '```' | Out-File $env:GITHUB_STEP_SUMMARY -Append
+          }
       - name: Native UI Automation checks (report limitations without disguising failures)
         id: uia
         continue-on-error: true
