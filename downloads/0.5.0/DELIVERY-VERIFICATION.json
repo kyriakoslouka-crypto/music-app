@@ -5,6 +5,10 @@
   "DownloadedBytes": 49877101,
   "SHA256": "16190f45b3181e7995dbc6ab1497b652a25982b5dc52c5bb74204f2e3fa3872f",
   "UserDeviceDownloadVerified": false,
-  "WindowsCI": "Initial build failed; diagnosis in progress",
-  "NVDAValidated": false
+  "WindowsCI": "Windows build failed; diagnostic reports on codex/pets-ci-<run-id> branches; not validated",
+  "NVDAValidated": false,
+  "PortableHttpDownloadVerified": true,
+  "PortableSHA256": "5afcbce294906f781516cbd49969bf604f19335b5ff3b85975e590c7f9d13757",
+  "StandaloneHttpDownloadVerified": true,
+  "StandaloneSHA256": "6bfc94060e15487822915a57887af558773efa95a7b1ad6c2f392458707f21fd"
 }
