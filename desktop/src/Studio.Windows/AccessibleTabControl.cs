@@ -51,7 +51,7 @@ public sealed class AccessibleTabControl : TabControl
             return ContentFor(page);
         });
         internal PageProvider ContentFor(TabPage page)=>owner.Read(()=>{
-            if(!pages.TryGetValue(page,out var value))pages[page]=value=new PageProvider(owner,this,page);
+            if(!pages.TryGetValue(page,out var value))pages[page]=value=new PageProvider(owner,page);
             return value;
         });
         internal HeaderProvider Header(int i)=>owner.Read(()=>{
@@ -74,11 +74,11 @@ public sealed class AccessibleTabControl : TabControl
             _=>null});
         public IRawElementProviderFragment? Navigate(NavigateDirection direction)=>owner.Read<IRawElementProviderFragment?>(()=>direction switch{
             NavigateDirection.FirstChild when owner.TabCount>0=>Header(0),
-            NavigateDirection.LastChild=>Content(),
+            NavigateDirection.LastChild when owner.TabCount>0=>Header(owner.TabCount-1),
             _=>null});
         public int[] GetRuntimeId()=>owner.Read(()=>new[]{AutomationInteropProvider.AppendRuntimeId,unchecked((int)owner.Handle),0});
         public Rect BoundingRectangle=>owner.Read(()=>ScreenBounds(owner,owner.ClientRectangle));
-        public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>null;
+        public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>Content() is { } content?new IRawElementProviderSimple[]{content}:null;
         public void SetFocus()=>owner.Act(()=>owner.Focus());
         public IRawElementProviderFragmentRoot FragmentRoot=>this;
         public IRawElementProviderFragment? ElementProviderFromPoint(double x,double y)=>owner.Read<IRawElementProviderFragment?>(()=>{
@@ -112,7 +112,6 @@ public sealed class AccessibleTabControl : TabControl
             return direction switch{
                 NavigateDirection.Parent=>root,
                 NavigateDirection.NextSibling when i>=0&&i+1<owner.TabCount=>root.Header(i+1),
-                NavigateDirection.NextSibling when i==owner.TabCount-1=>root.Content(),
                 NavigateDirection.PreviousSibling when i>0=>root.Header(i-1),
                 _=>null};
         });
@@ -128,7 +127,7 @@ public sealed class AccessibleTabControl : TabControl
         public void RemoveFromSelection()=>throw new InvalidOperationException("Μία καρτέλα πρέπει να παραμένει επιλεγμένη.");
     }
     [ComVisible(true)]
-    private sealed class PageProvider(AccessibleTabControl owner,TabProvider root,TabPage page) : IRawElementProviderFragmentRoot
+    private sealed class PageProvider(AccessibleTabControl owner,TabPage page) : IRawElementProviderFragmentRoot
     {
         public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider;
         public IRawElementProviderSimple HostRawElementProvider=>owner.Read(()=>AutomationInteropProvider.HostProviderFromHandle(page.Handle));
@@ -142,18 +141,12 @@ public sealed class AccessibleTabControl : TabControl
             var p when p==AutomationElementIdentifiers.IsEnabledProperty.Id=>page.Enabled,
             var p when p==AutomationElementIdentifiers.NativeWindowHandleProperty.Id=>unchecked((int)page.Handle),
             _=>null});
-        public IRawElementProviderFragment? Navigate(NavigateDirection direction)=>direction switch{
-            NavigateDirection.Parent=>root,
-            NavigateDirection.PreviousSibling=>owner.Read(()=>root.Header(owner.TabCount-1)),
-            NavigateDirection.NextSibling=>null,
-            NavigateDirection.FirstChild=>null,
-            NavigateDirection.LastChild=>null,
-            _=>null};
+        public IRawElementProviderFragment? Navigate(NavigateDirection direction)=>null;
         public int[] GetRuntimeId()=>owner.Read(()=>new[]{AutomationInteropProvider.AppendRuntimeId,unchecked((int)page.Handle),0});
         public Rect BoundingRectangle=>owner.Read(()=>ScreenBounds(page,page.ClientRectangle));
         public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>null;
         public void SetFocus()=>owner.Act(()=>page.SelectNextControl(null,true,true,true,false));
-        public IRawElementProviderFragmentRoot FragmentRoot=>root;
+        public IRawElementProviderFragmentRoot FragmentRoot=>this;
         public IRawElementProviderFragment? ElementProviderFromPoint(double x,double y)=>this;
         public IRawElementProviderFragment? GetFocus()=>null;
     }
