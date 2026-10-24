@@ -1,0 +1,69 @@
+{
+  "ManagedCount": 5,
+  "NativeCount": 5,
+  "AccessibleCount": 6,
+  "Pages": [
+    {
+      "Text": "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Name": "MainForm_0_0",
+      "Visible": true,
+      "TabIndex": 0
+    },
+    {
+      "Text": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Name": "MainForm_0_1",
+      "Visible": false,
+      "TabIndex": 1
+    },
+    {
+      "Text": "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+      "Name": "MainForm_0_2",
+      "Visible": false,
+      "TabIndex": 2
+    },
+    {
+      "Text": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE",
+      "Name": "MainForm_0_3",
+      "Visible": false,
+      "TabIndex": 3
+    },
+    {
+      "Text": "\u039F\u03B4\u03B7\u03B3\u03AF\u03B5\u03C2",
+      "Name": "MainForm_0_4",
+      "Visible": false,
+      "TabIndex": 4
+    }
+  ],
+  "Children": [
+    {
+      "Index": 0,
+      "Name": "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Role": "Client"
+    },
+    {
+      "Index": 1,
+      "Name": "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Role": "PageTab"
+    },
+    {
+      "Index": 2,
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Role": "PageTab"
+    },
+    {
+      "Index": 3,
+      "Name": "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+      "Role": "PageTab"
+    },
+    {
+      "Index": 4,
+      "Name": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE",
+      "Role": "PageTab"
+    },
+    {
+      "Index": 5,
+      "Name": "\u039F\u03B4\u03B7\u03B3\u03AF\u03B5\u03C2",
+      "Role": "PageTab"
+    }
+  ]
+}
