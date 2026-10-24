@@ -232,6 +232,7 @@ if (fontIndex >=0 && fontIndex+1<args.Length) {
         Throws<OperationCanceledException>(()=>renderer.Render(e,new(),renderer.Presets[0],cancel.Token));
     });
 } else Console.WriteLine("NOT RUN: real SF2 render (provide --soundfont path). No Windows/NVDA/hardware tests run by this runner.");
+Studio.Tests.FlacIntegrityTests.Register(Test);
 Studio.Tests.Version2Tests.Register(Test,args);
 Studio.Tests.Version3Tests.Register(Test,args);
 Studio.Tests.Version4Tests.Register(Test,args);
@@ -241,5 +242,5 @@ var outcomes=new List<object>();
 foreach (var (name,run) in tests) { try { run(); Console.WriteLine("PASS "+name);outcomes.Add(new{Name=name,Passed=true}); } catch(Exception e) { failures++; Console.Error.WriteLine("FAIL "+name+": "+e);outcomes.Add(new{Name=name,Passed=false,Error=e.ToString()}); } }
 Console.WriteLine($"{tests.Count-failures} passed; {failures} failed; {tests.Count} executed.");
 var reportIndex=Array.IndexOf(args,"--report");
-if(reportIndex>=0&&reportIndex+1<args.Length)File.WriteAllText(args[reportIndex+1],JsonSerializer.Serialize(new{Version=typeof(Exercise).Assembly.GetName().Version!.ToString(3),At=DateTimeOffset.UtcNow,Executed=tests.Count,Failed=failures,Outcomes=outcomes,WindowsRuntimeTested=false,NvdaTested=false,ListeningTested=false},new JsonSerializerOptions{WriteIndented=true}));
+if(reportIndex>=0&&reportIndex+1<args.Length)File.WriteAllText(args[reportIndex+1],JsonSerializer.Serialize(new{Version=typeof(Exercise).Assembly.GetName().Version!.ToString(3),At=DateTimeOffset.UtcNow,Runtime=System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription,OperatingSystem=System.Runtime.InteropServices.RuntimeInformation.OSDescription,SourceCommit=Environment.GetEnvironmentVariable("GITHUB_SHA"),Executed=tests.Count,Failed=failures,Outcomes=outcomes,WindowsRuntimeTested=OperatingSystem.IsWindows(),WindowsGuiTested=false,NvdaTested=false,ListeningTested=false},new JsonSerializerOptions{WriteIndented=true}));
 return failures==0 ? 0 : 1;

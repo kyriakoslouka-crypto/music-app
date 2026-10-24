@@ -1,4 +1,3 @@
-using NAudio.Wave;
 using Studio.Audio;
 using System.Diagnostics;
 namespace Studio.Windows;
@@ -50,7 +49,7 @@ public sealed class PianoSetupDialog : Form
             var extracted=Path.Combine(temporary,"source");var prepared=Path.Combine(temporary,"prepared");
             await Task.Run(()=>{
                 MaestroLibrary.VerifyAndExtract(archive,extracted,source.Token);
-                MaestroLibrary.Prepare(extracted,prepared,Decode,updates,source.Token);
+                MaestroLibrary.Prepare(extracted,prepared,(input,output,token)=>{WindowsPianoDecoder.Decode(input,output,token);},updates,source.Token);
             },source.Token);
             source.Token.ThrowIfCancellationRequested();
             if(Directory.Exists(installation))Directory.Move(installation,previous);
@@ -68,14 +67,5 @@ public sealed class PianoSetupDialog : Form
             try{if(Directory.Exists(temporary))Directory.Delete(temporary,true);}catch(IOException){}catch(UnauthorizedAccessException){}
             if(closing)Close();
         }
-    }
-    private static void Decode(string input,string output,CancellationToken token)
-    {
-        // Windows 11's Media Foundation decodes FLAC locally. No codec download, shell, or lossy re-encoding.
-        using var reader=new MediaFoundationReader(input);
-        if(reader.WaveFormat.Channels!=2||reader.WaveFormat.BitsPerSample!=16||reader.WaveFormat.SampleRate!=44100)throw new InvalidDataException("Μη αναμενόμενη μορφή πηγαίου δείγματος. Απαιτείται stereo 44.1 kHz PCM16.");
-        using var writer=new WaveFileWriter(output,reader.WaveFormat);
-        var buffer=new byte[65536];int read;
-        while((read=reader.Read(buffer,0,buffer.Length))>0){token.ThrowIfCancellationRequested();writer.Write(buffer,0,read);}
     }
 }

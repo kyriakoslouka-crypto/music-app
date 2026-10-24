@@ -52,10 +52,19 @@ jobs:
       - name: Verify real installer, portable archive and standalone startup
         shell: pwsh
         run: ./desktop/scripts/Test-WindowsPackages.ps1
+      - name: Verify actual Windows Maestro installation and lossless PCM
+        shell: pwsh
+        run: |
+          $privatePiano=Join-Path $env:RUNNER_TEMP ('PETS-private-maestro-'+[guid]::NewGuid().ToString('N'))
+          dotnet run --project desktop/tests/Studio.UIAutomation -c Release --no-build -- --piano-check "$privatePiano" "$PWD/desktop/artifacts/windows-piano-check.json"
+          if ($LASTEXITCODE -ne 0) { throw 'Native Windows piano preparation/render verification failed' }
+          $manifest=Join-Path $privatePiano 'piano/maestro.studio-piano.json'
+          dotnet run --project desktop/tests/Studio.Tests -c Release --no-build -- --maestro "$manifest" --report "$PWD/desktop/artifacts/windows-maestro-tests.json"
+          if ($LASTEXITCODE -ne 0) { throw 'Actual Windows Maestro integration tests failed' }
       - name: Record actual Windows checks
         shell: pwsh
         run: |
-          @{ NativeWindowsBuildSucceeded=$true; WindowsPackageSmokeSucceeded=$true; ProgrammaticUIASucceeded=('${{ steps.uia.outcome }}' -eq 'success'); NvdaTested=$false; PhysicalAudioTested=$false; ListeningQualityTested=$false } | ConvertTo-Json | Set-Content desktop/artifacts/WINDOWS-CHECKS.json -Encoding utf8
+          @{ NativeWindowsBuildSucceeded=$true; WindowsPackageSmokeSucceeded=$true; WindowsPianoPreparationSucceeded=$true; ProgrammaticUIASucceeded=('${{ steps.uia.outcome }}' -eq 'success'); NvdaTested=$false; PhysicalAudioTested=$false; ListeningQualityTested=$false } | ConvertTo-Json | Set-Content desktop/artifacts/WINDOWS-CHECKS.json -Encoding utf8
       - name: Assemble complete source and binary delivery
         shell: pwsh
         run: |

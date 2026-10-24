@@ -21,7 +21,7 @@ shutil.copytree(base/'docs',folder/'Οδηγίες',dirs_exist_ok=True)
 shutil.copy2(base/'README.md',folder/'README.md')
 report=base/'artifacts'/f'tests-{version}.json'
 if report.exists():shutil.copy2(report,folder/'TEST-RESULTS.json')
-for name in ['WINDOWS-CHECKS.json','accessibility-audit.json']:
+for name in ['WINDOWS-CHECKS.json','accessibility-audit.json','typed-uia-audit.json','windows-package-smoke.json','portable-integrity.json','windows-piano-check.json','windows-maestro-tests.json']:
  if(base/'artifacts'/name).exists():shutil.copy2(base/'artifacts'/name,folder/name)
 subprocess.run([sys.executable,str(base/'scripts/release-readiness.py'),'--output',str(folder/'READINESS.json')],check=True)
 lines=[]

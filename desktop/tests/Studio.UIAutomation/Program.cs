@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Windows.Automation;
 
+if(args.Length==3&&args[0]=="--piano-check")return await WindowsPianoCheck.Run(args[1],args[2]);
 var expected = new[] { "Ρυθμίσεις", "Εξάσκηση", "Πρόοδος", "Εξετάσεις και προσαρμογή", "Οδηγίες" };
 var content = new[] { "Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand", "Οδηγία τρέχουσας άσκησης", "Στατιστικά και ιστορικό", "Εκπαιδευτικό εξεταστικό προφίλ", "Οδηγίες και περιορισμοί έκδοσης" };
 if (args[0] == "--fixture")
