@@ -34,12 +34,12 @@ jobs:
         shell: pwsh
         run: |
           Start-Transcript -Path "$env:RUNNER_TEMP/pets-build.txt"
-          try { ./desktop/scripts/build-windows.ps1 -Installer }
+          try { & ./desktop/scripts/build-windows.ps1 -Installer *>&1 | Tee-Object -FilePath "$env:RUNNER_TEMP/pets-native-output.txt" }
           finally {
             Stop-Transcript
             '### Native build diagnostic tail' | Out-File $env:GITHUB_STEP_SUMMARY -Append
             '```text' | Out-File $env:GITHUB_STEP_SUMMARY -Append
-            Get-Content "$env:RUNNER_TEMP/pets-build.txt" -Tail 100 | Out-File $env:GITHUB_STEP_SUMMARY -Append
+            Get-Content "$env:RUNNER_TEMP/pets-native-output.txt" -Tail 100 | Out-File $env:GITHUB_STEP_SUMMARY -Append
             '```' | Out-File $env:GITHUB_STEP_SUMMARY -Append
           }
       - name: Native UI Automation checks (report limitations without disguising failures)
@@ -77,6 +77,7 @@ jobs:
           $target = "downloads/windows-checks/${{ github.run_id }}"
           New-Item -ItemType Directory $target -Force | Out-Null
           if (Test-Path "$env:RUNNER_TEMP/pets-build.txt") { Copy-Item "$env:RUNNER_TEMP/pets-build.txt" "$target/build.txt" }
+          if (Test-Path "$env:RUNNER_TEMP/pets-native-output.txt") { Copy-Item "$env:RUNNER_TEMP/pets-native-output.txt" "$target/native-output.txt" }
           Get-ChildItem desktop/artifacts/*.json -ErrorAction SilentlyContinue | Copy-Item -Destination $target
           git config user.name 'PETS Windows build'
           git config user.email 'pets-build@users.noreply.github.com'
