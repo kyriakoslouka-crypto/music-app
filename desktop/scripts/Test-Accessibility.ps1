@@ -23,7 +23,7 @@ public static class PetsInputWindow { [DllImport("user32.dll")] public static ex
 '@
 function Wait-Foreground($targetWindow){
     for($attempt=0;$attempt -lt 50;$attempt++){
-        if([PetsInputWindow]::GetForegroundWindow() -eq [nint]$targetWindow.Current.NativeWindowHandle){return}
+        if([PetsInputWindow]::GetForegroundWindow() -eq [System.IntPtr]::new([long]$targetWindow.Current.NativeWindowHandle)){return}
         Start-Sleep -Milliseconds 40
     }
     throw 'Application did not become the foreground keyboard input window.'
