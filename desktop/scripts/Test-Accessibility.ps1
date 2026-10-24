@@ -16,6 +16,25 @@ $audit=Get-Content $Report -Raw | ConvertFrom-Json
 if($audit.MainForm.Count -lt 40 -or $audit.PianoSetupDialog.Count -lt 8 -or $audit.PresentationRegression.Count -lt 28){throw 'Incomplete form audit.'}
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
+Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+public static class PetsInputWindow { [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow(); }
+'@
+function Wait-Foreground($targetWindow){
+    for($attempt=0;$attempt -lt 50;$attempt++){
+        if([PetsInputWindow]::GetForegroundWindow() -eq [nint]$targetWindow.Current.NativeWindowHandle){return}
+        Start-Sleep -Milliseconds 40
+    }
+    throw 'Application did not become the foreground keyboard input window.'
+}
+function Wait-SelectedTab($tab){
+    for($attempt=0;$attempt -lt 40;$attempt++){
+        if($tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Current.IsSelected){return}
+        Start-Sleep -Milliseconds 50
+    }
+    throw "Keyboard did not select $($tab.Current.Name)"
+}
 function Find-Window($id){
     $processCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$id)
     $windowCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Window)
@@ -48,7 +67,7 @@ function Wait-ControlFocus($target){
     throw "Focus did not reach $($target.Current.Name); actual=$($actual.Current.Name), type=$($actual.Current.ControlType.ProgrammaticName)"
 }
 function Focus-ByKeyboard($tab,$target){
-    $tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select();$tab.SetFocus()
+    $tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select();$tab.SetFocus();Wait-Foreground $window;Wait-ControlFocus $tab
     for($attempt=0;$attempt -lt 100;$attempt++){
         $node=[System.Windows.Automation.AutomationElement]::FocusedElement
         for($depth=0;$node -and $depth -lt 10;$depth++){
@@ -98,16 +117,16 @@ try{
     $keyboard=New-Object -ComObject WScript.Shell
     if(!$keyboard.AppActivate($process.Id)){throw 'Cannot activate application for keyboard tests.'}
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
-    $tabs[0].SetFocus()
+    $tabs[0].SetFocus();Wait-Foreground $window;Wait-ControlFocus $tabs[0]
     $keyboardChecks=@()
     for($i=1;$i -le 5;$i++){
         $keyboard.SendKeys('^{TAB}');Start-Sleep -Milliseconds 150
         $wanted=$i%5
-        if(!$tabs[$wanted].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Current.IsSelected){throw "Ctrl+Tab did not select $($expected[$wanted])"}
+        Wait-SelectedTab $tabs[$wanted]
         $keyboardChecks+="Ctrl+Tab: $($expected[$wanted])"
     }
     $keyboard.SendKeys('^+{TAB}');Start-Sleep -Milliseconds 150
-    if(!$tabs[4].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Current.IsSelected){throw 'Ctrl+Shift+Tab failed.'}
+    Wait-SelectedTab $tabs[4]
     $keyboardChecks+='Ctrl+Shift+Tab: Οδηγίες'
     $keyboard.SendKeys('{F1}');Start-Sleep -Milliseconds 150
     $focused=[System.Windows.Automation.AutomationElement]::FocusedElement

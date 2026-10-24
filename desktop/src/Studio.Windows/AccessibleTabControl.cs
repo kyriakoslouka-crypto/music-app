@@ -62,7 +62,7 @@ public sealed class AccessibleTabControl : TabControl
             if(!headers.TryGetValue(page,out var value))headers[page]=value=new HeaderProvider(owner,this,page);
             return value;
         });
-        public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider;
+        public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider|ProviderOptions.ProviderOwnsSetFocus;
         public IRawElementProviderSimple HostRawElementProvider=>owner.Read(()=>AutomationInteropProvider.HostProviderFromHandle(owner.Handle));
         public object? GetPatternProvider(int patternId)=>patternId==SelectionPatternIdentifiers.Pattern.Id?this:null;
         public object? GetPropertyValue(int propertyId)=>owner.Read<object?>(()=>propertyId switch{
@@ -83,7 +83,7 @@ public sealed class AccessibleTabControl : TabControl
         public Rect BoundingRectangle=>owner.Read(()=>ScreenBounds(owner,owner.ClientRectangle));
         public IRawElementProviderSimple? GetOverrideProviderForHwnd(nint hwnd)=>owner.Read<IRawElementProviderSimple?>(()=>owner.SelectedTab is { IsHandleCreated:true } page&&page.Handle==hwnd?ContentFor(page):null);
         public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>null;
-        public void SetFocus()=>owner.Act(()=>owner.Focus());
+        public void SetFocus()=>owner.Act(()=>{owner.FindForm()?.Activate();owner.Focus();});
         public IRawElementProviderFragmentRoot FragmentRoot=>this;
         public IRawElementProviderFragment? ElementProviderFromPoint(double x,double y)=>owner.Read<IRawElementProviderFragment?>(()=>{
             for(var i=0;i<owner.TabCount;i++)if(ScreenBounds(owner,owner.GetTabRect(i)).Contains(x,y))return Header(i);
@@ -97,7 +97,7 @@ public sealed class AccessibleTabControl : TabControl
     [ComVisible(true)]
     private sealed class HeaderProvider(AccessibleTabControl owner,TabProvider root,TabPage page) : IRawElementProviderFragment,ISelectionItemProvider
     {
-        public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider;
+        public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider|ProviderOptions.ProviderOwnsSetFocus;
         public IRawElementProviderSimple? HostRawElementProvider=>null;
         public object? GetPatternProvider(int patternId)=>patternId==SelectionItemPatternIdentifiers.Pattern.Id?this:null;
         public object? GetPropertyValue(int propertyId)=>owner.Read<object?>(()=>propertyId switch{
@@ -123,7 +123,7 @@ public sealed class AccessibleTabControl : TabControl
         public int[] GetRuntimeId()=>owner.Read(()=>new[]{AutomationInteropProvider.AppendRuntimeId,unchecked((int)owner.Handle),page.GetHashCode()});
         public Rect BoundingRectangle=>owner.Read(()=>owner.TabPages.IndexOf(page) is var i&&i>=0?ScreenBounds(owner,owner.GetTabRect(i)):Rect.Empty);
         public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>null;
-        public void SetFocus()=>owner.Act(()=>{owner.SelectedTab=page;owner.Focus();});
+        public void SetFocus()=>owner.Act(()=>{owner.FindForm()?.Activate();owner.SelectedTab=page;owner.Focus();});
         public IRawElementProviderFragmentRoot FragmentRoot=>root;
         public bool IsSelected=>owner.Read(()=>owner.SelectedTab==page);
         public IRawElementProviderSimple SelectionContainer=>root;
@@ -134,7 +134,7 @@ public sealed class AccessibleTabControl : TabControl
     [ComVisible(true)]
     private sealed class PageProvider(AccessibleTabControl owner,TabProvider root,TabPage page) : IRawElementProviderFragment
     {
-        public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider|ProviderOptions.OverrideProvider;
+        public ProviderOptions ProviderOptions=>ProviderOptions.ServerSideProvider|ProviderOptions.OverrideProvider|ProviderOptions.ProviderOwnsSetFocus;
         public IRawElementProviderSimple HostRawElementProvider=>owner.Read(()=>AutomationInteropProvider.HostProviderFromHandle(page.Handle));
         public object? GetPatternProvider(int patternId)=>null;
         public object? GetPropertyValue(int propertyId)=>owner.Read<object?>(()=>propertyId switch{
@@ -153,7 +153,7 @@ public sealed class AccessibleTabControl : TabControl
         public int[] GetRuntimeId()=>owner.Read(()=>new[]{AutomationInteropProvider.AppendRuntimeId,unchecked((int)page.Handle),0});
         public Rect BoundingRectangle=>owner.Read(()=>ScreenBounds(page,page.ClientRectangle));
         public IRawElementProviderSimple[]? GetEmbeddedFragmentRoots()=>null;
-        public void SetFocus()=>owner.Act(()=>page.SelectNextControl(null,true,true,true,false));
+        public void SetFocus()=>owner.Act(()=>{owner.FindForm()?.Activate();page.SelectNextControl(null,true,true,true,false);});
         public IRawElementProviderFragmentRoot FragmentRoot=>root;
     }
     private static Rect ScreenBounds(Control owner,System.Drawing.Rectangle rectangle)
