@@ -12,7 +12,7 @@ if($SoundFont){$studioTestArgs+=@('--soundfont',$SoundFont)}
 if($Maestro){$studioTestArgs+=@('--maestro',$Maestro)}
 Run-Dotnet @studioTestArgs
 Run-Dotnet publish src/Studio.Windows/Studio.Windows.csproj -c Release -r win-x64 --self-contained true -o artifacts/win-x64
-Run-Dotnet publish src/Studio.Windows/Studio.Windows.csproj -c Release -r win-x64 --self-contained true --no-restore -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=none -p:DebugSymbols=false -o artifacts/standalone-win-x64
+Run-Dotnet publish src/Studio.Windows/Studio.Windows.csproj -c Release -r win-x64 --self-contained true --no-restore -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -o artifacts/standalone-win-x64
 if($Accessibility){ & "$PSScriptRoot/Test-Accessibility.ps1" -Exe "$PWD/artifacts/win-x64/ProfessionalEarTrainingStudio.exe" -Report "$PWD/artifacts/accessibility-audit.json" }
 Copy-Item README.md,THIRD-PARTY-NOTICES.md artifacts/win-x64/
 Copy-Item docs artifacts/win-x64/ -Recurse -Force

@@ -26,6 +26,7 @@ Tab/Shift+Tab, βέλη, Space και Enter χειρίζονται τα φυσι
 
 ## Κατάσταση υλοποίησης ανά έκδοση
 
+- [0.5.0](docs/VERSION-0.5.0.md): ανεπίσημα εξεταστικά προφίλ, resume, βαθμολόγηση, analytics, adaptive practice και επανάληψη λαθών.
 - 0.1.0: διαστήματα έως δύο οκτάβες, 10 ποιότητες συγχορδιών, ακουστικά διακριτές αναστροφές και μεμονωμένες νότες, πιάνο/αποθήκευση/native UI.
 - [0.2.0](docs/VERSION-0.2.0.md): πτώσεις, 11 κλίμακες, επτά τρόποι, ρυθμικά σχήματα, 12 μέτρα/ομαδοποιήσεις, γραπτή ρυθμική υπαγόρευση και κτυπήματα.
 - [0.4.0](docs/VERSION-0.4.0.md): ανεξάρτητες φωνές, εσωτερική γραμμή, χρωματική/ατονική/τροπική ανάλυση και εκτεταμένα διαστήματα/συγχορδίες.
@@ -59,3 +60,5 @@ Linux: `./scripts/cloud-check.sh`, προαιρετικά `--maestro /private/ma
 `deliverables/releases/VERSION/`: Setup, portable, standalone, πλήρες native source ZIP, οδηγίες, test JSON και SHA-256. Το `LATEST.json` δεν περιέχει πλαστό public URL. Ο τοπικός φάκελος δεν ισοδυναμεί με download στον υπολογιστή του χρήστη.
 
 Το `.github/workflows/windows-delivery.yml` παρέχει πραγματικό workflow Windows build/ελέγχων και upload σε GitHub Actions Artifacts όταν εκτελεστεί στο repository. Προαιρετικά δημιουργεί **draft** Release για έλεγχο από τον ιδιοκτήτη. Δεν έχει εκτελεστεί ή δημοσιευθεί από αυτό το cloud, του οποίου η πρόσβαση στο GitHub API αποκλείστηκε με CONNECT 403. Δεν δημοσιεύονται κλειδιά ή private samples.
+
+Τρέχουσα συνέχεια: [CONTINUE-TO-1.0](docs/CONTINUE-TO-1.0.md), [γνωστοί περιορισμοί](docs/KNOWN-LIMITATIONS.md), [πραγματική επαλήθευση](docs/VALIDATION.md).

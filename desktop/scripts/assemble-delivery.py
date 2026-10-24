@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Assemble versioned, source-complete local deliverables without claiming public availability."""
 from pathlib import Path
-import hashlib,json,shutil,zipfile,xml.etree.ElementTree as ET
+import hashlib,json,shutil,zipfile,subprocess,sys,xml.etree.ElementTree as ET
 base=Path(__file__).resolve().parent.parent
 version=ET.parse(base/'Directory.Build.props').findtext('./PropertyGroup/Version')
 folder=base/'deliverables'/'releases'/version
@@ -21,6 +21,9 @@ shutil.copytree(base/'docs',folder/'Οδηγίες',dirs_exist_ok=True)
 shutil.copy2(base/'README.md',folder/'README.md')
 report=base/'artifacts'/f'tests-{version}.json'
 if report.exists():shutil.copy2(report,folder/'TEST-RESULTS.json')
+for name in ['WINDOWS-CHECKS.json','accessibility-audit.json']:
+ if(base/'artifacts'/name).exists():shutil.copy2(base/'artifacts'/name,folder/name)
+subprocess.run([sys.executable,str(base/'scripts/release-readiness.py'),'--output',str(folder/'READINESS.json')],check=True)
 lines=[]
 for f in sorted(folder.rglob('*')):
  if f.is_file()and f.name!='SHA256SUMS.txt':

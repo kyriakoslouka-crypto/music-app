@@ -231,12 +231,12 @@ public sealed partial class MainForm : Form
             if (piano is null) throw new InvalidOperationException("Εγκατάστησε το Maestro Concert Grand από το πρώτο κουμπί των Ρυθμίσεων ή φόρτωσε δικό σου SF2.");
             if (devices.SelectedItem is not OutputDevice) throw new InvalidOperationException("Επίλεξε ενεργή έξοδο ήχου.");
             adjustingSegments=true;segmentStart.Value=0;segmentEnd.Value=0;soloVoice.SelectedIndex=0;adjustingSegments=false;
-            activeSettings=ReadSettings();await PresentExercise(generator.Next(activeSettings),activeSettings,true);
+            activeSettings=ReadSettings();await PresentExercise(generator.Next(activeSettings),activeSettings);
         }
         catch (OperationCanceledException) { }
         catch (Exception ex) { Error(ex.Message); }
     }
-    private async Task PresentExercise(Exercise exercise,Settings settings,bool autoLegacy=false)
+    private Task PresentExercise(Exercise exercise,Settings settings)
     {
         Stop();playbackCache.Clear();activeSettings=settings;
         adjustingSegments=true;segmentStart.Value=(decimal)settings.SegmentStart;segmentEnd.Value=(decimal)(settings.SegmentEnd??0);soloVoice.SelectedIndex=Math.Min(4,settings.SoloVoice+1);adjustingSegments=false;
@@ -250,9 +250,9 @@ public sealed partial class MainForm : Form
             prompt.Text=CategoryName(exercise.Category)+$". Επίπεδο {settings.Level}. "+(exercise.Score is not null?exercise.Score.Prompt+$" Συνολική διάρκεια με πλαίσιο: {exercise.Score.LengthBeats:F2} χρόνοι.":"Άκουσε, επίλεξε απάντηση με τα βέλη και πάτησε Ctrl+Enter. Ctrl+R για επανάληψη.");
             tabs.SelectedIndex = 1; status.Text = "Νέα άσκηση. Προετοιμασία ήχου.";
             submit.Enabled = false; SavePreferences();
-            if(exercise.Score is not null){replay.Enabled=true;Tell("Νέα άσκηση. "+prompt.Text+" Πάτησε Ctrl+R για την πρώτη ακρόαση. Ctrl+I για ανάγνωση οδηγίας.");}
-            else if(autoLegacy)await RenderAndPlay();else{replay.Enabled=true;Tell("Ερώτηση εξέτασης. Ctrl+R για ακρόαση, Ctrl+I για οδηγία.");}
+            replay.Enabled=true;Tell("Νέα άσκηση. "+prompt.Text+" Πάτησε Ctrl+R για την πρώτη ακρόαση. Ctrl+I για ανάγνωση οδηγίας.");
         if(exam?.Running==true){previewAnswer.Enabled=false;segmentStart.Enabled=segmentEnd.Enabled=soloVoice.Enabled=false;}
+        return Task.CompletedTask;
     }
     private async Task RenderAndPlay()
     {
@@ -266,9 +266,8 @@ public sealed partial class MainForm : Form
             cancellation.Token.ThrowIfCancellationRequested();
             if (IsDisposed || session.Current != current || activeSettings!=snapshot) return;
             playbackCache.Store(current.Id,snapshot,rendered);
-            // No answer is preselected; an explicit user selection is always necessary.
-            if(current.AnswerKind==AnswerKind.Choice)answers.Focus();else if(current.AnswerKind==AnswerKind.Text)response.Focus();else tap.Focus();
-            await Task.Delay(1200, cancellation.Token);
+            // Keep focus stable during music; announce the response control only after playback ends.
+            await Task.Delay(150,cancellation.Token);
             StartPlayback();
         }
         finally { if (rendering == cancellation) rendering = null; }
@@ -281,7 +280,7 @@ public sealed partial class MainForm : Form
         if(exam?.Running==true&&!preview)exam.CheckPlayAllowed();
         if (cancelSpeech.Checked) NvdaSpeech.Cancel();
         var generation = ++playbackGeneration;
-        status.Text = "Αναπαραγωγή. Ctrl+P: παύση. Esc: διακοπή.";
+        if(!status.Focused)status.Text = "Αναπαραγωγή. Ctrl+P: παύση. Esc: διακοπή.";
         playing = true; replay.Enabled = true; pause.Enabled = true; submit.Enabled = !answered&&(!preview||heard);
         audio.Play(clip, device, error =>
         {
@@ -290,7 +289,7 @@ public sealed partial class MainForm : Form
                 if (generation != playbackGeneration || IsDisposed) return;
                 playing = false; pause.Enabled = false;
                 if (error is not null) { if(!preview&&exam?.Running==true){exam.RefundFailedPlay();SaveExam();UpdateExamStatus();} heard = false; submit.Enabled = false; Error("Σφάλμα συσκευής ήχου. " + error.Message); }
-                else status.Text = preview?"Η γραπτή απάντηση ακούστηκε χωρίς βαθμολόγηση.":"Η ακρόαση ολοκληρώθηκε. Δώσε απάντηση και πάτησε Ctrl+Enter.";
+                else{status.Text=preview?"Η γραπτή απάντηση ακούστηκε χωρίς βαθμολόγηση.":"Η ακρόαση ολοκληρώθηκε. Δώσε απάντηση και πάτησε Ctrl+Enter.";if(!preview&&tabs.SelectedIndex==1)FocusResponse();}
             }));}catch(InvalidOperationException)when(IsDisposed||Disposing){}
         }, activeSettings.Repetitions==0);
         if(!preview){heard=true;if(exam?.Running==true){exam.RegisterSuccessfulPlay();SaveExam();UpdateExamStatus();}}
@@ -324,9 +323,27 @@ public sealed partial class MainForm : Form
             if(!audio.IsPlaying&&!audio.IsPaused){Tell("Δεν υπάρχει ενεργή αναπαραγωγή. Ctrl+R για ακρόαση.");return;}
             if(audio.IsPaused&&cancelSpeech.Checked)NvdaSpeech.Cancel();
             audio.PauseOrResume();playing=audio.IsPlaying;
-            if(!playing)Tell("Παύση. Ctrl+P για συνέχεια.");else status.Text="Συνέχεια αναπαραγωγής.";
+            if(!playing)Tell("Παύση. Ctrl+P για συνέχεια.");else if(!status.Focused)status.Text="Συνέχεια αναπαραγωγής.";
         }
         catch(Exception ex){Error("Αποτυχία παύσης ή συνέχειας: "+ex.Message);}
+    }
+    internal object[] AuditPresentations()
+    {
+        var records=new List<object>();var g=new ExerciseGenerator(157);
+        foreach(var c in Enum.GetValues<Category>())
+        {
+            var settings=new Settings(c,Level.Intermediate,MinNote:36,MaxNote:96);var e=g.Next(settings);
+            playbackCache.Store("stale",settings,[1,2]);PresentExercise(e,settings).GetAwaiter().GetResult();
+            if(heard||answered||submit.Enabled||answers.SelectedIndex!=-1||response.Text.Length!=0||playbackCache.Get("stale",settings)is not null||session.Current?.Id!=e.Id)throw new InvalidOperationException("Λανθασμένη παρουσίαση νέας ερώτησης: "+c);
+            if(answers.Visible!=(e.AnswerKind==AnswerKind.Choice)||response.Visible!=(e.AnswerKind==AnswerKind.Text)||tap.Visible!=(e.AnswerKind==AnswerKind.Taps))throw new InvalidOperationException("Λανθασμένος τύπος απάντησης: "+c);
+            records.Add(new{Category=CategoryName(c),AnswerKind=e.AnswerKind.ToString(),DeferredPlayback=true,CacheInvalidated=true,NoPreselectedAnswer=true});
+        }
+        return records.ToArray();
+    }
+    private void FocusResponse()
+    {
+        if(session.Current is null||answered)return;
+        if(session.Current.AnswerKind==AnswerKind.Choice)answers.Focus();else if(session.Current.AnswerKind==AnswerKind.Text)response.Focus();else tap.Focus();
     }
     private void RecordTap()
     {
@@ -400,6 +417,7 @@ public sealed partial class MainForm : Form
     {
         if(playing||IsDisposed)return;
         status.Text=text;tabs.SelectedIndex=1;
+        if(auditOnly)return;
         if(!status.AccessibilityObject.RaiseAutomationNotification(AutomationNotificationKind.ActionCompleted,AutomationNotificationProcessing.ImportantMostRecent,text))
         {status.Focus();status.Select(0,0);}
     }
@@ -428,7 +446,7 @@ public sealed partial class MainForm : Form
             case Keys.Control | Keys.R: _ = Replay(); return true;
             case Keys.Control | Keys.P: TogglePause(); return true;
             case Keys.Control | Keys.Enter: Submit(); return true;
-            case Keys.Escape: Stop(); status.Text = "Ο ήχος διακόπηκε."; return true;
+            case Keys.Escape: Stop(); status.Text = "Ο ήχος διακόπηκε.";if(heard&&tabs.SelectedIndex==1)FocusResponse();return true;
             case Keys.Control | Keys.Home: Stop(); tabs.SelectedIndex = 0; setup.Focus(); return true;
             case Keys.Control | Keys.Shift | Keys.S: Stop(); tabs.SelectedIndex=1;status.Focus();status.SelectAll(); return true;
             case Keys.F1: Stop(); tabs.SelectedIndex=tabs.TabPages.Count-1;tabs.TabPages[^1].Controls[0].Focus(); return true;
