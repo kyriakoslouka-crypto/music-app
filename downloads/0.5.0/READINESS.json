@@ -1,0 +1,22 @@
+{
+  "Version": "0.5.0",
+  "TargetFinalVersion": "1.0.0",
+  "ReadyForProfessionalFinal": false,
+  "Checks": {
+    "CoreTestsPassed": true,
+    "WindowsProgrammaticUIAPassed": false,
+    "NvdaActuallyTestedAndPassed": false,
+    "PhysicalAudioHardwarePassed": false,
+    "ProfessionalPianoListeningPassed": false,
+    "DownloadOnUserComputerPassed": false,
+    "RemainingCurriculumScopeResolvedOrAccepted": false
+  },
+  "Missing": [
+    "WindowsProgrammaticUIAPassed",
+    "NvdaActuallyTestedAndPassed",
+    "PhysicalAudioHardwarePassed",
+    "ProfessionalPianoListeningPassed",
+    "DownloadOnUserComputerPassed",
+    "RemainingCurriculumScopeResolvedOrAccepted"
+  ]
+}

@@ -59,6 +59,6 @@ Linux: `./scripts/cloud-check.sh`, προαιρετικά `--maestro /private/ma
 
 `deliverables/releases/VERSION/`: Setup, portable, standalone, πλήρες native source ZIP, οδηγίες, test JSON και SHA-256. Το `LATEST.json` δεν περιέχει πλαστό public URL. Ο τοπικός φάκελος δεν ισοδυναμεί με download στον υπολογιστή του χρήστη.
 
-Το `.github/workflows/windows-delivery.yml` παρέχει πραγματικό workflow Windows build/ελέγχων και upload σε GitHub Actions Artifacts όταν εκτελεστεί στο repository. Προαιρετικά δημιουργεί **draft** Release για έλεγχο από τον ιδιοκτήτη. Δεν έχει εκτελεστεί ή δημοσιευθεί από αυτό το cloud, του οποίου η πρόσβαση στο GitHub API αποκλείστηκε με CONNECT 403. Δεν δημοσιεύονται κλειδιά ή private samples.
+Το `.github/workflows/windows-delivery.yml` παρέχει πραγματικό workflow Windows build/ελέγχων και upload σε GitHub Actions Artifacts όταν εκτελεστεί στο repository. Προαιρετικά δημιουργεί **draft** Release για έλεγχο από τον ιδιοκτήτη. Το workflow εκτελέστηκε πραγματικά: το αρχικό Windows build απέτυχε και ακολουθεί διαγνωστική επανεκτέλεση. Ο ξεχωριστός κλάδος `codex/pets-delivery` περιέχει τα cloud-built πακέτα στο `downloads/0.5.0`, με επαληθευμένη HTTPS λήψη του εγκαταστάτη. Το GitHub API παρέμεινε αποκλεισμένο, αλλά το native Git επέτρεψε κανονική μεταφορά. Δεν δημοσιεύονται κλειδιά ή private samples.
 
 Τρέχουσα συνέχεια: [CONTINUE-TO-1.0](docs/CONTINUE-TO-1.0.md), [γνωστοί περιορισμοί](docs/KNOWN-LIMITATIONS.md), [πραγματική επαλήθευση](docs/VALIDATION.md).
