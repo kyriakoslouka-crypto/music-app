@@ -7,6 +7,12 @@ public static class Version3Tests
     private static void Throws<T>(Action action)where T:Exception{try{action();}catch(T){return;}throw new Exception("Expected "+typeof(T).Name);}
     public static void Register(Action<string,Action> test,string[] args)
     {
+        test("0.3: enormous octave numbers never wrap into valid piano pitches",()=>{
+            foreach(var text in new[]{"C1073741828","Ντο1073741828","C9999999999999999999999999","C-1073741820","C9"})
+                Throws<ArgumentException>(()=>NoteCodec.ParsePitch(text));
+            Check(NoteCodec.ParsePitch("B#7")==108);Check(NoteCodec.ParsePitch("Cb1")==23);
+            Check(NoteCodec.ParsePitch("Λα0")==21);Check(NoteCodec.ParsePitch("Ντο8")==108);
+        });
         test("0.3: all six categories and difficulty levels generate valid scores and correct responses",()=>{
             var g=new ExerciseGenerator(300);var counts=new HashSet<int>();
             foreach(var c in Enum.GetValues<Category>().Where(c=>c>=Category.MelodyDictation&&c<=Category.MelodyMemory))foreach(var level in Enum.GetValues<Level>())for(var i=0;i<20;i++)

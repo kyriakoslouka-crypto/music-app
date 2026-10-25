@@ -11,7 +11,9 @@ public static class NoteCodec
         var match=Regex.Match(text.Trim(),@"^(ντο|σολ|ρε|μι|φα|λα|σι|sol|do|re|mi|fa|la|si|ti|[a-g])([#b♯♭]?)(-?\d+)$",RegexOptions.IgnoreCase);
         if(!match.Success||!Names.TryGetValue(match.Groups[1].Value,out var pitch))throw new ArgumentException("Νότα όπως 60, Ντο4, C4 ή Ρεb4 απαιτείται.");
         var alteration=match.Groups[2].Value switch{"#" or "♯"=>1,"b" or "♭"=>-1,_=>0};
-        midi=(int.Parse(match.Groups[3].Value,CultureInfo.InvariantCulture)+1)*12+pitch+alteration;
+        if(!int.TryParse(match.Groups[3].Value,NumberStyles.Integer,CultureInfo.InvariantCulture,out var octave)||octave is <0 or >8)
+            throw new ArgumentException("Η οκτάβα πρέπει να βρίσκεται στην έκταση του πιάνου, 0–8.");
+        midi=(octave+1)*12+pitch+alteration;
         if(midi is <21 or >108)throw new ArgumentException("Η νότα είναι εκτός πιάνου.");return midi;
     }
     public static NotatedNote[] Parse(string text,bool durations)
