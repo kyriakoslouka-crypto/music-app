@@ -76,7 +76,11 @@ public sealed partial class MainForm
         using var canvas=new NotationCanvas{Document=ScoreNotation.Build(e)};
         using var bitmap=new Bitmap(canvas.Width,canvas.Height);canvas.DrawToBitmap(bitmap,canvas.ClientRectangle);
         using var stream=new MemoryStream();bitmap.Save(stream,System.Drawing.Imaging.ImageFormat.Png);
+        var dense=new ExerciseGenerator(589).Next(new(Category.RhythmPatterns,Level.Professional));
+        using var denseCanvas=new NotationCanvas{Document=ScoreNotation.Build(dense)};
+        using var denseBitmap=new Bitmap(denseCanvas.Width,denseCanvas.Height);denseCanvas.DrawToBitmap(denseBitmap,denseCanvas.ClientRectangle);
+        using var denseStream=new MemoryStream();denseBitmap.Save(denseStream,System.Drawing.Imaging.ImageFormat.Png);
         if(!NotationCanvas.MusicFontName.Contains("Bravura",StringComparison.Ordinal))throw new InvalidOperationException("Missing music font");
-        return new{Passed=true,TabName="Απρόοπτα διαγωνίσματα",TabCount=tabs.TabCount,NativeScoreControls=controls,MusicFont=NotationCanvas.MusicFontName,PreviewPngBase64=Convert.ToBase64String(stream.ToArray()),PrivacyChecksPassed=true};
+        return new{Passed=true,TabName="Απρόοπτα διαγωνίσματα",TabCount=tabs.TabCount,NativeScoreControls=controls,MusicFont=NotationCanvas.MusicFontName,PreviewPngBase64=Convert.ToBase64String(stream.ToArray()),DensePreviewPngBase64=Convert.ToBase64String(denseStream.ToArray()),PrivacyChecksPassed=true};
     }
 }

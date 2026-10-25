@@ -49,10 +49,10 @@ internal sealed class NotationCanvas:Control
         }
         return result;
     }
-    private void ResizeScore(){var ys=StaffPositions();Size=new((int)Math.Ceiling(Math.Max(900,140+Times().Length*46)*zoom),(int)Math.Ceiling((ys.Length==0?350:ys[^1]+160)*zoom));Invalidate();}
+    private void ResizeScore(){var ys=StaffPositions();var padding=document is {Numerator:>0}?document.Length/(document.Numerator*4.0/document.Denominator)*26:0;Size=new((int)Math.Ceiling(Math.Max(900,140+Times().Length*46+padding)*zoom),(int)Math.Ceiling((ys.Length==0?350:ys[^1]+160)*zoom));Invalidate();}
     protected override void OnPaint(PaintEventArgs e){base.OnPaint(e);if(document is null)return;var g=e.Graphics;g.ScaleTransform(zoom,zoom);g.SmoothingMode=SmoothingMode.AntiAlias;g.TextRenderingHint=TextRenderingHint.AntiAliasGridFit;
         using var text=new Font("Segoe UI",12,FontStyle.Regular,GraphicsUnit.Pixel);using var title=new Font("Segoe UI",17,FontStyle.Bold,GraphicsUnit.Pixel);using var music=new Font(MusicFonts.Families[0],40,FontStyle.Regular,GraphicsUnit.Pixel);
-        using var pen=new Pen(Color.Black,1);using var stem=new Pen(Color.Black,1.5f);var times=Times();var ys=StaffPositions();float X(double beat)=>110+Array.BinarySearch(times,beat)*46;
+        using var pen=new Pen(Color.Black,1);using var stem=new Pen(Color.Black,1.5f);var times=Times();var ys=StaffPositions();var measureLength=document.Numerator==0?double.PositiveInfinity:document.Numerator*4.0/document.Denominator;float X(double beat)=>110+Array.BinarySearch(times,beat)*46+(double.IsPositiveInfinity(measureLength)?0:(int)(beat/measureLength)*26);
         var ascent=music.FontFamily.GetCellAscent(FontStyle.Regular)/(float)music.FontFamily.GetEmHeight(FontStyle.Regular)*music.Size;
         void Glyph(int code,float x,float y)=>g.DrawString(char.ConvertFromUtf32(code),music,Brushes.Black,x,y-ascent,StringFormat.GenericTypographic);
         g.DrawString(document.Title,title,Brushes.Black,15,12);g.DrawString("Ζητούμενο μέρος χωρίς εισαγωγή. Ρητές αλλοιώσεις· οι συζεύξεις διατηρούν τις διάρκειες.",text,Brushes.Black,15,40);
@@ -62,12 +62,12 @@ internal sealed class NotationCanvas:Control
             if(document.Numerator>0){g.DrawString(document.Numerator.ToString(),title,Brushes.Black,70,y+1);g.DrawString(document.Denominator.ToString(),title,Brushes.Black,70,y+22);}
             if(document.Staves>2)g.DrawString("Φωνή "+(s+1),text,Brushes.Black,15,y-25);
             var measure=document.Numerator==0?double.PositiveInfinity:document.Numerator*4.0/document.Denominator;
-            if(double.IsFinite(measure))for(var b=measure;b<document.Length;b+=measure)g.DrawLine(pen,X(b)-15,y,X(b)-15,y+40);
+            if(double.IsFinite(measure))for(var b=measure;b<document.Length;b+=measure)g.DrawLine(pen,X(b)-30,y,X(b)-30,y+40);
             g.DrawLine(stem,X(document.Length)+15,y,X(document.Length)+15,y+40);
         }
         foreach(var n in document.Symbols){
             var y=ys[n.Staff];var x=X(n.Beat);
-            if(!n.Midi.HasValue){var code=n.Denominator switch{1=>0xE4E3,2=>0xE4E4,4=>0xE4E5,8=>0xE4E6,16=>0xE4E7,32=>0xE4E8,_=>0xE4E9};Glyph(code,x,y+20);if(n.Dots>0)g.FillEllipse(Brushes.Black,x+18,y+17,3,3);continue;}
+            if(!n.Midi.HasValue){var code=n.Denominator switch{1=>0xE4E3,2=>0xE4E4,4=>0xE4E5,8=>0xE4E6,16=>0xE4E7,32=>0xE4E8,_=>0xE4E9};Glyph(code,x,y+(n.Denominator==1?10:20));if(n.Dots>0)g.FillEllipse(Brushes.Black,x+18,y+17,3,3);continue;}
             var pitch=Pitch(n.Midi.Value);var origin=Bass(n.Staff)?18:30;var ny=y+40-(pitch.Step-origin)*5;
             for(var step=origin-2;step>=pitch.Step;step-=2){var ly=y+40-(step-origin)*5;g.DrawLine(pen,x-5,ly,x+18,ly);}
             for(var step=origin+10;step<=pitch.Step;step+=2){var ly=y+40-(step-origin)*5;g.DrawLine(pen,x-5,ly,x+18,ly);}
