@@ -28,7 +28,8 @@ try{
  Check (!(Get-Content $requests|Where-Object {$_ -match 'secret|DO.NOT.EXECUTE'})) 'Remote JavaScript is never executed and private URL is not requested'
  $record=$result.Files|Where-Object Path -eq 'voices_pa3/g3_ison1.mp3'
  Check ($record.DeclaredRootHz -eq 98 -and $record.SHA256 -eq (Get-FileHash (Join-Path $destination $record.Path) -Algorithm SHA256).Hash.ToLowerInvariant()) 'Original sample bytes and declared base frequency preserved with SHA-256'
- Add-Type -AssemblyName System.IO.Compression.FileSystem
+ Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression.FileSystem
  $parts=@(Get-ChildItem -LiteralPath $root -Filter 'voices with spaces.part*.zip');Check ($parts.Count -ge 2) 'Large downloads split into independent upload-sized ZIP files';Check (@($parts|Where-Object Length -gt 25165824).Count -eq 0) 'Every ZIP is below 24 MiB';
  $archivePath=$destination+'.part001.zip';$zip=[IO.Compression.ZipFile]::OpenRead($archivePath)
  try{
