@@ -40,6 +40,7 @@ automated={
  'EvidenceMatchesSourceCommit':bool(commit)and all(r.get('SourceCommit')==commit for r in [core,piano,maestro,nvda,recovery]),
  'WindowsTypedUIAPassed':typed.get('Passed')is True and success(typed,20),
  'WindowsKeyboardAndExamBoundariesPassed':uia.get('UIAutomationPassed')is True and len(records(uia,'KeyboardChecks'))>=20 and len(boundaries)==6 and all(b.get('Rejected')is True and b.get('HistoryUnchanged')is True for b in boundaries),
+ 'AutomaticPracticeSafetyPassed':isinstance(uia.get('AutomaticPracticeRegression'),dict)and uia['AutomaticPracticeRegression'].get('Passed')is True and uia['AutomaticPracticeRegression'].get('Executed',0)>=6,
  'InstalledAndStandalonePassed':package.get('Version')==version and flags(package,['Passed','InstallerProcessPassed','InstalledFilesMatch','InstalledManagedAuditPassed','StandaloneManagedAuditPassed','UninstallPreservesUserFile'])and package.get('InstalledFileCount',0)>0,
  'PortableIntegrityPassed':portable.get('Passed')is True and portable.get('PrivatePianoSamplesBundled')is False,
  'WindowsPianoFidelityPassed':piano.get('Passed')is True and piano.get('DecodedSamples')==794 and piano.get('ReferencePcmSha256Matches')==794 and piano.get('CategoriesRendered')==28,

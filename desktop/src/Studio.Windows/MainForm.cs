@@ -87,6 +87,9 @@ public sealed partial class MainForm : Form
         foreach(var number in new[]{tempo,repeats,velocity,segmentStart,segmentEnd})number.ValueChanged+=(_,_)=>ChangePlaybackSettings();
         pedal.CheckedChanged+=(_,_)=>ChangePlaybackSettings();soloVoice.SelectedIndexChanged+=(_,_)=>ChangePlaybackSettings();
         cancelSpeech.CheckedChanged+=(_,_)=>SchedulePreferenceSave();
+        automaticPractice.CheckedChanged+=(_,_)=>{CancelAutomaticPractice();SchedulePreferenceSave();};
+        automaticDelay.ValueChanged+=(_,_)=>{CancelAutomaticPractice();SchedulePreferenceSave();};
+        tabs.SelectedIndexChanged+=(_,_)=>{if(tabs.SelectedIndex!=1)CancelAutomaticPractice();};
         preferenceSave.Tick+=(_,_)=>{preferenceSave.Stop();SavePreferences();};
         AccessibilityContract.Apply(this);
         Shown += async (_, _) => {
@@ -127,7 +130,8 @@ public sealed partial class MainForm : Form
         Row(table, "Χαμηλότερη νότα MIDI (21–108)", minimum); Row(table, "Υψηλότερη νότα MIDI (21–108)", maximum);
         Row(table,"Μέτρο υπαγόρευσης / κτυπημάτων",meter);Row(table,"Πλήθος μέτρων ρυθμού",bars);
         Row(table, "Ταχύτητα BPM", tempo); Row(table, "Επαναλήψεις (0 = απεριόριστα)", repeats); Row(table, "Δυναμική (1–127)", velocity); Row(table, "Πεντάλ", pedal);
-        Row(table, "Ομιλία", cancelSpeech);Row(table,"Απομόνωση πολυφωνικής φωνής",soloVoice);Row(table,"Αρχή τμήματος (χρόνοι)",segmentStart);Row(table,"Τέλος τμήματος (0 = όλο)",segmentEnd);
+        automaticPractice.AccessibleDescription="Προαιρετική αυτόματη συνέχεια μόνο στην εξάσκηση. Ρύθμισε την αναμονή ώστε να προλαβαίνεις το NVDA. Esc ακυρώνει.";
+        Row(table, "Ομιλία", cancelSpeech);Row(table,"Συνεχής εξάσκηση",automaticPractice);Row(table,"Αναμονή ανατροφοδότησης και οδηγίας (δευτερόλεπτα)",automaticDelay);Row(table,"Απομόνωση πολυφωνικής φωνής",soloVoice);Row(table,"Αρχή τμήματος (χρόνοι)",segmentStart);Row(table,"Τέλος τμήματος (0 = όλο)",segmentEnd);
         var start = new Button { Text = "Έναρξη εξάσκησης (Ctrl+N)", AutoSize = true }; start.Click += async (_, _) => await NewExercise(); Row(table, "Εξάσκηση", start);
         page.Controls.Add(table); tabs.TabPages.Add(page);
     }
@@ -167,7 +171,7 @@ public sealed partial class MainForm : Form
             catch(Exception ex){pref=null;storageHealthy=false;Error("Οι ρυθμίσεις δεν αντικαταστάθηκαν: "+ex.Message);}
             if(pref is not null)
             {
-                var t=pref.Settings;cancelSpeech.Checked=pref.CancelNvdaSpeech;
+                var t=pref.Settings;cancelSpeech.Checked=pref.CancelNvdaSpeech;automaticPractice.Checked=pref.AutomaticPractice;automaticDelay.Value=Math.Clamp(pref.AutomaticDelaySeconds,3,120);
                 category.SelectedIndex=(int)t.Category;level.SelectedIndex=(int)t.Level;direction.SelectedIndex=(int)t.Direction;
                 minimum.Value=t.MinNote;maximum.Value=t.MaxNote;root.SelectedIndex=t.RootPitchClass+1??0;
                 tonality.SelectedIndex=t.KeyTonic.HasValue?t.KeyTonic.Value+1+(t.KeyMode==TonalityMode.NaturalMinor?12:0):0;
@@ -238,6 +242,7 @@ public sealed partial class MainForm : Form
             if (devices.SelectedItem is not OutputDevice) throw new InvalidOperationException("Επίλεξε ενεργή έξοδο ήχου.");
             adjustingSegments=true;segmentStart.Value=0;segmentEnd.Value=0;soloVoice.SelectedIndex=0;adjustingSegments=false;
             activeSettings=ReadSettings();await PresentExercise(generator.Next(activeSettings),activeSettings);
+            if(session.Current is { } created)_=QueueAutomaticPractice(created,false,Replay);
         }
         catch (OperationCanceledException) { }
         catch (Exception ex) { Error(ex.Message); }
@@ -256,7 +261,7 @@ public sealed partial class MainForm : Form
             prompt.Text=CategoryName(exercise.Category)+$". Επίπεδο {settings.Level}. "+(exercise.Score is not null?exercise.Score.Prompt+$" Συνολική διάρκεια με πλαίσιο: {exercise.Score.LengthBeats:F2} χρόνοι.":"Άκουσε, επίλεξε απάντηση με τα βέλη και πάτησε Ctrl+Enter. Ctrl+R για επανάληψη.");
             tabs.SelectedIndex = 1; status.Text = "Νέα άσκηση. Προετοιμασία ήχου.";
             submit.Enabled = false; SavePreferences();
-            replay.Enabled=true;Tell("Νέα άσκηση. "+prompt.Text+" Πάτησε Ctrl+R για την πρώτη ακρόαση. Ctrl+I για ανάγνωση οδηγίας.");
+            replay.Enabled=true;Tell("Νέα άσκηση. "+prompt.Text+(automaticPractice.Checked&&exam is null?$" Αυτόματη ακρόαση σε {automaticDelay.Value} δευτερόλεπτα. Esc ακυρώνει. Ctrl+R για άμεση ακρόαση.":" Πάτησε Ctrl+R για την πρώτη ακρόαση.")+" Ctrl+I για ανάγνωση οδηγίας.");
         if(exam?.Running==true){previewAnswer.Enabled=false;segmentStart.Enabled=segmentEnd.Enabled=soloVoice.Enabled=false;}
         return Task.CompletedTask;
     }
@@ -328,6 +333,7 @@ public sealed partial class MainForm : Form
     {
         try
         {
+            if(!audio.IsPlaying&&!audio.IsPaused&&automaticPending is not null){CancelAutomaticPractice();Tell("Η αυτόματη αναμονή ακυρώθηκε. Ctrl+R για ακρόαση ή Ctrl+N για νέα άσκηση.");return;}
             if(!audio.IsPlaying&&!audio.IsPaused){Tell("Δεν υπάρχει ενεργή αναπαραγωγή. Ctrl+R για ακρόαση.");return;}
             if(audio.IsPaused&&cancelSpeech.Checked)NvdaSpeech.Cancel();
             audio.PauseOrResume();playing=audio.IsPlaying;
@@ -379,10 +385,13 @@ public sealed partial class MainForm : Form
             }
             if(exam is not null){SaveExam();UpdateExamStatus();}
             history.Add(attempt);answered=true;submit.Enabled=false;tapClock.Stop();
-            var message=$"{(attempt.Correct?"Σωστά.":"Λάθος.")} Σωστή απάντηση: {attempt.ExpectedName}. {attempt.Analysis} Ctrl+N για συνέχεια.";
+            var saved=storageHealthy;
+            var message=$"{(attempt.Correct?"Σωστά.":"Λάθος.")} Σωστή απάντηση: {attempt.ExpectedName}. {attempt.Analysis}";
             try{if(storageHealthy)store.Save(history);else message+=" Η αποθήκευση είναι απενεργοποιημένη λόγω προηγούμενου σφάλματος.";}
-            catch(Exception ex){message+=" Η απάντηση δεν αποθηκεύτηκε: "+ex.Message;}
+            catch(Exception ex){saved=false;message+=" Η απάντηση δεν αποθηκεύτηκε: "+ex.Message;}
+            message+=saved&&automaticPractice.Checked&&exam is null?$" Αυτόματη επόμενη άσκηση σε {automaticDelay.Value} δευτερόλεπτα. Esc ακυρώνει.":" Ctrl+N για συνέχεια.";
             UpdateHistory();Tell(exam?.Running==true?"Η απάντηση καταχωρίστηκε. Η αναλυτική βαθμολογία εμφανίζεται στο τέλος. Ctrl+N για επόμενη ερώτηση.":message);
+            if(saved&&session.Current is { } completed)_=QueueAutomaticPractice(completed,true,NewExercise);
         }
         catch(Exception ex){Error(ex.Message);}
     }
@@ -390,7 +399,7 @@ public sealed partial class MainForm : Form
     {
         if (loading || !storageHealthy || auditOnly || uiTestMode) return;
         var preset = presets.SelectedItem as PianoPreset;
-        try { var valid=ReadSettings();Theory.Validate(valid);store.SavePreferences(new(valid, fontPath, preset?.Bank ?? 0, preset?.Program ?? 0, (devices.SelectedItem as OutputDevice)?.Id,cancelSpeech.Checked)); }
+        try { var valid=ReadSettings();Theory.Validate(valid);store.SavePreferences(new(valid, fontPath, preset?.Bank ?? 0, preset?.Program ?? 0, (devices.SelectedItem as OutputDevice)?.Id,cancelSpeech.Checked,automaticPractice.Checked,(int)automaticDelay.Value)); }
         catch(ArgumentException){ /* Preserve the previous valid settings while a range is being edited. */ }
         catch (Exception ex) { Error("Αδυναμία αποθήκευσης ρυθμίσεων: " + ex.Message); }
     }
@@ -406,7 +415,7 @@ public sealed partial class MainForm : Form
     }
     private void Stop()
     {
-        playbackGeneration++; rendering?.Cancel(); audio.Stop(); playing = false; pause.Enabled = false;
+        CancelAutomaticPractice();playbackGeneration++; rendering?.Cancel(); audio.Stop(); playing = false; pause.Enabled = false;
     }
     private void SchedulePreferenceSave(){if(loading||auditOnly||uiTestMode)return;preferenceSave.Stop();preferenceSave.Start();}
     private void ChangePlaybackSettings()

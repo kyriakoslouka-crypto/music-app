@@ -13,7 +13,7 @@ class GateTests(unittest.TestCase):
    f'tests-{VERSION}.json':dict(Version=VERSION,Executed=60,Failed=0,SourceCommit=COMMIT),
    'WINDOWS-CHECKS.json':dict(NativeWindowsBuildSucceeded=True),
    'typed-uia-audit.json':dict(Passed=True,Executed=20,Failed=0),
-   'accessibility-audit.json':dict(UIAutomationPassed=True,KeyboardChecks=list(range(20)),ExamBoundaryRegression=[dict(Rejected=True,HistoryUnchanged=True)for _ in range(6)]),
+   'accessibility-audit.json':dict(UIAutomationPassed=True,AutomaticPracticeRegression=dict(Passed=True,Executed=6),KeyboardChecks=list(range(20)),ExamBoundaryRegression=[dict(Rejected=True,HistoryUnchanged=True)for _ in range(6)]),
    'windows-package-smoke.json':dict(Version=VERSION,InstalledFileCount=505,**dict.fromkeys(['Passed','InstallerProcessPassed','InstalledFilesMatch','InstalledManagedAuditPassed','StandaloneManagedAuditPassed','UninstallPreservesUserFile'],True)),
    'portable-integrity.json':dict(Passed=True,PrivatePianoSamplesBundled=False),
    'windows-piano-check.json':dict(Passed=True,DecodedSamples=794,ReferencePcmSha256Matches=794,CategoriesRendered=28,SourceCommit=COMMIT),

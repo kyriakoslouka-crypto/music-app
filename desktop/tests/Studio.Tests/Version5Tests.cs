@@ -87,6 +87,12 @@ public static class Version5Tests
             Check(LearningAnalytics.ReviewableMistakes([partial]).Length==0);
             Check(Enum.GetValues<Category>().All(c=>!string.IsNullOrWhiteSpace(CategoryLabels.Name(c))));
         });
+        test("0.5: automatic practice preferences persist and remain disabled for legacy settings",()=>{
+            var dir=Path.Combine(Path.GetTempPath(),"studio-auto-pref-"+Guid.NewGuid());
+            try{var store=new ProgressStore(dir);store.SavePreferences(new(new(),AutomaticPractice:true,AutomaticDelaySeconds:25));var loaded=store.LoadPreferences()!;Check(loaded.AutomaticPractice&&loaded.AutomaticDelaySeconds==25);
+                File.WriteAllText(Path.Combine(dir,"settings.json"),"{\"Settings\":{}}");loaded=store.LoadPreferences()!;Check(!loaded.AutomaticPractice&&loaded.AutomaticDelaySeconds==10);
+            }finally{if(Directory.Exists(dir))Directory.Delete(dir,true);}
+        });
         test("0.5: NVDA speech cancellation preference persists and legacy preferences default safely",()=>{
             var dir=Path.Combine(Path.GetTempPath(),"studio-nvda-pref-"+Guid.NewGuid());
             try{
