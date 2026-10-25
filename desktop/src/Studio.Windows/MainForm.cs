@@ -166,7 +166,7 @@ public sealed partial class MainForm : Form
             catch(Exception ex){pref=null;storageHealthy=false;Error("Οι ρυθμίσεις δεν αντικαταστάθηκαν: "+ex.Message);}
             if(pref is not null)
             {
-                var t=pref.Settings;
+                var t=pref.Settings;cancelSpeech.Checked=pref.CancelNvdaSpeech;
                 category.SelectedIndex=(int)t.Category;level.SelectedIndex=(int)t.Level;direction.SelectedIndex=(int)t.Direction;
                 minimum.Value=t.MinNote;maximum.Value=t.MaxNote;root.SelectedIndex=t.RootPitchClass+1??0;
                 tonality.SelectedIndex=t.KeyTonic.HasValue?t.KeyTonic.Value+1+(t.KeyMode==TonalityMode.NaturalMinor?12:0):0;
@@ -387,7 +387,7 @@ public sealed partial class MainForm : Form
     {
         if (loading || !storageHealthy || auditOnly || uiTestMode) return;
         var preset = presets.SelectedItem as PianoPreset;
-        try { var valid=ReadSettings();Theory.Validate(valid);store.SavePreferences(new(valid, fontPath, preset?.Bank ?? 0, preset?.Program ?? 0, (devices.SelectedItem as OutputDevice)?.Id)); }
+        try { var valid=ReadSettings();Theory.Validate(valid);store.SavePreferences(new(valid, fontPath, preset?.Bank ?? 0, preset?.Program ?? 0, (devices.SelectedItem as OutputDevice)?.Id,cancelSpeech.Checked)); }
         catch(ArgumentException){ /* Preserve the previous valid settings while a range is being edited. */ }
         catch (Exception ex) { Error("Αδυναμία αποθήκευσης ρυθμίσεων: " + ex.Message); }
     }

@@ -87,6 +87,15 @@ public static class Version5Tests
             Check(LearningAnalytics.ReviewableMistakes([partial]).Length==0);
             Check(Enum.GetValues<Category>().All(c=>!string.IsNullOrWhiteSpace(CategoryLabels.Name(c))));
         });
+        test("0.5: NVDA speech cancellation preference persists and legacy preferences default safely",()=>{
+            var dir=Path.Combine(Path.GetTempPath(),"studio-nvda-pref-"+Guid.NewGuid());
+            try{
+                var store=new ProgressStore(dir);store.SavePreferences(new(new(),CancelNvdaSpeech:true));Check(store.LoadPreferences()!.CancelNvdaSpeech);
+                store.SavePreferences(new(new(),CancelNvdaSpeech:false));Check(!store.LoadPreferences()!.CancelNvdaSpeech);
+                File.WriteAllText(Path.Combine(dir,"settings.json"),"{\"Settings\":{}}");
+                Check(!store.LoadPreferences()!.CancelNvdaSpeech);Theory.Validate(store.LoadPreferences()!.Settings);
+            }finally{if(Directory.Exists(dir))Directory.Delete(dir,true);}
+        });
         test("0.5: passing rhythm partial scores remain partial in analytics and legacy correct scores migrate",()=>{
             var e=new ExerciseGenerator(1).Next(new());
             var legacy=new Attempt(DateTimeOffset.UtcNow,e.Category,Level.Beginner,e.Id,e.Notes,e.CorrectId,e.CorrectName,e.CorrectId,e.CorrectName,true);
