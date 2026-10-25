@@ -68,6 +68,22 @@ public static class RhythmInputTests
             var fine=NoteCodec.Parse("Ντο5:1/32 Ρε5:1/64",true);Check(fine[0]==new NotatedNote(72,0.5)&&fine[1]==new NotatedNote(74,0.25));
             Check(NoteCodec.Parse(NoteCodec.Format(fine,true),true).SequenceEqual(fine));Reject(()=>NoteCodec.Parse("8/32",true));
         });
+        test("Rhythm input: quarters and eighths and octave-free melody grade across registers",()=>{
+            Check(NoteCodec.Parse("ντορε2/4 μιφα2/8",true).Select(n=>n.Ticks).SequenceEqual(new[]{4.0,4,2,2}));
+            var expected="Ντο5:1/4 Ρε3:1/4 Μι6:1/8 Φα2:1/8";
+            var score=TheoryV3.MelodyScore(expected,60,TonalityMode.Major,"melody",true);
+            var e=new Exercise("octave-free",Category.MelodyDictation,score.Events.Select(n=>n.Midi).ToArray(),"melody",expected,[],Direction.Ascending,score,AnswerKind.Text);
+            Check(TheoryV3.Grade(e,"ντορε2/4 μιφα2/8",new(Category.MelodyDictation)).Correct);
+            Check(!TheoryV3.Grade(e,"ντομι2/4 μιφα2/8",new(Category.MelodyDictation)).Correct);
+            Check(!TheoryV3.Grade(e,"ντορε2/8 μιφα2/8",new(Category.MelodyDictation)).Correct);
+            Check(!TheoryV3.Grade(e,"Ντο4:1/4 Ρε3:1/4 Μι6:1/8 Φα2:1/8",new(Category.MelodyDictation)).Correct);
+            Check(NoteCodec.ResolveAnswer("ντο ρε μι",false,"Ντο5 Ρε3 Μι6").Select(n=>n.Midi).SequenceEqual(new[]{72,50,88}));
+            Check(TheoryV4.Grade(e with{Category=Category.Polyphony2},"ντορε2/4 μιφα2/8",new(Category.Polyphony2)).Correct);
+            Check(!TheoryV4.Grade(e with{Category=Category.Polyphony2},"ντομι2/4 μιφα2/8",new(Category.Polyphony2)).Correct);
+            Check(NoteCodec.ResolveAnswer("ντο# ρεb",false,"Ντο#5 Ρεb3").Select(n=>n.Midi).SequenceEqual(new[]{73,49}));
+            Check(NoteCodec.ResolveAnswer("ντο:1/4 Ρε3:1/8",true,"Ντο5:1/4 Ρε3:1/8").Select(n=>n.Midi).SequenceEqual(new[]{72,50}));
+            Check(TheoryV3.Preview(e,"ντορε2/4 μιφα2/8").Events.Where(n=>n.Voice>=0).Select(n=>n.Midi).SequenceEqual(new[]{72,50,88,41}));
+        });
         var index=Array.IndexOf(args,"--maestro");if(index>=0)test("Rhythm input: actual Maestro renders 32nd/64th dictation and compact melody previews",()=>{
             var renderer=new PianoRenderer(args[index+1]);var score=TheoryV2.RhythmScore("8/32 16/64 2/4","4/4",1,60);
             var e=new Exercise("fine-rhythm-audio",Category.RhythmDictation,score.Events.Select(n=>n.Midi).ToArray(),"dictation","8/32 16/64 2/4",[],Direction.Ascending,score,AnswerKind.Text);

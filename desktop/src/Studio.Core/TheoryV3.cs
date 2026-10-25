@@ -8,10 +8,10 @@ public static class NoteCodec
     public static int ParsePitch(string text)
     {
         if(int.TryParse(text,out var midi)){if(midi is <21 or >108)throw new ArgumentException("Η νότα πρέπει να είναι MIDI 21–108.");return midi;}
-        var match=Regex.Match(text.Trim(),@"^(ντο|σολ|ρε|μι|φα|λα|σι|sol|do|re|mi|fa|la|si|ti|[a-g])([#b♯♭]?)(-?\d+)$",RegexOptions.IgnoreCase);
-        if(!match.Success||!Names.TryGetValue(match.Groups[1].Value,out var pitch))throw new ArgumentException("Νότα όπως 60, Ντο4, C4 ή Ρεb4 απαιτείται.");
+        var match=Regex.Match(RhythmInput.Normalize(text.Trim()),@"^(ντο|σολ|ρε|μι|φα|λα|σι|sol|do|re|mi|fa|la|si|ti|[a-g])([#b♯♭]?)(-?\d+)?$",RegexOptions.IgnoreCase);
+        if(!match.Success||!Names.TryGetValue(match.Groups[1].Value,out var pitch))throw new ArgumentException("Γράψε νότα όπως ντο, ρεb ή C. Η οκτάβα είναι προαιρετική.");
         var alteration=match.Groups[2].Value switch{"#" or "♯"=>1,"b" or "♭"=>-1,_=>0};
-        if(!int.TryParse(match.Groups[3].Value,NumberStyles.Integer,CultureInfo.InvariantCulture,out var octave)||octave is <0 or >8)
+        if(!int.TryParse((match.Groups[3].Success?match.Groups[3].Value:"4"),NumberStyles.Integer,CultureInfo.InvariantCulture,out var octave)||octave is <0 or >8)
             throw new ArgumentException("Η οκτάβα πρέπει να βρίσκεται στην έκταση του πιάνου, 0–8.");
         midi=(octave+1)*12+pitch+alteration;
         if(midi is <21 or >108)throw new ArgumentException("Η νότα είναι εκτός πιάνου.");return midi;
@@ -22,7 +22,7 @@ public static class NoteCodec
         foreach(var token in tokens){
             if(durations&&!token.Contains(':')){
                 var group=RhythmInput.ParseGroup(token);
-                if(group.Rest||group.Pitches.Length==0)throw new ArgumentException("Στη μελωδική απάντηση γράψε και νότες, π.χ. μιφα2/8. Χωρίς οκτάβα χρησιμοποιείται η οκτάβα 4.");
+                if(group.Rest||group.Pitches.Length==0)throw new ArgumentException("Στη μελωδική απάντηση γράψε και νότες, π.χ. μιφα2/8. Δεν χρειάζεται να γράψεις οκτάβα.");
                 for(var i=0;i<group.Count;i++)notes.Add(new(ParsePitch(group.Pitches[group.Pitches.Length==1?0:i]+"4"),group.UnitTicks));
             }else{
                 var parts=token.Split(':');if(parts.Length!=(durations?2:1))throw new ArgumentException("Γράψε νότα:διάρκεια, π.χ. Ντο4:1/4, ή μιφα2/8 χωρίς οκτάβα.");
@@ -31,6 +31,27 @@ public static class NoteCodec
             if(notes.Count>128)throw new ArgumentException("Απαιτούνται έως 128 νότες.");
         }
         return notes.ToArray();
+    }
+    // Omitted octaves are deliberately not assessed. Explicit octaves retain exact grading.
+    public static NotatedNote[] ResolveAnswer(string text,bool durations,string expectedText)
+    {
+        var expected=Parse(expectedText,durations);var result=new List<NotatedNote>();
+        foreach(var token in RhythmInput.Tokens(text)){
+            var pitch=token.Split(':')[0];
+            var explicitOctave=int.TryParse(pitch,out _)||Regex.IsMatch(pitch,@"\d$",RegexOptions.CultureInvariant)&&(!durations||token.Contains(':'));
+            foreach(var note in Parse(token,durations)){
+                var i=result.Count;var resolved=note;
+                if(!explicitOctave&&i<expected.Length){
+                    var target=expected[i].Midi;var delta=((note.Midi-target)%12+18)%12-6;
+                    var midi=target+delta;
+                    if(midi<21)midi+=12;if(midi>108)midi-=12;
+                    resolved=note with{Midi=midi};
+                }
+                result.Add(resolved);
+                if(result.Count>128)throw new ArgumentException("Απαιτούνται έως 128 νότες.");
+            }
+        }
+        return result.ToArray();
     }
     public static string Format(IEnumerable<NotatedNote> notes,bool durations)=>string.Join(' ',notes.Select(n=>n.Midi+(durations?":"+RhythmInput.FormatDuration(n.Ticks):"")));
 
@@ -127,7 +148,7 @@ public static class TheoryV3
         for(var tick=1;tick<4;tick++)notes.Add(new(tonic,tick,0.2,-1,60));
         double beat=4;
         foreach(var n in parsed){notes.Add(new(n.Midi,beat,n.Ticks/4.0*0.85));beat+=n.Ticks/4.0;}
-        var prompt=durations?"Ακούγεται τονική συγχορδία, παύση, έπειτα μελωδία. Γράψε Ντο4:1/4 Ρε4:1/32 ή μιφα2/8. Η σύντομη γραφή χωρίς οκτάβα χρησιμοποιεί οκτάβα 4· για άλλες οκτάβες γράψε π.χ. Ντο5:1/64.":"Ακούγεται τονικό πλαίσιο, έπειτα μελωδία. Γράψε νότες με οκτάβα, π.χ. Ντο4 Ρε4 ή 60 62. Στο σολφέζ μπορείς να τραγουδήσεις και να συγκρίνεις· δεν βαθμολογείται μικρόφωνο ή η φωνή σου. Η γραπτή απάντηση χρησιμοποιεί σταθερό ντο.";
+        var prompt=durations?"Ακούγεται τονική συγχορδία, παύση, έπειτα μελωδία. Γράψε μόνο νότες και αξίες: ντο1/4 ρε1/8 ή μιφα2/8. Δεν χρειάζονται οκτάβες και δεν βαθμολογούνται όταν παραλείπονται. Για δύο χωριστά τέταρτα γράψε ντορε2/4. Προαιρετικά διατηρείται η ρητή γραφή Ντο5:1/4.":"Ακούγεται τονικό πλαίσιο, έπειτα μελωδία. Γράψε νότες χωρίς οκτάβα, π.χ. ντο ρε μι. Χρησιμοποιείται σταθερό ντο. Οι οκτάβες είναι προαιρετικές και ελέγχονται μόνο αν γραφτούν. Μπορείς να τραγουδήσεις και να συγκρίνεις· δεν βαθμολογείται μικρόφωνο ή φωνή.";
         notes.Add(new(tonic,beat,0.2,-1,45));
         return new(notes.ToArray(),beat+0.5,id,tonic,mode,$"Αναφορά: {Theory.NoteName(tonic)}. "+(id=="solfege-atonal"?"Μία νότα αναφοράς αντί τονικής συγχορδίας. ":"")+"Μία μπάρα τεσσάρων παλμών εισάγει τη μελωδία. Το τελικό ασθενές σήμα ορίζει το τέλος της τελευταίας διάρκειας. "+prompt+" Ctrl+Shift+R παίζει τη γραπτή απάντησή σου. Τα πεδία τμήματος ορίζουν ακρόαση μέρους σε χρόνους.",text);
     }
@@ -181,7 +202,7 @@ public static class TheoryV3
         else
         {
             var durations=e.Category==Category.MelodyDictation;
-            actual=NoteCodec.Parse(response,durations).Select(n=>$"{n.Midi}:{n.Ticks}").ToArray();expected=NoteCodec.Parse(expectedText,durations).Select(n=>$"{n.Midi}:{n.Ticks}").ToArray();
+            actual=NoteCodec.ResolveAnswer(response,durations,expectedText).Select(n=>$"{n.Midi}:{n.Ticks}").ToArray();expected=NoteCodec.Parse(expectedText,durations).Select(n=>$"{n.Midi}:{n.Ticks}").ToArray();
         }
         var matched=actual.Zip(expected).Count(p=>p.First==p.Second);var count=Math.Max(actual.Length,expected.Length);var percentage=100.0*matched/count;var correct=actual.SequenceEqual(expected);
         var errors=Enumerable.Range(0,expected.Length).Where(i=>i>=actual.Length||actual[i]!=expected[i]).Select(i=>(i+1).ToString());
@@ -192,7 +213,7 @@ public static class TheoryV3
         if(e.Category>Category.MelodyMemory)return TheoryV4.Preview(e,response,settings);
         if(e.Category==Category.RhythmDictation)return TheoryV2.RhythmScore(response,e.Score!.MeterId,e.Score.Bars,e.Score.Tonic);
         if(e.Category==Category.HarmonicDictation)return HarmonyScore(response,e.Score!.Tonic,e.Score.Mode,settings?.MinNote??21,settings?.MaxNote??108,"preview");
-        return MelodyScore(response,e.Score!.Tonic,e.Score.Mode,e.Score.DefinitionId,e.Category==Category.MelodyDictation);
+        return MelodyScore(NoteCodec.Format(NoteCodec.ResolveAnswer(response,e.Category==Category.MelodyDictation,e.Score!.ExpectedText!),e.Category==Category.MelodyDictation),e.Score.Tonic,e.Score.Mode,e.Score.DefinitionId,e.Category==Category.MelodyDictation);
     }
 }
 public static class ScoreSegments

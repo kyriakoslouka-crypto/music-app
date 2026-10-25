@@ -68,3 +68,5 @@ Linux: `./scripts/cloud-check.sh`, προαιρετικά `--maestro /private/ma
 Το `.github/workflows/windows-delivery.yml` παρέχει πραγματικό workflow Windows build/ελέγχων και upload σε GitHub Actions Artifacts όταν εκτελεστεί στο repository. Προαιρετικά δημιουργεί **draft** Release για έλεγχο από τον ιδιοκτήτη. Το workflow εκτελέστηκε πραγματικά: το αρχικό Windows build απέτυχε και ακολουθεί διαγνωστική επανεκτέλεση. Ο ξεχωριστός κλάδος `codex/pets-delivery` περιέχει τα cloud-built πακέτα στο `downloads/0.5.0`, με επαληθευμένη HTTPS λήψη του εγκαταστάτη. Το GitHub API παρέμεινε αποκλεισμένο, αλλά το native Git επέτρεψε κανονική μεταφορά. Δεν δημοσιεύονται κλειδιά ή private samples.
 
 Τρέχουσα συνέχεια: [CONTINUE-TO-1.0](docs/CONTINUE-TO-1.0.md), [γνωστοί περιορισμοί](docs/KNOWN-LIMITATIONS.md), [πραγματική επαλήθευση](docs/VALIDATION.md).
+
+Η 0.5.4 επεκτείνει την εύκολη γραφή σε μελωδικές απαντήσεις χωρίς υποχρεωτική οκτάβα: `ντορε2/4 μιφα2/8`. Ελέγχονται νότες και αξίες· η οκτάβα ελέγχεται μόνο όταν γραφτεί ρητά. [Οδηγίες γραφής](docs/RHYTHMIC-WRITING.md).

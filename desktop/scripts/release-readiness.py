@@ -36,7 +36,7 @@ def flags(data,names):return all(data.get(n)is True for n in names)
 def records(data,name):return data.get(name,[])if isinstance(data.get(name,[]),list)else[]
 boundaries=records(uia,'ExamBoundaryRegression');announcements=records(nvda,'Checks')
 automated={
- 'CoreTestsPassed':core.get('Version')==version and success(core,69),
+ 'CoreTestsPassed':core.get('Version')==version and success(core,70),
  'NativeWindowsBuildPassed':windows.get('NativeWindowsBuildSucceeded')is True,
  'EvidenceMatchesSourceCommit':bool(commit)and all(r.get('SourceCommit')==commit for r in [core,piano,maestro,nvda,recovery,flow]),
  'WindowsTypedUIAPassed':typed.get('Passed')is True and success(typed,20),
@@ -46,8 +46,8 @@ automated={
  'InstalledAndStandalonePassed':package.get('Version')==version and flags(package,['Passed','InstallerProcessPassed','InstalledFilesMatch','InstalledManagedAuditPassed','StandaloneManagedAuditPassed','UninstallPreservesUserFile'])and package.get('InstalledFileCount',0)>0,
  'PortableIntegrityPassed':portable.get('Passed')is True and portable.get('PrivatePianoSamplesBundled')is False,
  'WindowsPianoFidelityPassed':piano.get('Passed')is True and piano.get('DecodedSamples')==794 and piano.get('ReferencePcmSha256Matches')==794 and piano.get('CategoriesRendered')==28,
- 'WindowsMaestroTestsPassed':maestro.get('Version')==version and success(maestro,77),
- 'RhythmicNotationChecksPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Rhythm input:')and o.get('Passed')is True])>=9,
+ 'WindowsMaestroTestsPassed':maestro.get('Version')==version and success(maestro,78),
+ 'RhythmicNotationChecksPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Rhythm input:')and o.get('Passed')is True])>=10,
  'AudioOutputRecoveryChecksPassed':recovery.get('Version')==version and recovery.get('Passed')is True and success(recovery,8),
  'DeliveredSourceRebuildPassed':source.get('Version')==version and flags(source,['Passed','FrozenRestorePassed','SourceBuildPassed','TypedUiAProjectBuildPassed']),
  'ActualNvdaSpeechPipelinePassed':flags(nvda,['Passed','SignatureValid','ActualNvdaProcessTested','SpeechAnnouncementsPassed'])and len(announcements)==5 and all(c.get('Passed')is True for c in announcements)and {c.get('Name')for c in announcements}=={'Ρυθμίσεις','Εξάσκηση','Πρόοδος','Εξετάσεις και προσαρμογή','Οδηγίες'},

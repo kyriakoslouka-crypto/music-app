@@ -122,7 +122,7 @@ public static class TheoryV4
         var start=compare?18:4;for(var i=0;i<12;i++)notes.Add(new(tonic+target[i],start+i,0.85));
         notes.Add(new(tonic,start+12,0.2,-1,45));
         return new(notes.ToArray(),start+12.5,compare?"row-transform":"twelve-tone",tonic,TonalityMode.Major,
-            compare?"Μετά τους παλμούς ακούγεται η αρχική σειρά και μετά παύση μια μετασχηματισμένη σειρά. Αναγνώρισε P, I, R ή RI. Δεν δίνεται τονική συγχορδία.":$"Δωδεκαφθογγική σειρά. Αναφορά register: {Theory.NoteName(tonic)}. Γράψε τις δώδεκα νότες με οκτάβα, όπως Ντο4 ή 60. Δεν υπάρχει τονικό πλαίσιο.",string.Join(' ',target.Select(n=>(tonic+n).ToString())),Metadata:JsonSerializer.Serialize(recipe));
+            compare?"Μετά τους παλμούς ακούγεται η αρχική σειρά και μετά παύση μια μετασχηματισμένη σειρά. Αναγνώρισε P, I, R ή RI. Δεν δίνεται τονική συγχορδία.":$"Δωδεκαφθογγική σειρά. Αναφορά register: {Theory.NoteName(tonic)}. Γράψε τις δώδεκα νότες χωρίς οκτάβα, όπως ντο ρε μι. Η οκτάβα είναι προαιρετική. Δεν υπάρχει τονικό πλαίσιο.",string.Join(' ',target.Select(n=>(tonic+n).ToString())),Metadata:JsonSerializer.Serialize(recipe));
     }
     public static MusicalScore ChromaticScore(string text,int tonic,TonalityMode mode,int minimum,int maximum,string id)
     {
@@ -202,13 +202,14 @@ public static class TheoryV4
     {
         if(e.Category==Category.ChromaticHarmony)return TheoryV3.Grade(e with{Category=Category.HarmonicDictation},response,settings);
         var durations=e.Category is Category.Polyphony2 or Category.Polyphony3 or Category.Polyphony4 or Category.InnerVoice;
-        var actual=NoteCodec.Parse(response,durations);var expected=NoteCodec.Parse(e.Score!.ExpectedText!,durations);
+        var actual=NoteCodec.ResolveAnswer(response,durations,e.Score!.ExpectedText!);var expected=NoteCodec.Parse(e.Score!.ExpectedText!,durations);
         var matched=actual.Zip(expected).Count(p=>p.First==p.Second);var total=Math.Max(actual.Length,expected.Length);var exact=actual.SequenceEqual(expected);
         return new(exact,100.0*matched/total,exact?"Ακριβής προχωρημένη ακολουθία.":$"Σωστά στοιχεία: {matched} από {total}.",NoteCodec.Format(actual,durations));
     }
     public static MusicalScore Preview(Exercise e,string response,Settings? settings)
     {
         if(e.Category==Category.ChromaticHarmony)return TheoryV3.HarmonyScore(response,e.Score!.Tonic,e.Score.Mode,settings?.MinNote??21,settings?.MaxNote??108,"preview");
-        return TheoryV3.MelodyScore(response,e.Score!.Tonic,e.Score.Mode,"preview",e.Category is Category.Polyphony2 or Category.Polyphony3 or Category.Polyphony4 or Category.InnerVoice);
+        var durations=e.Category is Category.Polyphony2 or Category.Polyphony3 or Category.Polyphony4 or Category.InnerVoice;
+        return TheoryV3.MelodyScore(NoteCodec.Format(NoteCodec.ResolveAnswer(response,durations,e.Score!.ExpectedText!),durations),e.Score.Tonic,e.Score.Mode,"preview",durations);
     }
 }
