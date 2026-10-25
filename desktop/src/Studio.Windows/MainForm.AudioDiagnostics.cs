@@ -27,15 +27,15 @@ public sealed partial class MainForm
             catch(Exception ex)when(ex is IOException or UnauthorizedAccessException){lastAudioFailure="Δεν διαβάστηκε η αποθηκευμένη αναφορά: "+ex.Message;}
         }
         status.ScrollBars=ScrollBars.Vertical;status.Text=lastAudioFailure??"Δεν έχει καταγραφεί σφάλμα εξόδου ήχου. Ctrl+R για ακρόαση της τρέχουσας άσκησης.";
-        tabs.SelectedIndex=1;status.Focus();status.SelectAll();
+        tabs.SelectedIndex=1;status.Focus();status.Select(0,0);status.ScrollToCaret();
     }
     internal object AuditAudioDiagnostic()
     {
         var device=new OutputDevice("audit-device","Συσκευή δοκιμής WASAPI");
         var error=new AudioPlaybackException(device,new System.Runtime.InteropServices.COMException("Initial driver failure",unchecked((int)0x88890004)),new IOException("Compatibility attempt failure"));
         ShowAudioFailure(error);ReadAudioFailure();
-        if(!status.ReadOnly||!status.Focused||status.SelectionLength!=status.TextLength||!status.Text.Contains("0x88890004")||!status.Text.Contains(device.Name)||!status.Text.Contains("Ctrl+R")||playing||heard||submit.Enabled)
+        if(!status.ReadOnly||!status.Focused||(status.SelectionStart!=0||status.SelectionLength!=0)||!status.Text.Contains("0x88890004")||!status.Text.Contains(device.Name)||!status.Text.Contains("Ctrl+R")||playing||heard||submit.Enabled)
             throw new InvalidOperationException("Audio error is not fully keyboard-readable or playback state was not cleared.");
-        return new{Passed=true,Shortcut="F6",ReadOnly=true,SelectedForCopy=true,DeviceAndOriginalErrorPreserved=true,ModalCopyRequired=false,PhysicalAudioTested=false};
+        return new{Passed=true,Shortcut="F6",ReadOnly=true,ReadingStartsAtFirstLine=true,DeviceAndOriginalErrorPreserved=true,ModalCopyRequired=false,PhysicalAudioTested=false};
     }
 }
