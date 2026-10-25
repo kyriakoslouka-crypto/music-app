@@ -1,5 +1,7 @@
 # Professional Ear Training Studio — Windows
 
+**Διορθωτική 0.5.1:** αποκατάσταση της γέφυρας PCM προς NAudio και αναφορά τελευταίου σφάλματος ήχου με F6. [Διάγνωση και δοκιμές](docs/AUDIO-OUTPUT-RECOVERY.md).
+
 Ενεργή σειρά ανάπτυξης native Windows 11 x64: C#/.NET 10 LTS (GUI· Core/Audio net8.0), ελληνικά Windows Forms controls, Maestro Concert Grand και WASAPI/ASIO. Η ακριβής έκδοση βρίσκεται στο `Directory.Build.props`, στον τίτλο της εφαρμογής και στον αντίστοιχο φάκελο παραδοτέων. **Η 1.0.0 δεν θεωρείται ολοκληρωμένη χωρίς πραγματική αποδοχή Windows/NVDA/ήχου.**
 
 ## Πρώτη χρήση, μόνο με πληκτρολόγιο

@@ -68,7 +68,7 @@ internal static class AudioOutputChecks
             var player=new FakePlayer{ThrowOnStop=true,ThrowOnDispose=true};var resource=new Resource();using var output=new AudioOutput((_,_)=>new(player,resource));
             output.Play(pcm,device,_=>{});output.Stop();output.Stop();Check(player.Disposes==1&&resource.Disposals==1,"Cleanup resource leaked or disposed twice");
         });
-        File.WriteAllText(report,JsonSerializer.Serialize(new{Version="0.5.0",SourceCommit=Environment.GetEnvironmentVariable("GITHUB_SHA"),Passed=failed==0,Executed=results.Count,Failed=failed,PhysicalAudioTested=false,SimulatedDriverFailures=true,Checks=results},new JsonSerializerOptions{WriteIndented=true}));
+        File.WriteAllText(report,JsonSerializer.Serialize(new{Version=typeof(AudioOutput).Assembly.GetName().Version!.ToString(3),SourceCommit=Environment.GetEnvironmentVariable("GITHUB_SHA"),Passed=failed==0,Executed=results.Count,Failed=failed,PhysicalAudioTested=false,SimulatedDriverFailures=true,Checks=results},new JsonSerializerOptions{WriteIndented=true}));
         return failed==0?0:1;
     }
 }

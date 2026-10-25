@@ -85,7 +85,9 @@ jobs:
       - name: Require every automated trial-readiness check before delivery
         shell: pwsh
         run: |
-          $readiness=Get-Content desktop/deliverables/releases/0.5.0/READINESS.json -Raw | ConvertFrom-Json
+          [xml]$properties=Get-Content desktop/Directory.Build.props
+          $version=$properties.Project.PropertyGroup.Version
+          $readiness=Get-Content "desktop/deliverables/releases/$version/READINESS.json" -Raw | ConvertFrom-Json
           if(!$readiness.ReadyForWindows11Trial){throw ('Missing mandatory automated evidence: '+($readiness.MissingAutomated -join ', '))}
       - name: Upload downloadable GitHub Actions artifact
         uses: actions/upload-artifact@v4
