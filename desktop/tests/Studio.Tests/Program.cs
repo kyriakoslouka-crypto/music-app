@@ -235,6 +235,7 @@ if (fontIndex >=0 && fontIndex+1<args.Length) {
 Studio.Tests.RhythmInputTests.Register(Test,args);
 Studio.Tests.LevelCurriculumTests.Register(Test,args);
 Studio.Tests.CadenceEvidenceTests.Register(Test,args);
+Studio.Tests.NewStudyTests.Register(Test,args);
 Studio.Tests.FlacIntegrityTests.Register(Test);
 Studio.Tests.Version2Tests.Register(Test,args);
 Studio.Tests.Version3Tests.Register(Test,args);

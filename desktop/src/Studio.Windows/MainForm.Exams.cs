@@ -22,6 +22,7 @@ public sealed partial class MainForm
         void Command(string name,Action action){var button=new Button{Text=name,AutoSize=true};button.Click+=(_,_)=>{try{action();}catch(Exception ex){Error(ex.Message);}};commands.Controls.Add(button);}
         void AsyncCommand(string name,Func<Task> action){var button=new Button{Text=name,AutoSize=true};button.Click+=async(_,_)=>{try{await action();}catch(Exception ex){Error(ex.Message);}};commands.Controls.Add(button);}
         AsyncCommand("Έναρξη εξέτασης",StartExam);AsyncCommand("Συνέχιση αποθηκευμένης",ResumeExam);Command("Παράλειψη τρέχουσας",SkipExamQuestion);Command("Τερματισμός και αναφορά",FinishExam);Command("Επιστροφή σε εξάσκηση",ExitExam);
+        Command("Παρτιτούρες ολοκληρωμένης εξέτασης",()=>{if(examHistory.SelectedItem is not SavedExam saved)throw new InvalidOperationException("Επίλεξε ολοκληρωμένη εξέταση.");ViewCompletedScore(saved.State);});
         table.Controls.Add(commands);table.Controls.Add(examReport);table.Controls.Add(examHistory);table.Controls.Add(wrongHistory);
         var learning=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};
         var adaptive=new Button{Text="Προσαρμοσμένη εξάσκηση αδυναμίας",AutoSize=true};adaptive.Click+=async(_,_)=>{try{await AdaptivePractice();}catch(Exception ex){Error(ex.Message);}};
@@ -30,7 +31,7 @@ public sealed partial class MainForm
         page.Controls.Add(table);tabs.TabPages.Add(page);
         examProfile.Items.AddRange(ExamCatalog.Profiles.Cast<object>().ToArray());examProfile.SelectedIndex=0;
         examProfile.SelectedIndexChanged+=(_,_)=>DescribeExam();DescribeExam();
-        examHistory.SelectedIndexChanged+=(_,_)=>{if(examHistory.SelectedItem is SavedExam item)examReport.Text=ExamEngine.Restore(item.State).Report(true);};
+        examHistory.SelectedIndexChanged+=(_,_)=>{if(examHistory.SelectedItem is SavedExam item&&(exam is null||exam.State.Finished is not null))examReport.Text=ExamEngine.Restore(item.State).Report(true);};
         examTimer.Tick+=(_,_)=>{if(exam?.Expired==true){Stop();exam.Finish("time-limit");SaveExam();SetExamLocks(false);UpdateExamStatus();Tell("Το χρονικό όριο έληξε. Η εξέταση αποθηκεύτηκε με τις αναπάντητες ερωτήσεις στο μηδέν.");}};
         examTimer.Start();
     }
@@ -52,7 +53,7 @@ public sealed partial class MainForm
     {
         if(exam is null)return;
         if(piano is null)throw new InvalidOperationException("Εγκατάστησε ή φόρτωσε πρώτα πιάνο.");
-        if(!exam.Running){UpdateExamStatus();tabs.SelectedIndex=3;return;}
+        if(!exam.Running){UpdateExamStatus();tabs.SelectedIndex=ExamTab;return;}
         await PresentExercise(exam.Current.Exercise,exam.Current.Settings);
         answered=exam.CurrentAnswered;submit.Enabled=false;replay.Enabled=!answered;
         if(answered)Tell("Η αποθηκευμένη ερώτηση έχει απαντηθεί. Ctrl+N για επόμενη.");
@@ -72,25 +73,25 @@ public sealed partial class MainForm
     private void FinishExam()
     {
         Stop();if(exam is null){var saved=examStore.LoadCurrent()??throw new InvalidOperationException("Δεν υπάρχει εξέταση.");exam=ExamEngine.Restore(saved);}
-        exam.Finish();SaveExam();SetExamLocks(false);UpdateHistory();UpdateExamStatus();RefreshExamHistory();tabs.SelectedIndex=3;examReport.Focus();
+        exam.Finish();SaveExam();SetExamLocks(false);UpdateHistory();UpdateExamStatus();RefreshExamHistory();tabs.SelectedIndex=ExamTab;examReport.Focus();
     }
     private void ExitExam()
     {
         if(exam?.State.Finished is null&&exam is not null)throw new InvalidOperationException("Τερμάτισε πρώτα την εξέταση ώστε να μη χαθεί η πρόοδος.");
-        Stop();exam=null;SetExamLocks(false);session.Clear();playbackCache.Clear();answered=false;heard=false;tabs.SelectedIndex=0;setup.Focus();
+        Stop();exam=null;SetExamLocks(false);session.Clear();playbackCache.Clear();answered=false;heard=false;UpdateScoreAccess();tabs.SelectedIndex=0;setup.Focus();
     }
     private void SetExamLocks(bool active)
     {
-        foreach(var c in new Control[]{category,level,direction,root,tonality,minimum,maximum,meter,bars,tempo,repeats,velocity,pedal,segmentStart,segmentEnd,soloVoice,automaticPractice,automaticDelay})c.Enabled=!active;
-        previewAnswer.Enabled=!active;
+        foreach(var c in new Control[]{category,level,direction,root,tonality,minimum,maximum,meter,bars,tempo,repeats,velocity,pedal,segmentStart,segmentEnd,soloVoice,automaticPractice,automaticDelay,surpriseCategories,surpriseLevel,surpriseCount,surpriseMinutes,surprisePlays,coachPractice})c.Enabled=!active;
+        previewAnswer.Enabled=!active;examHistory.Enabled=wrongHistory.Enabled=surpriseHistory.Enabled=!active;
     }
     private void SaveExam(){if(exam is null||auditOnly||uiTestMode)return;try{examStore.Save(exam.State);}catch(Exception ex){Error("Η εξέταση δεν αποθηκεύτηκε: "+ex.Message);}}
-    private void UpdateExamStatus(){if(exam is not null)examReport.Text=exam.Report(exam.State.Finished is not null);}
+    private void UpdateExamStatus(){UpdateScoreAccess();if(exam is not null){examReport.Text=exam.Report(exam.State.Finished is not null);surpriseReport.Text=examReport.Text;}}
     private void RefreshExamHistory()
     {
         if(auditOnly||uiTestMode)return;
         try{
-            examHistory.Items.Clear();examHistory.Items.AddRange(examStore.History().Select(s=>(object)new SavedExam(s)).ToArray());
+            var completed=examStore.History();examHistory.Items.Clear();examHistory.Items.AddRange(completed.Select(s=>(object)new SavedExam(s)).ToArray());surpriseHistory.Items.Clear();surpriseHistory.Items.AddRange(completed.Where(s=>s.Profile.Id.StartsWith("surprise-",StringComparison.Ordinal)).Select(s=>(object)new SavedExam(s)).ToArray());
             wrongHistory.Items.Clear();wrongHistory.Items.AddRange(LearningAnalytics.ReviewableMistakes(history).Take(200).Select(a=>(object)new WrongItem(a)).ToArray());
             if(exam is null){var lines=LearningAnalytics.Weaknesses(history).Select(p=>$"{CategoryName(p.Category)}: {p.Percentage:F1}% σε {p.Attempts} πρόσφατες προσπάθειες.");examReport.Text="Ανάλυση αδυναμιών (έως 100 τελευταίες προσπάθειες ανά κατηγορία):\r\n"+string.Join("\r\n",lines);}
         }catch(Exception ex){Error("Δεν διαβάστηκε το ιστορικό εξετάσεων: "+ex.Message);}
@@ -103,10 +104,12 @@ public sealed partial class MainForm
     }
     private async Task AdaptivePractice()
     {
+        if(exam is not null&&exam.State.Finished is null)throw new InvalidOperationException("Ολοκλήρωσε πρώτα την εξέταση.");
         ExitExam();var recommendation=LearningAnalytics.FreshAdaptive(history,ReadSettings(),Random.Shared.Next());ApplyTrainingSettings(recommendation.Settings);await PresentExercise(recommendation.Exercise,recommendation.Settings);
     }
     private async Task ReviewMistake()
     {
+        if(exam is not null&&exam.State.Finished is null)throw new InvalidOperationException("Ολοκλήρωσε πρώτα την εξέταση.");
         if(wrongHistory.SelectedItem is not WrongItem item)throw new InvalidOperationException("Επίλεξε λάθος από τη λίστα. Παλιά δεδομένα χωρίς snapshot δεν επαναλαμβάνονται ακριβώς.");
         var original=item.Attempt;ExitExam();var settings=(original.Configuration??new(Category:original.Category,Level:original.Level))with{Repetitions=1,SegmentStart=0,SegmentEnd=null,SoloVoice=-1};
         ApplyTrainingSettings(settings);await PresentExercise(original.Snapshot!with{Id=Guid.NewGuid().ToString("N")},settings);

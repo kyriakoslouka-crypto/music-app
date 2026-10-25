@@ -36,24 +36,26 @@ def flags(data,names):return all(data.get(n)is True for n in names)
 def records(data,name):return data.get(name,[])if isinstance(data.get(name,[]),list)else[]
 boundaries=records(uia,'ExamBoundaryRegression');announcements=records(nvda,'Checks')
 automated={
- 'CoreTestsPassed':core.get('Version')==version and success(core,87),
+ 'CoreTestsPassed':core.get('Version')==version and success(core,96),
  'NativeWindowsBuildPassed':windows.get('NativeWindowsBuildSucceeded')is True,
  'EvidenceMatchesSourceCommit':bool(commit)and all(r.get('SourceCommit')==commit for r in [core,piano,maestro,nvda,recovery,flow]),
- 'WindowsTypedUIAPassed':typed.get('Passed')is True and success(typed,20),
- 'WindowsKeyboardAndExamBoundariesPassed':uia.get('UIAutomationPassed')is True and len(records(uia,'KeyboardChecks'))>=20 and len(boundaries)==6 and all(b.get('Rejected')is True and b.get('HistoryUnchanged')is True for b in boundaries),
+ 'WindowsTypedUIAPassed':typed.get('Passed')is True and success(typed,22),
+ 'WindowsKeyboardAndExamBoundariesPassed':uia.get('UIAutomationPassed')is True and len(records(uia,'KeyboardChecks'))>=23 and len(boundaries)==6 and all(b.get('Rejected')is True and b.get('HistoryUnchanged')is True for b in boundaries),
  'AutomaticPracticeSafetyPassed':isinstance(uia.get('AutomaticPracticeRegression'),dict)and uia['AutomaticPracticeRegression'].get('Passed')is True and uia['AutomaticPracticeRegression'].get('Executed',0)>=6,
  'AutomaticPracticeEndToEndPassed':flow.get('Version')==version and flow.get('Passed')is True and flow.get('AutomaticExamples')==2 and flow.get('NonzeroMaestroExamples')==2 and flow.get('ManualReplayCalls')==0 and flow.get('RealDelayCancellationPassed')is True,
  'InstalledAndStandalonePassed':package.get('Version')==version and flags(package,['Passed','InstallerProcessPassed','InstalledFilesMatch','InstalledManagedAuditPassed','StandaloneManagedAuditPassed','UninstallPreservesUserFile'])and package.get('InstalledFileCount',0)>0,
  'PortableIntegrityPassed':portable.get('Passed')is True and portable.get('PrivatePianoSamplesBundled')is False,
  'WindowsPianoFidelityPassed':piano.get('Passed')is True and piano.get('DecodedSamples')==794 and piano.get('ReferencePcmSha256Matches')==794 and piano.get('CategoriesRendered')==28,
- 'WindowsMaestroTestsPassed':maestro.get('Version')==version and success(maestro,97),
+ 'WindowsMaestroTestsPassed':maestro.get('Version')==version and success(maestro,107),
  'DifficultyCurriculumChecksPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Difficulty:')and o.get('Passed')is True])>=9,
  'IndependentCadenceEvidencePassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Cadence evidence:')and o.get('Passed')is True])>=7,
+ 'NotationCoachSurpriseTestsPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Study features:')and o.get('Passed')is True])>=10,
+ 'NotationAndSurpriseUiPassed':isinstance(uia.get('NewStudyFeatures'),dict)and flags(uia['NewStudyFeatures'],['Passed','PrivacyChecksPassed'])and uia['NewStudyFeatures'].get('TabCount')==6 and uia['NewStudyFeatures'].get('MusicFont')=='Bravura',
  'CadenceContextChecksPassed':any(o.get('Name')=='Cadences: no authentic context before plagal and independent final-chord classification'and o.get('Passed')is True for o in records(maestro,'Outcomes')),
  'RhythmicNotationChecksPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Rhythm input:')and o.get('Passed')is True])>=12,
  'AudioOutputRecoveryChecksPassed':recovery.get('Version')==version and recovery.get('Passed')is True and success(recovery,8),
  'DeliveredSourceRebuildPassed':source.get('Version')==version and flags(source,['Passed','FrozenRestorePassed','SourceBuildPassed','TypedUiAProjectBuildPassed']),
- 'ActualNvdaSpeechPipelinePassed':flags(nvda,['Passed','SignatureValid','ActualNvdaProcessTested','SpeechAnnouncementsPassed'])and len(announcements)==5 and all(c.get('Passed')is True for c in announcements)and {c.get('Name')for c in announcements}=={'Ρυθμίσεις','Εξάσκηση','Πρόοδος','Εξετάσεις και προσαρμογή','Οδηγίες'},
+ 'ActualNvdaSpeechPipelinePassed':flags(nvda,['Passed','SignatureValid','ActualNvdaProcessTested','SpeechAnnouncementsPassed'])and len(announcements)==6 and all(c.get('Passed')is True for c in announcements)and {c.get('Name')for c in announcements}=={'Ρυθμίσεις','Εξάσκηση','Πρόοδος','Εξετάσεις και προσαρμογή','Οδηγίες','Απρόοπτα διαγωνίσματα'},
 }
 manualCurrent=bool(commit)and manual.get('Version')==version and manual.get('SourceCommit')==commit
 checks={
