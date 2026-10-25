@@ -65,5 +65,6 @@ startupNotification = False
     if($started -and $nvda -and (Test-Path $nvda)){
         try{[void](Run-Bounded $nvda @('--quit') 10000)}catch{$result.ShutdownError=$_.Exception.Message}
     }
+    if(!$result.Passed){Write-Output ('::error::NVDA failure: '+($result.Error -replace '[\r\n]+',' '))}
     $result | ConvertTo-Json -Depth 12 | Set-Content (Join-Path $Artifacts 'nvda-smoke.json') -Encoding utf8
 }

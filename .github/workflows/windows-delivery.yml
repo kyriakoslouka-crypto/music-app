@@ -2,7 +2,7 @@ name: Windows build and downloadable delivery
 on:
   push:
     branches: ['codex/pets-delivery']
-    paths: ['desktop/**', '.github/workflows/**']
+    paths: ['desktop/**', '.github/workflows/**', '!.github/workflows/nvda-diagnostics.yml']
   workflow_dispatch:
     inputs:
       create_draft_release:

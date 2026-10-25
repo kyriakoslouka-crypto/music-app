@@ -20,7 +20,7 @@ jobs:
         run: |
           set -euo pipefail
           exec > >(tee "$RUNNER_TEMP/recovery.txt") 2>&1
-          trap 'printf "### Recovery diagnostic tail\n\n\x60\x60\x60text\n" >> "$GITHUB_STEP_SUMMARY"; tail -n 70 "$RUNNER_TEMP/recovery.txt" >> "$GITHUB_STEP_SUMMARY"; printf "\n\x60\x60\x60\n" >> "$GITHUB_STEP_SUMMARY"' EXIT
+          trap 'sleep 1; tail -n 12 "$RUNNER_TEMP/recovery.txt" | while IFS= read -r line; do printf "::error::Recovery detail: %s\n" "$line"; done; if test -f downloads/windows-checks/40168113884/nvda-smoke.json; then jq -c "{Error,ActualNvdaProcessTested,SignatureValid,NvdaErrorTail}" downloads/windows-checks/40168113884/nvda-smoke.json | while IFS= read -r line; do printf "::error::NVDA evidence: %s\n" "$line"; done; fi' EXIT
           target=downloads/windows-checks/40168113884
           mkdir -p "$target" "$RUNNER_TEMP/nvda-diagnostics"
           gh run download 40168113884 --name Windows-check-diagnostics --dir "$RUNNER_TEMP/nvda-diagnostics"
