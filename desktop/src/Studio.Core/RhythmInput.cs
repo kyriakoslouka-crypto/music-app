@@ -15,7 +15,13 @@ public static class RhythmInput
     public static string[] Tokens(string text)
     {
         if(string.IsNullOrWhiteSpace(text)||text.Length>16384)throw new ArgumentException("Γράψε ρυθμικές αξίες, π.χ. 2/4 8/32 16/64.");
-        var tokens=text.Replace(',',' ').Replace(';',' ').Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries);
+        var normalized=Normalize(text).Replace('⁄','/').Replace('∕','/').Replace("¼","1/4",StringComparison.Ordinal).Replace("⅛","1/8",StringComparison.Ordinal);
+        const string pitches=@"(?:ντο|σολ|ρε|μι|φα|λα|σι)[#b♯♭]?";
+        normalized=Regex.Replace(normalized,@"(?<=\d)\s*[/\\]\s*(?=\d)","/",RegexOptions.CultureInvariant,TimeSpan.FromSeconds(1));
+        normalized=Regex.Replace(normalized,@"\s*([:+])\s*","$1",RegexOptions.CultureInvariant,TimeSpan.FromSeconds(1));
+        normalized=Regex.Replace(normalized,"(?:"+pitches+@"\s*)+(?=\d{1,3}/)",m=>string.Concat(m.Value.Where(c=>!char.IsWhiteSpace(c))),RegexOptions.CultureInvariant,TimeSpan.FromSeconds(1));
+        normalized=Regex.Replace(normalized,@"(?<=[0-9.])(?=(?:ντο|σολ|ρε|μι|φα|λα|σι|παυση|π|r))"," ",RegexOptions.CultureInvariant,TimeSpan.FromSeconds(1));
+        var tokens=normalized.Replace(',',' ').Replace(';',' ').Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries);
         if(tokens.Length is <1 or >2048)throw new ArgumentException("Γράψε από 1 έως 2048 ομάδες αξιών.");
         return tokens;
     }
@@ -38,7 +44,7 @@ public static class RhythmInput
         if(normalized.StartsWith("παυση",StringComparison.Ordinal)){rest=true;normalized=normalized[5..];}
         else if(normalized.StartsWith('r')||normalized.StartsWith('π')){rest=true;normalized=normalized[1..];}
         var match=Group.Match(normalized);
-        if(!match.Success)throw new ArgumentException("Γράψε αξίες όπως 2/4, μιφα2/8, φασολλασι4/16, 8/32, 16/64. Παύση: π1/8.");
+        if(!match.Success)throw new ArgumentException($"Δεν αναγνωρίστηκε η γραφή «{token[..Math.Min(token.Length,80)]}». Γράψε π.χ. ντο1/4, ρε1/8, μι1/16, φα1/32, σολ1/64. Παύση: π1/8.");
         var names=Regex.Matches(match.Groups["pitches"].Value,@"(?:ντο|σολ|ρε|μι|φα|λα|σι)[#b♯♭]?").Select(m=>m.Value).ToArray();
         if(rest&&names.Length!=0)throw new ArgumentException("Η παύση γράφεται χωρίς όνομα νότας, π.χ. π1/8.");
         var value=match.Groups["value"].Value;
@@ -46,7 +52,9 @@ public static class RhythmInput
             if(names.Length>1)throw new ArgumentException("Η σύζευξη + ενώνει αξίες μίας νότας. Γράψε τις υπόλοιπες νότες χωριστά.");
             return new(names,1,SingleDuration(value),rest);
         }
-        var (count,unit)=FractionValue(value);
+        (int count,double unit) parsed;
+        try{parsed=FractionValue(value);}catch(ArgumentException error){throw new ArgumentException($"Στη γραφή «{token[..Math.Min(token.Length,80)]}»: {error.Message}",error);}
+        var (count,unit)=parsed;
         if(names.Length>1&&names.Length!=count)throw new ArgumentException($"Δόθηκαν {names.Length} ονόματα για {count} αξίες. Το πλήθος πρέπει να συμφωνεί.");
         return new(names,count,unit,rest);
     }

@@ -117,6 +117,20 @@ public static class RhythmInputTests
                 Check(scheduled.Where(n=>n.Action==MidiAction.NoteOn&&n.Frame>2*44100&&n.Frame<4*44100).Count()==0);
             }
         });
+        test("Rhythm input: natural spaces and adjacent note values accept all five subdivisions",()=>{
+            foreach(var d in new[]{4,8,16,32,64}){
+                var simple=$"ντο1/{d} ρε1/{d}";var expected=NoteCodec.Parse(simple,true);
+                foreach(var input in new[]{$"ντο 1/{d} ρε 1/{d}",$"ντο1 / {d}ρε1 / {d}",$"ντο1\\{d}ρε1⁄{d}"})
+                    Check(NoteCodec.Parse(input,true).SequenceEqual(expected),input);
+                var rhythm=string.Join(' ',Enumerable.Repeat($"ντο 1 / {d}",d));
+                Check(RhythmCodec.Canonical(RhythmCodec.Parse(rhythm,meter,1))==RhythmCodec.Canonical(RhythmCodec.Parse($"{d}/{d}",meter,1)));
+            }
+            Check(NoteCodec.Parse("ντο ρε 2 / 4 μι φα 2 / 8",true).Select(n=>n.Midi).SequenceEqual(new[]{60,62,64,65}));
+            Check(NoteCodec.Parse("ντο¼ρε⅛",true).Select(n=>n.Ticks).SequenceEqual(new[]{4.0,2}));
+            Check(NoteCodec.Parse("Ντο5 : 1 / 4 Ρε3 : 1 / 8",true).Select(n=>n.Midi).SequenceEqual(new[]{72,50}));
+            Check(NoteCodec.Parse("ντο ρε μι",false).Length==3);
+            try{RhythmInput.ParseGroup("ντο1/128");throw new Exception("Invalid value accepted");}catch(ArgumentException e){Check(e.Message.Contains("ντο1/128",StringComparison.Ordinal));}
+        });
         var index=Array.IndexOf(args,"--maestro");if(index>=0)test("Rhythm input: actual Maestro renders 32nd/64th dictation and compact melody previews",()=>{
             var renderer=new PianoRenderer(args[index+1]);var score=TheoryV2.RhythmScore("8/32 16/64 2/4","4/4",1,60);
             var e=new Exercise("fine-rhythm-audio",Category.RhythmDictation,score.Events.Select(n=>n.Midi).ToArray(),"dictation","8/32 16/64 2/4",[],Direction.Ascending,score,AnswerKind.Text);
