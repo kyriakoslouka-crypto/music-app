@@ -27,9 +27,12 @@ public static class PetsInputWindow {
  [StructLayout(LayoutKind.Sequential)] struct Keyboard { public ushort Vk,Scan; public uint Flags,Time; public UIntPtr Extra; }
  [StructLayout(LayoutKind.Sequential)] struct Mouse { public int X,Y; public uint Data,Flags,Time; public UIntPtr Extra; }
  [DllImport("user32.dll",SetLastError=true)] static extern uint SendInput(uint count,Input[] inputs,int size);
- public static void Key(ushort vk,bool shift=false) {
+ [DllImport("user32.dll")] static extern uint MapVirtualKey(uint code,uint mapType);
+ static Keyboard NativeKey(ushort key,bool up)=>new Keyboard {Vk=key,Scan=(ushort)MapVirtualKey(key,0),Flags=(up?2u:0u)|((key>=0x21&&key<=0x28||key==0x2D||key==0x2E)?1u:0u)};
+ public static void Key(ushort vk){Key(vk,false);}
+ public static void Key(ushort vk,bool shift) {
   var inputs=new System.Collections.Generic.List<Input>();
-  Action<ushort,bool> add=(key,up)=>inputs.Add(new Input {Type=1,Data=new Payload {Key=new Keyboard {Vk=key,Flags=up?2u:0u}}});
+  Action<ushort,bool> add=(key,up)=>inputs.Add(new Input {Type=1,Data=new Payload {Key=NativeKey(key,up)}});
   if(shift)add(0x10,false);add(vk,false);add(vk,true);if(shift)add(0x10,true);
   var batch=inputs.ToArray();if(SendInput((uint)batch.Length,batch,Marshal.SizeOf<Input>())!=batch.Length)
    throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
@@ -38,7 +41,7 @@ public static class PetsInputWindow {
   // Submit the complete chord, including modifier releases, in one native input batch.
   // WScript.SendKeys can return before modifier transitions are delivered on a busy CI desktop.
   var inputs=new System.Collections.Generic.List<Input>();
-  Action<ushort,bool> add=(vk,up)=>inputs.Add(new Input {Type=1,Data=new Payload {Key=new Keyboard {Vk=vk,Flags=up?2u:0u}}});
+  Action<ushort,bool> add=(vk,up)=>inputs.Add(new Input {Type=1,Data=new Payload {Key=NativeKey(vk,up)}});
   add(0x11,false);if(shift)add(0x10,false);add(0x09,false);add(0x09,true);if(shift)add(0x10,true);add(0x11,true);
   var batch=inputs.ToArray();if(SendInput((uint)batch.Length,batch,Marshal.SizeOf<Input>())!=batch.Length)
    throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
