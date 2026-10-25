@@ -19,17 +19,17 @@ public static class NewStudyTests
         test("Study features: written rhythm values, rests, dots and 32nd/64th durations are exact",()=>{
             var score=TheoryV2.RhythmScore("π1/4 1/8. 1/16 1/2","4/4",1,60);
             var e=new Exercise("notation-rhythm",Category.RhythmDictation,score.Events.Select(n=>n.Midi).ToArray(),"dictation","ρυθμός",[],Direction.Ascending,score,AnswerKind.Text);
-            var n=ScoreNotation.Build(e);Check(n.Symbols.Sum(n=>n.Duration)==4&&n.Symbols[0].Midi is null&&n.Symbols[1].Denominator==8&&n.Symbols[1].Dots==1);
+            var n=ScoreNotation.Build(e);Check(n.Symbols.Where(n=>n.Staff==0).Sum(n=>n.Duration)==4&&n.Symbols.First(n=>n.Staff==0).Midi is null&&n.Symbols.Any(n=>n.Staff==0&&n.Denominator==8&&n.Dots==1));
             var melody=TheoryV3.MelodyScore("Ντο4:1/4 Ρε4:1/8 Μι4:1/16 Φα4:1/32 Σολ4:1/64",60,TonalityMode.Major,"melody",true);
             n=ScoreNotation.Build(e with{Category=Category.MelodyDictation,Score=melody,Notes=melody.Events.Select(n=>n.Midi).ToArray(),CorrectId="melody"});
-            Check(n.Symbols.Select(n=>n.Denominator).SequenceEqual(new[]{4,8,16,32,64}));Check(n.Symbols.Select(n=>n.Midi).SequenceEqual(new int?[]{60,62,64,65,67}));
+            Check(n.Symbols.Where(n=>n.Midi.HasValue).Select(n=>n.Denominator).SequenceEqual(new[]{4,8,16,32,64}));Check(n.Symbols.Where(n=>n.Midi.HasValue).Select(n=>n.Midi).SequenceEqual(new int?[]{60,62,64,65,67}));
         });
         test("Study features: sustained notes split across bars with ties instead of repeated attacks",()=>{
             var score=TheoryV2.RhythmScore("1/1 | 1/1","4/4",2,60);var e=new Exercise("ties",Category.RhythmDictation,score.Events.Select(n=>n.Midi).ToArray(),"dictation","ρυθμός",[],Direction.Ascending,score,AnswerKind.Text);
-            var n=ScoreNotation.Build(e);Check(n.Symbols.Length==2&&n.Symbols.All(n=>!n.TieTo&&!n.TieFrom));
+            var n=ScoreNotation.Build(e);Check(n.Symbols.Count(n=>n.Midi.HasValue)==2&&n.Symbols.All(n=>!n.TieTo&&!n.TieFrom));
             var melody=TheoryV3.MelodyScore("Ντο4:1/1+1/1",60,TonalityMode.Major,"melody",true);
             n=ScoreNotation.Build(e with{Category=Category.MelodyDictation,Score=melody,Notes=melody.Events.Select(n=>n.Midi).ToArray(),CorrectId="melody"});
-            Check(n.Symbols.Length==2&&n.Symbols[0].TieTo&&n.Symbols[1].TieFrom&&n.Symbols.Sum(n=>n.Duration)==8);
+            var notes=n.Symbols.Where(n=>n.Midi.HasValue).ToArray();Check(notes.Length==2&&notes[0].TieTo&&notes[1].TieFrom&&notes.Sum(n=>n.Duration)==8);
         });
         test("Study features: notation privacy blocks unanswered, active and expired-but-unfinished exams",()=>{
             var now=DateTimeOffset.UtcNow;var engine=ExamEngine.Create(ExamCatalog.Profiles[0] with{QuestionCount=1},581,1,()=>now);
@@ -67,7 +67,7 @@ public static class NewStudyTests
         test("Study features: notation covers all 88 keys and polyphonic voices retain their exact pitches",()=>{
             for(var midi=21;midi<=108;midi++){
                 var e=new Exercise("key",Category.Notes,[midi],"note:"+midi,Theory.NoteName(midi),[new("note:"+midi,Theory.NoteName(midi))],Direction.Ascending);
-                Check(ScoreNotation.Build(e).Symbols.Single().Midi==midi);
+                Check(ScoreNotation.Build(e).Symbols.Single(n=>n.Midi.HasValue).Midi==midi);
             }
             var poly=new ExerciseGenerator(587).Next(new(Category.Polyphony4,Level.Professional,MinNote:21,MaxNote:108));var n=ScoreNotation.Build(poly);Check(n.Staves==4&&n.Symbols.Select(s=>s.Staff).Distinct().Count()==4);
         });

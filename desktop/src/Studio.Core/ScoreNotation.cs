@@ -49,7 +49,22 @@ public static class ScoreNotation
                 first=false;beat+=value.Beats;
             }
         }
-        var description=CategoryLabels.Name(e.Category)+". Ζητούμενο μουσικό μέρος χωρίς εισαγωγή. "+(numerator>0?$"Μέτρο {numerator}/{denominator}. ":"Χωρίς υποχρεωτική ένδειξη μέτρου. ")+string.Join("; ",symbols.Select(n=>$"χρόνος {n.Beat.ToString("0.###",CultureInfo.InvariantCulture)}, φωνή {n.Voice+1}: {(n.Midi.HasValue?Theory.NoteName(n.Midi.Value):"παύση")} αξία 1/{n.Denominator}{(n.Dots>0?" παρεστιγμένη":"")}{(n.TieTo?" με σύζευξη":"")}{(n.Accent?" τονισμένο":"")}"));
+        // Fill silent spans so each printed staff has complete written durations.
+        for(var staff=0;staff<staves;staff++){
+            var covered=symbols.Where(n=>n.Staff==staff).OrderBy(n=>n.Beat).ToArray();double cursor=0;
+            void Rest(double from,double to){
+                var beat=from;var remaining=Math.Round((to-from)*16)/16;
+                while(remaining>0.000001){
+                    var room=double.IsPositiveInfinity(measure)?remaining:measure-beat%measure;if(room<0.000001)room=measure;
+                    var value=values.First(v=>v.Beats<=Math.Min(remaining,room)+0.000001);
+                    symbols.Add(new(null,beat,value.Beats,staff,staff,value.Denom,value.Dots,false,false));remaining-=value.Beats;beat+=value.Beats;
+                }
+            }
+            foreach(var n in covered){if(n.Beat>cursor+0.000001)Rest(cursor,n.Beat);cursor=Math.Max(cursor,n.Beat+n.Duration);}
+            if(cursor<length-0.000001)Rest(cursor,length);
+        }
+        symbols=symbols.OrderBy(n=>n.Beat).ThenBy(n=>n.Staff).ThenBy(n=>n.Midi).ToList();
+        var description=CategoryLabels.Name(e.Category)+". Ζητούμενο μουσικό μέρος χωρίς εισαγωγή. "+(numerator>0?$"Μέτρο {numerator}/{denominator}. ":"Χωρίς υποχρεωτική ένδειξη μέτρου. ")+string.Join("; ",symbols.Select(n=>$"χρόνος {n.Beat.ToString("0.###",CultureInfo.InvariantCulture)}, πεντάγραμμο {n.Staff+1}, φωνή {n.Voice+1}: {(n.Midi.HasValue?Theory.NoteName(n.Midi.Value):"παύση")} αξία 1/{n.Denominator}{(n.Dots>0?" παρεστιγμένη":"")}{(n.TieTo?" με σύζευξη":"")}{(n.Accent?" τονισμένο":"")}"));
         return new(CategoryLabels.Name(e.Category),symbols.ToArray(),staves,numerator,denominator,length,description,isPoly);
     }
 }
