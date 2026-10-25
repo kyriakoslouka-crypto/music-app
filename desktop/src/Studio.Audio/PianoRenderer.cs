@@ -44,7 +44,7 @@ public static class Schedule
         var count=Math.Max(1,settings.Repetitions);
         var totalSeconds=(0.4+count*(score.LengthBeats+1.5))*secondsPerBeat;
         if(totalSeconds>160)throw new ArgumentException("Το παράδειγμα με αυτές τις επαναλήψεις υπερβαίνει τα 160 δευτερόλεπτα. Μείωσε επαναλήψεις/μέτρα ή αύξησε BPM.");
-        var usePedal=settings.Pedal&&original.DefinitionId is not ("dictation" or "quarters" or "halves" or "eighths" or "mixed" or "dotted" or "syncopation" or "rests" or "sixteenths")&&!TheoryV2.Meters.Any(m=>m.Id==original.DefinitionId);
+        var usePedal=settings.Pedal&&original.DefinitionId!="dictation"&&!TheoryV2.Rhythms.Any(r=>r.Id==original.DefinitionId)&&!TheoryV2.Meters.Any(m=>m.Id==original.DefinitionId);
         for(var repetition=0;repetition<count;repetition++)
         {
             var offset=0.4+repetition*(score.LengthBeats+1.5);

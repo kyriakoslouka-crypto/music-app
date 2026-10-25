@@ -8,26 +8,37 @@ public sealed record MeterDefinition(string Id,string Name,int Numerator,int Den
     public int Ticks=>Numerator*16/Denominator;
     public override string ToString()=>Name;
 }
-public sealed record RhythmCell(int Ticks,bool Rest=false);
+public sealed record RhythmCell(double Ticks,bool Rest=false);
 public static class RhythmCodec
 {
-    private static readonly Dictionary<string,int> Durations=new(){["1/16"]=1,["1/8"]=2,["1/8."]=3,["1/4"]=4,["1/4."]=6,["1/2"]=8,["1/2."]=12,["1/1"]=16};
     public static RhythmCell[][] Parse(string text,MeterDefinition meter,int bars)
     {
-        var parts=text.Trim().ToLowerInvariant().Replace('｜','|').Split('|',StringSplitOptions.TrimEntries|StringSplitOptions.RemoveEmptyEntries);
+        if(string.IsNullOrWhiteSpace(text)||text.Length>16384||bars is <1 or >8)throw new ArgumentException("Γράψε αξίες και χώρισε τα μέτρα με |.");
+        var parts=text.Trim().Replace('｜','|').Split('|',StringSplitOptions.TrimEntries|StringSplitOptions.RemoveEmptyEntries);
         if(parts.Length!=bars)throw new ArgumentException($"Απαιτούνται {bars} μέτρα χωρισμένα με |.");
         return parts.Select(part=>{
-            var cells=part.Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries).Select(token=>{
-                var rest=token.StartsWith('r')||token.StartsWith('π');var value=rest?token[1..]:token;
-                var ticks=value.Split('+').Sum(d=>Durations.TryGetValue(d,out var n)?n:throw new ArgumentException("Άγνωστη διάρκεια: "+token));
-                return new RhythmCell(ticks,rest);
-            }).ToArray();
-            if(cells.Length==0||cells.Sum(c=>c.Ticks)!=meter.Ticks)throw new ArgumentException("Οι διάρκειες δεν συμπληρώνουν το μέτρο "+meter.Id+".");
-            return cells;
+            var cells=new List<RhythmCell>();
+            foreach(var token in RhythmInput.Tokens(part)){
+                var group=RhythmInput.ParseGroup(token);
+                if(cells.Count+group.Count>2048)throw new ArgumentException("Υπερβολικά πολλές αξίες.");
+                for(var i=0;i<group.Count;i++)cells.Add(new(group.UnitTicks,group.Rest));
+            }
+            if(cells.Count==0||cells.Sum(c=>c.Ticks)!=meter.Ticks)throw new ArgumentException("Οι αξίες δεν συμπληρώνουν το μέτρο "+meter.Id+". Το 8/32 σημαίνει οκτώ ξεχωριστά τριακοστά δεύτερα.");
+            return cells.ToArray();
         }).ToArray();
     }
-    public static string Format(IEnumerable<IEnumerable<RhythmCell>> bars)=>string.Join(" | ",bars.Select(bar=>string.Join(' ',bar.Select(c=>(c.Rest?"r":"")+Durations.First(d=>d.Value==c.Ticks).Key))));
-    public static string Canonical(RhythmCell[][] bars)=>string.Join('|',bars.Select(b=>string.Join(',',b.Select(c=>(c.Rest?"r":"n")+c.Ticks))));
+    public static string Format(IEnumerable<IEnumerable<RhythmCell>> bars)=>string.Join(" | ",bars.Select(bar=>{
+        var cells=bar.ToArray();var tokens=new List<string>();
+        for(var i=0;i<cells.Length;){var count=1;var value=RhythmInput.FormatDuration(cells[i].Ticks);
+            while(i+count<cells.Length&&count<128&&cells[i+count]==cells[i])count++;
+            if(count>1&&value.StartsWith("1/",StringComparison.Ordinal)&&!value.Contains('+'))tokens.Add((cells[i].Rest?"r":"")+count+value[1..]);
+            else for(var n=0;n<count;n++)tokens.Add((cells[i].Rest?"r":"")+value);
+            i+=count;
+        }
+        return string.Join(' ',tokens);
+    }));
+    public static string Canonical(RhythmCell[][] bars)=>string.Join('|',bars.Select(b=>string.Join(',',b.Select(c=>(c.Rest?"r":"n")+c.Ticks.ToString("G",CultureInfo.InvariantCulture)))));
+
 }
 public static class TheoryV2
 {
@@ -59,7 +70,9 @@ public static class TheoryV2
         ("dotted","Παρεστιγμένο τέταρτο, όγδοο, δύο τέταρτα","1/4. 1/8 1/4 1/4"),
         ("syncopation","Συγκοπή: όγδοο, τέταρτο, όγδοο, μισό","1/8 1/4 1/8 1/2"),
         ("rests","Παύση τετάρτου, δύο τέταρτα, δύο όγδοα","r1/4 1/4 1/4 1/8 1/8"),
-        ("sixteenths","Τέσσερα δέκατα έκτα και τρία τέταρτα","1/16 1/16 1/16 1/16 1/4 1/4 1/4")];
+        ("sixteenths","Τέσσερα δέκατα έκτα και τρία τέταρτα","1/16 1/16 1/16 1/16 1/4 1/4 1/4"),
+        ("thirty-seconds","Οκτώ τριακοστά δεύτερα και τρία τέταρτα","8/32 3/4"),
+        ("sixty-fourths","Δεκαέξι εξηκοστά τέταρτα και τρία τέταρτα","16/64 3/4")];
     public static Exercise Generate(Settings s,Random random)
     {
         if(s.Category is Category.RhythmDictation or Category.RhythmReproduction)return Dictation(s,random);
@@ -82,7 +95,7 @@ public static class TheoryV2
         }
         else if(s.Category==Category.RhythmPatterns)
         {
-            foreach(var r in Rhythms.Take(s.Level switch{Level.Beginner=>2,Level.Elementary=>4,Level.Intermediate=>6,_=>8}))
+            foreach(var r in Rhythms.Take(s.Level switch{Level.Beginner=>2,Level.Elementary=>4,Level.Intermediate=>6,Level.Advanced=>9,_=>Rhythms.Length}))
                 candidates.Add(Create(s,r.Id,r.Name,RhythmScore(r.Tokens,"4/4",1,Pitch(s),r.Id),[]));
         }
         if(candidates.Count==0)throw new ArgumentException("Η έκταση ή η θεμέλιος δεν χωρά το παράδειγμα. Διεύρυνε την έκταση ή επίλεξε άλλη τονικότητα.");
@@ -128,17 +141,17 @@ public static class TheoryV2
         double beat=meter.QuarterBeats;
         foreach(var bar in cells)foreach(var cell in bar){if(!cell.Rest)notes.Add(new(pitch,beat,cell.Ticks/4.0*0.8));beat+=cell.Ticks/4.0;}
         return new(notes.ToArray(),beat,definitionId,pitch,TonalityMode.Major,
-            "Μία μπάρα εισαγωγής ορίζει τον παλμό. Ακολουθεί το ρυθμικό παράδειγμα. Γραφή: 1/4, 1/8, 1/16, τελεία για παράστιξη, r για παύση, | ανά μέτρο. Στην αναπαραγωγή F8 σε κάθε έναρξη και επιπλέον στο τέλος της τελευταίας διάρκειας.",tokens,meterId,bars);
+            "Μία μπάρα εισαγωγής ορίζει τον παλμό. Ακολουθεί το ρυθμικό παράδειγμα. Γραφή πλήθος/αξία: 2/4 = δύο τέταρτα, 8/32 = οκτώ τριακοστά δεύτερα, 16/64 = δεκαέξι εξηκοστά τέταρτα. Προαιρετικά ονόματα: μιφα2/8 ή φασολλασι4/16. Τα ύψη δεν βαθμολογούνται στη ρυθμική υπαγόρευση. Τελεία για παράστιξη, r ή π για παύση, | ανά μέτρο. Στην αναπαραγωγή F8 σε κάθε έναρξη και επιπλέον στο τέλος της τελευταίας διάρκειας.",tokens,meterId,bars);
     }
     private static Exercise Dictation(Settings s,Random random)
     {
         var meter=Meters.Single(m=>m.Id==s.MeterId);var bars=new List<List<RhythmCell>>();
         for(var bar=0;bar<s.Bars;bar++)
         {
-            var cells=new List<RhythmCell>();var remaining=meter.Ticks;
+            var cells=new List<RhythmCell>();double remaining=meter.Ticks;
             while(remaining>0)
             {
-                int[] allowed=s.Level switch{Level.Beginner=>meter.Denominator==4?[4,8]:[2,6],Level.Elementary=>[2,4,8],Level.Intermediate=>[2,3,4,6,8],_=>[1,2,3,4,6,8,12,16]};
+                double[] allowed=s.Level switch{Level.Beginner=>meter.Denominator==4?[4,8]:[2,6],Level.Elementary=>[2,4,8],Level.Intermediate=>[2,3,4,6,8],Level.Advanced=>[0.5,1,2,3,4,6,8,12,16],_=>[0.25,0.5,1,2,3,4,6,8,12,16]};
                 var available=allowed.Where(t=>t<=remaining).ToArray();if(available.Length==0)available=[remaining];
                 var ticks=available[random.Next(available.Length)];
                 cells.Add(new(ticks,s.Level>=Level.Intermediate&&cells.Count>0&&random.Next(5)==0));remaining-=ticks;
@@ -190,7 +203,11 @@ public static class WrittenGrader
         if(taps.Length!=expectedBeats.Length)return new(false,0,$"Δόθηκαν {taps.Length} κτυπήματα αντί {expectedBeats.Length}.",response);
         var tolerance=settings.Level switch{Level.Beginner=>0.3,Level.Elementary=>0.24,Level.Intermediate=>0.18,Level.Advanced=>0.13,Level.Expert=>0.1,_=>0.08};
         var correctIntervals=0;
-        for(var i=1;i<taps.Length;i++)if(Math.Abs((taps[i]-taps[i-1])*settings.Tempo/60-(expectedBeats[i]-expectedBeats[i-1]))<=tolerance)correctIntervals++;
+        for(var i=1;i<taps.Length;i++){
+            var expectedInterval=expectedBeats[i]-expectedBeats[i-1];
+            var permitted=expectedInterval<0.25?Math.Min(tolerance,expectedInterval*0.3):tolerance;
+            if(Math.Abs((taps[i]-taps[i-1])*settings.Tempo/60-expectedInterval)<=permitted)correctIntervals++;
+        }
         var percentage=100.0*correctIntervals/(taps.Length-1);return new(percentage>=80,percentage,$"Ακρίβεια διαδοχών κτυπημάτων: {percentage:F1}%. Δεν βαθμολογείται φωνητική ή διάρκεια κρατήματος πλήκτρου.",response);
     }
 }

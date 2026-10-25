@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 namespace Studio.Core;
-public sealed record NotatedNote(int Midi,int Ticks);
+public sealed record NotatedNote(int Midi,double Ticks);
 public static class NoteCodec
 {
     private static readonly Dictionary<string,int> Names=new(StringComparer.OrdinalIgnoreCase){["c"]=0,["d"]=2,["e"]=4,["f"]=5,["g"]=7,["a"]=9,["b"]=11,["do"]=0,["re"]=2,["mi"]=4,["fa"]=5,["sol"]=7,["la"]=9,["si"]=11,["ti"]=11,["ντο"]=0,["ρε"]=2,["μι"]=4,["φα"]=5,["σολ"]=7,["λα"]=9,["σι"]=11};
@@ -18,15 +18,22 @@ public static class NoteCodec
     }
     public static NotatedNote[] Parse(string text,bool durations)
     {
-        var tokens=text.Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries);if(tokens.Length is <1 or >128)throw new ArgumentException("Απαιτούνται 1–128 νότες.");
-        return tokens.Select(token=>{
-            var parts=token.Split(':');if(parts.Length!=(durations?2:1))throw new ArgumentException(durations?"Γράψε νότα:διάρκεια, π.χ. Ντο4:1/4 ή 60:1/8.":"Γράψε νότες με οκτάβα, π.χ. Ντο4 Ρε4 ή 60 62.");
-            var midi=ParsePitch(parts[0]);var ticks=4;
-            if(durations){var value=parts[1];ticks=value switch{"1/16"=>1,"1/8"=>2,"1/8."=>3,"1/4"=>4,"1/4."=>6,"1/2"=>8,"1/2."=>12,"1/1"=>16,_=>throw new ArgumentException("Άγνωστη διάρκεια: "+value)};}
-            return new NotatedNote(midi,ticks);
-        }).ToArray();
+        var tokens=RhythmInput.Tokens(text);var notes=new List<NotatedNote>();
+        foreach(var token in tokens){
+            if(durations&&!token.Contains(':')){
+                var group=RhythmInput.ParseGroup(token);
+                if(group.Rest||group.Pitches.Length==0)throw new ArgumentException("Στη μελωδική απάντηση γράψε και νότες, π.χ. μιφα2/8. Χωρίς οκτάβα χρησιμοποιείται η οκτάβα 4.");
+                for(var i=0;i<group.Count;i++)notes.Add(new(ParsePitch(group.Pitches[group.Pitches.Length==1?0:i]+"4"),group.UnitTicks));
+            }else{
+                var parts=token.Split(':');if(parts.Length!=(durations?2:1))throw new ArgumentException("Γράψε νότα:διάρκεια, π.χ. Ντο4:1/4, ή μιφα2/8 χωρίς οκτάβα.");
+                notes.Add(new(ParsePitch(parts[0]),durations?RhythmInput.SingleDuration(parts[1]):4));
+            }
+            if(notes.Count>128)throw new ArgumentException("Απαιτούνται έως 128 νότες.");
+        }
+        return notes.ToArray();
     }
-    public static string Format(IEnumerable<NotatedNote> notes,bool durations)=>string.Join(' ',notes.Select(n=>n.Midi+(durations?":"+(n.Ticks switch{1=>"1/16",2=>"1/8",3=>"1/8.",4=>"1/4",6=>"1/4.",8=>"1/2",12=>"1/2.",16=>"1/1",_=>throw new ArgumentException("Διάρκεια")}):"")));
+    public static string Format(IEnumerable<NotatedNote> notes,bool durations)=>string.Join(' ',notes.Select(n=>n.Midi+(durations?":"+RhythmInput.FormatDuration(n.Ticks):"")));
+
 }
 public sealed record FunctionalChord(string Token,int[] Steps,int Inversion,string Function);
 public static class Harmony
@@ -120,7 +127,7 @@ public static class TheoryV3
         for(var tick=1;tick<4;tick++)notes.Add(new(tonic,tick,0.2,-1,60));
         double beat=4;
         foreach(var n in parsed){notes.Add(new(n.Midi,beat,n.Ticks/4.0*0.85));beat+=n.Ticks/4.0;}
-        var prompt=durations?"Ακούγεται τονική συγχορδία, παύση, έπειτα μελωδία. Γράψε νότα:διάρκεια χωρίς παρτιτούρα, π.χ. Ντο4:1/4 Ρε4:1/8 ή 60:1/4 62:1/8.":"Ακούγεται τονικό πλαίσιο, έπειτα μελωδία. Γράψε νότες με οκτάβα, π.χ. Ντο4 Ρε4 ή 60 62. Στο σολφέζ μπορείς να τραγουδήσεις και να συγκρίνεις· δεν βαθμολογείται μικρόφωνο ή η φωνή σου. Η γραπτή απάντηση χρησιμοποιεί σταθερό ντο.";
+        var prompt=durations?"Ακούγεται τονική συγχορδία, παύση, έπειτα μελωδία. Γράψε Ντο4:1/4 Ρε4:1/32 ή μιφα2/8. Η σύντομη γραφή χωρίς οκτάβα χρησιμοποιεί οκτάβα 4· για άλλες οκτάβες γράψε π.χ. Ντο5:1/64.":"Ακούγεται τονικό πλαίσιο, έπειτα μελωδία. Γράψε νότες με οκτάβα, π.χ. Ντο4 Ρε4 ή 60 62. Στο σολφέζ μπορείς να τραγουδήσεις και να συγκρίνεις· δεν βαθμολογείται μικρόφωνο ή η φωνή σου. Η γραπτή απάντηση χρησιμοποιεί σταθερό ντο.";
         notes.Add(new(tonic,beat,0.2,-1,45));
         return new(notes.ToArray(),beat+0.5,id,tonic,mode,$"Αναφορά: {Theory.NoteName(tonic)}. "+(id=="solfege-atonal"?"Μία νότα αναφοράς αντί τονικής συγχορδίας. ":"")+"Μία μπάρα τεσσάρων παλμών εισάγει τη μελωδία. Το τελικό ασθενές σήμα ορίζει το τέλος της τελευταίας διάρκειας. "+prompt+" Ctrl+Shift+R παίζει τη γραπτή απάντησή σου. Τα πεδία τμήματος ορίζουν ακρόαση μέρους σε χρόνους.",text);
     }

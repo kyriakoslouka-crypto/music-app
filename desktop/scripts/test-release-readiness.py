@@ -10,14 +10,14 @@ class GateTests(unittest.TestCase):
  def setUp(self):
   self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
   self.data={
-   f'tests-{VERSION}.json':dict(Version=VERSION,Executed=60,Failed=0,SourceCommit=COMMIT),
+   f'tests-{VERSION}.json':dict(Version=VERSION,Executed=69,Failed=0,SourceCommit=COMMIT),
    'WINDOWS-CHECKS.json':dict(NativeWindowsBuildSucceeded=True),
    'typed-uia-audit.json':dict(Passed=True,Executed=20,Failed=0),
    'accessibility-audit.json':dict(UIAutomationPassed=True,AutomaticPracticeRegression=dict(Passed=True,Executed=6),KeyboardChecks=list(range(20)),ExamBoundaryRegression=[dict(Rejected=True,HistoryUnchanged=True)for _ in range(6)]),
    'windows-package-smoke.json':dict(Version=VERSION,InstalledFileCount=505,**dict.fromkeys(['Passed','InstallerProcessPassed','InstalledFilesMatch','InstalledManagedAuditPassed','StandaloneManagedAuditPassed','UninstallPreservesUserFile'],True)),
    'portable-integrity.json':dict(Passed=True,PrivatePianoSamplesBundled=False),
    'windows-piano-check.json':dict(Passed=True,DecodedSamples=794,ReferencePcmSha256Matches=794,CategoriesRendered=28,SourceCommit=COMMIT),
-   'windows-maestro-tests.json':dict(Version=VERSION,Executed=67,Failed=0,SourceCommit=COMMIT),
+   'windows-maestro-tests.json':dict(Version=VERSION,Executed=77,Failed=0,SourceCommit=COMMIT,Outcomes=[dict(Name=f"Rhythm input: synthetic fixture {i}",Passed=True)for i in range(9)]),
    'automatic-practice-check.json':dict(Version=VERSION,SourceCommit=COMMIT,Passed=True,AutomaticExamples=2,NonzeroMaestroExamples=2,ManualReplayCalls=0,RealDelayCancellationPassed=True),
    'audio-output-check.json':dict(Version=VERSION,Passed=True,Executed=8,Failed=0,SourceCommit=COMMIT),
    'source-build-smoke.json':dict(Version=VERSION,**dict.fromkeys(['Passed','FrozenRestorePassed','SourceBuildPassed','TypedUiAProjectBuildPassed'],True)),

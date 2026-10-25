@@ -27,7 +27,7 @@ public static class Version3Tests
         });
         test("0.3: Greek, scientific and MIDI notation preserve exact pitches including B and enharmonics",()=>{
             foreach(var (text,midi)in new[]{("Ντο4",60),("C4",60),("60",60),("B3",59),("Ρεb4",61),("C#4",61),("σι3",59),("sol4",67),("Λα0",21)})Check(NoteCodec.ParsePitch(text)==midi,text);
-            Check(NoteCodec.Parse("Ντο4:1/4 C#4:1/8 67:1/2",true).Select(n=>n.Ticks).SequenceEqual(new[]{4,2,8}));
+            Check(NoteCodec.Parse("Ντο4:1/4 C#4:1/8 67:1/2",true).Select(n=>n.Ticks).SequenceEqual(new[]{4.0,2.0,8.0}));
             Throws<ArgumentException>(()=>NoteCodec.ParsePitch("H4"));Throws<ArgumentException>(()=>NoteCodec.Parse("C4:banana",true));
         });
         test("0.3: functional chord roots, qualities and inversion formulas match independent references",()=>{
