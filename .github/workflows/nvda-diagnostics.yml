@@ -1,0 +1,33 @@
+name: Recover bounded NVDA test diagnostics
+on:
+  push:
+    branches: ['codex/pets-delivery']
+    paths: ['.github/workflows/nvda-diagnostics.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recover actual failed NVDA reports and bounded job tail
+        shell: bash
+        run: |
+          set -euo pipefail
+          target=downloads/windows-checks/40168113884
+          mkdir -p "$target" "$RUNNER_TEMP/nvda-diagnostics"
+          gh run download 40168113884 --name Windows-check-diagnostics --dir "$RUNNER_TEMP/nvda-diagnostics"
+          find "$RUNNER_TEMP/nvda-diagnostics" -name 'nvda*.json' -exec cp {} "$target/" \;
+          gh api repos/$GH_REPO/actions/jobs/121093223234/logs > "$RUNNER_TEMP/nvda-job.txt"
+          tail -n 110 "$RUNNER_TEMP/nvda-job.txt" > "$target/bounded-job-tail.txt"
+          cat "$target/nvda-smoke.json"
+          git config user.name 'PETS Windows diagnostics'
+          git config user.email 'pets-build@users.noreply.github.com'
+          git add -- "$target"
+          git commit -m 'Recover actual NVDA failure and diagnostic publication evidence'
+          git push origin "HEAD:refs/heads/codex/pets-nvda-diagnostics-${{ github.run_id }}"
