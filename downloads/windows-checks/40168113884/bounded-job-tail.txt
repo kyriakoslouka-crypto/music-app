@@ -1,0 +1,110 @@
+2026-10-25T06:14:58.1771901Z   name: Windows-check-diagnostics
+2026-10-25T06:14:58.1772236Z   path: desktop/artifacts/*.json
+desktop/artifacts/*.stderr.txt
+
+2026-10-25T06:14:58.1772571Z   if-no-files-found: warn
+2026-10-25T06:14:58.1772803Z   compression-level: 6
+2026-10-25T06:14:58.1773015Z   overwrite: false
+2026-10-25T06:14:58.1773218Z   include-hidden-files: false
+2026-10-25T06:14:58.1773432Z env:
+2026-10-25T06:14:58.1773596Z   PYTHONUTF8: 1
+2026-10-25T06:14:58.1773797Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-25T06:14:58.1774122Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-25T06:14:58.1774773Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.12.10\x64/lib/pkgconfig
+2026-10-25T06:14:58.1775203Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-25T06:14:58.1775628Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-25T06:14:58.1776004Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-25T06:14:58.1776297Z ##[endgroup]
+2026-10-25T06:14:58.3654780Z (node:3172) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-25T06:14:58.3656305Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-25T06:14:58.3761139Z With the provided path, there will be 13 files uploaded
+2026-10-25T06:14:58.3765914Z Artifact name is valid!
+2026-10-25T06:14:58.3767734Z Root directory input is valid!
+2026-10-25T06:14:58.7243297Z Beginning upload of artifact content to blob storage
+2026-10-25T06:14:58.7683364Z (node:3172) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-25T06:14:59.0402364Z Uploaded bytes 25933
+2026-10-25T06:14:59.1049721Z Finished uploading artifact content to blob storage!
+2026-10-25T06:14:59.1050711Z SHA256 digest of uploaded artifact zip is f9a74f41fb60a4870e886593ad89932f53356329d8374f1e6f9995a74332980e
+2026-10-25T06:14:59.1053195Z Finalizing artifact upload
+2026-10-25T06:14:59.5350818Z Artifact Windows-check-diagnostics.zip successfully finalized. Artifact ID 12589760971
+2026-10-25T06:14:59.5353229Z Artifact Windows-check-diagnostics has been successfully uploaded! Final size is 25933 bytes. Artifact ID is 12589760971
+2026-10-25T06:14:59.5363513Z Artifact download URL: https://github.com/kyriakoslouka-crypto/music-app/actions/runs/40168113884/artifacts/12589760971
+2026-10-25T06:14:59.5681970Z ##[group]Run $target = "downloads/windows-checks/40168113884"
+2026-10-25T06:14:59.5682480Z [36;1m$target = "downloads/windows-checks/40168113884"[0m
+2026-10-25T06:14:59.5683298Z [36;1mNew-Item -ItemType Directory $target -Force | Out-Null[0m
+2026-10-25T06:14:59.5683884Z [36;1mif (Test-Path "$env:RUNNER_TEMP/pets-build.txt") { Copy-Item "$env:RUNNER_TEMP/pets-build.txt" "$target/build.txt" }[0m
+2026-10-25T06:14:59.5684697Z [36;1mif (Test-Path "$env:RUNNER_TEMP/pets-native-output.txt") { Copy-Item "$env:RUNNER_TEMP/pets-native-output.txt" "$target/native-output.txt" }[0m
+2026-10-25T06:14:59.5685517Z [36;1mif (Test-Path "$env:RUNNER_TEMP/pets-assembly.txt") { Copy-Item "$env:RUNNER_TEMP/pets-assembly.txt" "$target/assembly.txt" }[0m
+2026-10-25T06:14:59.5686246Z [36;1mGet-ChildItem desktop/artifacts/*.json -ErrorAction SilentlyContinue | Copy-Item -Destination $target[0m
+2026-10-25T06:14:59.5686753Z [36;1mgit config user.name 'PETS Windows build'[0m
+2026-10-25T06:14:59.5687157Z [36;1mgit config user.email 'pets-build@users.noreply.github.com'[0m
+2026-10-25T06:14:59.5687493Z [36;1mgit add -- $target[0m
+2026-10-25T06:14:59.5687715Z [36;1mgit diff --cached --quiet[0m
+2026-10-25T06:14:59.5687953Z [36;1mif ($LASTEXITCODE -eq 1) {[0m
+2026-10-25T06:14:59.5688271Z [36;1m  git commit -m "Record Windows checks for run 40168113884"[0m
+2026-10-25T06:14:59.5688661Z [36;1m  if ($LASTEXITCODE -ne 0) { throw 'Diagnostic commit failed' }[0m
+2026-10-25T06:14:59.5689049Z [36;1m  git push origin "HEAD:refs/heads/codex/pets-ci-40168113884"[0m
+2026-10-25T06:14:59.5689463Z [36;1m  if ($LASTEXITCODE -ne 0) { throw 'Diagnostic publication failed' }[0m
+2026-10-25T06:14:59.5689786Z [36;1m}[0m
+2026-10-25T06:14:59.5766472Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2026-10-25T06:14:59.5766818Z env:
+2026-10-25T06:14:59.5766994Z   PYTHONUTF8: 1
+2026-10-25T06:14:59.5767199Z   DOTNET_ROOT: C:\Program Files\dotnet
+2026-10-25T06:14:59.5767537Z   pythonLocation: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-25T06:14:59.5767968Z   PKG_CONFIG_PATH: C:\hostedtoolcache\windows\Python\3.12.10\x64/lib/pkgconfig
+2026-10-25T06:14:59.5768575Z   Python_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-25T06:14:59.5768962Z   Python2_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-25T06:14:59.5769341Z   Python3_ROOT_DIR: C:\hostedtoolcache\windows\Python\3.12.10\x64
+2026-10-25T06:14:59.5769650Z ##[endgroup]
+2026-10-25T06:15:00.6033383Z [codex/pets-delivery b974b3c] Record Windows checks for run 40168113884
+2026-10-25T06:15:00.6034262Z  15 files changed, 6435 insertions(+)
+2026-10-25T06:15:00.6034980Z  create mode 100644 downloads/windows-checks/40168113884/accessibility-audit.json
+2026-10-25T06:15:00.6036065Z  create mode 100644 downloads/windows-checks/40168113884/accessibility-audit.json.live.json
+2026-10-25T06:15:00.6037022Z  create mode 100644 downloads/windows-checks/40168113884/build.txt
+2026-10-25T06:15:00.6037888Z  create mode 100644 downloads/windows-checks/40168113884/native-output.txt
+2026-10-25T06:15:00.6038838Z  create mode 100644 downloads/windows-checks/40168113884/nvda-accessibility-audit.json
+2026-10-25T06:15:00.6040164Z  create mode 100644 downloads/windows-checks/40168113884/nvda-accessibility-audit.json.live.json
+2026-10-25T06:15:00.6041183Z  create mode 100644 downloads/windows-checks/40168113884/nvda-smoke.json
+2026-10-25T06:15:00.6042190Z  create mode 100644 downloads/windows-checks/40168113884/package-installed-accessibility.json
+2026-10-25T06:15:00.6043643Z  create mode 100644 downloads/windows-checks/40168113884/package-standalone-accessibility.json
+2026-10-25T06:15:00.6044747Z  create mode 100644 downloads/windows-checks/40168113884/portable-integrity.json
+2026-10-25T06:15:00.6045653Z  create mode 100644 downloads/windows-checks/40168113884/tests-0.5.0.json
+2026-10-25T06:15:00.6046547Z  create mode 100644 downloads/windows-checks/40168113884/typed-uia-audit.json
+2026-10-25T06:15:00.6049676Z  create mode 100644 downloads/windows-checks/40168113884/windows-maestro-tests.json
+2026-10-25T06:15:00.6050781Z  create mode 100644 downloads/windows-checks/40168113884/windows-package-smoke.json
+2026-10-25T06:15:00.6051780Z  create mode 100644 downloads/windows-checks/40168113884/windows-piano-check.json
+2026-10-25T06:15:07.5129069Z remote: warning: See https://gh.io/lfs for more information.        
+2026-10-25T06:15:07.5130249Z remote: warning: File 00ec4b793321385264c571977765e57f90c60903 is 67.22 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+2026-10-25T06:15:07.5131696Z remote: warning: File 058c98eae0ed5df1b0da427626623fe9dbf5269a is 68.71 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+2026-10-25T06:15:07.5133030Z remote: warning: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+2026-10-25T06:15:07.5168613Z To https://github.com/kyriakoslouka-crypto/music-app
+2026-10-25T06:15:07.5170062Z  ! [remote rejected] HEAD -> codex/pets-ci-40168113884 (refusing to allow a GitHub App to create or update workflow `.github/workflows/windows-delivery.yml` without `workflows` permission)
+2026-10-25T06:15:07.5171484Z error: failed to push some refs to 'https://github.com/kyriakoslouka-crypto/music-app'
+2026-10-25T06:15:07.6772181Z [31;1mException: [0mD:\a\_temp\ea48616c-d646-434e-9960-520c5f204566.ps1:16[0m
+2026-10-25T06:15:07.6773767Z [31;1m[0m[36;1mLine |[0m
+2026-10-25T06:15:07.6774705Z [31;1m[0m[36;1m[36;1m  16 | [0m   if ($LASTEXITCODE -ne 0) { [36;1mthrow 'Diagnostic publication failed'[0m }[0m
+2026-10-25T06:15:07.6775910Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m     | [31;1m                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+2026-10-25T06:15:07.6776926Z [31;1m[0m[36;1m[36;1m[0m[36;1m[0m[36;1m[31;1m[31;1m[36;1m     | [31;1mDiagnostic publication failed[0m
+2026-10-25T06:15:07.7368644Z ##[error]Process completed with exit code 1.
+2026-10-25T06:15:07.7587291Z Post job cleanup.
+2026-10-25T06:15:07.9344979Z [command]"C:\Program Files\Git\bin\git.exe" version
+2026-10-25T06:15:07.9700865Z git version 2.56.0.windows.2
+2026-10-25T06:15:07.9779424Z Temporarily overriding HOME='D:\a\_temp\7450d8eb-d4ea-4c1c-94f4-1e5d64468132' before making global git config changes
+2026-10-25T06:15:07.9780697Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-25T06:15:07.9790009Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\music-app\music-app
+2026-10-25T06:15:08.0185469Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2026-10-25T06:15:08.0570229Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2026-10-25T06:15:08.6180507Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-25T06:15:08.6556212Z http.https://github.com/.extraheader
+2026-10-25T06:15:08.6605297Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2026-10-25T06:15:08.6995629Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2026-10-25T06:15:09.2901433Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-25T06:15:09.3283806Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2026-10-25T06:15:09.9314820Z Cleaning up orphan processes
+2026-10-25T06:15:09.9661454Z Terminate orphan process: pid (9148) (dotnet)
+2026-10-25T06:15:09.9717649Z Terminate orphan process: pid (7628) (dotnet)
+2026-10-25T06:15:09.9778392Z Terminate orphan process: pid (6596) (dotnet)
+2026-10-25T06:15:09.9854953Z Terminate orphan process: pid (6464) (conhost)
+2026-10-25T06:15:10.0055969Z Terminate orphan process: pid (6852) (VBCSCompiler)
+2026-10-25T06:15:10.0109921Z Terminate orphan process: pid (6964) (conhost)
+2026-10-25T06:15:10.0369602Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-dotnet@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

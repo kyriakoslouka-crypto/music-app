@@ -1,0 +1,15 @@
+{
+  "Passed": false,
+  "SourceCommit": "bd9b8a63b543b12da2136a6ded816fbeb4fb7ba3",
+  "NvdaVersion": "2026.2",
+  "InstallerSha256": "f3f8d29974a88d687b3c4809be192219ec579c5bdabcda5aaf53635288bca824",
+  "SignatureValid": true,
+  "ActualNvdaProcessTested": true,
+  "SpeechAnnouncementsPassed": false,
+  "Windows11UserTested": false,
+  "HumanListeningTested": false,
+  "Synthesizer": "silence",
+  "Checks": [],
+  "Error": "Keyboard Down did not change exam profile value; before=ABRSM-inspired Grade 1 — ανεπίσημο; after=ABRSM-inspired Grade 1 — ανεπίσημο; focused=Εκπαιδευτικό εξεταστικό προφίλ",
+  "NvdaErrorTail": []
+}
