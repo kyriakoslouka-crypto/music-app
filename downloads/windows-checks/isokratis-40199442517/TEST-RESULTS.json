@@ -1,0 +1,24 @@
+﻿{
+    "Passed":  false,
+    "Executed":  3,
+    "PowerShell":  "5.1.26100.33648",
+    "Windows":  "Microsoft Windows NT 10.0.26100.0",
+    "ExternalServiceTested":  false,
+    "FixtureUsesCopyrightedSamples":  false,
+    "Error":  "System.Management.Automation.RuntimeException: HTML pretending to be MP3 produces explicit partial-success exit code",
+    "Checks":  [
+                   {
+                       "Name":  "Actual Windows PowerShell parser accepts script",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Tests execute under Windows PowerShell 5.1",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Offline HTTP fixture started",
+                       "Passed":  true
+                   }
+               ],
+    "SourceCommit":  "52f81fa52bb247170372ce7df3096e41fdf500c6"
+}

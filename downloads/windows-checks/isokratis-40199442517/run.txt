@@ -1,0 +1,35 @@
+﻿Αρχείο 29 από 61: voices_pa3/e4_ison5.mp3
+Αρχείο 30 από 61: voices_pa3/e4_ison6.mp3
+Αρχείο 31 από 61: voices_pa3/f4_ison1.mp3
+Αρχείο 32 από 61: voices_pa3/f4_ison2.mp3
+Αρχείο 33 από 61: voices_pa3/f4_ison3.mp3
+Αρχείο 34 από 61: voices_pa3/f4_ison5.mp3
+Αρχείο 35 από 61: voices_pa3/f4_ison6.mp3
+Αρχείο 36 από 61: voices_pa3/g3_ison1.mp3
+Αρχείο 37 από 61: voices_pa3/g3_ison2.mp3
+Αρχείο 38 από 61: voices_pa3/g3_ison3.mp3
+Αρχείο 39 από 61: voices_pa3/g3_ison5.mp3
+Αρχείο 40 από 61: voices_pa3/g3_ison6.mp3
+Αρχείο 41 από 61: voices_pa3/g4_ison1.mp3
+Αρχείο 42 από 61: voices_pa3/g4_ison2.mp3
+Αρχείο 43 από 61: voices_pa3/g4_ison3.mp3
+Αρχείο 44 από 61: voices_pa3/g4_ison5.mp3
+Αρχείο 45 από 61: voices_pa3/g4_ison6.mp3
+Αρχείο 46 από 61: voices_v63/allvoices_bflat2.mp3
+Αρχείο 47 από 61: voices_v63/allvoices_c2.mp3
+Αρχείο 48 από 61: voices_v63/allvoices_d1.mp3
+Αρχείο 49 από 61: voices_v63/allvoices_f2.mp3
+Αρχείο 50 από 61: voices_v63/allvoices_g1.mp3
+Αρχείο 51 από 61: voices_mmm/a3-hum.mp3
+Αρχείο 52 από 61: voices_mmm/a4-hum.mp3
+Αρχείο 53 από 61: voices_mmm/b3-hum.mp3
+Αρχείο 54 από 61: voices_mmm/c4-hum.mp3
+Αρχείο 55 από 61: voices_mmm/d4-hum.mp3
+Αρχείο 56 από 61: voices_mmm/e4-hum.mp3
+Αρχείο 57 από 61: voices_mmm/f4-hum.mp3
+Αρχείο 58 από 61: voices_mmm/g3-hum.mp3
+Αρχείο 59 από 61: voices_mmm/g4-hum.mp3
+Αρχείο 60 από 61: audio/extra.mp3
+Αρχείο 61 από 61: audio/not-audio.mp3
+Αποτυχία: audio/not-audio.mp3 — Το αρχείο δεν έχει αναγνωρίσιμη κεφαλίδα ήχου. Δεν περιλαμβάνεται στο ZIP.
+Η λήψη δεν ολοκληρώθηκε: Unable to find type [IO.Compression.ZipArchive].
