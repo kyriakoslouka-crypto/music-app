@@ -1,0 +1,12 @@
+{
+  "Version": "0.5.8",
+  "SourceCommit": "9e2b49fb87c9c6e25031b22635a717fa425eeaa1",
+  "Passed": true,
+  "Error": null,
+  "AutomaticExamples": 2,
+  "NonzeroMaestroExamples": 2,
+  "ManualReplayCalls": 0,
+  "RealDelayCancellationPassed": true,
+  "PhysicalAudioTested": false,
+  "SimulatedOutputDevice": true
+}
