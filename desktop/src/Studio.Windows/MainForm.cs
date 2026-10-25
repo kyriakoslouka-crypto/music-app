@@ -63,8 +63,10 @@ public sealed partial class MainForm : Form
     private readonly Button setup=new(){Text="&Εγκατάσταση / επισκευή Maestro Concert Grand…",AutoSize=true,AccessibleName="Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand"};
     private readonly Button load = new() { Text = "&Φόρτωση πιάνου SF2…", AutoSize = true };
 
-    public MainForm(bool auditOnly=false)
+    public MainForm(bool auditOnly=false):this(auditOnly,null,false){}
+    internal MainForm(bool auditOnly,AudioOutput? suppliedOutput,bool skipShownAudit)
     {
+        if(suppliedOutput is not null)audio=suppliedOutput;
         this.auditOnly=auditOnly; meter.SelectedIndex=2;
         segmentStart.DecimalPlaces=segmentEnd.DecimalPlaces=2;segmentStart.Increment=segmentEnd.Increment=0.25m;
         Text = "Professional Ear Training Studio — VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3);
@@ -93,7 +95,7 @@ public sealed partial class MainForm : Form
         preferenceSave.Tick+=(_,_)=>{preferenceSave.Stop();SavePreferences();};
         AccessibilityContract.Apply(this);
         Shown += async (_, _) => {
-            if(auditOnly){
+            if(auditOnly&&!skipShownAudit){
                 try{var args=Environment.GetCommandLineArgs();AccessibilityContract.WriteAudit(args[Array.IndexOf(args,"--accessibility-audit")+1],this);}
                 catch(Exception ex){Console.Error.WriteLine(ex);Environment.ExitCode=1;}
                 Close();return;

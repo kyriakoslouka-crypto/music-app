@@ -13,6 +13,6 @@ internal static class Program
         using var singleInstance=new Mutex(true,"Local\\ProfessionalEarTrainingStudio-"+identity,out var first);
         if(!first&&(audit||args.Contains("--uia-test-mode"))){Environment.ExitCode=1;return;}
         if(!first){MessageBox.Show("Η εφαρμογή είναι ήδη ανοικτή. Πήγαινε στο υπάρχον παράθυρο με Alt+Tab.","Professional Ear Training Studio");return;}
-        try{Application.Run(new MainForm(audit));}finally{singleInstance.ReleaseMutex();}
+        try{if(args.Length>=3&&args[0]=="--automatic-practice-check")Environment.ExitCode=AutomaticPracticeProbe.Run(args[1],args[2]);else Application.Run(new MainForm(audit));}finally{singleInstance.ReleaseMutex();}
     }
 }

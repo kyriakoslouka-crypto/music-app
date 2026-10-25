@@ -22,6 +22,7 @@ def read(name):
 core=read(f'tests-{version}.json')
 windows=read('WINDOWS-CHECKS.json');typed=read('typed-uia-audit.json');uia=read('accessibility-audit.json')
 package=read('windows-package-smoke.json');portable=read('portable-integrity.json');piano=read('windows-piano-check.json')
+flow=read('automatic-practice-check.json')
 recovery=read('audio-output-check.json')
 maestro=read('windows-maestro-tests.json');source=read('source-build-smoke.json');nvda=read('nvda-smoke.json')
 commit=args.expected_commit or os.environ.get('GITHUB_SHA')or piano.get('SourceCommit')
@@ -37,10 +38,11 @@ boundaries=records(uia,'ExamBoundaryRegression');announcements=records(nvda,'Che
 automated={
  'CoreTestsPassed':core.get('Version')==version and success(core,60),
  'NativeWindowsBuildPassed':windows.get('NativeWindowsBuildSucceeded')is True,
- 'EvidenceMatchesSourceCommit':bool(commit)and all(r.get('SourceCommit')==commit for r in [core,piano,maestro,nvda,recovery]),
+ 'EvidenceMatchesSourceCommit':bool(commit)and all(r.get('SourceCommit')==commit for r in [core,piano,maestro,nvda,recovery,flow]),
  'WindowsTypedUIAPassed':typed.get('Passed')is True and success(typed,20),
  'WindowsKeyboardAndExamBoundariesPassed':uia.get('UIAutomationPassed')is True and len(records(uia,'KeyboardChecks'))>=20 and len(boundaries)==6 and all(b.get('Rejected')is True and b.get('HistoryUnchanged')is True for b in boundaries),
  'AutomaticPracticeSafetyPassed':isinstance(uia.get('AutomaticPracticeRegression'),dict)and uia['AutomaticPracticeRegression'].get('Passed')is True and uia['AutomaticPracticeRegression'].get('Executed',0)>=6,
+ 'AutomaticPracticeEndToEndPassed':flow.get('Version')==version and flow.get('Passed')is True and flow.get('AutomaticExamples')==2 and flow.get('NonzeroMaestroExamples')==2 and flow.get('ManualReplayCalls')==0 and flow.get('RealDelayCancellationPassed')is True,
  'InstalledAndStandalonePassed':package.get('Version')==version and flags(package,['Passed','InstallerProcessPassed','InstalledFilesMatch','InstalledManagedAuditPassed','StandaloneManagedAuditPassed','UninstallPreservesUserFile'])and package.get('InstalledFileCount',0)>0,
  'PortableIntegrityPassed':portable.get('Passed')is True and portable.get('PrivatePianoSamplesBundled')is False,
  'WindowsPianoFidelityPassed':piano.get('Passed')is True and piano.get('DecodedSamples')==794 and piano.get('ReferencePcmSha256Matches')==794 and piano.get('CategoriesRendered')==28,

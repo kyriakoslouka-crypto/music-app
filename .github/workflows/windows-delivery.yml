@@ -63,6 +63,16 @@ jobs:
           $manifest=Join-Path $privatePiano 'piano/maestro.studio-piano.json'
           dotnet run --project desktop/tests/Studio.Tests -c Release --no-build -- --maestro "$manifest" --report "$PWD/desktop/artifacts/windows-maestro-tests.json"
           if ($LASTEXITCODE -ne 0) { throw 'Actual Windows Maestro integration tests failed' }
+      - name: Verify real automatic exercise progression with Maestro and a simulated output
+        timeout-minutes: 2
+        shell: pwsh
+        run: |
+          $piano=Get-Content desktop/artifacts/windows-piano-check.json -Raw | ConvertFrom-Json
+          $exe=Join-Path $PWD 'desktop/artifacts/win-x64/ProfessionalEarTrainingStudio.exe'
+          $report=Join-Path $PWD 'desktop/artifacts/automatic-practice-check.json'
+          $process=Start-Process $exe -ArgumentList @('--automatic-practice-check',('"'+$piano.PrivateManifest+'"'),('"'+$report+'"'),'--uia-test-mode') -PassThru
+          if(!$process.WaitForExit(60000)){$process.Kill($true);throw 'Automatic practice integration timed out.'}
+          if($process.ExitCode -ne 0){throw 'Automatic next/replay/cancellation integration failed.'}
       - name: Real NVDA Greek focus announcements on isolated Windows runner
         timeout-minutes: 6
         shell: pwsh

@@ -18,6 +18,7 @@ class GateTests(unittest.TestCase):
    'portable-integrity.json':dict(Passed=True,PrivatePianoSamplesBundled=False),
    'windows-piano-check.json':dict(Passed=True,DecodedSamples=794,ReferencePcmSha256Matches=794,CategoriesRendered=28,SourceCommit=COMMIT),
    'windows-maestro-tests.json':dict(Version=VERSION,Executed=67,Failed=0,SourceCommit=COMMIT),
+   'automatic-practice-check.json':dict(Version=VERSION,SourceCommit=COMMIT,Passed=True,AutomaticExamples=2,NonzeroMaestroExamples=2,ManualReplayCalls=0,RealDelayCancellationPassed=True),
    'audio-output-check.json':dict(Version=VERSION,Passed=True,Executed=8,Failed=0,SourceCommit=COMMIT),
    'source-build-smoke.json':dict(Version=VERSION,**dict.fromkeys(['Passed','FrozenRestorePassed','SourceBuildPassed','TypedUiAProjectBuildPassed'],True)),
    'nvda-smoke.json':dict(SourceCommit=COMMIT,Checks=[dict(Name=n,Passed=True)for n in NAMES],**dict.fromkeys(['Passed','SignatureValid','ActualNvdaProcessTested','SpeechAnnouncementsPassed'],True)),
