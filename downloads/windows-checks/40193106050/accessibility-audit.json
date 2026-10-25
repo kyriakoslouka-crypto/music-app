@@ -1,0 +1,1843 @@
+{
+  "MainForm": [
+    {
+      "Path": "MainForm",
+      "Type": "MainForm",
+      "Name": "Professional Ear Training Studio — VERSION 0.5.8",
+      "Role": "Client",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections",
+      "Type": "AccessibleTabControl",
+      "Name": "Κύριες ενότητες εφαρμογής",
+      "Role": "PageTabList",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0",
+      "Type": "AccessibleTabPage",
+      "Name": "Ρυθμίσεις",
+      "Role": "Client",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0",
+      "Type": "TableLayoutPanel",
+      "Name": "Ρυθμίσεις — στοιχείο 1",
+      "Role": "Client",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_0",
+      "Type": "Label",
+      "Name": "Προτεινόμενο concert grand",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_1",
+      "Type": "Button",
+      "Name": "Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand",
+      "Role": "PushButton",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_2",
+      "Type": "Label",
+      "Name": "Δική σου βιβλιοθήκη πιάνου",
+      "Role": "StaticText",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_3",
+      "Type": "Button",
+      "Name": "Φόρτωση πιάνου SF2…",
+      "Role": "PushButton",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_4",
+      "Type": "Label",
+      "Name": "Όργανο",
+      "Role": "StaticText",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_5",
+      "Type": "ComboBox",
+      "Name": "Όργανο SF2",
+      "Role": "ComboBox",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_6",
+      "Type": "Label",
+      "Name": "Έξοδος",
+      "Role": "StaticText",
+      "TabIndex": 6,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_7",
+      "Type": "ComboBox",
+      "Name": "Έξοδος ήχου",
+      "Role": "ComboBox",
+      "TabIndex": 7,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_8",
+      "Type": "Label",
+      "Name": "Συσκευές",
+      "Role": "StaticText",
+      "TabIndex": 8,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_9",
+      "Type": "Button",
+      "Name": "Ανανέωση συσκευών",
+      "Role": "PushButton",
+      "TabIndex": 9,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_10",
+      "Type": "Label",
+      "Name": "Κατηγορία",
+      "Role": "StaticText",
+      "TabIndex": 10,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_11",
+      "Type": "ComboBox",
+      "Name": "Κατηγορία άσκησης",
+      "Role": "ComboBox",
+      "TabIndex": 11,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_12",
+      "Type": "Label",
+      "Name": "Επίπεδο",
+      "Role": "StaticText",
+      "TabIndex": 12,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_13",
+      "Type": "ComboBox",
+      "Name": "Επίπεδο",
+      "Role": "ComboBox",
+      "TabIndex": 13,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_14",
+      "Type": "Label",
+      "Name": "Ακρόαση διαστημάτων",
+      "Role": "StaticText",
+      "TabIndex": 14,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_15",
+      "Type": "ComboBox",
+      "Name": "Τρόπος ακρόασης",
+      "Role": "ComboBox",
+      "TabIndex": 15,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_16",
+      "Type": "Label",
+      "Name": "Αρχική νότα / θεμέλιος",
+      "Role": "StaticText",
+      "TabIndex": 16,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_17",
+      "Type": "ComboBox",
+      "Name": "Αρχική νότα ή θεμέλιος",
+      "Role": "ComboBox",
+      "TabIndex": 17,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_18",
+      "Type": "Label",
+      "Name": "Τονικότητα (φθόγγοι κλίμακας)",
+      "Role": "StaticText",
+      "TabIndex": 18,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_19",
+      "Type": "ComboBox",
+      "Name": "Τονικότητα ασκήσεων",
+      "Role": "ComboBox",
+      "TabIndex": 19,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_20",
+      "Type": "Label",
+      "Name": "Χαμηλότερη νότα MIDI (21–108)",
+      "Role": "StaticText",
+      "TabIndex": 20,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_21",
+      "Type": "NumericUpDown",
+      "Name": "Κατώτερη νότα MIDI, Λα 0 = 21",
+      "Role": "SpinButton",
+      "TabIndex": 21,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_21/mainSections_0_0_21_0",
+      "Type": "UpDownButtons",
+      "Name": "Κατώτερη νότα MIDI, Λα 0 = 21 — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_21/mainSections_0_0_21_1",
+      "Type": "UpDownEdit",
+      "Name": "Κατώτερη νότα MIDI, Λα 0 = 21",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_22",
+      "Type": "Label",
+      "Name": "Υψηλότερη νότα MIDI (21–108)",
+      "Role": "StaticText",
+      "TabIndex": 22,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_23",
+      "Type": "NumericUpDown",
+      "Name": "Ανώτερη νότα MIDI, Ντο 8 = 108",
+      "Role": "SpinButton",
+      "TabIndex": 23,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_23/mainSections_0_0_23_0",
+      "Type": "UpDownButtons",
+      "Name": "Ανώτερη νότα MIDI, Ντο 8 = 108 — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_23/mainSections_0_0_23_1",
+      "Type": "UpDownEdit",
+      "Name": "Ανώτερη νότα MIDI, Ντο 8 = 108",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_24",
+      "Type": "Label",
+      "Name": "Μέτρο υπαγόρευσης / κτυπημάτων",
+      "Role": "StaticText",
+      "TabIndex": 24,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_25",
+      "Type": "ComboBox",
+      "Name": "Μέτρο ρυθμικής υπαγόρευσης και αναπαραγωγής",
+      "Role": "ComboBox",
+      "TabIndex": 25,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_26",
+      "Type": "Label",
+      "Name": "Πλήθος μέτρων ρυθμού",
+      "Role": "StaticText",
+      "TabIndex": 26,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_27",
+      "Type": "NumericUpDown",
+      "Name": "Αριθμός μέτρων ρυθμού",
+      "Role": "SpinButton",
+      "TabIndex": 27,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_27/mainSections_0_0_27_0",
+      "Type": "UpDownButtons",
+      "Name": "Αριθμός μέτρων ρυθμού — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_27/mainSections_0_0_27_1",
+      "Type": "UpDownEdit",
+      "Name": "Αριθμός μέτρων ρυθμού",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_28",
+      "Type": "Label",
+      "Name": "Ταχύτητα BPM",
+      "Role": "StaticText",
+      "TabIndex": 28,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_29",
+      "Type": "NumericUpDown",
+      "Name": "Ταχύτητα BPM",
+      "Role": "SpinButton",
+      "TabIndex": 29,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_29/mainSections_0_0_29_0",
+      "Type": "UpDownButtons",
+      "Name": "Ταχύτητα BPM — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_29/mainSections_0_0_29_1",
+      "Type": "UpDownEdit",
+      "Name": "Ταχύτητα BPM",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_30",
+      "Type": "Label",
+      "Name": "Επαναλήψεις (0 = απεριόριστα)",
+      "Role": "StaticText",
+      "TabIndex": 30,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_31",
+      "Type": "NumericUpDown",
+      "Name": "Επαναλήψεις: 0 για απεριόριστη συνεχή ακρόαση",
+      "Role": "SpinButton",
+      "TabIndex": 31,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_31/mainSections_0_0_31_0",
+      "Type": "UpDownButtons",
+      "Name": "Επαναλήψεις: 0 για απεριόριστη συνεχή ακρόαση — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_31/mainSections_0_0_31_1",
+      "Type": "UpDownEdit",
+      "Name": "Επαναλήψεις: 0 για απεριόριστη συνεχή ακρόαση",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_32",
+      "Type": "Label",
+      "Name": "Δυναμική (1–127)",
+      "Role": "StaticText",
+      "TabIndex": 32,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_33",
+      "Type": "NumericUpDown",
+      "Name": "Δυναμική MIDI velocity",
+      "Role": "SpinButton",
+      "TabIndex": 33,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_33/mainSections_0_0_33_0",
+      "Type": "UpDownButtons",
+      "Name": "Δυναμική MIDI velocity — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_33/mainSections_0_0_33_1",
+      "Type": "UpDownEdit",
+      "Name": "Δυναμική MIDI velocity",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_34",
+      "Type": "Label",
+      "Name": "Πεντάλ",
+      "Role": "StaticText",
+      "TabIndex": 34,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_35",
+      "Type": "CheckBox",
+      "Name": "Πεντάλ sustain",
+      "Role": "CheckButton",
+      "TabIndex": 35,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_36",
+      "Type": "Label",
+      "Name": "Ομιλία",
+      "Role": "StaticText",
+      "TabIndex": 36,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_37",
+      "Type": "CheckBox",
+      "Name": "Διακοπή ομιλίας NVDA πριν τον ήχο (προαιρετικό DLL)",
+      "Role": "CheckButton",
+      "TabIndex": 37,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_38",
+      "Type": "Label",
+      "Name": "Συνεχής εξάσκηση",
+      "Role": "StaticText",
+      "TabIndex": 38,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_39",
+      "Type": "CheckBox",
+      "Name": "Αυτόματη συνέχεια και αναπαραγωγή εξάσκησης",
+      "Role": "CheckButton",
+      "TabIndex": 39,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_40",
+      "Type": "Label",
+      "Name": "Αναμονή ανατροφοδότησης και οδηγίας (δευτερόλεπτα)",
+      "Role": "StaticText",
+      "TabIndex": 40,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_41",
+      "Type": "NumericUpDown",
+      "Name": "Αναμονή αυτόματης συνέχειας σε δευτερόλεπτα",
+      "Role": "SpinButton",
+      "TabIndex": 41,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_41/mainSections_0_0_41_0",
+      "Type": "UpDownButtons",
+      "Name": "Αναμονή αυτόματης συνέχειας σε δευτερόλεπτα — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_41/mainSections_0_0_41_1",
+      "Type": "UpDownEdit",
+      "Name": "Αναμονή αυτόματης συνέχειας σε δευτερόλεπτα",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_42",
+      "Type": "Label",
+      "Name": "Απομόνωση πολυφωνικής φωνής",
+      "Role": "StaticText",
+      "TabIndex": 42,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_43",
+      "Type": "ComboBox",
+      "Name": "Απομόνωση πολυφωνικής φωνής",
+      "Role": "ComboBox",
+      "TabIndex": 43,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_44",
+      "Type": "Label",
+      "Name": "Αρχή τμήματος (χρόνοι)",
+      "Role": "StaticText",
+      "TabIndex": 44,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_45",
+      "Type": "NumericUpDown",
+      "Name": "Αρχή τμήματος ακρόασης σε χρόνους",
+      "Role": "SpinButton",
+      "TabIndex": 45,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_45/mainSections_0_0_45_0",
+      "Type": "UpDownButtons",
+      "Name": "Αρχή τμήματος ακρόασης σε χρόνους — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_45/mainSections_0_0_45_1",
+      "Type": "UpDownEdit",
+      "Name": "Αρχή τμήματος ακρόασης σε χρόνους",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_46",
+      "Type": "Label",
+      "Name": "Τέλος τμήματος (0 = όλο)",
+      "Role": "StaticText",
+      "TabIndex": 46,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_47",
+      "Type": "NumericUpDown",
+      "Name": "Τέλος τμήματος σε χρόνους, 0 για ολόκληρο",
+      "Role": "SpinButton",
+      "TabIndex": 47,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_47/mainSections_0_0_47_0",
+      "Type": "UpDownButtons",
+      "Name": "Τέλος τμήματος σε χρόνους, 0 για ολόκληρο — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_47/mainSections_0_0_47_1",
+      "Type": "UpDownEdit",
+      "Name": "Τέλος τμήματος σε χρόνους, 0 για ολόκληρο",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_48",
+      "Type": "Label",
+      "Name": "Εξάσκηση",
+      "Role": "StaticText",
+      "TabIndex": 48,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_49",
+      "Type": "Button",
+      "Name": "Έναρξη εξάσκησης (Ctrl+N)",
+      "Role": "PushButton",
+      "TabIndex": 49,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1",
+      "Type": "AccessibleTabPage",
+      "Name": "Εξάσκηση",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0",
+      "Type": "TableLayoutPanel",
+      "Name": "Εξάσκηση — στοιχείο 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_0",
+      "Type": "TextBox",
+      "Name": "Οδηγία τρέχουσας άσκησης",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_1",
+      "Type": "Panel",
+      "Name": "Εξάσκηση — στοιχείο 1 — στοιχείο 2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_1/mainSections_1_0_1_0",
+      "Type": "ListBox",
+      "Name": "Απαντήσεις άσκησης",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_1/mainSections_1_0_1_1",
+      "Type": "TextBox",
+      "Name": "Γραπτή απάντηση χωρίς παρτιτούρα",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_2",
+      "Type": "FlowLayoutPanel",
+      "Name": "Εξάσκηση — στοιχείο 1 — στοιχείο 3",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_2/mainSections_1_0_2_0",
+      "Type": "Button",
+      "Name": "Κτύπημα ρυθμού με F8",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_2/mainSections_1_0_2_1",
+      "Type": "Button",
+      "Name": "Καθαρισμός κτυπημάτων",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3",
+      "Type": "FlowLayoutPanel",
+      "Name": "Εξάσκηση — στοιχείο 1 — στοιχείο 4",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_0",
+      "Type": "Button",
+      "Name": "Νέα άσκηση (Ctrl+N)",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_1",
+      "Type": "Button",
+      "Name": "Επανάληψη (Ctrl+R)",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_2",
+      "Type": "Button",
+      "Name": "Παύση / συνέχεια (Ctrl+P)",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_3",
+      "Type": "Button",
+      "Name": "Ακρόαση γραπτής απάντησης (Ctrl+Shift+R)",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_4",
+      "Type": "Button",
+      "Name": "Υποβολή (Ctrl+Enter)",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_5",
+      "Type": "Button",
+      "Name": "Προβολή παρτιτούρας μετά την απάντηση",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_6",
+      "Type": "Button",
+      "Name": "Ανάγνωση τελευταίου σφάλματος ήχου με F6",
+      "Role": "None",
+      "TabIndex": 6,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_4",
+      "Type": "TextBox",
+      "Name": "Κατάσταση και αποτέλεσμα",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_2",
+      "Type": "AccessibleTabPage",
+      "Name": "Πρόοδος",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_2/mainSections_2_0",
+      "Type": "TableLayoutPanel",
+      "Name": "Πρόοδος — στοιχείο 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_2/mainSections_2_0/mainSections_2_0_0",
+      "Type": "Button",
+      "Name": "Εξάσκηση προτεινόμενης αδυναμίας",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_2/mainSections_2_0/mainSections_2_0_1",
+      "Type": "TextBox",
+      "Name": "Στατιστικά και ιστορικό",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3",
+      "Type": "AccessibleTabPage",
+      "Name": "Εξετάσεις και προσαρμογή",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0",
+      "Type": "TableLayoutPanel",
+      "Name": "Εξετάσεις και προσαρμογή — στοιχείο 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0",
+      "Type": "FlowLayoutPanel",
+      "Name": "Εξετάσεις και προσαρμογή — στοιχείο 1 — στοιχείο 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_0",
+      "Type": "Label",
+      "Name": "Ανεξάρτητο προφίλ",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_1",
+      "Type": "ComboBox",
+      "Name": "Εκπαιδευτικό εξεταστικό προφίλ",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_2",
+      "Type": "Label",
+      "Name": "Λεπτά, 0 = χωρίς όριο",
+      "Role": "StaticText",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_3",
+      "Type": "NumericUpDown",
+      "Name": "Χρονικό όριο λεπτά, 0 για χωρίς όριο",
+      "Role": "SpinButton",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_3/mainSections_3_0_0_3_0",
+      "Type": "UpDownButtons",
+      "Name": "Χρονικό όριο λεπτά, 0 για χωρίς όριο — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_3/mainSections_3_0_0_3_1",
+      "Type": "UpDownEdit",
+      "Name": "Χρονικό όριο λεπτά, 0 για χωρίς όριο",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_1",
+      "Type": "TextBox",
+      "Name": "Περιγραφή και ανεπίσημος χαρακτήρας προφίλ",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2",
+      "Type": "FlowLayoutPanel",
+      "Name": "Εξετάσεις και προσαρμογή — στοιχείο 1 — στοιχείο 3",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_0",
+      "Type": "Button",
+      "Name": "Έναρξη εξέτασης",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_1",
+      "Type": "Button",
+      "Name": "Συνέχιση αποθηκευμένης",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_2",
+      "Type": "Button",
+      "Name": "Παράλειψη τρέχουσας",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_3",
+      "Type": "Button",
+      "Name": "Τερματισμός και αναφορά",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_4",
+      "Type": "Button",
+      "Name": "Επιστροφή σε εξάσκηση",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_5",
+      "Type": "Button",
+      "Name": "Παρτιτούρες ολοκληρωμένης εξέτασης",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_3",
+      "Type": "TextBox",
+      "Name": "Πρόοδος εξέτασης και αναλυτική αναφορά",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_4",
+      "Type": "ListBox",
+      "Name": "Ιστορικό ολοκληρωμένων εξετάσεων",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_5",
+      "Type": "ListBox",
+      "Name": "Λανθασμένα παραδείγματα για ακριβή επανάληψη",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_6",
+      "Type": "FlowLayoutPanel",
+      "Name": "Εξετάσεις και προσαρμογή — στοιχείο 1 — στοιχείο 7",
+      "Role": "None",
+      "TabIndex": 6,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_6/mainSections_3_0_6_0",
+      "Type": "Button",
+      "Name": "Προσαρμοσμένη εξάσκηση αδυναμίας",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_6/mainSections_3_0_6_1",
+      "Type": "Button",
+      "Name": "Επανάληψη επιλεγμένου λάθους",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_6/mainSections_3_0_6_2",
+      "Type": "Button",
+      "Name": "Ανανέωση ιστορικού/αδυναμιών",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_4",
+      "Type": "AccessibleTabPage",
+      "Name": "Οδηγίες",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_4/mainSections_4_0",
+      "Type": "TextBox",
+      "Name": "Οδηγίες και περιορισμοί έκδοσης",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5",
+      "Type": "AccessibleTabPage",
+      "Name": "Απρόοπτα διαγωνίσματα",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0",
+      "Type": "TableLayoutPanel",
+      "Name": "Απρόοπτα διαγωνίσματα — στοιχείο 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_0",
+      "Type": "Label",
+      "Name": "Τυχαία θέματα από τις επιλεγμένες κατηγορίες. Λύσεις και παρτιτούρες μετά το τέλος. Space επιλέγει/αποεπιλέγει κατηγορία. 0 λεπτά: χωρίς χρονικό όριο.",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1",
+      "Type": "FlowLayoutPanel",
+      "Name": "Απρόοπτα διαγωνίσματα — στοιχείο 1 — στοιχείο 2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_0",
+      "Type": "Label",
+      "Name": "Επίπεδο",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_1",
+      "Type": "ComboBox",
+      "Name": "Επίπεδο απρόοπτου διαγωνίσματος",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_2",
+      "Type": "Label",
+      "Name": "Ερωτήσεις",
+      "Role": "StaticText",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_3",
+      "Type": "NumericUpDown",
+      "Name": "Πλήθος ερωτήσεων απρόοπτου διαγωνίσματος",
+      "Role": "SpinButton",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_3/mainSections_5_0_1_3_0",
+      "Type": "UpDownButtons",
+      "Name": "Πλήθος ερωτήσεων απρόοπτου διαγωνίσματος — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_3/mainSections_5_0_1_3_1",
+      "Type": "UpDownEdit",
+      "Name": "Πλήθος ερωτήσεων απρόοπτου διαγωνίσματος",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_4",
+      "Type": "Label",
+      "Name": "Λεπτά",
+      "Role": "StaticText",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_5",
+      "Type": "NumericUpDown",
+      "Name": "Χρονικό όριο απρόοπτου σε λεπτά, 0 χωρίς όριο",
+      "Role": "SpinButton",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_5/mainSections_5_0_1_5_0",
+      "Type": "UpDownButtons",
+      "Name": "Χρονικό όριο απρόοπτου σε λεπτά, 0 χωρίς όριο — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_5/mainSections_5_0_1_5_1",
+      "Type": "UpDownEdit",
+      "Name": "Χρονικό όριο απρόοπτου σε λεπτά, 0 χωρίς όριο",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_6",
+      "Type": "Label",
+      "Name": "Ακροάσεις",
+      "Role": "StaticText",
+      "TabIndex": 6,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_7",
+      "Type": "NumericUpDown",
+      "Name": "Ακροάσεις ανά ερώτηση απρόοπτου",
+      "Role": "SpinButton",
+      "TabIndex": 7,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_7/mainSections_5_0_1_7_0",
+      "Type": "UpDownButtons",
+      "Name": "Ακροάσεις ανά ερώτηση απρόοπτου — στοιχείο 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_7/mainSections_5_0_1_7_1",
+      "Type": "UpDownEdit",
+      "Name": "Ακροάσεις ανά ερώτηση απρόοπτου",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_2",
+      "Type": "CheckedListBox",
+      "Name": "Κατηγορίες απρόοπτου διαγωνίσματος",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3",
+      "Type": "FlowLayoutPanel",
+      "Name": "Απρόοπτα διαγωνίσματα — στοιχείο 1 — στοιχείο 4",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_0",
+      "Type": "Button",
+      "Name": "Έναρξη απρόοπτου διαγωνίσματος",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_1",
+      "Type": "Button",
+      "Name": "Συνέχιση αποθηκευμένης εξέτασης",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_2",
+      "Type": "Button",
+      "Name": "Παράλειψη ερώτησης",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_3",
+      "Type": "Button",
+      "Name": "Τερματισμός απρόοπτου και αναφορά",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_4",
+      "Type": "Button",
+      "Name": "Επιστροφή στην εξάσκηση",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_5",
+      "Type": "Button",
+      "Name": "Παρτιτούρες επιλεγμένου ολοκληρωμένου απρόοπτου",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_4",
+      "Type": "TextBox",
+      "Name": "Κατάσταση και αναφορά απρόοπτου διαγωνίσματος",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_5",
+      "Type": "ListBox",
+      "Name": "Ιστορικό απρόοπτων διαγωνισμάτων",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    }
+  ],
+  "PresentationRegression": [
+    {
+      "Category": "Διαστήματα",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Συγχορδίες",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Αναστροφές",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Νότες",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Πτώσεις",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Κλίμακες",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Τρόποι",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Ρυθμικά σχήματα",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Μέτρα",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Ρυθμική υπαγόρευση",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Ρυθμική αναπαραγωγή",
+      "AnswerKind": "Taps",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Μελωδικό ντικτέ",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Αρμονικό ντικτέ",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Βαθμίδες",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Τονικό σολφέζ",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Ατονικό σολφέζ",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Μελωδική μνήμη",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Δίφωνη πολυφωνία",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Τρίφωνη πολυφωνία",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Τετράφωνη πολυφωνία",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Εσωτερική γραμμή",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Χρωματική αρμονία",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Δωδεκαφθογγικές σειρές",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Μετασχηματισμοί σειράς",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Τροπικά χαρακτηριστικά",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Προχωρημένη ανάλυση",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Σύνθετα διαστήματα",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "Εκτεταμένες συγχορδίες",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    }
+  ],
+  "ExamBoundaryRegression": [
+    {
+      "State": "ExpiredBeforeTimer",
+      "Command": "Replay",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "ExpiredBeforeTimer",
+      "Command": "Submit",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "ExpiredBeforeTimer",
+      "Command": "PreviewAnswer",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "Finished",
+      "Command": "Replay",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "Finished",
+      "Command": "Submit",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "Finished",
+      "Command": "PreviewAnswer",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    }
+  ],
+  "AudioDiagnosticRegression": {
+    "Passed": true,
+    "Shortcut": "F6",
+    "ReadOnly": true,
+    "ReadingStartsAtFirstLine": true,
+    "DeviceAndOriginalErrorPreserved": true,
+    "ModalCopyRequired": false,
+    "PhysicalAudioTested": false
+  },
+  "AutomaticPracticeRegression": {
+    "Passed": true,
+    "Executed": 6,
+    "Checks": [
+      {
+        "Name": "Opt-in only",
+        "Passed": true
+      },
+      {
+        "Name": "Same answered question advances after wait",
+        "Passed": true
+      },
+      {
+        "Name": "Esc/Stop cancels pending action",
+        "Passed": true
+      },
+      {
+        "Name": "Finished exam never falls back to automatic practice",
+        "Passed": true
+      },
+      {
+        "Name": "Leaving practice cancels the action",
+        "Passed": true
+      },
+      {
+        "Name": "Replaced question rejects stale continuation",
+        "Passed": true
+      }
+    ],
+    "SimulatedWait": true,
+    "PhysicalAudioTested": false
+  },
+  "NewStudyFeatures": {
+    "Passed": true,
+    "TabName": "Απρόοπτα διαγωνίσματα",
+    "TabCount": 6,
+    "NativeScoreControls": [
+      {
+        "Path": "ScoreViewer",
+        "Type": "ScoreViewer",
+        "Name": "Παρτιτούρα — ζητούμενο μουσικό μέρος",
+        "Role": "Client",
+        "TabIndex": 0,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0",
+        "Type": "TableLayoutPanel",
+        "Name": "Παρτιτούρα — ζητούμενο μουσικό μέρος — στοιχείο 1",
+        "Role": "None",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0",
+        "Type": "FlowLayoutPanel",
+        "Name": "Παρτιτούρα — ζητούμενο μουσικό μέρος — στοιχείο 1 — στοιχείο 1",
+        "Role": "None",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_0",
+        "Type": "ComboBox",
+        "Name": "Ερώτηση παρτιτούρας",
+        "Role": "None",
+        "TabIndex": 0,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_1",
+        "Type": "Button",
+        "Name": "Μεγέθυνση",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_2",
+        "Type": "Button",
+        "Name": "Σμίκρυνση",
+        "Role": "None",
+        "TabIndex": 2,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_3",
+        "Type": "Button",
+        "Name": "Αριστερά",
+        "Role": "None",
+        "TabIndex": 3,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_4",
+        "Type": "Button",
+        "Name": "Δεξιά",
+        "Role": "None",
+        "TabIndex": 4,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_5",
+        "Type": "Button",
+        "Name": "Πάνω",
+        "Role": "None",
+        "TabIndex": 5,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_6",
+        "Type": "Button",
+        "Name": "Κάτω",
+        "Role": "None",
+        "TabIndex": 6,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_7",
+        "Type": "Button",
+        "Name": "Κλείσιμο",
+        "Role": "None",
+        "TabIndex": 7,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_1",
+        "Type": "Panel",
+        "Name": "Οπτικό πεντάγραμμο",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_1/ScoreViewer_0_1_0",
+        "Type": "NotationCanvas",
+        "Name": "Πεντάγραμμο με νότες",
+        "Role": "Graphic",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_2",
+        "Type": "TextBox",
+        "Name": "Αναλυτική προσβάσιμη περιγραφή παρτιτούρας",
+        "Role": "None",
+        "TabIndex": 2,
+        "TabStop": true,
+        "Enabled": true
+      }
+    ],
+    "MusicFont": "Bravura",
+    "PreviewPngBase64": "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AJiUQAgAADApgRAAAGBSAiEAAMCkBEIAAIBJCYQAAACTEggBAAAmJRACAABMSiAEAACYlEAIAAAwKYEQAABgUgIhAADApARCAACASQmEAAAAkxIIAQAAJiUQAgAATEogBAAAmJRACAAAMCmBEAAAYFICIQAAwKQEQgAAgEkJhAAAAJMSCAEAACYlEAIAAExKIAQAAJiUQAgAADApgRAAAGBSAiEAAMCkBEIAAIBJCYQAAACTEggBAAAmJRACAABMSiAEAACYlEAIAAAwKYEQAABgUgIhAADApARCAACASQmEAAAAkxIIAQAAJiUQAgAATEogBAAAmJRACAAAMCmBEAAAYFICIQAAwKQEQgAAgEkJhAAAAJMSCAEAACYlEAIAAExKIAQAAJiUQAgAADApgRAAAGBSAiEAAMCkBEIAAIBJCYQAAACTEggBAAAmJRACAABMSiAEAACYlEAIAAAwKYEQAABgUgIhAADApARCAACASQmEAAAAkxIIAQAAJiUQAgAATEogBAAAmJRACAAAMCmBEAAAYFICIQAAwKQEQgAAgEkJhAAAAJMSCAEAACYlEAIAAExKIAQAAJiUQAgAADApgRAAAGBSAiEAAMCkBEIAAIBJCYQAAACTEggBAAAmJRACAABMSiAEAACYlEAIAAAwKYEQAABgUgIhAADApARCAACASQmEAAAAkxIIAQAAJiUQAgAATEogBAAAmJRACAAAMCmBEAAAYFICIQAAwKQEQgAAgEkJhAAAAJMSCAEAACYlEAIAAExKIAQAAJiUQAgAADApgRAAAGBSAiEAAMCkBEIAAIBJ/T8GrHRrSzziKgAAAABJRU5ErkJggg==",
+    "PrivacyChecksPassed": true
+  },
+  "PianoSetupDialog": [
+    {
+      "Path": "PianoSetupDialog",
+      "Type": "PianoSetupDialog",
+      "Name": "Εγκατάσταση πραγματικού πιάνου",
+      "Role": "Client",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0",
+      "Type": "TableLayoutPanel",
+      "Name": "Εγκατάσταση πραγματικού πιάνου — στοιχείο 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_0",
+      "Type": "TextBox",
+      "Name": "Πληροφορίες και άδεια Maestro Concert Grand",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_1",
+      "Type": "LinkLabel",
+      "Name": "Άνοιγμα αρχικής πηγής Maestro και άδειας",
+      "Role": "StaticText",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_2",
+      "Type": "ProgressBar",
+      "Name": "Πρόοδος εγκατάστασης πιάνου",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_3",
+      "Type": "TextBox",
+      "Name": "Κατάσταση εγκατάστασης",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_4",
+      "Type": "FlowLayoutPanel",
+      "Name": "Εγκατάσταση πραγματικού πιάνου — στοιχείο 1 — στοιχείο 5",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_4/PianoSetupDialog_0_4_0",
+      "Type": "Button",
+      "Name": "Εγκατάσταση Maestro Concert Grand",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_4/PianoSetupDialog_0_4_1",
+      "Type": "Button",
+      "Name": "Ακύρωση / Κλείσιμο",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    }
+  ],
+  "KeyboardChecks": [
+    "Ctrl+Tab: Εξάσκηση",
+    "Ctrl+Tab: Πρόοδος",
+    "Ctrl+Tab: Εξετάσεις και προσαρμογή",
+    "Ctrl+Tab: Οδηγίες",
+    "Ctrl+Tab: Απρόοπτα διαγωνίσματα",
+    "Ctrl+Tab: Ρυθμίσεις",
+    "Ctrl+Shift+Tab: Απρόοπτα διαγωνίσματα"
+  ],
+  "UIAutomationPassed": false,
+  "UIAutomationError": "F1 did not focus the help text."
+}
