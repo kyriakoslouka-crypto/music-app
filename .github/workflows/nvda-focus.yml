@@ -1,0 +1,38 @@
+name: Fast NVDA focus integration against verified application
+on:
+  push:
+    branches: ['codex/pets-delivery']
+    paths: ['desktop/scripts/Test-Nvda.ps1', 'desktop/scripts/Test-Accessibility.ps1', '.github/workflows/nvda-focus.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  nvda:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Require unchanged application code and download exact verified portable
+        shell: pwsh
+        run: |
+          $changes=git diff 1361b06ad2e8cfa17a92e782bac3a9521cdaa78b HEAD -- desktop/src desktop/Directory.Build.props
+          if($changes){throw 'Application changed since pinned portable; use the full Windows build instead.'}
+          New-Item -ItemType Directory desktop/artifacts -Force | Out-Null
+          $zip=Join-Path $env:RUNNER_TEMP 'pets-verified-preview48.zip'
+          Invoke-WebRequest 'https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.0-preview.48/ProfessionalEarTrainingStudio-0.5.0-Portable.zip' -OutFile $zip
+          if((Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant() -ne '2579308cc269015cde3fc28415166c0ef23f82bfed57c1673ef6a276481458a7'){throw 'Pinned portable checksum mismatch.'}
+          Expand-Archive $zip desktop/artifacts/win-x64
+      - name: Actual NVDA focus and keyboard integration
+        shell: pwsh
+        run: ./desktop/scripts/Test-Nvda.ps1
+      - name: Preserve actual fast-test evidence without changing source or workflows
+        if: always()
+        shell: pwsh
+        run: |
+          $target='downloads/windows-checks/nvda-${{ github.run_id }}'
+          New-Item -ItemType Directory $target -Force | Out-Null
+          Get-ChildItem desktop/artifacts/*.json -ErrorAction SilentlyContinue | Copy-Item -Destination $target
+          @{ApplicationCommit='1361b06ad2e8cfa17a92e782bac3a9521cdaa78b';HarnessCommit='${{ github.sha }}';PinnedPortableSha256='2579308cc269015cde3fc28415166c0ef23f82bfed57c1673ef6a276481458a7'} | ConvertTo-Json | Set-Content "$target/test-context.json"
+          ./desktop/scripts/Publish-Diagnostics.ps1 -Target $target -Branch 'codex/pets-nvda-${{ github.run_id }}'

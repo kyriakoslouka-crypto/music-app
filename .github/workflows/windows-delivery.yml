@@ -113,16 +113,8 @@ jobs:
           if (Test-Path "$env:RUNNER_TEMP/pets-native-output.txt") { Copy-Item "$env:RUNNER_TEMP/pets-native-output.txt" "$target/native-output.txt" }
           if (Test-Path "$env:RUNNER_TEMP/pets-assembly.txt") { Copy-Item "$env:RUNNER_TEMP/pets-assembly.txt" "$target/assembly.txt" }
           Get-ChildItem desktop/artifacts/*.json -ErrorAction SilentlyContinue | Copy-Item -Destination $target
-          git config user.name 'PETS Windows build'
-          git config user.email 'pets-build@users.noreply.github.com'
-          git add -- $target
-          git diff --cached --quiet
-          if ($LASTEXITCODE -eq 1) {
-            git commit -m "Record Windows checks for run ${{ github.run_id }}"
-            if ($LASTEXITCODE -ne 0) { throw 'Diagnostic commit failed' }
-            git push origin "HEAD:refs/heads/codex/pets-ci-${{ github.run_id }}"
-            if ($LASTEXITCODE -ne 0) { throw 'Diagnostic publication failed' }
-          }
+          ./desktop/scripts/Publish-Diagnostics.ps1 -Target $target -Branch "codex/pets-ci-${{ github.run_id }}"
+
   release:
     needs: windows
     runs-on: ubuntu-latest
