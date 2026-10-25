@@ -84,6 +84,39 @@ public static class RhythmInputTests
             Check(NoteCodec.ResolveAnswer("ντο:1/4 Ρε3:1/8",true,"Ντο5:1/4 Ρε3:1/8").Select(n=>n.Midi).SequenceEqual(new[]{72,50}));
             Check(TheoryV3.Preview(e,"ντορε2/4 μιφα2/8").Events.Where(n=>n.Voice>=0).Select(n=>n.Midi).SequenceEqual(new[]{72,50,88,41}));
         });
+        test("Rhythm input: each named subdivision has independently verified attacks, duration and grading",()=>{
+            foreach(var denominator in new[]{4,8,16,32,64}){
+                var text=$"{denominator}/{denominator}";
+                var cells=RhythmCodec.Parse(text,meter,1)[0];
+                Check(cells.Length==denominator&&cells.All(c=>c.Ticks==16.0/denominator));
+                var score=TheoryV2.RhythmScore(text,"4/4",1,60);
+                var e=new Exercise("all-values",Category.RhythmDictation,score.Events.Select(n=>n.Midi).ToArray(),"dictation",text,[],Direction.Ascending,score,AnswerKind.Text);
+                Check(WrittenGrader.Grade(e,string.Join(' ',Enumerable.Repeat($"ντο1/{denominator}",denominator)),new(Category.RhythmDictation)).Correct);
+                var onsets=Schedule.Create(e,new(Category.RhythmDictation,Tempo:60,Pedal:true)).Where(n=>n.Action==MidiAction.NoteOn&&n.Channel==0).ToArray();
+                Check(onsets.Length==denominator);
+                for(var i=1;i<onsets.Length;i++)Check(Math.Abs(onsets[i].Frame-onsets[i-1].Frame-44100.0*4/denominator)<=1);
+            }
+        });
+        test("Cadences: no authentic context before plagal and independent final-chord classification",()=>{
+            foreach(var mode in Enum.GetValues<TonalityMode>())foreach(var tonic in Enumerable.Range(48,12))foreach(var id in new[]{"pac","iac","half","plagal","deceptive"}){
+                var score=TheoryV2.CadenceScore(id,tonic,mode);
+                Check(score.Events.Where(n=>n.Beat<4).All(n=>n.Beat==0&&n.Duration==1.6));
+                int[] PitchClasses(double beat)=>score.Events.Where(n=>n.Beat==beat).Select(n=>(n.Midi-tonic+120)%12).Distinct().Order().ToArray();
+                var minor=mode==TonalityMode.NaturalMinor;
+                var first=PitchClasses(4);var last=PitchClasses(6);
+                if(id=="plagal"){Check(first.SequenceEqual(minor?new[]{0,5,8}:new[]{0,5,9}));Check(!first.Contains(11));}
+                if(id is "pac" or "iac" or "deceptive")Check(first.SequenceEqual(new[]{2,7,11}));
+                if(id is "pac" or "iac" or "plagal")Check(last.SequenceEqual(minor?new[]{0,3,7}:new[]{0,4,7}));
+                if(id=="half")Check(last.SequenceEqual(new[]{2,7,11}));
+                var e=new Exercise("cadence-guard",Category.Cadences,score.Events.Select(n=>n.Midi).ToArray(),id,id,TheoryV2.Cadences,Direction.Harmonic,score);
+                Theory.VerifyExercise(e);
+                var legacy=TheoryV2.CadenceScore(id,tonic,mode,true);Theory.VerifyExercise(e with{Score=legacy,Notes=legacy.Events.Select(n=>n.Midi).ToArray()});
+                if(id=="plagal")Reject(()=>Theory.VerifyExercise(e with{CorrectId="pac"}));
+                var scheduled=Schedule.Create(e,new(Category.Cadences,Tempo:60,Pedal:true));
+                Check(scheduled.Any(n=>n.Action==MidiAction.Pedal&&n.Value==0&&Math.Abs(n.Frame-2.0*44100)<=1));
+                Check(scheduled.Where(n=>n.Action==MidiAction.NoteOn&&n.Frame>2*44100&&n.Frame<4*44100).Count()==0);
+            }
+        });
         var index=Array.IndexOf(args,"--maestro");if(index>=0)test("Rhythm input: actual Maestro renders 32nd/64th dictation and compact melody previews",()=>{
             var renderer=new PianoRenderer(args[index+1]);var score=TheoryV2.RhythmScore("8/32 16/64 2/4","4/4",1,60);
             var e=new Exercise("fine-rhythm-audio",Category.RhythmDictation,score.Events.Select(n=>n.Midi).ToArray(),"dictation","8/32 16/64 2/4",[],Direction.Ascending,score,AnswerKind.Text);

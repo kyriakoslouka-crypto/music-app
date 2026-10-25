@@ -57,6 +57,10 @@ public static class Schedule
             }
             if(usePedal)foreach(var onset in score.Events.Select(n=>n.Beat).Distinct().Order())
             {foreach(var channel in channels)events.Add(new(Frame(onset),MidiAction.Pedal,64,0,channel));foreach(var channel in channels)events.Add(new(Frame(onset),MidiAction.Pedal,64,127,channel));}
+            // Cadence chords must release before the reference pause and before each resolution.
+            if(usePedal&&TheoryV2.Cadences.Any(c=>c.Id==original.DefinitionId))
+                foreach(var end in score.Events.Select(n=>n.Beat+n.Duration).Distinct())
+                    foreach(var channel in channels)events.Add(new(Frame(end),MidiAction.Pedal,64,0,channel));
             foreach(var channel in channels)events.Add(new(Frame(score.LengthBeats),MidiAction.Pedal,64,0,channel));
         }
         return events.OrderBy(e=>e.Frame).ThenBy(e=>e.Action).ToArray();

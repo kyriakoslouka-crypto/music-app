@@ -112,7 +112,7 @@ public static class TheoryV2
         var notes=steps.Select((n,i)=>new ScoreNote(tonic+n,i*0.5,0.44)).ToArray();
         return new(notes,notes.Length*0.5,d.Id,tonic,TonalityMode.Major,"Άκουσε άνοδο και κάθοδο. Η αρχική και τελική νότα είναι το τονικό κέντρο.");
     }
-    public static MusicalScore CadenceScore(string id,int tonic,TonalityMode mode)
+    public static MusicalScore CadenceScore(string id,int tonic,TonalityMode mode,bool legacyContext=false)
     {
         var minor=mode==TonalityMode.NaturalMinor;var third=minor?3:4;
         int[] i=[0,third,7,12],v=[-5,2,7,11];
@@ -120,8 +120,10 @@ public static class TheoryV2
         var last=id switch{"pac"=>i,"iac"=>new[]{0,third,12,19},"half"=>v,"plagal"=>i,"deceptive"=>new[]{minor?-4:-3,0,third,12},_=>throw new ArgumentException("Άγνωστη πτώση")};
         var notes=new List<ScoreNote>();
         void Chord(int[] chord,double beat,double duration){notes.AddRange(chord.Select((n,voice)=>new ScoreNote(tonic+n,beat,duration,voice)));}
-        Chord(i,0,0.8);Chord(v,1,0.8);Chord(i,2,0.8);Chord(first,4,1.8);Chord(last,6,1.8);
-        return new(notes.ToArray(),8,id,tonic,mode,"Ακούγεται τονικό πλαίσιο i/V/i ή I/V/I και έπειτα πτώση. Αναγνώρισε ΜΟΝΟ τις δύο τελευταίες συγχορδίες. Στην ελάσσονα η δεσπόζουσα έχει προσαγωγέα.");
+        if(legacyContext){Chord(i,0,0.8);Chord(v,1,0.8);Chord(i,2,0.8);}
+        else Chord(i,0,1.6);
+        Chord(first,4,1.8);Chord(last,6,1.8);
+        return new(notes.ToArray(),8,id,tonic,mode,legacyContext?"Ακούγεται παλιό τονικό πλαίσιο Ι–V–Ι. Αναγνώρισε μόνο τις δύο τελευταίες συγχορδίες.":"Ακούγεται μία συγχορδία τονικής για αναφορά, καθαρή παύση και έπειτα οι δύο συγχορδίες της ζητούμενης πτώσης. Βαθμολόγησε αυτές τις δύο συγχορδίες. Στην ελάσσονα η δεσπόζουσα έχει προσαγωγέα.",Metadata:legacyContext?null:"cadence-tonic-context-v2");
     }
     public static MusicalScore MeterScore(MeterDefinition meter,int bars,int pitch)
     {
@@ -170,7 +172,7 @@ public static class TheoryV2
         foreach(var n in score.Events)if(n.Midi is <21 or >108||!double.IsFinite(n.Beat)||!double.IsFinite(n.Duration)||n.Beat<0||n.Duration<=0||n.Beat+n.Duration>score.LengthBeats+0.001||n.Velocity is <1 or >127)throw new ArgumentException("Μη έγκυρο μουσικό συμβάν.");
         if(!e.Notes.SequenceEqual(score.Events.Select(n=>n.Midi)))throw new ArgumentException("Ασυμφωνία νοτών και ακολουθίας.");
         MusicalScore expected=e.Category switch{
-            Category.Cadences=>CadenceScore(e.CorrectId,score.Tonic,score.Mode),
+            Category.Cadences=>CadenceScore(e.CorrectId,score.Tonic,score.Mode,score.Metadata is null),
             Category.Scales=>ScaleScore(Scales.Single(d=>d.Id==e.CorrectId),score.Tonic,e.Direction),
             Category.Modes=>ScaleScore(Modes.Single(d=>d.Id==e.CorrectId),score.Tonic,e.Direction),
             Category.Meters=>MeterScore(Meters.Single(m=>m.Id==e.CorrectId),score.Bars,score.Tonic),
