@@ -54,6 +54,11 @@ public static class Version5Tests
             Throws<InvalidDataException>(()=>ExamEngine.Restore(state with{Answers=[null!]}));
             Throws<InvalidDataException>(()=>ExamEngine.Restore(state with{Answers=[new(0,null!)]}));
             var q=state.Questions[0];var questions=state.Questions.ToArray();questions[0]=q with{Exercise=q.Exercise with{Notes=null!}};
+            var written=ExamEngine.Create(ExamCatalog.Profiles[4],33).State;
+            var writtenIndex=Array.FindIndex(written.Questions,q=>q.Exercise.Score is not null);var writtenQuestions=written.Questions.ToArray();
+            var wq=writtenQuestions[writtenIndex];
+            writtenQuestions[writtenIndex]=wq with{Exercise=wq.Exercise with{Score=wq.Exercise.Score! with{Events=null!}}};
+            Throws<InvalidDataException>(()=>ExamEngine.Restore(written with{Questions=writtenQuestions}));
             var broken=state with{Questions=questions};
             var dir=Path.Combine(Path.GetTempPath(),"studio-null-exam-"+Guid.NewGuid());Directory.CreateDirectory(dir);
             try{
