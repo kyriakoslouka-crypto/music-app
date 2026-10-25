@@ -13,7 +13,7 @@ if(Test-Path $Report){Move-Item $Report ($Report+".previous") -Force}
 $managed=Start-Process $Exe -ArgumentList @('--accessibility-audit',('"'+$Report+'"')) -PassThru -Wait
 if($managed.ExitCode -ne 0 -or !(Test-Path $Report)){throw 'Managed accessibility audit failed.'}
 $audit=Get-Content $Report -Raw | ConvertFrom-Json
-if($audit.MainForm.Count -lt 40 -or $audit.PianoSetupDialog.Count -lt 8 -or $audit.PresentationRegression.Count -lt 28){throw 'Incomplete form audit.'}
+if($audit.MainForm.Count -lt 40 -or $audit.PianoSetupDialog.Count -lt 8 -or $audit.PresentationRegression.Count -lt 28 -or $audit.ExamBoundaryRegression.Count -ne 6){throw 'Incomplete form audit.'}
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName UIAutomationTypes
 Add-Type -TypeDefinition @'

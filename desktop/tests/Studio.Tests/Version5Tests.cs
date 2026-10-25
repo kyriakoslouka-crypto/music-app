@@ -49,6 +49,26 @@ public static class Version5Tests
             var plays=exam.State.Plays.ToArray();plays[0]=100;Throws<InvalidDataException>(()=>ExamEngine.Restore(exam.State with{Plays=plays}));
             var dir=Path.Combine(Path.GetTempPath(),"studio-exam-bad-"+Guid.NewGuid());Directory.CreateDirectory(dir);try{var file=Path.Combine(dir,"exam-current.json");File.WriteAllText(file,"{bad");Throws<InvalidDataException>(()=>new ExamStore(dir).LoadCurrent());Check(File.ReadAllText(file)=="{bad");}finally{Directory.Delete(dir,true);}
         });
+        test("0.5: null exam entries and incomplete persisted questions fail as data errors without overwriting files",()=>{
+            var engine=ExamEngine.Create(ExamCatalog.Profiles[0],31);var state=engine.State;
+            Throws<InvalidDataException>(()=>ExamEngine.Restore(state with{Answers=[null!]}));
+            Throws<InvalidDataException>(()=>ExamEngine.Restore(state with{Answers=[new(0,null!)]}));
+            var q=state.Questions[0];var questions=state.Questions.ToArray();questions[0]=q with{Exercise=q.Exercise with{Notes=null!}};
+            var broken=state with{Questions=questions};
+            var dir=Path.Combine(Path.GetTempPath(),"studio-null-exam-"+Guid.NewGuid());Directory.CreateDirectory(dir);
+            try{
+                var file=Path.Combine(dir,"exam-current.json");var json=System.Text.Json.JsonSerializer.Serialize(broken);File.WriteAllText(file,json);
+                Throws<InvalidDataException>(()=>new ExamStore(dir).LoadCurrent());Check(File.ReadAllText(file)==json);Check(!File.Exists(file+".bak"));
+            }finally{Directory.Delete(dir,true);}
+        });
+        test("0.5: missing prior questions and altered answer metadata are rejected on restore",()=>{
+            var engine=ExamEngine.Create(ExamCatalog.Profiles[0],32);engine.RegisterSuccessfulPlay();engine.Submit(CorrectResponse(engine.Current));engine.Advance();
+            Throws<InvalidDataException>(()=>ExamEngine.Restore(engine.State with{Answers=[]}));
+            var answer=engine.State.Answers[0];
+            Throws<InvalidDataException>(()=>ExamEngine.Restore(engine.State with{Answers=[answer with{Attempt=answer.Attempt with{ExpectedName="Αλλοιωμένη απάντηση"}}]}));
+            Throws<InvalidDataException>(()=>ExamEngine.Restore(engine.State with{Answers=[answer with{Attempt=answer.Attempt with{Notes=[21]}}]}));
+            Check(ExamEngine.Restore(engine.State).State.CurrentIndex==1);
+        });
         test("0.5: adaptive practice targets weak concepts while retaining contrast examples",()=>{
             var settings=new Settings(Category.Intervals,Level.Elementary);var g=new ExerciseGenerator(50);var history=new List<Attempt>();
             while(history.Count<4){var e=g.Next(settings);if(e.CorrectId!="interval:3")continue;var session=new Session();session.Begin(e);history.Add(session.Answer(e.Choices.First(c=>c.Id!=e.CorrectId).Id,settings.Level,settings));}
@@ -61,6 +81,14 @@ public static class Version5Tests
             var partial=a with{Correct=false,Percentage=50};Check(LearningAnalytics.Weaknesses([a,partial]).Single().Percentage==75);
             Check(LearningAnalytics.ReviewableMistakes([partial]).Length==0);
             Check(Enum.GetValues<Category>().All(c=>!string.IsNullOrWhiteSpace(CategoryLabels.Name(c))));
+        });
+        test("0.5: passing rhythm partial scores remain partial in analytics and legacy correct scores migrate",()=>{
+            var e=new ExerciseGenerator(1).Next(new());
+            var legacy=new Attempt(DateTimeOffset.UtcNow,e.Category,Level.Beginner,e.Id,e.Notes,e.CorrectId,e.CorrectName,e.CorrectId,e.CorrectName,true);
+            var passing=legacy with{Percentage=80};var failing=legacy with{Correct=false,Percentage=40};
+            Check(LearningAnalytics.EffectivePercentage(legacy)==100);
+            Check(LearningAnalytics.EffectivePercentage(passing)==80);
+            Check(Math.Abs(LearningAnalytics.Weaknesses([legacy,passing,failing]).Single().Percentage-220.0/3)<0.00001);
         });
         test("0.5: playback cache cannot return the previous question or stale tempo/voice/segment audio",()=>{
             var cache=new PlaybackCache();var settings=new Settings();float[] samples=[1,2,3,4];cache.Store("first",settings,samples);Check(ReferenceEquals(cache.Get("first",settings),samples));

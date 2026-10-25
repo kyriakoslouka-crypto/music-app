@@ -24,6 +24,7 @@ public sealed partial class MainForm : Form
     private Settings activeSettings = new();
     private bool storageHealthy = true, loading, playing, answered, heard;
     private int playbackGeneration;
+    private Action<string>? regressionError;
     private readonly AccessibleTabControl tabs = new() { Dock = DockStyle.Fill, Multiline = true, Name="mainSections", AccessibleName="Κύριες ενότητες εφαρμογής" };
     private readonly ComboBox category = Combo("Κατηγορία άσκησης", ["Διαστήματα", "Συγχορδίες", "Αναστροφές συγχορδιών", "Μεμονωμένες νότες", "Πτώσεις", "Κλίμακες", "Εκκλησιαστικοί τρόποι", "Ρυθμικά σχήματα", "Μέτρα", "Ρυθμική υπαγόρευση", "Ρυθμική αναπαραγωγή", "Μελωδικό ντικτέ", "Αρμονικό ντικτέ", "Βαθμίδες και λειτουργίες", "Τονικό σολφέζ", "Ατονικό σολφέζ", "Μελωδική μνήμη", "Δίφωνη πολυφωνία", "Τρίφωνη πολυφωνία", "Τετράφωνη πολυφωνία", "Εσωτερική μελωδική γραμμή", "Χρωματική αρμονία", "Δωδεκαφθογγικές σειρές", "Μετασχηματισμοί σειράς", "Τροπικά χαρακτηριστικά", "Προχωρημένη αρμονική ανάλυση", "Προχωρημένα σύνθετα διαστήματα", "Εκτεταμένες συγχορδίες"]);
     private readonly ComboBox level = Combo("Επίπεδο", ["Beginner — Αρχάριο", "Elementary — Στοιχειώδες", "Intermediate — Μέσο", "Advanced — Προχωρημένο", "Expert — Ειδικός", "Professional / Pro"]);
@@ -281,7 +282,7 @@ public sealed partial class MainForm : Form
         var clip=previewClip??playbackCache.Get(session.Current?.Id,activeSettings);
         if(clip is null)return;
         if(devices.SelectedItem is not OutputDevice device)throw new InvalidOperationException("Επίλεξε ενεργή έξοδο ήχου στις Ρυθμίσεις.");
-        if(exam?.Running==true&&!preview)exam.CheckPlayAllowed();
+        if(exam is not null&&!preview)exam.CheckPlayAllowed();
         if (cancelSpeech.Checked) NvdaSpeech.Cancel();
         var generation = ++playbackGeneration;
         if(!status.Focused)status.Text = "Αναπαραγωγή. Ctrl+P: παύση. Esc: διακοπή.";
@@ -301,13 +302,13 @@ public sealed partial class MainForm : Form
     private async Task Replay()
     {
         if (rendering is not null || session.Current is null) return;
-        try { if(exam?.Running==true)exam.CheckPlayAllowed();Stop(); if (playbackCache.Get(session.Current.Id,activeSettings) is not null) StartPlayback(); else await RenderAndPlay(); }
+        try { if(exam is not null)exam.CheckPlayAllowed();Stop(); if (playbackCache.Get(session.Current.Id,activeSettings) is not null) StartPlayback(); else await RenderAndPlay(); }
         catch (OperationCanceledException) { }
         catch (Exception ex) { Error(ex.Message); }
     }
     private async Task PreviewAnswer()
     {
-        if(exam?.Running==true){Tell("Η ακρόαση γραπτής απάντησης δεν διατίθεται κατά την εξέταση.");return;}
+        if(exam is not null){Error("Η ακρόαση γραπτής απάντησης δεν διατίθεται μέχρι να επιστρέψεις σε εξάσκηση.");return;}
         if(rendering is not null||session.Current is null||session.Current.AnswerKind!=AnswerKind.Text||piano is null||presets.SelectedItem is not PianoPreset preset)return;
         Stop();using var cancellation=new CancellationTokenSource();rendering=cancellation;
         try
@@ -366,12 +367,12 @@ public sealed partial class MainForm : Form
             if(session.Current.AnswerKind==AnswerKind.Choice)
             {
                 if(answers.SelectedItem is not Option choice){Tell("Επίλεξε απάντηση με τα βέλη.");return;}
-                attempt=exam?.Running==true?exam.Submit(choice.Id):session.Answer(choice.Id,activeSettings.Level,activeSettings);
+                attempt=exam is not null?exam.Submit(choice.Id):session.Answer(choice.Id,activeSettings.Level,activeSettings);
             }
             else
             {
                 var text=session.Current.AnswerKind==AnswerKind.Text?response.Text:string.Join(' ',taps.Select(t=>t.ToString("R",CultureInfo.InvariantCulture)));
-                attempt=exam?.Running==true?exam.Submit(text):session.AnswerResponse(text,activeSettings);
+                attempt=exam is not null?exam.Submit(text):session.AnswerResponse(text,activeSettings);
             }
             if(exam is not null){SaveExam();UpdateExamStatus();}
             history.Add(attempt);answered=true;submit.Enabled=false;tapClock.Stop();
@@ -425,13 +426,13 @@ public sealed partial class MainForm : Form
         if(!status.AccessibilityObject.RaiseAutomationNotification(AutomationNotificationKind.ActionCompleted,AutomationNotificationProcessing.ImportantMostRecent,text))
         {status.Focus();status.Select(0,0);}
     }
-    private void Error(string text){if(IsDisposed||Disposing)return;Stop();MessageBox.Show(this,text,"Professional Ear Training Studio",MessageBoxButtons.OK,MessageBoxIcon.Warning);}
+    private void Error(string text){if(IsDisposed||Disposing)return;Stop();if(regressionError is not null){regressionError(text);return;}MessageBox.Show(this,text,"Professional Ear Training Studio",MessageBoxButtons.OK,MessageBoxIcon.Warning);}
     private void UpdateHistory()
     {
         if(exam?.Running==true){stats.Text="Οι αναλυτικές απαντήσεις της τρέχουσας εξέτασης εμφανίζονται μετά τον τερματισμό της.";return;}
         var correct = history.Count(a => a.Correct);
         var percentage = history.Count == 0 ? 0 : 100.0 * correct / history.Count;
-        var mean=history.Count==0?0:history.Average(a=>a.Correct?100:Math.Clamp(a.Percentage,0,100));
+        var mean=history.Count==0?0:history.Average(LearningAnalytics.EffectivePercentage);
         var lines = new List<string> { $"Πλήρως σωστά: {correct} από {history.Count}. Ποσοστό πλήρους επιτυχίας: {percentage:F1}%. Μέση βαθμολογία με μερικά σωστά: {mean:F1}%." };
         foreach (var group in history.GroupBy(a => a.Category)) lines.Add($"{CategoryName(group.Key)}: {group.Count(a => a.Correct)} / {group.Count()}");
         lines.Add("Πρόσφατες απαντήσεις (έως 200). Όλο το ιστορικό διατηρείται στο αρχείο JSON.");

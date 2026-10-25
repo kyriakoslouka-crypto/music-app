@@ -116,18 +116,33 @@ public sealed class ExamEngine
     }
     public static void Validate(ExamState state)
     {
-        if(state.Profile is null||state.Questions is null||state.Plays is null||state.Answers is null||string.IsNullOrEmpty(state.Id)||state.Profile.Categories is null||state.Questions.Any(q=>q is null||q.Exercise is null||q.Settings is null)||!double.IsFinite(state.Profile.PassPercentage)||!Enum.IsDefined(state.Profile.Level))throw new InvalidDataException("Ελλιπής εξέταση.");
+        if(state is null||state.Profile is null||state.Questions is null||state.Plays is null||state.Answers is null||state.Answers.Any(a=>a is null||a.Attempt is null)||string.IsNullOrEmpty(state.Id)||state.Profile.Categories is null||state.Questions.Any(q=>q is null||q.Exercise is null||q.Settings is null)||!double.IsFinite(state.Profile.PassPercentage)||!Enum.IsDefined(state.Profile.Level))throw new InvalidDataException("Ελλιπής εξέταση.");
         if(state.Questions.Select(q=>q.Exercise.Id).Distinct().Count()!=state.Questions.Length)throw new InvalidDataException("Διπλή ταυτότητα ερώτησης.");
         if(state.Schema!=1||state.Id.Length!=32||state.Id.Any(c=>!Uri.IsHexDigit(c))||state.Profile.QuestionCount is <1 or >200||state.Questions.Length!=state.Profile.QuestionCount||state.CurrentIndex<0||state.CurrentIndex>=state.Questions.Length||state.Plays.Length!=state.Questions.Length||state.Profile.MaxPlays is <1 or >20||state.Profile.PassPercentage is <0 or >100||state.Profile.TimeLimitMinutes is <0 or >180||state.Answers.Select(a=>a.Index).Distinct().Count()!=state.Answers.Length)throw new InvalidDataException("Μη έγκυρη εξέταση.");
-        foreach(var question in state.Questions){Theory.Validate(question.Settings);Theory.VerifyExercise(question.Exercise);if(question.Settings.Category!=question.Exercise.Category||!state.Profile.Categories.Contains(question.Exercise.Category))throw new InvalidDataException("Κατηγορία ερώτησης.");}
+        if(state.Profile.Categories.Length==0||state.Profile.Categories.Any(c=>!Enum.IsDefined(c))||state.Finished<state.Started)
+            throw new InvalidDataException("Μη έγκυρο προφίλ ή χρόνος εξέτασης.");
+        if(Enumerable.Range(0,state.CurrentIndex).Any(i=>!state.Answers.Any(a=>a.Index==i)))
+            throw new InvalidDataException("Λείπουν προηγούμενες απαντήσεις της εξέτασης.");
+        foreach(var question in state.Questions)
+        {
+            try{Theory.Validate(question.Settings);Theory.VerifyExercise(question.Exercise);}
+            catch(ArgumentException ex){throw new InvalidDataException("Μη έγκυρη αποθηκευμένη ερώτηση.",ex);}
+            if(question.Settings.Category!=question.Exercise.Category||question.Settings.Level!=state.Profile.Level||!state.Profile.Categories.Contains(question.Exercise.Category))
+                throw new InvalidDataException("Κατηγορία ή επίπεδο ερώτησης.");
+        }
         if(state.Plays.Any(n=>n<0||n>state.Profile.MaxPlays))throw new InvalidDataException("Μετρητής ακροάσεων.");
         foreach(var answer in state.Answers)
         {
             if(!double.IsFinite(answer.Attempt.Percentage)||answer.Index<0||answer.Index>state.CurrentIndex||answer.Index>=state.Questions.Length||answer.Attempt.ExerciseId!=state.Questions[answer.Index].Exercise.Id||answer.Attempt.ExamId!=state.Id)throw new InvalidDataException("Απάντηση ξένης εξέτασης.");
-            if(answer.Skipped){if(answer.Attempt.Percentage!=0||answer.Attempt.Correct)throw new InvalidDataException("Παράλειψη βαθμολογήθηκε.");continue;}
+            var question=state.Questions[answer.Index];var attempt=answer.Attempt;
+            if(attempt.Category!=question.Exercise.Category||attempt.Level!=question.Settings.Level||attempt.ExpectedId!=question.Exercise.CorrectId||attempt.ExpectedName!=question.Exercise.CorrectName||attempt.Notes is null||!attempt.Notes.SequenceEqual(question.Exercise.Notes)||attempt.Configuration!=question.Settings)
+                throw new InvalidDataException("Τα δεδομένα απάντησης δεν συμφωνούν με την ερώτηση.");
+            if(answer.Skipped){if(answer.Attempt.AnswerId!="__skip__"||answer.Attempt.Percentage!=0||answer.Attempt.Correct)throw new InvalidDataException("Παράλειψη βαθμολογήθηκε.");continue;}
             if(state.Plays[answer.Index]==0)throw new InvalidDataException("Απάντηση χωρίς ακρόαση.");
             var q=state.Questions[answer.Index];var session=new Session();session.Begin(q.Exercise);
-            var checkedAnswer=q.Exercise.AnswerKind==AnswerKind.Choice?session.Answer(answer.Attempt.AnswerId,q.Settings.Level,q.Settings):session.AnswerResponse(answer.Attempt.AnswerName,q.Settings);
+            Attempt checkedAnswer;
+            try{checkedAnswer=q.Exercise.AnswerKind==AnswerKind.Choice?session.Answer(answer.Attempt.AnswerId,q.Settings.Level,q.Settings):session.AnswerResponse(answer.Attempt.AnswerName,q.Settings);}
+            catch(Exception ex)when(ex is ArgumentException or FormatException or OverflowException){throw new InvalidDataException("Μη έγκυρη αποθηκευμένη απάντηση.",ex);}
             if(checkedAnswer.Correct!=answer.Attempt.Correct||Math.Abs(checkedAnswer.Percentage-answer.Attempt.Percentage)>0.0001)throw new InvalidDataException("Η αποθηκευμένη βαθμολογία δεν επαληθεύεται.");
         }
     }
@@ -160,8 +175,11 @@ public sealed class ExamStore(string directory)
 public sealed record CategoryPerformance(Category Category,int Attempts,double Percentage);
 public static class LearningAnalytics
 {
+    // Older history has no Percentage field: a correct legacy attempt deserializes as zero.
+    // A modern passing rhythm attempt can legitimately score 80–99%; retain that score.
+    public static double EffectivePercentage(Attempt attempt)=>attempt.Correct&&attempt.Percentage==0?100:Math.Clamp(attempt.Percentage,0,100);
     public static CategoryPerformance[] Weaknesses(IEnumerable<Attempt> history)=>history.GroupBy(a=>a.Category).Select(g=>{
-        var recent=g.TakeLast(100).ToArray();return new CategoryPerformance(g.Key,recent.Length,recent.Average(a=>a.Correct?100:Math.Clamp(a.Percentage,0,100)));
+        var recent=g.TakeLast(100).ToArray();return new CategoryPerformance(g.Key,recent.Length,recent.Average(EffectivePercentage));
     }).OrderBy(p=>p.Percentage).ThenByDescending(p=>p.Attempts).ToArray();
     public static Settings AdaptiveSettings(IReadOnlyList<Attempt> history,Settings fallback)
     {

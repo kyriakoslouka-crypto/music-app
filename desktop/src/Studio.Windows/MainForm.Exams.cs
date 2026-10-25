@@ -111,4 +111,37 @@ public sealed partial class MainForm
         var original=item.Attempt;ExitExam();var settings=(original.Configuration??new(Category:original.Category,Level:original.Level))with{Repetitions=1,SegmentStart=0,SegmentEnd=null,SoloVoice=-1};
         ApplyTrainingSettings(settings);await PresentExercise(original.Snapshot!with{Id=Guid.NewGuid().ToString("N")},settings);
     }
+    // Execute the actual UI commands with a fake clock and no physical output device.
+    // Expiry must never turn an exam question into a practice Session submission.
+    internal object[] AuditExamBoundaries()
+    {
+        var results=new List<object>();var errors=new List<string>();var originalHistoryCount=history.Count;
+        regressionError=errors.Add;
+        try
+        {
+            foreach(var finished in new[]{false,true})
+            {
+                var now=new DateTimeOffset(2026,10,25,0,0,0,TimeSpan.Zero);
+                var profile=ExamCatalog.Profiles[0] with{Categories=[Category.Intervals],QuestionCount=1};
+                exam=ExamEngine.Create(profile,42,1,()=>now);
+                var q=exam.Current;PresentExercise(q.Exercise,q.Settings).GetAwaiter().GetResult();
+                exam.RegisterSuccessfulPlay();heard=true;
+                answers.SelectedIndex=Array.FindIndex(q.Exercise.Choices,c=>c.Id==q.Exercise.CorrectId);
+                if(finished)exam.Finish();else now=now.AddMinutes(2);
+                foreach(var command in new[]{"Replay","Submit","PreviewAnswer"})
+                {
+                    errors.Clear();
+                    if(command=="Replay")Replay().GetAwaiter().GetResult();
+                    else if(command=="Submit")Submit();
+                    else PreviewAnswer().GetAwaiter().GetResult();
+                    if(errors.Count!=1||exam.State.Answers.Length!=0||history.Count!=originalHistoryCount||playing)
+                        throw new InvalidOperationException($"Exam boundary bypass: {finished}/{command}");
+                    results.Add(new{State=finished?"Finished":"ExpiredBeforeTimer",Command=command,Rejected=true,HistoryUnchanged=true});
+                }
+            }
+        }
+        finally{regressionError=null;exam=null;session.Clear();heard=false;answered=false;SetExamLocks(false);}
+        return results.ToArray();
+    }
+
 }

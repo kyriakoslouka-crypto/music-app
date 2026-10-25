@@ -51,6 +51,8 @@ public static class Theory
     public static bool HasAudibleInversion(NamedPattern pattern) => pattern.Id is not ("augmented" or "diminished7");
     public static void VerifyExercise(Exercise e)
     {
+        if(e is null||string.IsNullOrWhiteSpace(e.Id)||e.Notes is null||e.Choices is null||e.Choices.Any(c=>c is null||string.IsNullOrWhiteSpace(c.Id)||string.IsNullOrWhiteSpace(c.Name))||string.IsNullOrWhiteSpace(e.CorrectId)||string.IsNullOrWhiteSpace(e.CorrectName))
+            throw new ArgumentException("Ελλιπή δεδομένα άσκησης.");
         if (!Enum.IsDefined(e.AnswerKind) || !Enum.IsDefined(e.Category) || !Enum.IsDefined(e.Direction) || e.Notes.Length == 0 || e.Notes.Any(n => n < 21 || n > 108)) throw new ArgumentException("Μη έγκυρη άσκηση.");
         if (e.Choices.Select(c => c.Id).Distinct().Count() != e.Choices.Length || (e.AnswerKind==AnswerKind.Choice && e.Choices.Count(c => c.Id == e.CorrectId) != 1)) throw new ArgumentException("Μη έγκυρες απαντήσεις.");
         if(e.Category>Category.Notes){TheoryV2.Verify(e);return;}

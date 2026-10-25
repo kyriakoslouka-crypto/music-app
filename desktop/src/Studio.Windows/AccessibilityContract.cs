@@ -53,6 +53,7 @@ public static class AccessibilityContract
         var result=new Dictionary<string,object>();
         result["MainForm"]=Audit(form);
         result["PresentationRegression"]=form.AuditPresentations();
+        result["ExamBoundaryRegression"]=form.AuditExamBoundaries();
         using var installer=new PianoSetupDialog(Path.Combine(Path.GetTempPath(),"studio-audit-unused"));
         result["PianoSetupDialog"]=Audit(installer);
         File.WriteAllText(path,JsonSerializer.Serialize(result,new JsonSerializerOptions {WriteIndented=true}));
