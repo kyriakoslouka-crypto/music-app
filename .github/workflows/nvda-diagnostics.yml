@@ -19,6 +19,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          exec > >(tee "$RUNNER_TEMP/recovery.txt") 2>&1
+          trap 'printf "### Recovery diagnostic tail\n\n\x60\x60\x60text\n" >> "$GITHUB_STEP_SUMMARY"; tail -n 70 "$RUNNER_TEMP/recovery.txt" >> "$GITHUB_STEP_SUMMARY"; printf "\n\x60\x60\x60\n" >> "$GITHUB_STEP_SUMMARY"' EXIT
           target=downloads/windows-checks/40168113884
           mkdir -p "$target" "$RUNNER_TEMP/nvda-diagnostics"
           gh run download 40168113884 --name Windows-check-diagnostics --dir "$RUNNER_TEMP/nvda-diagnostics"
@@ -26,6 +28,7 @@ jobs:
           gh api repos/$GH_REPO/actions/jobs/121093223234/logs > "$RUNNER_TEMP/nvda-job.txt"
           tail -n 110 "$RUNNER_TEMP/nvda-job.txt" > "$target/bounded-job-tail.txt"
           cat "$target/nvda-smoke.json"
+          gh release create "nvda-diagnostics-${{ github.run_id }}" "$target/"* --target "$GITHUB_SHA" --prerelease --latest=false --title 'NVDA test failure diagnostics only — no application installer' --notes 'Diagnostic JSON and bounded log for a failed NVDA test. This is not an application release or a successful acceptance.'
           git config user.name 'PETS Windows diagnostics'
           git config user.email 'pets-build@users.noreply.github.com'
           git add -- "$target"
