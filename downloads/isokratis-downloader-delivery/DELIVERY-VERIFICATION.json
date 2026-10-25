@@ -1,0 +1,39 @@
+{
+  "ReleaseTag": "isokratis-downloader-v1.4",
+  "VerifiedAtUtc": "2026-10-25T13:58:04.438419+00:00",
+  "ReleaseUrl": "https://github.com/kyriakoslouka-crypto/music-app/releases/tag/isokratis-downloader-v1.4",
+  "AllHttpsDownloadsAndHashesVerified": true,
+  "UserComputerDownloadVerified": false,
+  "Files": [
+    {
+      "File": "Download-Isokratis-Voices.ps1",
+      "SHA256": "0f600c4df90faa8b806c46955f62e649c0d50b3c0262820189e308e97101f2a3",
+      "Bytes": 16762,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/isokratis-downloader-v1.4/Download-Isokratis-Voices.ps1"
+    },
+    {
+      "File": "Isokratis-Voice-Downloader.zip",
+      "SHA256": "68f02535a6de6ff5013317198eb3c0202364edc7fec1c4168212f7ebb930ce2e",
+      "Bytes": 10009,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/isokratis-downloader-v1.4/Isokratis-Voice-Downloader.zip"
+    },
+    {
+      "File": "README-GR.txt",
+      "SHA256": "684410484011007ff50ba7cc3b517e4284cc9d9a4200d24fea1fae14dbbf02f7",
+      "Bytes": 5099,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/isokratis-downloader-v1.4/README-GR.txt"
+    },
+    {
+      "File": "Start-Downloader.cmd",
+      "SHA256": "916b50cee80230dd3606089d3ee5185fb5ddc67b9da6eb807ca7ed29c9749919",
+      "Bytes": 156,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/isokratis-downloader-v1.4/Start-Downloader.cmd"
+    },
+    {
+      "File": "TEST-RESULTS.json",
+      "SHA256": "64532c4ebb6f93c187cf858fe03fcc290d01cae88e5bc561a828d812891f350c",
+      "Bytes": 3450,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/isokratis-downloader-v1.4/TEST-RESULTS.json"
+    }
+  ]
+}
