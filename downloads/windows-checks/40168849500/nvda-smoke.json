@@ -1,0 +1,15 @@
+{
+  "Passed": false,
+  "SourceCommit": "fa46531d715bbb2c872bb40f2d8137e8e2b2fb25",
+  "NvdaVersion": "2026.2",
+  "InstallerSha256": "f3f8d29974a88d687b3c4809be192219ec579c5bdabcda5aaf53635288bca824",
+  "SignatureValid": true,
+  "ActualNvdaProcessTested": true,
+  "SpeechAnnouncementsPassed": false,
+  "Windows11UserTested": false,
+  "HumanListeningTested": false,
+  "Synthesizer": "silence",
+  "Checks": [],
+  "Error": "Keyboard value transition did not complete; previous/expected=ABRSM-inspired Grade 1 — ανεπίσημο; actual=ABRSM-inspired Grade 1 — ανεπίσημο; changed=True",
+  "NvdaErrorTail": []
+}
