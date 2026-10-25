@@ -433,7 +433,7 @@ public sealed partial class MainForm : Form
         var correct = history.Count(a => a.Correct);
         var percentage = history.Count == 0 ? 0 : 100.0 * correct / history.Count;
         var mean=history.Count==0?0:history.Average(LearningAnalytics.EffectivePercentage);
-        var lines = new List<string> { $"Πλήρως σωστά: {correct} από {history.Count}. Ποσοστό πλήρους επιτυχίας: {percentage:F1}%. Μέση βαθμολογία με μερικά σωστά: {mean:F1}%." };
+        var lines = new List<string> { $"Επιτυχείς απαντήσεις: {correct} από {history.Count}. Ποσοστό επιτυχών απαντήσεων: {percentage:F1}%. Μέση βαθμολογία με μερικά σωστά: {mean:F1}%." };
         foreach (var group in history.GroupBy(a => a.Category)) lines.Add($"{CategoryName(group.Key)}: {group.Count(a => a.Correct)} / {group.Count()}");
         lines.Add("Πρόσφατες απαντήσεις (έως 200). Όλο το ιστορικό διατηρείται στο αρχείο JSON.");
         lines.AddRange(history.TakeLast(200).Reverse().Select(a => $"{a.At.LocalDateTime:g} — {CategoryName(a.Category)} — {(a.Correct ? "Σωστό" : "Λάθος")}. Απάντηση: {a.AnswerName}. Αναμενόμενο: {a.ExpectedName}."));
