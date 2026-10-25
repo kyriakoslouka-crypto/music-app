@@ -1,0 +1,11 @@
+{
+  "NativeWindowsBuildSucceeded": true,
+  "WindowsPackageSmokeSucceeded": true,
+  "ManualNvdaAcceptance": false,
+  "NvdaAutomatedSpeechPipelineSucceeded": true,
+  "ProgrammaticUIASucceeded": true,
+  "ListeningQualityTested": false,
+  "PhysicalAudioTested": false,
+  "WindowsPianoPreparationSucceeded": true,
+  "NvdaTested": false
+}
