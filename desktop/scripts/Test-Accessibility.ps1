@@ -27,6 +27,13 @@ public static class PetsInputWindow {
  [StructLayout(LayoutKind.Sequential)] struct Keyboard { public ushort Vk,Scan; public uint Flags,Time; public UIntPtr Extra; }
  [StructLayout(LayoutKind.Sequential)] struct Mouse { public int X,Y; public uint Data,Flags,Time; public UIntPtr Extra; }
  [DllImport("user32.dll",SetLastError=true)] static extern uint SendInput(uint count,Input[] inputs,int size);
+ public static void Key(ushort vk,bool shift=false) {
+  var inputs=new System.Collections.Generic.List<Input>();
+  Action<ushort,bool> add=(key,up)=>inputs.Add(new Input {Type=1,Data=new Payload {Key=new Keyboard {Vk=key,Flags=up?2u:0u}}});
+  if(shift)add(0x10,false);add(vk,false);add(vk,true);if(shift)add(0x10,true);
+  var batch=inputs.ToArray();if(SendInput((uint)batch.Length,batch,Marshal.SizeOf<Input>())!=batch.Length)
+   throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+ }
  public static void TabChord(bool shift) {
   // Submit the complete chord, including modifier releases, in one native input batch.
   // WScript.SendKeys can return before modifier transitions are delivered on a busy CI desktop.
@@ -59,6 +66,14 @@ function Wait-NvdaAnnouncement([string]$name,[int]$offset){
         Start-Sleep -Milliseconds 100
     }
     throw "Actual NVDA did not produce a fresh speech announcement for $name"
+}
+function Wait-AccessibleValue($pattern,[string]$value,[bool]$changed=$false){
+    for($attempt=0;$attempt -lt 50;$attempt++){
+        $same=$pattern.Current.Value -eq $value
+        if(($changed -and !$same) -or (!$changed -and $same)){return}
+        Start-Sleep -Milliseconds 100
+    }
+    throw "Keyboard value transition did not complete; previous/expected=$value; actual=$($pattern.Current.Value); changed=$changed"
 }
 function Wait-SelectedTab($tab){
     for($attempt=0;$attempt -lt 40;$attempt++){
@@ -106,7 +121,7 @@ function Focus-ByKeyboard($tab,$target){
             if($node.Equals($target)){return}
             $node=[System.Windows.Automation.TreeWalker]::RawViewWalker.GetParent($node)
         }
-        $keyboard.SendKeys('{TAB}');Start-Sleep -Milliseconds 50
+        [PetsInputWindow]::Key(0x09);Start-Sleep -Milliseconds 50
     }
     throw "Tab traversal did not reach $($target.Current.Name)"
 }
@@ -162,14 +177,14 @@ try{
     Wait-Foreground $window;[PetsInputWindow]::TabChord($true);Start-Sleep -Milliseconds 150
     Wait-SelectedTab $tabs[4]
     $keyboardChecks+='Ctrl+Shift+Tab: Οδηγίες'
-    $keyboard.SendKeys('{F1}');Start-Sleep -Milliseconds 150
+    [PetsInputWindow]::Key(0x70);Start-Sleep -Milliseconds 150
     $focused=[System.Windows.Automation.AutomationElement]::FocusedElement
     if($focused.Current.ProcessId -ne $process.Id -or $focused.Current.Name -ne 'Οδηγίες και περιορισμοί έκδοσης'){throw 'F1 did not focus the help text.'}
     $keyboardChecks+='F1: help text focused'
     foreach($tab in $tabs){
         $tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select();$tab.SetFocus()
         foreach($key in @('{TAB}','+{TAB}')){
-            $keyboard.SendKeys($key);Start-Sleep -Milliseconds 100
+            [PetsInputWindow]::Key(0x09,($key -eq '+{TAB}'));Start-Sleep -Milliseconds 100
             $focus=[System.Windows.Automation.AutomationElement]::FocusedElement
             if($focus.Current.ProcessId -ne $process.Id -or [string]::IsNullOrWhiteSpace($focus.Current.Name)){throw "Keyboard focus escaped or became unnamed on $($tab.Current.Name)"}
             $keyboardChecks+="$($tab.Current.Name): $key : $($focus.Current.Name)"
@@ -178,9 +193,9 @@ try{
     $tabs[3].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
     $profile=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Εκπαιδευτικό εξεταστικό προφίλ'))
     $profileValue=$profile.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
-    $beforeProfile=$profileValue.Current.Value;Focus-ByKeyboard $tabs[3] $profile;$keyboard.SendKeys('{DOWN}');Start-Sleep -Milliseconds 100
+    $beforeProfile=$profileValue.Current.Value;Focus-ByKeyboard $tabs[3] $profile;[PetsInputWindow]::Key(0x28);Wait-AccessibleValue $profileValue $beforeProfile $true
     if($profileValue.Current.Value -eq $beforeProfile){throw "Keyboard Down did not change exam profile value; before=$beforeProfile; after=$($profileValue.Current.Value); focused=$([System.Windows.Automation.AutomationElement]::FocusedElement.Current.Name)"}
-    $keyboard.SendKeys('{UP}');Start-Sleep -Milliseconds 100
+    [PetsInputWindow]::Key(0x26);Wait-AccessibleValue $profileValue $beforeProfile
     if($profileValue.Current.Value -ne $beforeProfile){throw 'Keyboard Up did not restore the exam profile value.'}
     $keyboardChecks+='Exam profile: Down/Up changes and restores accessible selected value'
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
@@ -194,9 +209,9 @@ try{
     $beforeSpeed=[int]$speedValue.Current.Value;Focus-ByKeyboard $tabs[0] $speedEdit
     $delta=if($beforeSpeed -lt 240){1}else{-1}
     $changeKey=if($delta -eq 1){'{UP}'}else{'{DOWN}'};$restoreKey=if($delta -eq 1){'{DOWN}'}else{'{UP}'}
-    $keyboard.SendKeys($changeKey);Start-Sleep -Milliseconds 150
+    [PetsInputWindow]::Key($(if($delta -eq 1){0x26}else{0x28}));Wait-AccessibleValue $speedValue ([string]($beforeSpeed+$delta))
     if([int]$speedValue.Current.Value -ne ($beforeSpeed+$delta)){throw 'Keyboard arrow did not change the accessible tempo edit value.'}
-    $keyboard.SendKeys($restoreKey);Start-Sleep -Milliseconds 150
+    [PetsInputWindow]::Key($(if($delta -eq 1){0x28}else{0x26}));Wait-AccessibleValue $speedValue ([string]$beforeSpeed)
     if([int]$speedValue.Current.Value -ne $beforeSpeed){throw 'Keyboard arrow did not restore the accessible tempo edit value.'}
     $keyboardChecks+='Tempo: Up/Down changes and restores accessible edit value' 
     if($NvdaLog){$audit | Add-Member -NotePropertyName NvdaSpeechChecks -NotePropertyValue $nvdaChecks -Force}
@@ -208,7 +223,7 @@ try{
     if(!$button){throw 'Piano installation button not exposed.'}
     $invokePattern=$null
     if(!$button.TryGetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern,[ref]$invokePattern)){throw 'Piano installation button lacks InvokePattern.'}
-    Focus-ByKeyboard $tabs[0] $button;$keyboard.SendKeys('{ENTER}')
+    Focus-ByKeyboard $tabs[0] $button;[PetsInputWindow]::Key(0x0D)
     Start-Sleep -Milliseconds 300
     $title=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Εγκατάσταση πραγματικού πιάνου')
     $dialog=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,$title)
@@ -228,6 +243,7 @@ $audit | ConvertTo-Json -Depth 30 | Set-Content $Report -Encoding utf8
 } catch {
     if(Test-Path $Report){
         $audit=Get-Content $Report -Raw | ConvertFrom-Json
+        if($nvdaChecks){$audit | Add-Member -NotePropertyName NvdaSpeechChecks -NotePropertyValue $nvdaChecks -Force}
         if($keyboardChecks){$audit | Add-Member -NotePropertyName KeyboardChecks -NotePropertyValue $keyboardChecks -Force}
         $audit | Add-Member -NotePropertyName UIAutomationPassed -NotePropertyValue $false -Force
         $audit | Add-Member -NotePropertyName UIAutomationError -NotePropertyValue $_.Exception.Message -Force

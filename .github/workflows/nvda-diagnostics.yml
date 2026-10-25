@@ -25,7 +25,7 @@ jobs:
           mkdir -p "$target" "$RUNNER_TEMP/nvda-diagnostics"
           gh run download 40168113884 --name Windows-check-diagnostics --dir "$RUNNER_TEMP/nvda-diagnostics"
           find "$RUNNER_TEMP/nvda-diagnostics" -name 'nvda*.json' -exec cp {} "$target/" \;
-          gh api repos/$GH_REPO/actions/jobs/121093223234/logs > "$RUNNER_TEMP/nvda-job.txt"
+          gh api --allow-escape-sequences repos/$GH_REPO/actions/jobs/121093223234/logs > "$RUNNER_TEMP/nvda-job.txt"
           tail -n 110 "$RUNNER_TEMP/nvda-job.txt" > "$target/bounded-job-tail.txt"
           cat "$target/nvda-smoke.json"
           gh release create "nvda-diagnostics-${{ github.run_id }}" "$target/"* --target "$GITHUB_SHA" --prerelease --latest=false --title 'NVDA test failure diagnostics only — no application installer' --notes 'Diagnostic JSON and bounded log for a failed NVDA test. This is not an application release or a successful acceptance.'
