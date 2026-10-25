@@ -1,8 +1,6 @@
 name: Fast NVDA focus integration against verified application
 on:
-  push:
-    branches: ['codex/pets-delivery']
-    paths: ['desktop/scripts/Test-Nvda.ps1', 'desktop/scripts/Test-Accessibility.ps1', '.github/workflows/nvda-focus.yml']
+  # Historical pinned-binary diagnostic. Full build always runs NVDA on current application.
   workflow_dispatch:
 permissions:
   contents: write

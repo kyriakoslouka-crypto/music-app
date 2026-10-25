@@ -16,3 +16,5 @@ fi
 "$studio_dotnet" restore ProfessionalEarTrainingStudio.sln --locked-mode
 "$studio_dotnet" build ProfessionalEarTrainingStudio.sln -c Release --no-restore
 "$studio_dotnet" run --project tests/Studio.Tests -c Release --no-build -- "$@"
+
+"$studio_dotnet" run --project tests/Studio.AudioOutput.Tests -c Release --no-build -- --report artifacts/audio-output-check.json

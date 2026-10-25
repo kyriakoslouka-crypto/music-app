@@ -7,13 +7,16 @@ public sealed class LoopingPcmCursor(float[] pcm, bool loop)
     {
         ArgumentOutOfRangeException.ThrowIfNegative(offset);
         ArgumentOutOfRangeException.ThrowIfNegative(count);
-        if (offset + count > buffer.Length) throw new ArgumentException("Buffer too small");
+        if (offset > Buffer.ByteLength(buffer)/sizeof(float) || count > Buffer.ByteLength(buffer)/sizeof(float)-offset) throw new ArgumentException("Buffer too small");
         if (pcm.Length == 0) return 0;
         var written = 0;
         while (written < count)
         {
             var available = Math.Min(count - written, pcm.Length - position);
-            Array.Copy(pcm, position, buffer, offset + written, available);
+            // NAudio SampleToWaveProvider supplies a WaveBuffer float view whose runtime
+            // array is byte[]. Array.Copy rejects the primitive type mismatch.
+            // BlockCopy deliberately copies PCM bytes without changing any sample bits.
+            Buffer.BlockCopy(pcm, position*sizeof(float), buffer, (offset+written)*sizeof(float), available*sizeof(float));
             written += available; position += available;
             if (position != pcm.Length) continue;
             if (!loop) break;

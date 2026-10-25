@@ -184,6 +184,11 @@ try{
     $focused=[System.Windows.Automation.AutomationElement]::FocusedElement
     if($focused.Current.ProcessId -ne $process.Id -or $focused.Current.Name -ne 'Οδηγίες και περιορισμοί έκδοσης'){throw 'F1 did not focus the help text.'}
     $keyboardChecks+='F1: help text focused'
+    [PetsInputWindow]::Key(0x75)
+    $audioStatus=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Κατάσταση και αποτέλεσμα'))
+    Wait-ControlFocus $audioStatus
+    $keyboardChecks+='F6: full audio diagnostics field focused without modal dialog'
+
     foreach($tab in $tabs){
         $tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select();$tab.SetFocus()
         foreach($key in @('{TAB}','+{TAB}')){

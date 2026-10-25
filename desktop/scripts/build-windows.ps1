@@ -12,6 +12,7 @@ if($SoundFont){$studioTestArgs+=@('--soundfont',$SoundFont)}
 if($Maestro){$studioTestArgs+=@('--maestro',$Maestro)}
 Run-Dotnet @studioTestArgs
 if($Accessibility){
+    Run-Dotnet run --project tests/Studio.UIAutomation -c Release -- --audio-output-check "$PWD/artifacts/audio-output-check.json"
     Run-Dotnet run --project tests/Studio.UIAutomation -c Release -- "$PWD/src/Studio.Windows/bin/Release/net10.0-windows/ProfessionalEarTrainingStudio.exe" "$PWD/artifacts/typed-uia-audit.json"
     & "$PSScriptRoot/Test-Accessibility.ps1" -Exe "$PWD/src/Studio.Windows/bin/Release/net10.0-windows/ProfessionalEarTrainingStudio.exe" -Report "$PWD/artifacts/accessibility-audit.json" }
 New-Item -ItemType Directory artifacts/publish-locks -Force | Out-Null

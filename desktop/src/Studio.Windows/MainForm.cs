@@ -140,7 +140,8 @@ public sealed partial class MainForm : Form
         layout.Controls.Add(prompt);
         var input=new Panel{Dock=DockStyle.Fill};input.Controls.Add(answers);input.Controls.Add(response);layout.Controls.Add(input);
         var tapsPanel=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};tapsPanel.Controls.AddRange([tap,resetTaps]);layout.Controls.Add(tapsPanel);
-        var buttons=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};buttons.Controls.AddRange([next,replay,pause,previewAnswer,submit]);layout.Controls.Add(buttons);layout.Controls.Add(status);
+        var buttons=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};var diagnostics=new Button{Text="Στοιχεία ήχου (F6)",AccessibleName="Ανάγνωση τελευταίου σφάλματος ήχου με F6",AutoSize=true};diagnostics.Click+=(_,_)=>ReadAudioFailure();
+        buttons.Controls.AddRange([next,replay,pause,previewAnswer,submit,diagnostics]);layout.Controls.Add(buttons);layout.Controls.Add(status);
         page.Controls.Add(layout);tabs.TabPages.Add(page);
     }
     private void BuildHistory()
@@ -150,7 +151,7 @@ public sealed partial class MainForm : Form
     private void BuildHelp()
     {
         var help = new TextBox { Multiline = true, ReadOnly = true, Dock = DockStyle.Fill, ScrollBars = ScrollBars.Vertical, AccessibleName = "Οδηγίες και περιορισμοί έκδοσης", Text =
-            "VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3)+" — Ακουστική εκπαίδευση\r\n\r\nΣτην πρώτη εκκίνηση εμφανίζεται οδηγός εγκατάστασης Maestro Concert Grand (Yamaha CF-3, 5 δυναμικές). Alt+Ε κατεβάζει την επιλεγμένη βιβλιοθήκη από την πηγή της και την εγκαθιστά τοπικά. Απαιτούνται περίπου 263 MB λήψης και 3 GB ελεύθερα. Μετά λειτουργεί offline. Η βιβλιοθήκη έχει περιοριστική άδεια και δεν αναδιανέμεται από την εφαρμογή.\r\n\r\nCtrl+N: νέα άσκηση. Ctrl+R: απεριόριστες επαναλήψεις του ίδιου παραδείγματος. Επαναλήψεις 0: συνεχής βρόχος μέχρι Esc ή υποβολή. Ctrl+P: παύση/συνέχεια. Ctrl+Enter: υποβολή. Esc: διακοπή. Ctrl+Home: ρυθμίσεις. Ctrl+Shift+S: διακοπή και ανάγνωση κατάστασης. Ctrl+Tab: καρτέλες. F1: οδηγίες. Tab/Shift+Tab, βέλη, Space και Enter: φυσικά controls Windows.\r\n\r\nΑλλαγή BPM, δυναμικής, πεντάλ ή επαναλήψεων διατηρεί την τρέχουσα άσκηση. Πάτησε Ctrl+R για νέο rendering, χωρίς αλλαγή τονικού ύψους. Αλλαγή τονικότητας, έκτασης ή τύπου άσκησης απαιτεί Ctrl+N. Στα βασικά διαστήματα και τις νότες η τονικότητα περιορίζει τους φθόγγους. Στις κλίμακες και τους τρόπους ορίζει το κέντρο. Στις πτώσεις ορίζει μείζονα ή ελάσσονα. Οι νέες ακολουθίες ανακοινώνουν πρώτα την οδηγία και αρχίζουν με Ctrl+R. Ctrl+I διαβάζει την οδηγία ξανά.\r\n\r\nΗ εφαρμογή δεν αποστέλλει ανακοινώσεις όσο παίζει μουσική. Οι απαντήσεις ανακοινώνονται μέσω UI Automation αφού σταματήσει ο ήχος. Η ίδια η πλοήγηση μπορεί να προκαλεί ομιλία NVDA. Προαιρετικό επίσημο nvdaControllerClient64.dll επιτρέπει ακύρωση τρέχουσας ομιλίας πριν την αναπαραγωγή.\r\n\r\nΔιαστήματα 0–24 ημιτονίων, δέκα τύποι συγχορδιών, ακουστικά διακριτές αναστροφές και νότες 21–108. Συμμετρικές συγχορδίες αποκλείονται από τις αναστροφές. Η αναγνώριση μεμονωμένων νοτών είναι άσκηση απόλυτου ύψους. Η τονική ορθογραφία εναρμονίων δεν εξετάζεται.\r\n\r\nΗ πρόοδος και οι έγκυρες ρυθμίσεις αποθηκεύονται αυτόματα στο LocalAppData\\ProfessionalEarTrainingStudio. Δεν υπάρχει τηλεμετρία ή επίσημη σχέση ABRSM. Η πραγματική συμβατότητα NVDA, WASAPI/ASIO και η ακουστική ποιότητα χρειάζονται δοκιμές σε Windows 11. Νέες ασκήσεις: πτώσεις με τονικό πλαίσιο, κλίμακες σε άνοδο/κάθοδο, τρόποι, ρυθμικά σχήματα και μέτρα. Στη ρυθμική υπαγόρευση γράφεις διάρκειες όπως 1/4 1/8 1/8 1/2, r για παύση και | ανά μέτρο. Στα κτυπήματα χρησιμοποιείς F8 σε κάθε έναρξη και μια επιπλέον φορά στο τελικό όριο. Δεν βαθμολογείται μικρόφωνο ή φωνή. Μελωδικό ντικτέ: Ντο4:1/4 ή 60:1/4. Αρμονικό: I ii6 V7 I. Σολφέζ/μνήμη: Ντο4 Ρε4 ή 60 62, σταθερό ντο. Ctrl+Shift+R παίζει τη γραπτή απάντηση. Η φωνή δεν καταγράφεται ή βαθμολογείται. Η αρχή και το τέλος τμήματος επιλέγονται στις Ρυθμίσεις. Δες και τις οδηγίες docs στον φάκελο εγκατάστασης." };
+            "VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3)+" — Ακουστική εκπαίδευση\r\n\r\nΣτην πρώτη εκκίνηση εμφανίζεται οδηγός εγκατάστασης Maestro Concert Grand (Yamaha CF-3, 5 δυναμικές). Alt+Ε κατεβάζει την επιλεγμένη βιβλιοθήκη από την πηγή της και την εγκαθιστά τοπικά. Απαιτούνται περίπου 263 MB λήψης και 3 GB ελεύθερα. Μετά λειτουργεί offline. Η βιβλιοθήκη έχει περιοριστική άδεια και δεν αναδιανέμεται από την εφαρμογή.\r\n\r\nCtrl+N: νέα άσκηση. Ctrl+R: απεριόριστες επαναλήψεις του ίδιου παραδείγματος. Επαναλήψεις 0: συνεχής βρόχος μέχρι Esc ή υποβολή. Ctrl+P: παύση/συνέχεια. Ctrl+Enter: υποβολή. Esc: διακοπή. Ctrl+Home: ρυθμίσεις. Ctrl+Shift+S: διακοπή και ανάγνωση κατάστασης. Ctrl+Tab: καρτέλες. F1: οδηγίες. F6: πλήρης αναφορά τελευταίου σφάλματος ήχου, χωρίς αντιγραφή από παράθυρο. Tab/Shift+Tab, βέλη, Space και Enter: φυσικά controls Windows.\r\n\r\nΑλλαγή BPM, δυναμικής, πεντάλ ή επαναλήψεων διατηρεί την τρέχουσα άσκηση. Πάτησε Ctrl+R για νέο rendering, χωρίς αλλαγή τονικού ύψους. Αλλαγή τονικότητας, έκτασης ή τύπου άσκησης απαιτεί Ctrl+N. Στα βασικά διαστήματα και τις νότες η τονικότητα περιορίζει τους φθόγγους. Στις κλίμακες και τους τρόπους ορίζει το κέντρο. Στις πτώσεις ορίζει μείζονα ή ελάσσονα. Οι νέες ακολουθίες ανακοινώνουν πρώτα την οδηγία και αρχίζουν με Ctrl+R. Ctrl+I διαβάζει την οδηγία ξανά.\r\n\r\nΗ εφαρμογή δεν αποστέλλει ανακοινώσεις όσο παίζει μουσική. Οι απαντήσεις ανακοινώνονται μέσω UI Automation αφού σταματήσει ο ήχος. Η ίδια η πλοήγηση μπορεί να προκαλεί ομιλία NVDA. Προαιρετικό επίσημο nvdaControllerClient64.dll επιτρέπει ακύρωση τρέχουσας ομιλίας πριν την αναπαραγωγή.\r\n\r\nΔιαστήματα 0–24 ημιτονίων, δέκα τύποι συγχορδιών, ακουστικά διακριτές αναστροφές και νότες 21–108. Συμμετρικές συγχορδίες αποκλείονται από τις αναστροφές. Η αναγνώριση μεμονωμένων νοτών είναι άσκηση απόλυτου ύψους. Η τονική ορθογραφία εναρμονίων δεν εξετάζεται.\r\n\r\nΗ πρόοδος και οι έγκυρες ρυθμίσεις αποθηκεύονται αυτόματα στο LocalAppData\\ProfessionalEarTrainingStudio. Δεν υπάρχει τηλεμετρία ή επίσημη σχέση ABRSM. Η πραγματική συμβατότητα NVDA, WASAPI/ASIO και η ακουστική ποιότητα χρειάζονται δοκιμές σε Windows 11. Νέες ασκήσεις: πτώσεις με τονικό πλαίσιο, κλίμακες σε άνοδο/κάθοδο, τρόποι, ρυθμικά σχήματα και μέτρα. Στη ρυθμική υπαγόρευση γράφεις διάρκειες όπως 1/4 1/8 1/8 1/2, r για παύση και | ανά μέτρο. Στα κτυπήματα χρησιμοποιείς F8 σε κάθε έναρξη και μια επιπλέον φορά στο τελικό όριο. Δεν βαθμολογείται μικρόφωνο ή φωνή. Μελωδικό ντικτέ: Ντο4:1/4 ή 60:1/4. Αρμονικό: I ii6 V7 I. Σολφέζ/μνήμη: Ντο4 Ρε4 ή 60 62, σταθερό ντο. Ctrl+Shift+R παίζει τη γραπτή απάντηση. Η φωνή δεν καταγράφεται ή βαθμολογείται. Η αρχή και το τέλος τμήματος επιλέγονται στις Ρυθμίσεις. Δες και τις οδηγίες docs στον φάκελο εγκατάστασης." };
         var page = new AccessibleTabPage("Οδηγίες"); page.Controls.Add(help); tabs.TabPages.Add(page);
     }
     private Settings ReadSettings() => new((Category)category.SelectedIndex, (Level)level.SelectedIndex, (Direction)direction.SelectedIndex,
@@ -293,7 +294,7 @@ public sealed partial class MainForm : Form
             try{BeginInvoke((Action)(() => {
                 if (generation != playbackGeneration || IsDisposed) return;
                 playing = false; pause.Enabled = false;
-                if (error is not null) { if(!preview&&exam?.Running==true){exam.RefundFailedPlay();SaveExam();UpdateExamStatus();} heard = false; submit.Enabled = false; Error("Σφάλμα συσκευής ήχου. " + error.Message); }
+                if (error is not null) { if(!preview&&exam?.Running==true){exam.RefundFailedPlay();SaveExam();UpdateExamStatus();} heard = false; submit.Enabled = false; ShowAudioFailure(error); }
                 else{status.Text=preview?"Η γραπτή απάντηση ακούστηκε χωρίς βαθμολόγηση.":"Η ακρόαση ολοκληρώθηκε. Δώσε απάντηση και πάτησε Ctrl+Enter.";if(!preview&&tabs.SelectedIndex==1)FocusResponse();}
             }));}catch(InvalidOperationException)when(IsDisposed||Disposing){}
         }, activeSettings.Repetitions==0);
@@ -304,6 +305,7 @@ public sealed partial class MainForm : Form
         if (rendering is not null || session.Current is null) return;
         try { if(exam is not null)exam.CheckPlayAllowed();Stop(); if (playbackCache.Get(session.Current.Id,activeSettings) is not null) StartPlayback(); else await RenderAndPlay(); }
         catch (OperationCanceledException) { }
+        catch (AudioPlaybackException ex) { ShowAudioFailure(ex); }
         catch (Exception ex) { Error(ex.Message); }
     }
     private async Task PreviewAnswer()
@@ -318,6 +320,7 @@ public sealed partial class MainForm : Form
             if(!IsDisposed&&session.Current==original)StartPlayback(clip,true);
         }
         catch(OperationCanceledException){}
+        catch(AudioPlaybackException ex){ShowAudioFailure(ex);}
         catch(Exception ex){Error(ex.Message);}
         finally{if(rendering==cancellation)rendering=null;}
     }
@@ -448,6 +451,7 @@ public sealed partial class MainForm : Form
             case Keys.Control | Keys.Shift | Keys.Tab: tabs.SelectedIndex=(tabs.SelectedIndex+tabs.TabPages.Count-1)%tabs.TabPages.Count;tabs.Focus();return true;
             case Keys.Control | Keys.Shift | Keys.R: _=PreviewAnswer();return true;
             case Keys.F8: RecordTap();return true;
+            case Keys.F6: ReadAudioFailure();return true;
             case Keys.Control | Keys.I: Stop();tabs.SelectedIndex=1;prompt.Focus();prompt.SelectAll();return true;
             case Keys.Control | Keys.N: _ = NewExercise(); return true;
             case Keys.Control | Keys.R: _ = Replay(); return true;
