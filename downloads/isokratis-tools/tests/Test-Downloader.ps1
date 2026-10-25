@@ -54,3 +54,5 @@ finally{if($server -and !$server.HasExited){$server.Kill()}}
 $result=[ordered]@{Passed=($null -eq $failure);Executed=$checks.Count;PowerShell=$PSVersionTable.PSVersion.ToString();Windows=[Environment]::OSVersion.VersionString;ExternalServiceTested=$false;FixtureUsesCopyrightedSamples=$false;Error=$failure;Checks=@($checks);SourceCommit=$env:GITHUB_SHA}
 $result|ConvertTo-Json -Depth 8|Set-Content -LiteralPath $Report -Encoding UTF8
 if($failure){Get-ChildItem $root -Filter '*.log'|ForEach-Object {Write-Host $_.Name;Get-Content $_.FullName|Select-Object -Last 10};exit 1}
+
+exit 0
