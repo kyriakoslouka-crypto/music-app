@@ -61,6 +61,10 @@ jobs:
           $manifest=Join-Path $privatePiano 'piano/maestro.studio-piano.json'
           dotnet run --project desktop/tests/Studio.Tests -c Release --no-build -- --maestro "$manifest" --report "$PWD/desktop/artifacts/windows-maestro-tests.json"
           if ($LASTEXITCODE -ne 0) { throw 'Actual Windows Maestro integration tests failed' }
+      - name: Real NVDA Greek focus announcements on isolated Windows runner
+        timeout-minutes: 6
+        shell: pwsh
+        run: ./desktop/scripts/Test-Nvda.ps1
       - name: Record actual Windows checks
         shell: pwsh
         run: |

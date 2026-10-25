@@ -1,4 +1,4 @@
-﻿param([string]$Exe="",[string]$Report="")
+﻿param([string]$Exe="",[string]$Report="",[string]$NvdaLog="")
 if(!$Exe){
     $repo=Join-Path $PSScriptRoot '../artifacts/win-x64/ProfessionalEarTrainingStudio.exe'
     $installed=Join-Path $PSScriptRoot '../ProfessionalEarTrainingStudio.exe'
@@ -10,7 +10,8 @@ try {
 $Exe=(Resolve-Path $Exe).Path
 # First audit the actual managed AccessibleObjects of every tab and the installer form.
 if(Test-Path $Report){Move-Item $Report ($Report+".previous") -Force}
-$managed=Start-Process $Exe -ArgumentList @('--accessibility-audit',('"'+$Report+'"')) -PassThru -Wait
+$managed=Start-Process $Exe -ArgumentList @('--accessibility-audit',('"'+$Report+'"')) -PassThru
+if(!$managed.WaitForExit(45000)){$managed.Kill($true);throw 'Managed accessibility audit timed out.'}
 if($managed.ExitCode -ne 0 -or !(Test-Path $Report)){throw 'Managed accessibility audit failed.'}
 $audit=Get-Content $Report -Raw | ConvertFrom-Json
 if($audit.MainForm.Count -lt 40 -or $audit.PianoSetupDialog.Count -lt 8 -or $audit.PresentationRegression.Count -lt 28 -or $audit.ExamBoundaryRegression.Count -ne 6){throw 'Incomplete form audit.'}
@@ -43,6 +44,21 @@ function Wait-Foreground($targetWindow){
         Start-Sleep -Milliseconds 40
     }
     throw 'Application did not become the foreground keyboard input window.'
+}
+function Nvda-LogText {
+    if(Test-Path $NvdaLog){return [string](Get-Content $NvdaLog -Raw -Encoding utf8)}
+    return ''
+}
+function Wait-NvdaAnnouncement([string]$name,[int]$offset){
+    for($attempt=0;$attempt -lt 100;$attempt++){
+        $text=Nvda-LogText
+        if($text.Length -ge $offset){
+            $line=$text.Substring($offset).Split("`n") | Where-Object { $_.Contains('Speaking ') -and $_.Contains($name) } | Select-Object -First 1
+            if($line){return [pscustomobject]@{Name=$name;Passed=$true;SpeechPipelineEvidence=$line.Trim()}}
+        }
+        Start-Sleep -Milliseconds 100
+    }
+    throw "Actual NVDA did not produce a fresh speech announcement for $name"
 }
 function Wait-SelectedTab($tab){
     for($attempt=0;$attempt -lt 40;$attempt++){
@@ -134,11 +150,13 @@ try{
     if(!$keyboard.AppActivate($process.Id)){throw 'Cannot activate application for keyboard tests.'}
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
     $tabs[0].SetFocus();Wait-Foreground $window;Wait-ControlFocus $tabs[0]
-    $keyboardChecks=@()
+    $keyboardChecks=@();$nvdaChecks=@()
     for($i=1;$i -le 5;$i++){
+        $speechOffset=if($NvdaLog){(Nvda-LogText).Length}else{0}
         Wait-Foreground $window;[PetsInputWindow]::TabChord($false);Start-Sleep -Milliseconds 150
         $wanted=$i%5
         Wait-SelectedTab $tabs[$wanted]
+        if($NvdaLog){$nvdaChecks+=Wait-NvdaAnnouncement $expected[$wanted] $speechOffset}
         $keyboardChecks+="Ctrl+Tab: $($expected[$wanted])"
     }
     Wait-Foreground $window;[PetsInputWindow]::TabChord($true);Start-Sleep -Milliseconds 150
@@ -181,6 +199,7 @@ try{
     $keyboard.SendKeys($restoreKey);Start-Sleep -Milliseconds 150
     if([int]$speedValue.Current.Value -ne $beforeSpeed){throw 'Keyboard arrow did not restore the accessible tempo edit value.'}
     $keyboardChecks+='Tempo: Up/Down changes and restores accessible edit value' 
+    if($NvdaLog){$audit | Add-Member -NotePropertyName NvdaSpeechChecks -NotePropertyValue $nvdaChecks -Force}
     $audit | Add-Member -NotePropertyName KeyboardChecks -NotePropertyValue $keyboardChecks -Force
     $audit | ConvertTo-Json -Depth 30 | Set-Content $Report -Encoding utf8
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
