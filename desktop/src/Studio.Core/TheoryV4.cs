@@ -1,6 +1,6 @@
 using System.Text.Json;
 namespace Studio.Core;
-public sealed record RowRecipe(int[] Prime,string Form,int Transposition);
+public sealed record RowRecipe(int[] Prime,string Form,int Transposition,double Step=1,int OctaveDisplacement=0);
 public static class TheoryV4
 {
     public static readonly Option[] RowForms=[new("P","Αρχική σειρά"),new("I","Αναστροφή διαστημάτων"),new("R","Καρκινική"),new("RI","Καρκινική αναστροφή")];
@@ -33,7 +33,7 @@ public static class TheoryV4
         if(s.Category==Category.ExtendedIntervals)
         {
             var candidates=new List<Exercise>();
-            foreach(var root in Enumerable.Range(s.MinNote,s.MaxNote-s.MinNote+1).Where(n=>(!s.RootPitchClass.HasValue||n%12==s.RootPitchClass)&&(!s.KeyTonic.HasValue||n%12==s.KeyTonic)))for(var d=13;d<=(s.Level<=Level.Elementary?24:s.Level==Level.Intermediate?30:36);d++)
+            foreach(var root in Enumerable.Range(s.MinNote,s.MaxNote-s.MinNote+1).Where(n=>(!s.RootPitchClass.HasValue||n%12==s.RootPitchClass)&&(!s.KeyTonic.HasValue||n%12==s.KeyTonic)))for(var d=13;d<=new[]{18,22,26,30,33,36}[(int)s.Level];d++)
             {
                 var other=root+(s.Direction==Direction.Descending?-d:d);if(other<s.MinNote||other>s.MaxNote)continue;
                 var score=IntervalScore(root,other,s.Direction);candidates.Add(Create(s,"interval:"+d,CompoundName(d),score,[],AnswerKind.Choice));
@@ -44,29 +44,31 @@ public static class TheoryV4
         if(s.Category==Category.ExtendedChords)
         {
             var candidates=new List<Exercise>();
-            foreach(var root in roots)foreach(var chord in ExtendedChords.Take(s.Level switch{Level.Beginner=>3,Level.Elementary=>4,Level.Intermediate=>6,Level.Advanced=>8,Level.Expert=>9,_=>10}))
+            foreach(var root in roots)foreach(var chord in ExtendedChords.Take(s.Level switch{Level.Beginner=>3,Level.Elementary=>4,Level.Intermediate=>6,Level.Advanced=>8,Level.Expert=>9,_=>10}).Skip(s.Level switch{Level.Expert=>3,Level.Professional=>5,_=>0}))
             {var score=ExtendedChordScore(chord,root);if(score.Events.All(n=>n.Midi>=s.MinNote&&n.Midi<=s.MaxNote))candidates.Add(Create(s,chord.Id,chord.Name,score,[],AnswerKind.Choice));}
             if(candidates.Count==0)throw new ArgumentException("Η έκταση δεν χωρά την εκτεταμένη συγχορδία.");
             return candidates[r.Next(candidates.Count)] with{Choices=candidates.Select(e=>new Option(e.CorrectId,e.CorrectName)).DistinctBy(c=>c.Id).ToArray()};
         }
         var advancedHarmony=s.Category is Category.ChromaticHarmony or Category.AdvancedAnalysis;
-        var tonic=roots.Where(n=>n+(advancedHarmony?19:12)<=s.MaxNote&&(!advancedHarmony||n-5>=s.MinNote)).OrderBy(n=>Math.Abs(n-(s.MinNote+s.MaxNote)/2)).FirstOrDefault(-1);
+        var tonic=roots.Where(n=>n+(advancedHarmony?19:s.Category is Category.TwelveToneRows or Category.RowTransform&&s.Level==Level.Professional?23:12)<=s.MaxNote&&(!advancedHarmony||n-5>=s.MinNote)).OrderBy(n=>Math.Abs(n-(s.MinNote+s.MaxNote)/2)).FirstOrDefault(-1);
         if(tonic<0)throw new ArgumentException("Διεύρυνε την έκταση κατά τουλάχιστον μία οκτάβα.");
         if(s.Category==Category.ModalColour)
         {
-            var mode=TheoryV2.Modes[r.Next(7)];var score=TheoryV2.ScaleScore(mode,tonic,s.Direction)with{DefinitionId="modal-colour",ExpectedText=mode.Id};
-            return Create(s,mode.Id,Colours.Single(c=>c.Id==mode.Id).Name,score,Colours,AnswerKind.Choice);
+            var mode=TheoryV2.Modes[r.Next((int)s.Level+2)];var score=TheoryV2.ScaleScore(mode,tonic,s.Direction)with{DefinitionId="modal-colour",ExpectedText=mode.Id};
+            return Create(s,mode.Id,Colours.Single(c=>c.Id==mode.Id).Name,score,Colours.Take((int)s.Level+2).ToArray(),AnswerKind.Choice);
         }
         if(s.Category is Category.TwelveToneRows or Category.RowTransform)
         {
             int[] row;do{row=Enumerable.Range(0,12).ToArray();for(var j=11;j>0;j--){var k=r.Next(j+1);(row[j],row[k])=(row[k],row[j]);}var first=row[0];row=row.Select(n=>(n-first+12)%12).ToArray();}while(RowForms.Select(f=>string.Join(',',Transform(row,f.Id))).Distinct().Count()!=4);
-            var recipe=new RowRecipe(row,RowForms[r.Next(4)].Id,r.Next(12));var score=RowScore(recipe,tonic,s.Category==Category.RowTransform);
-            return s.Category==Category.RowTransform?Create(s,recipe.Form,RowForms.Single(f=>f.Id==recipe.Form).Name,score,RowForms,AnswerKind.Choice):Create(s,"row",score.ExpectedText!,score,[],AnswerKind.Text);
+            var recipe=new RowRecipe(row,RowForms[r.Next(Math.Min(4,(int)s.Level+2))].Id,r.Next(new[]{1,1,1,4,8,12}[(int)s.Level]),new[]{1.5,1.25,1.0,0.75,0.5,0.25}[(int)s.Level],s.Level==Level.Professional?1:0);var score=RowScore(recipe,tonic,s.Category==Category.RowTransform);
+            return s.Category==Category.RowTransform?Create(s,recipe.Form,RowForms.Single(f=>f.Id==recipe.Form).Name,score,RowForms.Take(Math.Min(4,(int)s.Level+2)).ToArray(),AnswerKind.Choice):Create(s,"row",score.ExpectedText!,score,[],AnswerKind.Text);
         }
         if(s.Category==Category.AdvancedAnalysis)
         {
             var choices=s.KeyMode==TonalityMode.Major?Analyses:Analyses.Where(c=>c.Id!="V7/ii"&&c.Id!="iv").ToArray();
-            var selected=choices[r.Next(choices.Length)];var approach=selected.Id=="V7/ii"?"ii V ":selected.Id=="Ger+6"?(s.KeyMode==TonalityMode.Major?"I64 V ":"i64 V "):"V ";
+            choices=choices.Take(Math.Min(choices.Length,(int)s.Level+2)).ToArray();
+            var focused=s.Level switch{Level.Professional=>choices.Where(c=>c.Id is "Fr+6" or "Ger+6").ToArray(),Level.Expert=>choices.Where(c=>c.Id is "It+6" or "Fr+6" or "Ger+6").ToArray(),_=>choices};
+            if(focused.Length==0)focused=choices;var selected=focused[r.Next(focused.Length)];var approach=selected.Id=="V7/ii"?"ii V ":selected.Id=="Ger+6"?(s.KeyMode==TonalityMode.Major?"I64 V ":"i64 V "):"V ";
             var text=(s.KeyMode==TonalityMode.Major?"I ":"i ")+selected.Id+" "+approach+(s.KeyMode==TonalityMode.Major?"I":"i");
             var score=ChromaticScore(text,tonic,s.KeyMode,s.MinNote,s.MaxNote,"advanced-analysis")with{Prompt="Ακούγεται τονικό πλαίσιο και αρμονική ακολουθία. Ανάλυσε τη ΔΕΥΤΕΡΗ συγχορδία της ακολουθίας, όχι της εισαγωγής."};
             return Create(s,selected.Id,selected.Name,score,choices,AnswerKind.Choice);
@@ -74,7 +76,8 @@ public static class TheoryV4
         if(s.Category==Category.ChromaticHarmony)
         {
             string[] patterns=s.KeyMode==TonalityMode.Major?["I V/V V I","I V7/ii ii V7 I","I bII6 V I","I It+6 V I","I Fr+6 V I","I Ger+6 I64 V7 I","I bVI iv V I"]:["i V/V V i","i bII6 V i","i It+6 V i","i Fr+6 V i","i Ger+6 i64 V7 i","i VI iv V i"];
-            var text=patterns[r.Next(patterns.Length)];return Create(s,"chromatic",text,ChromaticScore(text,tonic,s.KeyMode,s.MinNote,s.MaxNote,"chromatic"),[],AnswerKind.Text);
+            patterns=patterns.Take(Math.Min(patterns.Length,(int)s.Level+1)).ToArray();
+            var text=patterns[r.Next(patterns.Length)];if(s.Level>=Level.Expert)text+=" "+patterns[r.Next(patterns.Length)];return Create(s,"chromatic",text,ChromaticScore(text,tonic,s.KeyMode,s.MinNote,s.MaxNote,"chromatic"),[],AnswerKind.Text);
         }
         throw new ArgumentException("Άγνωστη προχωρημένη κατηγορία.");
     }
@@ -104,8 +107,8 @@ public static class TheoryV4
             NotatedNote[] line;
             do
             {
-                var part=new List<NotatedNote>();var remaining=64;var index=random.Next(pitches.Length);
-                while(remaining>0){int[] options=s.Level<=Level.Elementary?[4,8]:s.Level==Level.Intermediate?[2,4,8]:[1,2,3,4,6,8];var values=options.Where(n=>n<=remaining).ToArray();var ticks=values.Length==0?remaining:values[random.Next(values.Length)];index=Math.Clamp(index+random.Next(-2,3),0,pitches.Length-1);part.Add(new(pitches[index],ticks));remaining-=ticks;}
+                var part=new List<NotatedNote>();double remaining=64;var index=random.Next(pitches.Length);
+                while(remaining>0){double[] options=s.Level switch{Level.Beginner=>[4,8],Level.Elementary=>[2,4,8],Level.Intermediate=>[1,2,4,8],Level.Advanced=>[1,2,3,4,6,8],Level.Expert=>[0.5,1,2,3,4],_=>[0.25,0.5,1,2]};var values=options.Where(n=>n<=remaining).ToArray();var ticks=values.Length==0?remaining:part.Count==0&&s.Level>=Level.Expert?values.Min():values[random.Next(values.Length)];var leap=new[]{1,1,2,2,3,6}[(int)s.Level];index=Math.Clamp(index+random.Next(-leap,leap+1),0,pitches.Length-1);part.Add(new(pitches[index],ticks));remaining-=ticks;}
                 line=part.ToArray();
             }while(!patterns.Add(string.Join(',',line.Select(n=>n.Ticks))));
             all.Add(line);double beat=4;foreach(var n in line){notes.Add(new(n.Midi,beat,n.Ticks/4.0*0.85,voice));beat+=n.Ticks/4.0;}
@@ -118,10 +121,11 @@ public static class TheoryV4
     public static MusicalScore RowScore(RowRecipe recipe,int tonic,bool compare)
     {
         var notes=Pulses(tonic);var reference=Transform(recipe.Prime,"P",recipe.Transposition);var target=Transform(recipe.Prime,recipe.Form,recipe.Transposition);
-        if(compare)for(var i=0;i<12;i++)notes.Add(new(tonic+reference[i],4+i,0.85,-1));
-        var start=compare?18:4;for(var i=0;i<12;i++)notes.Add(new(tonic+target[i],start+i,0.85));
-        notes.Add(new(tonic,start+12,0.2,-1,45));
-        return new(notes.ToArray(),start+12.5,compare?"row-transform":"twelve-tone",tonic,TonalityMode.Major,
+        if(!double.IsFinite(recipe.Step)||recipe.Step is <0.25 or >1.5||recipe.OctaveDisplacement is <0 or >1)throw new ArgumentException("Μη έγκυρη δυσκολία σειράς.");
+        if(compare)for(var i=0;i<12;i++)notes.Add(new(tonic+reference[i],4+i*recipe.Step,0.85*recipe.Step,-1));
+        var start=compare?6+12*recipe.Step:4;for(var i=0;i<12;i++)notes.Add(new(tonic+target[i]+(i%2)*12*recipe.OctaveDisplacement,start+i*recipe.Step,0.85*recipe.Step));
+        notes.Add(new(tonic,start+12*recipe.Step,0.2,-1,45));
+        return new(notes.ToArray(),start+12*recipe.Step+0.5,compare?"row-transform":"twelve-tone",tonic,TonalityMode.Major,
             compare?"Μετά τους παλμούς ακούγεται η αρχική σειρά και μετά παύση μια μετασχηματισμένη σειρά. Αναγνώρισε P, I, R ή RI. Δεν δίνεται τονική συγχορδία.":$"Δωδεκαφθογγική σειρά. Αναφορά register: {Theory.NoteName(tonic)}. Γράψε τις δώδεκα νότες χωρίς οκτάβα, όπως ντο ρε μι. Η οκτάβα είναι προαιρετική. Δεν υπάρχει τονικό πλαίσιο.",string.Join(' ',target.Select(n=>(tonic+n).ToString())),Metadata:JsonSerializer.Serialize(recipe));
     }
     public static MusicalScore ChromaticScore(string text,int tonic,TonalityMode mode,int minimum,int maximum,string id)
@@ -181,10 +185,10 @@ public static class TheoryV4
                 var written=NoteCodec.Parse(s.ExpectedText!,true);var patterns=new HashSet<string>();
                 for(var voice=0;voice<count;voice++)
                 {
-                    var line=s.Events.Where(n=>n.Voice==voice).OrderBy(n=>n.Beat).ToArray();if(line.Length==0)throw new ArgumentException("Λείπει φωνή.");double beat=4;var ticks=new List<int>();
+                    var line=s.Events.Where(n=>n.Voice==voice).OrderBy(n=>n.Beat).ToArray();if(line.Length==0)throw new ArgumentException("Λείπει φωνή.");double beat=4;var ticks=new List<double>();
                     for(var i=0;i<line.Length;i++)
                     {
-                        var n=line[i];var value=(int)Math.Round(n.Duration/0.85*4);
+                        var n=line[i];var value=Math.Round(n.Duration/0.85*16)/4.0;
                         if(Math.Abs(n.Beat-beat)>0.00001||Math.Abs(n.Duration-value/4.0*0.85)>0.00001||!Theory.InKey(n.Midi,new(KeyTonic:s.Tonic%12,KeyMode:s.Mode)))throw new ArgumentException("Λανθασμένη ανεξάρτητη γραμμή.");
                         if(voice==s.TargetVoice&&(i>=written.Length||written[i]!=new NotatedNote(n.Midi,value)))throw new ArgumentException("Στόχος διαφορετικός από ακουστική γραμμή.");
                         ticks.Add(value);beat+=value/4.0;

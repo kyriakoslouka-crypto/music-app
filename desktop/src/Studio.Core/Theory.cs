@@ -45,9 +45,9 @@ public static class Theory
     }
     public static IEnumerable<int> Distances(Level level) => level switch {
         Level.Beginner => [0,2,4,5,7,12], Level.Elementary => Enumerable.Range(0,13),
-        Level.Intermediate => Enumerable.Range(0,17), _ => Enumerable.Range(0,25) };
+        Level.Intermediate => Enumerable.Range(0,17), Level.Advanced => Enumerable.Range(0,20), Level.Expert => Enumerable.Range(0,23), _ => Enumerable.Range(0,25) };
     public static IEnumerable<NamedPattern> Patterns(Level level) => Chords.Take(level switch {
-        Level.Beginner => 2, Level.Elementary => 4, Level.Intermediate => 7, _ => 10 });
+        Level.Beginner => 2, Level.Elementary => 4, Level.Intermediate => 6, Level.Advanced => 8, Level.Expert=>9, _ => 10 });
     public static bool HasAudibleInversion(NamedPattern pattern) => pattern.Id is not ("augmented" or "diminished7");
     public static void VerifyExercise(Exercise e)
     {
@@ -105,8 +105,28 @@ public sealed class ExerciseGenerator(int? seed = null)
         if(settings.Category>Category.Notes)return TheoryV2.Generate(settings,random);
         var candidates = BuildCandidates(settings).Where(c => c.Notes.All(n => Theory.InKey(n, settings))).ToArray();
         if (candidates.Length == 0) throw new ArgumentException("Η έκταση ή η θεμέλιος δεν επιτρέπει ασκήσεις. Διεύρυνε την έκταση.");
+        var allChoices=candidates.Select(c=>new Option(c.Answer,c.Label)).DistinctBy(c=>c.Id).ToArray();
+        if(settings.Category==Category.Notes){
+            var focused=candidates.Where(c=>LevelCurriculum.PreferNote(c.Notes[0],settings)).ToArray();
+            if(focused.Length==0)focused=candidates.Where(c=>LevelCurriculum.PreferRegister(c.Notes[0],settings)).ToArray();
+            if(focused.Length>0)candidates=focused;
+        }
+        if(settings.Category==Category.Chords&&settings.Level>=Level.Expert){
+            var ids=Theory.Chords.Skip(settings.Level==Level.Professional?7:4).Select(c=>c.Id).ToHashSet();
+            var focused=candidates.Where(c=>ids.Contains(c.Answer)).ToArray();
+            if(focused.Select(c=>c.Answer).Distinct().Count()<2){
+                var available=candidates.Where(c=>c.Notes.Length==4).Select(c=>c.Answer).ToHashSet();
+                var challenging=Theory.Chords.Where(c=>available.Contains(c.Id)).TakeLast(2).Select(c=>c.Id).ToHashSet();
+                focused=candidates.Where(c=>challenging.Contains(c.Answer)).ToArray();
+            }
+            if(focused.Length>0)candidates=focused;
+        }
+        if(settings.Category==Category.Inversions&&settings.Level>=Level.Expert){
+            var focused=candidates.Where(c=>c.Notes.Length==4&&(settings.Level!=Level.Professional||int.Parse(c.Answer.Split(':')[1])>=2)).ToArray();
+            if(focused.Length>0)candidates=focused;
+        }
         var picked = candidates[random.Next(candidates.Length)];
-        var choices = candidates.Select(c => new Option(c.Answer, c.Label)).DistinctBy(c => c.Id).ToArray();
+        var choices = settings.Level>=Level.Expert?allChoices:candidates.Select(c => new Option(c.Answer, c.Label)).DistinctBy(c => c.Id).ToArray();
         var exercise = new Exercise(Guid.NewGuid().ToString("N"), settings.Category, picked.Notes, picked.Answer, picked.Label, choices, settings.Direction);
         Theory.VerifyExercise(exercise);
         return exercise;

@@ -105,7 +105,7 @@ public static class TheoryV3
             var major=s.KeyMode==TonalityMode.Major;
             if(s.Category==Category.Degrees)
             {
-                var degrees=(major?Harmony.MajorDegrees:Harmony.MinorDegrees).Take(s.Level==Level.Beginner?5:7).ToArray();
+                var degrees=LevelCurriculum.Degrees(s.Level,s.KeyMode);
                 var token=degrees[random.Next(degrees.Length)];var score=HarmonyScore(token,tonic,s.KeyMode,s.MinNote,s.MaxNote,"degree");
                 var choices=degrees.Select(d=>new Option(d,d+" — "+Harmony.Resolve(d,s.KeyMode).Function)).ToArray();
                 return Create(s,token,choices.Single(c=>c.Id==token).Name,score,choices,AnswerKind.Choice);
@@ -113,7 +113,7 @@ public static class TheoryV3
             string[] patterns=s.Level switch{
                 Level.Beginner=>["I IV V I","I V I"],Level.Elementary=>["I ii V I","I vi IV V I"],
                 Level.Intermediate=>["I ii6 V7 I","I vi ii V7 I"],Level.Advanced=>["I IV ii6 V7 I","I vi IV V vi ii6 V7 I"],
-                Level.Expert=>["I iii vi ii6 I64 V7 I","I vi ii7 V7 I IV V7 I"],_=>["I iii vi ii7 V7 vi IV ii6 I64 V7 I","I IV viio I vi ii7 V7 I"]};
+                Level.Expert=>["I iii vi ii6 I64 V7 vi ii6 V7 I","I vi ii7 V7 I IV ii6 I64 V7 I"],_=>["I iii vi ii7 V7 vi IV ii6 I64 V7 vi I","I IV viio I vi ii7 V7 vi IV ii6 V7 I"]};
             var progression=patterns[random.Next(patterns.Length)];
             if(!major)progression=string.Join(' ',progression.Split(' ').Select(token=>token switch{"I"=>"i","I64"=>"i64","ii"=>"iio","ii6"=>"iio6","ii7"=>"iih7","iii"=>"III","IV"=>"iv","vi"=>"VI",_=>token}));
             var harmony=HarmonyScore(progression,tonic,s.KeyMode,s.MinNote,s.MaxNote,"harmony");
@@ -128,8 +128,8 @@ public static class TheoryV3
         {
             if(i==0||i==count-1)position=Array.IndexOf(available,tonic);
             else position=Math.Clamp(position+random.Next(-maxStep,maxStep+1),0,available.Length-1);
-            var durations=s.Level<=Level.Elementary?new[]{4}:s.Level==Level.Intermediate?new[]{2,4}:new[]{1,2,3,4,6,8};
-            notes.Add(new(available[position],durations[random.Next(durations.Length)]));
+            double[] durations=s.Level switch{Level.Beginner or Level.Elementary=>[4],Level.Intermediate=>[2,4],Level.Advanced=>[1,2,3,4,6,8],Level.Expert=>[0.5,1,2,3,4],_=>[0.25,0.5,1,2]};
+            notes.Add(new(available[position],i==0&&s.Level>=Level.Advanced?durations.Min():durations[random.Next(durations.Length)]));
         }
         var hasDurations=s.Category==Category.MelodyDictation;
         if(!hasDurations)notes=notes.Select(n=>n with{Ticks=4}).ToList();

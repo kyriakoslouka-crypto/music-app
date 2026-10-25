@@ -72,35 +72,50 @@ public static class TheoryV2
         ("rests","Παύση τετάρτου, δύο τέταρτα, δύο όγδοα","r1/4 1/4 1/4 1/8 1/8"),
         ("sixteenths","Τέσσερα δέκατα έκτα και τρία τέταρτα","1/16 1/16 1/16 1/16 1/4 1/4 1/4"),
         ("thirty-seconds","Οκτώ τριακοστά δεύτερα και τρία τέταρτα","8/32 3/4"),
-        ("sixty-fourths","Δεκαέξι εξηκοστά τέταρτα και τρία τέταρτα","16/64 3/4")];
+        ("sixty-fourths","Δεκαέξι εξηκοστά τέταρτα και τρία τέταρτα","16/64 3/4"),
+        ("mixed-fine","Εναλλαγές 64ων, 32ων, 16ων, ογδόων και τετάρτου","8/64 4/32 4/16 2/8 1/4"),
+        ("dotted-fine","64ο, παρεστιγμένο 32ο και διευρυνόμενες αξίες","1/64 1/32. 1/16 1/8 1/4 1/2")];
     public static Exercise Generate(Settings s,Random random)
     {
         if(s.Category is Category.RhythmDictation or Category.RhythmReproduction)return Dictation(s,random);
-        var candidates=new List<Exercise>();
+        var candidates=new List<Exercise>();var constrained=new List<Exercise>();
         if(s.Category==Category.Cadences)
         {
             foreach(var tonic in Enumerable.Range(s.MinNote,s.MaxNote-s.MinNote+1).Where(n=>(!s.KeyTonic.HasValue||n%12==s.KeyTonic)&&(!s.RootPitchClass.HasValue||n%12==s.RootPitchClass)))
-                foreach(var c in Cadences){var score=CadenceScore(c.Id,tonic,s.KeyMode);if(Fits(score,s))candidates.Add(Create(s,c.Id,c.Name,score,[]));}
+                foreach(var c in s.Level switch{Level.Beginner=>Cadences.Where(c=>c.Id is "pac" or "plagal"),Level.Elementary=>Cadences.Where(c=>c.Id is "pac" or "plagal" or "half"),Level.Intermediate=>Cadences.Where(c=>c.Id!="iac"),_=>Cadences.AsEnumerable()}){var score=CadenceScore(c.Id,tonic,s.KeyMode,difficulty:(int)s.Level);if(Fits(score,s))candidates.Add(Create(s,c.Id,c.Name,score,[]));
+                    else{var limited=CadenceScore(c.Id,tonic,s.KeyMode);if(Fits(limited,s))constrained.Add(Create(s,c.Id,c.Name,limited with{Prompt=limited.Prompt+" Η επιλεγμένη έκταση περιορίζει την ανοιχτή διάταξη αυτού του επιπέδου."},[]));}}
         }
         else if(s.Category is Category.Scales or Category.Modes)
         {
-            var definitions=s.Category==Category.Scales?Scales.Take(s.Level switch{Level.Beginner=>2,Level.Elementary=>4,Level.Intermediate=>8,_=>11}):Modes.Take(s.Level==Level.Beginner?2:7);
+            var definitions=s.Category==Category.Scales?Scales.Take(s.Level switch{Level.Beginner=>2,Level.Elementary=>4,Level.Intermediate=>6,Level.Advanced=>8,Level.Expert=>10,_=>11}):Modes.Take((int)s.Level+2);
             foreach(var tonic in Enumerable.Range(s.MinNote,s.MaxNote-s.MinNote+1).Where(n=>(!s.KeyTonic.HasValue||n%12==s.KeyTonic)&&(!s.RootPitchClass.HasValue||n%12==s.RootPitchClass)))
                 foreach(var d in definitions){var score=ScaleScore(d,tonic,s.Direction);if(Fits(score,s))candidates.Add(Create(s,d.Id,d.Name,score,[]));}
         }
         else if(s.Category==Category.Meters)
         {
-            foreach(var m in Meters.Take(s.Level switch{Level.Beginner=>3,Level.Elementary=>6,_=>12}))
+            foreach(var m in Meters.Take(s.Level switch{Level.Beginner=>3,Level.Elementary=>4,Level.Intermediate=>6,Level.Advanced=>8,Level.Expert=>10,_=>12}))
                 candidates.Add(Create(s,m.Id,m.Name,MeterScore(m,Math.Max(2,s.Bars),Pitch(s)),[]));
         }
         else if(s.Category==Category.RhythmPatterns)
         {
-            foreach(var r in Rhythms.Take(s.Level switch{Level.Beginner=>2,Level.Elementary=>4,Level.Intermediate=>6,Level.Advanced=>9,_=>Rhythms.Length}))
+            foreach(var r in Rhythms.Take(s.Level switch{Level.Beginner=>2,Level.Elementary=>4,Level.Intermediate=>6,Level.Advanced=>8,Level.Expert=>9,_=>Rhythms.Length}))
                 candidates.Add(Create(s,r.Id,r.Name,RhythmScore(r.Tokens,"4/4",1,Pitch(s),r.Id),[]));
         }
+        if(s.Category==Category.Cadences){
+            var available=candidates.Select(e=>e.CorrectId).ToHashSet();
+            candidates.AddRange(constrained.Where(e=>!available.Contains(e.CorrectId)));
+        }
+        if(candidates.Count==0&&constrained.Count>0)candidates=constrained;
         if(candidates.Count==0)throw new ArgumentException("Η έκταση ή η θεμέλιος δεν χωρά το παράδειγμα. Διεύρυνε την έκταση ή επίλεξε άλλη τονικότητα.");
         var choices=candidates.Select(c=>new Option(c.CorrectId,c.CorrectName)).DistinctBy(c=>c.Id).ToArray();
-        var picked=candidates[random.Next(candidates.Count)] with {Choices=choices};Theory.VerifyExercise(picked);return picked;
+        var focus=s.Level==Level.Professional?s.Category switch{
+            Category.Scales=>candidates.Where(e=>e.CorrectId is "diminished-wh" or "diminished-hw" or "augmented").ToArray(),
+            Category.Modes=>candidates.Where(e=>e.CorrectId is "phrygian" or "lydian" or "locrian").ToArray(),
+            Category.RhythmPatterns=>candidates.Where(e=>e.CorrectId is "sixty-fourths" or "mixed-fine" or "dotted-fine").ToArray(),
+            Category.Meters=>candidates.Where(e=>e.Score!.MeterId.StartsWith("7/8",StringComparison.Ordinal)||e.Score.MeterId.StartsWith("8/8",StringComparison.Ordinal)).ToArray(),
+            _=>candidates.ToArray()}:candidates.ToArray();
+        if(focus.Length==0)focus=candidates.ToArray();
+        var picked=focus[random.Next(focus.Length)] with {Choices=choices};Theory.VerifyExercise(picked);return picked;
     }
     private static int Pitch(Settings s)=>Math.Clamp(60,s.MinNote,s.MaxNote);
     private static bool Fits(MusicalScore score,Settings s)=>score.Events.All(n=>n.Midi>=s.MinNote&&n.Midi<=s.MaxNote);
@@ -112,18 +127,22 @@ public static class TheoryV2
         var notes=steps.Select((n,i)=>new ScoreNote(tonic+n,i*0.5,0.44)).ToArray();
         return new(notes,notes.Length*0.5,d.Id,tonic,TonalityMode.Major,"Άκουσε άνοδο και κάθοδο. Η αρχική και τελική νότα είναι το τονικό κέντρο.");
     }
-    public static MusicalScore CadenceScore(string id,int tonic,TonalityMode mode,bool legacyContext=false)
+    public static MusicalScore CadenceScore(string id,int tonic,TonalityMode mode,bool legacyContext=false,int difficulty=0)
     {
         var minor=mode==TonalityMode.NaturalMinor;var third=minor?3:4;
         int[] i=[0,third,7,12],v=[-5,2,7,11];
         var first=id switch{"pac"=>v,"iac"=>new[]{-5,2,11,19},"half"=>i,"plagal"=>new[]{-7,0,minor?8:9,17},"deceptive"=>v,_=>throw new ArgumentException("Άγνωστη πτώση")};
         var last=id switch{"pac"=>i,"iac"=>new[]{0,third,12,19},"half"=>v,"plagal"=>i,"deceptive"=>new[]{minor?-4:-3,0,third,12},_=>throw new ArgumentException("Άγνωστη πτώση")};
+        if(difficulty==5&&id=="iac")first=[-1,2,7,11];
+        if(difficulty is <0 or >5)throw new ArgumentException("Μη έγκυρο επίπεδο πτώσης.");
+        int[][] shifts=[[0,0,0,0],[-12,0,0,0],[-12,-12,0,0],[-12,-12,-12,0],[0,0,0,12],[-12,0,0,0]];
+        int[] Voice(int[] chord)=>chord.Select((n,index)=>n+shifts[difficulty][index]).ToArray();
         var notes=new List<ScoreNote>();
         void Chord(int[] chord,double beat,double duration){notes.AddRange(chord.Select((n,voice)=>new ScoreNote(tonic+n,beat,duration,voice)));}
         if(legacyContext){Chord(i,0,0.8);Chord(v,1,0.8);Chord(i,2,0.8);}
         else Chord(i,0,1.6);
-        Chord(first,4,1.8);Chord(last,6,1.8);
-        return new(notes.ToArray(),8,id,tonic,mode,legacyContext?"Ακούγεται παλιό τονικό πλαίσιο Ι–V–Ι. Αναγνώρισε μόνο τις δύο τελευταίες συγχορδίες.":"Ακούγεται μία συγχορδία τονικής για αναφορά, καθαρή παύση και έπειτα οι δύο συγχορδίες της ζητούμενης πτώσης. Βαθμολόγησε αυτές τις δύο συγχορδίες. Στην ελάσσονα η δεσπόζουσα έχει προσαγωγέα.",Metadata:legacyContext?null:"cadence-tonic-context-v2");
+        Chord(Voice(first),4,1.8);Chord(Voice(last),6,1.8);
+        return new(notes.ToArray(),8,id,tonic,mode,legacyContext?"Ακούγεται παλιό τονικό πλαίσιο Ι–V–Ι. Αναγνώρισε μόνο τις δύο τελευταίες συγχορδίες.":"Ακούγεται μία συγχορδία τονικής για αναφορά, καθαρή παύση και έπειτα οι δύο συγχορδίες της ζητούμενης πτώσης. Βαθμολόγησε αυτές τις δύο συγχορδίες. Στην ελάσσονα η δεσπόζουσα έχει προσαγωγέα.",Metadata:legacyContext?null:difficulty==0?"cadence-tonic-context-v2":"cadence-tonic-context-v2:L"+difficulty);
     }
     public static MusicalScore MeterScore(MeterDefinition meter,int bars,int pitch)
     {
@@ -153,9 +172,9 @@ public static class TheoryV2
             var cells=new List<RhythmCell>();double remaining=meter.Ticks;
             while(remaining>0)
             {
-                double[] allowed=s.Level switch{Level.Beginner=>meter.Denominator==4?[4,8]:[2,6],Level.Elementary=>[2,4,8],Level.Intermediate=>[2,3,4,6,8],Level.Advanced=>[0.5,1,2,3,4,6,8,12,16],_=>[0.25,0.5,1,2,3,4,6,8,12,16]};
+                double[] allowed=s.Level switch{Level.Beginner=>meter.Denominator==4?[4,8]:[2,6],Level.Elementary=>[2,4,8],Level.Intermediate=>[1,2,3,4,6,8],Level.Advanced=>[0.5,1,2,3,4,6],Level.Expert=>[0.5,1,2,3,4],_=>[0.25,0.5,1,2]};
                 var available=allowed.Where(t=>t<=remaining).ToArray();if(available.Length==0)available=[remaining];
-                var ticks=available[random.Next(available.Length)];
+                var ticks=cells.Count==0&&s.Level>=Level.Advanced?available.Min():available[random.Next(available.Length)];
                 cells.Add(new(ticks,s.Level>=Level.Intermediate&&cells.Count>0&&random.Next(5)==0));remaining-=ticks;
             }
             bars.Add(cells);
@@ -172,7 +191,7 @@ public static class TheoryV2
         foreach(var n in score.Events)if(n.Midi is <21 or >108||!double.IsFinite(n.Beat)||!double.IsFinite(n.Duration)||n.Beat<0||n.Duration<=0||n.Beat+n.Duration>score.LengthBeats+0.001||n.Velocity is <1 or >127)throw new ArgumentException("Μη έγκυρο μουσικό συμβάν.");
         if(!e.Notes.SequenceEqual(score.Events.Select(n=>n.Midi)))throw new ArgumentException("Ασυμφωνία νοτών και ακολουθίας.");
         MusicalScore expected=e.Category switch{
-            Category.Cadences=>CadenceScore(e.CorrectId,score.Tonic,score.Mode,score.Metadata is null),
+            Category.Cadences=>CadenceScore(e.CorrectId,score.Tonic,score.Mode,score.Metadata is null,score.Metadata?.StartsWith("cadence-tonic-context-v2:L",StringComparison.Ordinal)==true?int.Parse(score.Metadata[26..],CultureInfo.InvariantCulture):0),
             Category.Scales=>ScaleScore(Scales.Single(d=>d.Id==e.CorrectId),score.Tonic,e.Direction),
             Category.Modes=>ScaleScore(Modes.Single(d=>d.Id==e.CorrectId),score.Tonic,e.Direction),
             Category.Meters=>MeterScore(Meters.Single(m=>m.Id==e.CorrectId),score.Bars,score.Tonic),
