@@ -1,0 +1,52 @@
+name: Verify and deliver personal Isokratis voice downloader
+on:
+  push:
+    branches: ['codex/isokratis-tools']
+    paths: ['downloads/isokratis-tools/**', '.github/workflows/isokratis-download-tools.yml']
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test real Windows PowerShell 5.1 with isolated synthetic server
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          & ./downloads/isokratis-tools/tests/Test-Downloader.ps1 -Report "$env:RUNNER_TEMP/isokratis-tool-tests.json"
+          if($LASTEXITCODE -ne 0){throw 'Downloader tests failed'}
+      - name: Preserve actual test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Isokratis-downloader-tests
+          path: ${{ runner.temp }}/isokratis-tool-tests.json
+      - name: Package verified helper without voice recordings
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          New-Item -ItemType Directory delivery/package -Force|Out-Null
+          Copy-Item downloads/isokratis-tools/Download-Isokratis-Voices.ps1,downloads/isokratis-tools/Start-Downloader.cmd,downloads/isokratis-tools/README-GR.txt delivery/package/
+          Copy-Item "$env:RUNNER_TEMP/isokratis-tool-tests.json" delivery/package/TEST-RESULTS.json
+          Copy-Item "$env:RUNNER_TEMP/isokratis-tool-tests.json" delivery/TEST-RESULTS.json
+          Compress-Archive -Path delivery/package/* -DestinationPath delivery/Isokratis-Voice-Downloader.zip
+          Get-ChildItem delivery/package -File|ForEach-Object{Copy-Item $_.FullName delivery/}
+          $lines=Get-ChildItem delivery -File|ForEach-Object{(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()+'  '+$_.Name}
+          $lines|Set-Content delivery/SHA256SUMS.txt -Encoding utf8
+      - name: Publish tested helper as a separate non-application release
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $tag='isokratis-downloader-v1.'+$env:GITHUB_RUN_NUMBER
+          $notes='Separate personal downloader, not an application update. Tested with actual Windows PowerShell 5.1 against an offline synthetic HTTP fixture. Does not include voice recordings. Live Netlify downloads and personal NVDA operation remain unverified. Source: '+$env:GITHUB_SHA
+          $notes|Set-Content "$env:RUNNER_TEMP/downloader-notes.txt" -Encoding utf8
+          $assets=@(Get-ChildItem delivery -File|ForEach-Object{$_.FullName})
+          & gh release create $tag @assets --target $env:GITHUB_SHA --prerelease --latest=false --title 'Isokratis personal voice downloader — tested Windows helper' --notes-file "$env:RUNNER_TEMP/downloader-notes.txt"
+          if($LASTEXITCODE -ne 0){throw 'Helper publication failed'}
