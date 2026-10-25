@@ -1,0 +1,84 @@
+﻿{
+    "Passed":  true,
+    "Executed":  18,
+    "PowerShell":  "5.1.26100.33648",
+    "Windows":  "Microsoft Windows NT 10.0.26100.0",
+    "ExternalServiceTested":  false,
+    "FixtureUsesCopyrightedSamples":  false,
+    "Error":  null,
+    "Checks":  [
+                   {
+                       "Name":  "Actual Windows PowerShell parser accepts script",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Tests execute under Windows PowerShell 5.1",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Offline HTTP fixture started",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "HTML pretending to be MP3 produces explicit partial-success exit code",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "All 59 known samples and one discovered sample downloaded, bad file excluded",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Rejected media is absent from output",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "External and metadata-host URLs are never followed",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Remote JavaScript is never executed and private URL is not requested",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Original sample bytes and declared base frequency preserved with SHA-256",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Large downloads split into independent upload-sized ZIP files",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Every ZIP is below 24 MiB",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "ZIP contains audio and truthful report",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "ZIP excludes rejected HTML payload",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Existing user output is never overwritten",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Known-only complete download succeeds",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Complete fixture reports exact success count",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Unavailable host creates partial report instead of fake success",
+                       "Passed":  true
+                   },
+                   {
+                       "Name":  "Circuit breaker stops after five failures and records unattempted files",
+                       "Passed":  true
+                   }
+               ],
+    "SourceCommit":  "e92c06308ccd6420a599fd27fc75fecb4d3ee51f"
+}

@@ -1,0 +1,16 @@
+﻿Λήψη φωνών Ισοκράτη. Μην κλείσεις το παράθυρο μέχρι να ολοκληρωθεί.
+Φάκελος: C:\Users\runneradmin\AppData\Local\Temp\pets-downloader-tests-fa6149622f504fbca9d7e0996cc43544\unreachable
+Αρχείο 1 από 59: voices_pa3/a3_ison1.mp3
+Αποτυχία: voices_pa3/a3_ison1.mp3 — Exception calling "GetResult" with "0" argument(s): "An error occurred while sending the request."
+Αρχείο 2 από 59: voices_pa3/a3_ison2.mp3
+Αποτυχία: voices_pa3/a3_ison2.mp3 — Exception calling "GetResult" with "0" argument(s): "An error occurred while sending the request."
+Αρχείο 3 από 59: voices_pa3/a3_ison3.mp3
+Αποτυχία: voices_pa3/a3_ison3.mp3 — Exception calling "GetResult" with "0" argument(s): "An error occurred while sending the request."
+Αρχείο 4 από 59: voices_pa3/a3_ison5.mp3
+Αποτυχία: voices_pa3/a3_ison5.mp3 — Exception calling "GetResult" with "0" argument(s): "An error occurred while sending the request."
+Αρχείο 5 από 59: voices_pa3/a3_ison6.mp3
+Αποτυχία: voices_pa3/a3_ison6.mp3 — Exception calling "GetResult" with "0" argument(s): "An error occurred while sending the request."
+
+Ολοκληρώθηκε: 0 από 59. Λείπουν: 59.
+ZIP: C:\Users\runneradmin\AppData\Local\Temp\pets-downloader-tests-fa6149622f504fbca9d7e0996cc43544\unreachable.part001.zip
+Ανέβασε όλα τα 1 ZIP, όχι τα αρχεία ένα ένα.
