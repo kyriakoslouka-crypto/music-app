@@ -27,6 +27,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Test strict release evidence gate
+        run: python desktop/scripts/test-release-readiness.py
       - name: Install NSIS with package verification enabled
         shell: pwsh
         run: |
@@ -68,7 +70,7 @@ jobs:
       - name: Record actual Windows checks
         shell: pwsh
         run: |
-          @{ NativeWindowsBuildSucceeded=$true; WindowsPackageSmokeSucceeded=$true; WindowsPianoPreparationSucceeded=$true; ProgrammaticUIASucceeded=('${{ steps.uia.outcome }}' -eq 'success'); NvdaTested=$false; PhysicalAudioTested=$false; ListeningQualityTested=$false } | ConvertTo-Json | Set-Content desktop/artifacts/WINDOWS-CHECKS.json -Encoding utf8
+          @{ NativeWindowsBuildSucceeded=$true; WindowsPackageSmokeSucceeded=$true; WindowsPianoPreparationSucceeded=$true; NvdaAutomatedSpeechPipelineSucceeded=$true; ManualNvdaAcceptance=$false; ProgrammaticUIASucceeded=('${{ steps.uia.outcome }}' -eq 'success'); NvdaTested=$false; PhysicalAudioTested=$false; ListeningQualityTested=$false } | ConvertTo-Json | Set-Content desktop/artifacts/WINDOWS-CHECKS.json -Encoding utf8
       - name: Assemble complete source and binary delivery
         shell: pwsh
         run: |
@@ -80,6 +82,11 @@ jobs:
           ./desktop/scripts/Test-SourcePackage.ps1
           python -X utf8 desktop/scripts/assemble-delivery.py
           if ($LASTEXITCODE -ne 0) { throw 'Could not attach source-package verification evidence' }
+      - name: Require every automated trial-readiness check before delivery
+        shell: pwsh
+        run: |
+          $readiness=Get-Content desktop/deliverables/releases/0.5.0/READINESS.json -Raw | ConvertFrom-Json
+          if(!$readiness.ReadyForWindows11Trial){throw ('Missing mandatory automated evidence: '+($readiness.MissingAutomated -join ', '))}
       - name: Upload downloadable GitHub Actions artifact
         uses: actions/upload-artifact@v4
         with:
