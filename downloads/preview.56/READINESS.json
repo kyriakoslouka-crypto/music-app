@@ -1,0 +1,38 @@
+{
+  "Version": "0.5.0",
+  "SourceCommit": "f878c1a1a1076c2f4e84c5381a7c4a8c35e3f414",
+  "TargetFinalVersion": "1.0.0",
+  "ReadyForWindows11Trial": true,
+  "ReadyForProfessionalFinal": false,
+  "AutomatedChecks": {
+    "CoreTestsPassed": true,
+    "NativeWindowsBuildPassed": true,
+    "EvidenceMatchesSourceCommit": true,
+    "WindowsTypedUIAPassed": true,
+    "WindowsKeyboardAndExamBoundariesPassed": true,
+    "InstalledAndStandalonePassed": true,
+    "PortableIntegrityPassed": true,
+    "WindowsPianoFidelityPassed": true,
+    "WindowsMaestroTestsPassed": true,
+    "DeliveredSourceRebuildPassed": true,
+    "ActualNvdaSpeechPipelinePassed": true
+  },
+  "Checks": {
+    "AutomatedChecksPassed": true,
+    "ManualEvidenceMatchesRelease": false,
+    "NvdaActuallyTestedAndPassed": false,
+    "PhysicalAudioHardwarePassed": false,
+    "ProfessionalPianoListeningPassed": false,
+    "DownloadOnUserComputerPassed": false,
+    "RemainingCurriculumScopeResolvedOrAccepted": false
+  },
+  "MissingAutomated": [],
+  "Missing": [
+    "ManualEvidenceMatchesRelease",
+    "NvdaActuallyTestedAndPassed",
+    "PhysicalAudioHardwarePassed",
+    "ProfessionalPianoListeningPassed",
+    "DownloadOnUserComputerPassed",
+    "RemainingCurriculumScopeResolvedOrAccepted"
+  ]
+}

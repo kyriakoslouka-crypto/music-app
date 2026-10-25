@@ -1,0 +1,11 @@
+test_auto_success_does_not_certify_manual_acceptance (__main__.GateTests.test_auto_success_does_not_certify_manual_acceptance) ... ok
+test_duplicate_nvda_names_cannot_replace_fifth_tab (__main__.GateTests.test_duplicate_nvda_names_cannot_replace_fifth_tab) ... ok
+test_each_failed_report_blocks_trial (__main__.GateTests.test_each_failed_report_blocks_trial) ... ok
+test_manual_flags_need_current_version_and_commit (__main__.GateTests.test_manual_flags_need_current_version_and_commit) ... ok
+test_stale_commit_cannot_pass (__main__.GateTests.test_stale_commit_cannot_pass) ... ok
+test_wrong_version_cannot_reuse_old_tests (__main__.GateTests.test_wrong_version_cannot_reuse_old_tests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.544s
+
+OK

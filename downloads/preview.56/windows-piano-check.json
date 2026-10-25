@@ -1,0 +1,18 @@
+{
+  "Passed": true,
+  "Error": null,
+  "Runtime": ".NET 10.0.13",
+  "OperatingSystem": "Microsoft Windows 10.0.26100",
+  "SourceCommit": "f878c1a1a1076c2f4e84c5381a7c4a8c35e3f414",
+  "PianoSourceCommit": "717078b450eccc4a7733755f4b5973426ebc23e9",
+  "PianoArchiveSha256": "2507c213538b850889bea4fbd90ca2a54abcc32d6a42febae53b81df1f677264",
+  "DecodedSamples": 794,
+  "ReferencePcmSha256Matches": 794,
+  "EmbeddedFlacMd5Matches": 0,
+  "CategoriesRendered": 28,
+  "PrivateManifest": "D:\\a\\_temp\\PETS-private-maestro-c821f7c3a430440984a19a518f3750b0\\piano\\maestro.studio-piano.json",
+  "SamplesRedistributed": false,
+  "NvdaTested": false,
+  "PhysicalAudioTested": false,
+  "ListeningQualityTested": false
+}
