@@ -101,7 +101,7 @@ public static class LevelCurriculumTests
         var index=Array.IndexOf(args,"--maestro");if(index>=0)test("Difficulty: actual Maestro renders six levels of rhythm, melody, polyphony, cadence and serial timing",()=>{
             var renderer=new PianoRenderer(args[index+1]);var g=new ExerciseGenerator(565);
             foreach(var level in Enum.GetValues<Level>())foreach(var c in new[]{Category.Polyphony4,Category.RowTransform,Category.Cadences,Category.MelodyDictation,Category.RhythmPatterns}){
-                var s=new Settings(c,level,MinNote:21,MaxNote:108,Tempo:120,SegmentEnd:6);var e=g.Next(s);var pcm=renderer.Render(e,s,renderer.Presets[0]);Check(pcm.All(float.IsFinite)&&pcm.Any(n=>Math.Abs(n)>0.001f));
+                var s=new Settings(c,level,MinNote:21,MaxNote:108,Tempo:120,SegmentEnd:c==Category.Cadences?null:6);var e=g.Next(s);var pcm=renderer.Render(e,s,renderer.Presets[0]);Check(pcm.All(float.IsFinite)&&pcm.Any(n=>Math.Abs(n)>0.001f));
             }
         });
     }

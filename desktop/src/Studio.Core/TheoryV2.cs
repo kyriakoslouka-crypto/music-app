@@ -198,6 +198,7 @@ public static class TheoryV2
             Category.RhythmPatterns=>RhythmScore(Rhythms.Single(r=>r.Id==e.CorrectId).Tokens,"4/4",1,score.Tonic,e.CorrectId),
             Category.RhythmDictation or Category.RhythmReproduction=>RhythmScore(score.ExpectedText??throw new ArgumentException("Λείπει ο ρυθμός."),score.MeterId,score.Bars,score.Tonic),
             _=>throw new ArgumentException("Άγνωστη κατηγορία ακολουθίας")};
+        if(e.Category==Category.Cadences&&CadenceAnalysis.FromScore(score).Id!=e.CorrectId)throw new ArgumentException("Η ετικέτα πτώσης δεν συμφωνεί με ανεξάρτητη ανάλυση των πραγματικών συγχορδιών.");
         if(!score.Events.SequenceEqual(expected.Events)||Math.Abs(score.LengthBeats-expected.LengthBeats)>0.00001)throw new ArgumentException("Η ακολουθία δεν συμφωνεί με τη μουσικοθεωρητική απάντηση.");
     }
 }

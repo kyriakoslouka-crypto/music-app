@@ -11,7 +11,15 @@ public static class Schedule
         Theory.Validate(settings);
         Theory.VerifyExercise(exercise);
         if (exercise.Notes.Length == 0 || exercise.Notes.Any(n => n < 21 || n > 108)) throw new ArgumentException("Μη έγκυρες νότες.");
-        if(exercise.Score is not null)return CreateScore(exercise.Score,settings,sampleRate);
+        if(exercise.Score is not null){
+            var scheduled=CreateScore(exercise.Score,settings,sampleRate);
+            if(exercise.Category==Category.Cadences){
+                var audible=scheduled.Where(e=>e.Action==MidiAction.NoteOn).GroupBy(e=>e.Frame).OrderBy(g=>g.Key).TakeLast(2).ToArray();
+                if(audible.Length!=2||CadenceAnalysis.Infer(exercise.Score.Tonic,exercise.Score.Mode,audible[0].Select(e=>e.Key),audible[1].Select(e=>e.Key)).Id!=exercise.CorrectId)
+                    throw new ArgumentException("Η επιλεγμένη ακρόαση δεν περιέχει την πλήρη ζητούμενη πτώση. Επίλεξε όλες τις φωνές και ολόκληρο το παράδειγμα.");
+            }
+            return scheduled;
+        }
         var events = new List<ScheduledEvent>();
         var beat = sampleRate * 60.0 / settings.Tempo;
         var harmonic = exercise.Category is Category.Chords or Category.Inversions || settings.Direction == Direction.Harmonic;

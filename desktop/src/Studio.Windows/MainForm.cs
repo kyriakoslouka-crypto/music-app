@@ -388,7 +388,8 @@ public sealed partial class MainForm : Form
             if(exam is not null){SaveExam();UpdateExamStatus();}
             history.Add(attempt);answered=true;submit.Enabled=false;tapClock.Stop();
             var saved=storageHealthy;
-            var message=$"{(attempt.Correct?"Σωστά.":"Λάθος.")} Σωστή απάντηση: {attempt.ExpectedName}. {attempt.Analysis}";
+            var analysis=attempt.Category==Category.Cadences&&automaticPractice.Checked?"Αρμονική κίνηση: "+CadenceAnalysis.FromScore(attempt.Snapshot!.Score!).Formula+". Οι αναλυτικές νότες βρίσκονται στην Πρόοδο.":attempt.Analysis;
+            var message=$"{(attempt.Correct?"Σωστά.":"Λάθος.")} Σωστή απάντηση: {attempt.ExpectedName}. {analysis}";
             try{if(storageHealthy)store.Save(history);else message+=" Η αποθήκευση είναι απενεργοποιημένη λόγω προηγούμενου σφάλματος.";}
             catch(Exception ex){saved=false;message+=" Η απάντηση δεν αποθηκεύτηκε: "+ex.Message;}
             message+=saved&&automaticPractice.Checked&&exam is null?$" Αυτόματη επόμενη άσκηση σε {automaticDelay.Value} δευτερόλεπτα. Esc ακυρώνει.":" Ctrl+N για συνέχεια.";
@@ -450,7 +451,7 @@ public sealed partial class MainForm : Form
         var lines = new List<string> { $"Επιτυχείς απαντήσεις: {correct} από {history.Count}. Ποσοστό επιτυχών απαντήσεων: {percentage:F1}%. Μέση βαθμολογία με μερικά σωστά: {mean:F1}%." };
         foreach (var group in history.GroupBy(a => a.Category)) lines.Add($"{CategoryName(group.Key)}: {group.Count(a => a.Correct)} / {group.Count()}");
         lines.Add("Πρόσφατες απαντήσεις (έως 200). Όλο το ιστορικό διατηρείται στο αρχείο JSON.");
-        lines.AddRange(history.TakeLast(200).Reverse().Select(a => $"{a.At.LocalDateTime:g} — {CategoryName(a.Category)} — {(a.Correct ? "Σωστό" : "Λάθος")}. Απάντηση: {a.AnswerName}. Αναμενόμενο: {a.ExpectedName}."));
+        lines.AddRange(history.TakeLast(200).Reverse().Select(a => $"{a.At.LocalDateTime:g} — {CategoryName(a.Category)} — {(a.Correct ? "Σωστό" : "Λάθος")}. Απάντηση: {a.AnswerName}. Αναμενόμενο: {a.ExpectedName}. {(a.Category==Category.Cadences?a.Analysis:"")}"));
         stats.Lines = lines.ToArray();
     }
     private static string CategoryName(Category value)=>CategoryLabels.Name(value);

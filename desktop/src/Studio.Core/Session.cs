@@ -12,9 +12,11 @@ public sealed class Session
     {
         if (Current is null || answered) throw new InvalidOperationException("Απαιτείται νέα άσκηση.");
         var choice = Current.Choices.SingleOrDefault(c => c.Id == id) ?? throw new ArgumentException("Επίλεξε απάντηση.");
+        var evidence=Current.Category==Category.Cadences?CadenceAnalysis.FromScore(Current.Score!):null;
+        var expected=evidence?.Id??Current.CorrectId;var expectedName=evidence?.Name??Current.CorrectName;
         answered = true;
         return new(DateTimeOffset.Now, Current.Category, level, Current.Id, Current.Notes,
-            Current.CorrectId, Current.CorrectName, choice.Id, choice.Name, id == Current.CorrectId, configuration,Current,id==Current.CorrectId?100:0);
+            expected, expectedName, choice.Id, choice.Name, id == expected, configuration,Current,id==expected?100:0,evidence?.Describe());
     }
     public Attempt AnswerResponse(string response,Settings configuration)
     {
