@@ -120,7 +120,7 @@ try{
             }catch{$discoveryErrors.Add($name+': '+$_.Exception.Message);Write-Host ('Δεν διαβάστηκε ένα αρχείο καταλόγου: '+$name)}
         }
     }
-    $plan=@($files.Values|Sort-Object Path);Save-Json $plan (Join-Path $meta 'DOWNLOAD-PLAN.json')
+    $plan=@($files.Values|Sort-Object @{Expression={if($_.Set -like 'PA voice *'){0}elseif($_.Set -eq 'Core choir'){1}elseif($_.Set -eq 'Bouche fermee'){2}else{3}}},Path);Save-Json $plan (Join-Path $meta 'DOWNLOAD-PLAN.json')
     $results=[Collections.Generic.List[object]]::new();$failures=0;$consecutive=0;[long]$totalBytes=0;$number=0
     foreach($item in $plan){
         $number++;$path=Join-Path $root $item.Path;$status='Failed';$errorText=$null;$hash=$null;[long]$size=0

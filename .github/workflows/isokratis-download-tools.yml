@@ -26,6 +26,18 @@ jobs:
         with:
           name: Isokratis-downloader-tests
           path: ${{ runner.temp }}/isokratis-tool-tests.json
+      - name: Preserve bounded diagnostics as reports only
+        if: always()
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $target='downloads/windows-checks/isokratis-'+$env:GITHUB_RUN_ID
+          New-Item -ItemType Directory $target -Force|Out-Null
+          if(Test-Path "$env:RUNNER_TEMP/isokratis-tool-tests.json"){Copy-Item "$env:RUNNER_TEMP/isokratis-tool-tests.json" "$target/TEST-RESULTS.json"}
+          Get-ChildItem $env:TEMP -Directory -Filter 'pets-downloader-tests-*'|ForEach-Object{
+            Get-ChildItem $_.FullName -Filter '*.log'|ForEach-Object{Get-Content $_.FullName|Select-Object -Last 35|Set-Content (Join-Path $target $_.Name.Replace('.log','.txt')) -Encoding utf8}
+          }
+          & ./desktop/scripts/Publish-Diagnostics.ps1 -Target $target -Branch ('codex/pets-isokratis-'+$env:GITHUB_RUN_ID)
       - name: Package verified helper without voice recordings
         shell: powershell
         run: |
