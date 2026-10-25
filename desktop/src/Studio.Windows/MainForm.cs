@@ -242,7 +242,6 @@ public sealed partial class MainForm : Form
             if (devices.SelectedItem is not OutputDevice) throw new InvalidOperationException("Επίλεξε ενεργή έξοδο ήχου.");
             adjustingSegments=true;segmentStart.Value=0;segmentEnd.Value=0;soloVoice.SelectedIndex=0;adjustingSegments=false;
             activeSettings=ReadSettings();await PresentExercise(generator.Next(activeSettings),activeSettings);
-            if(session.Current is { } created)_=QueueAutomaticPractice(created,false,Replay);
         }
         catch (OperationCanceledException) { }
         catch (Exception ex) { Error(ex.Message); }
@@ -263,6 +262,7 @@ public sealed partial class MainForm : Form
             submit.Enabled = false; SavePreferences();
             replay.Enabled=true;Tell("Νέα άσκηση. "+prompt.Text+(automaticPractice.Checked&&exam is null?$" Αυτόματη ακρόαση σε {automaticDelay.Value} δευτερόλεπτα. Esc ακυρώνει. Ctrl+R για άμεση ακρόαση.":" Πάτησε Ctrl+R για την πρώτη ακρόαση.")+" Ctrl+I για ανάγνωση οδηγίας.");
         if(exam?.Running==true){previewAnswer.Enabled=false;segmentStart.Enabled=segmentEnd.Enabled=soloVoice.Enabled=false;}
+        _=QueueAutomaticPractice(exercise,false,Replay);
         return Task.CompletedTask;
     }
     private async Task RenderAndPlay()
