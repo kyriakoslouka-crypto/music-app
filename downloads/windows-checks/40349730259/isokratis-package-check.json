@@ -1,0 +1,12 @@
+{
+  "Version": "0.5.15",
+  "SourceCommit": "a4220c6ded06dd311aef903e7c739b4500f3e0e2",
+  "Passed": false,
+  "InstallerPassed": false,
+  "PortablePassed": false,
+  "StandalonePassed": false,
+  "TrainingHasFiveTabs": true,
+  "IsokratisHasThreeTabs": false,
+  "UninstallPreservesUserFile": false,
+  "Error": "Cannot find path 'C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\Isokratis-package-4fe5a7f2f03447ea8dd2a537040171ef\\installed\\Accessibility.dll' because it does not exist."
+}
