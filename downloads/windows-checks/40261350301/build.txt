@@ -1,0 +1,47 @@
+**********************
+PowerShell transcript start
+Start time: 20261026025423
+Username: runnervmdaln5\runneradmin
+RunAs User: runnervmdaln5\runneradmin
+Configuration Name: 
+Machine: runnervmdaln5 (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Program Files\PowerShell\7\pwsh.dll -command . 'D:\a\_temp\a5014189-8361-4583-ad88-21da1e0e1e7b.ps1'
+Process ID: 1416
+PSVersion: 7.6.7
+PSEdition: Core
+GitCommitId: 7.6.7
+OS: Microsoft Windows 10.0.26100
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is D:\a\_temp/pets-build.txt
+  Determining projects to restore...
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Core\Studio.Core.csproj (in 18.87 sec).
+  Restored D:\a\music-app\music-app\desktop\tests\Studio.Tests\Studio.Tests.csproj (in 18.9 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Audio\Studio.Audio.csproj (in 8 ms).
+  Restored D:\a\music-app\music-app\desktop\tests\Studio.AudioOutput.Tests\Studio.AudioOutput.Tests.csproj (in 19.36 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj (in 19.36 sec).
+  Studio.Core -> D:\a\music-app\music-app\desktop\src\Studio.Core\bin\Release\net8.0\Studio.Core.dll
+  Studio.Audio -> D:\a\music-app\music-app\desktop\src\Studio.Audio\bin\Release\net8.0\Studio.Audio.dll
+  Studio.AudioOutput.Tests -> D:\a\music-app\music-app\desktop\tests\Studio.AudioOutput.Tests\bin\Release\net10.0\Studio.AudioOutput.Tests.dll
+  Studio.Tests -> D:\a\music-app\music-app\desktop\tests\Studio.Tests\bin\Release\net8.0\Studio.Tests.dll
+D:\a\music-app\music-app\desktop\src\Studio.Windows\MainForm.Isokratis.cs(102,84): error CS0103: The name 'AutomationNotificationKind' does not exist in the current context [D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj]
+D:\a\music-app\music-app\desktop\src\Studio.Windows\MainForm.Isokratis.cs(102,127): error CS0103: The name 'AutomationNotificationProcessing' does not exist in the current context [D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj]
+
+Build FAILED.
+
+D:\a\music-app\music-app\desktop\src\Studio.Windows\MainForm.Isokratis.cs(102,84): error CS0103: The name 'AutomationNotificationKind' does not exist in the current context [D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj]
+D:\a\music-app\music-app\desktop\src\Studio.Windows\MainForm.Isokratis.cs(102,127): error CS0103: The name 'AutomationNotificationProcessing' does not exist in the current context [D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj]
+    0 Warning(s)
+    2 Error(s)
+
+Time Elapsed 00:00:13.97
+PS>TerminatingError(): "dotnet failed: build ProfessionalEarTrainingStudio.sln -c Release --no-restore"
+>> TerminatingError(): "dotnet failed: build ProfessionalEarTrainingStudio.sln -c Release --no-restore"
+**********************
+PowerShell transcript end
+End time: 20261026025503
+**********************

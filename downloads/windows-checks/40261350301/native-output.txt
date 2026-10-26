@@ -1,0 +1,21 @@
+  Determining projects to restore...
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Core\Studio.Core.csproj (in 18.87 sec).
+  Restored D:\a\music-app\music-app\desktop\tests\Studio.Tests\Studio.Tests.csproj (in 18.9 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Audio\Studio.Audio.csproj (in 8 ms).
+  Restored D:\a\music-app\music-app\desktop\tests\Studio.AudioOutput.Tests\Studio.AudioOutput.Tests.csproj (in 19.36 sec).
+  Restored D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj (in 19.36 sec).
+  Studio.Core -> D:\a\music-app\music-app\desktop\src\Studio.Core\bin\Release\net8.0\Studio.Core.dll
+  Studio.Audio -> D:\a\music-app\music-app\desktop\src\Studio.Audio\bin\Release\net8.0\Studio.Audio.dll
+  Studio.AudioOutput.Tests -> D:\a\music-app\music-app\desktop\tests\Studio.AudioOutput.Tests\bin\Release\net10.0\Studio.AudioOutput.Tests.dll
+  Studio.Tests -> D:\a\music-app\music-app\desktop\tests\Studio.Tests\bin\Release\net8.0\Studio.Tests.dll
+D:\a\music-app\music-app\desktop\src\Studio.Windows\MainForm.Isokratis.cs(102,84): error CS0103: The name 'AutomationNotificationKind' does not exist in the current context [D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj]
+D:\a\music-app\music-app\desktop\src\Studio.Windows\MainForm.Isokratis.cs(102,127): error CS0103: The name 'AutomationNotificationProcessing' does not exist in the current context [D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj]
+
+Build FAILED.
+
+D:\a\music-app\music-app\desktop\src\Studio.Windows\MainForm.Isokratis.cs(102,84): error CS0103: The name 'AutomationNotificationKind' does not exist in the current context [D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj]
+D:\a\music-app\music-app\desktop\src\Studio.Windows\MainForm.Isokratis.cs(102,127): error CS0103: The name 'AutomationNotificationProcessing' does not exist in the current context [D:\a\music-app\music-app\desktop\src\Studio.Windows\Studio.Windows.csproj]
+    0 Warning(s)
+    2 Error(s)
+
+Time Elapsed 00:00:13.97
