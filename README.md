@@ -2,13 +2,15 @@
 
 Native Windows 11 x64, ελληνικά, πληκτρολόγιο/NVDA σχεδιασμός και πραγματικό Maestro Concert Grand Yamaha CF-3.
 
-Η υλοποίηση προχώρησε διαδοχικά έως **0.5.11**, με διαστήματα/συγχορδίες, πτώσεις/κλίμακες/τρόπους/ρυθμό, ντικτέ/σολφέζ, πολυφωνία/χρωματική/σειρές και ανεξάρτητες εκπαιδευτικές εξετάσεις. Η τελική επαγγελματική **1.0.0 δεν δηλώνεται ολοκληρωμένη** χωρίς Windows/NVDA/ήχο acceptance.
+Η υλοποίηση προχώρησε διαδοχικά έως **0.5.12**, με διαστήματα/συγχορδίες, πτώσεις/κλίμακες/τρόπους/ρυθμό, ντικτέ/σολφέζ, πολυφωνία/χρωματική/σειρές και ανεξάρτητες εκπαιδευτικές εξετάσεις. Η τελική επαγγελματική **1.0.0 δεν δηλώνεται ολοκληρωμένη** χωρίς Windows/NVDA/ήχο acceptance.
 
-[Νέος επαληθευμένος εγκαταστάτης Windows](https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.11-preview.77/ProfessionalEarTrainingStudio-0.5.11-Setup.exe) · [Όλα τα νέα παραδοτέα](https://github.com/kyriakoslouka-crypto/music-app/releases/tag/v0.5.11-preview.77) · [Αναφορά παράδοσης και ακριβές σημείο συνέχισης](downloads/0.5.11/README.md) · [Οδηγίες](desktop/README.md) · [Πραγματικές δοκιμές](downloads/0.5.11/README.md#πραγματικοί-έλεγχοι) · [Περιορισμοί](desktop/docs/KNOWN-LIMITATIONS.md) · [Συνέχιση προς 1.0](desktop/docs/CONTINUE-TO-1.0.md).
+[Νέος επαληθευμένος εγκαταστάτης Windows](https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.12-preview.79/ProfessionalEarTrainingStudio-0.5.12-Setup.exe) · [Όλα τα νέα παραδοτέα](https://github.com/kyriakoslouka-crypto/music-app/releases/tag/v0.5.12-preview.79) · [Αναφορά παράδοσης και ακριβές σημείο συνέχισης](downloads/0.5.12/README.md) · [Οδηγίες](desktop/README.md) · [Πραγματικές δοκιμές](downloads/0.5.12/README.md#πραγματικοί-έλεγχοι) · [Περιορισμοί](desktop/docs/KNOWN-LIMITATIONS.md) · [Συνέχιση προς 1.0](desktop/docs/CONTINUE-TO-1.0.md).
 
 `desktop/deliverables/releases/` διατηρεί πλήρη versioned πακέτα, source ZIP, οδηγίες και tests. Το τοπικό filesystem δεν ισοδυναμεί με δημόσια λήψη. Η εξωτερική παράδοση τεκμηριώνεται χωριστά. Τα δείγματα πιάνου δεν αναδιανέμονται· εγκαθίστανται ιδιωτικά από τη δημοσιευμένη πηγή.
 
-Νέο στη 0.5.11: ζωντανά βέλη ισοκράτη μετά από ένα Ctrl+L, οκτώ ενδεικτικές βάσεις ήχων, ομαλή γρήγορη μετάβαση και αυτόματη φόρτωση/ανάκτηση των εγκατεστημένων φωνών. [Οδηγίες](desktop/docs/LIVE-ISOKRATIS.md).
+Νέο στη 0.5.12: πρότυπα των οκτώ ήχων από τις σειρές που όρισε ο χρήστης, πέντε επιλογές γένους, υφέσεις/διέσεις σε μόρια και άνω φθόγγοι. [Ακριβείς τιμές και όρια](desktop/docs/BYZANTINE-INTONATION.md).
+
+Στη 0.5.11: ζωντανά βέλη ισοκράτη μετά από ένα Ctrl+L, οκτώ ενδεικτικές βάσεις ήχων, ομαλή γρήγορη μετάβαση και αυτόματη φόρτωση/ανάκτηση των εγκατεστημένων φωνών. [Οδηγίες](desktop/docs/LIVE-ISOKRATIS.md).
 
 Στη 0.5.10: επιλογές απάντησης αντί πληκτρολόγησης σε όλες τις 12 πρώην γραπτές κατηγορίες, με πλήρη ελληνική περιγραφή. [Οδηγίες](desktop/docs/ANSWER-CHOICES.md).
 
