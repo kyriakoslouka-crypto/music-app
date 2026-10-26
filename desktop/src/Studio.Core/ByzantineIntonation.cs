@@ -10,6 +10,12 @@ public static class ByzantineIntonation
         new("hard-chromatic","Σκληρό χρωματικό",[4,6,20,4,12,6,20]),
         new("enharmonic","Εναρμόνιο — πρότυπο χρήστη από Γα",[12,6,12,12,12,6,12]),
         new("custom","Προσαρμοσμένα διαστήματα",[])];
+    public const int MaximumAlteration = 7200;
+    public static int ShiftOctave(int degree,int direction)
+    {
+        if(degree is <0 or >14||direction is not (-1 or 1))throw new ArgumentException("Μη έγκυρη αλλαγή οκτάβας.");
+        var target=degree+7*direction;return target is >=0 and <=14?target:degree;
+    }
     public static string DefaultGenre(string mode)=>mode switch{"second"=>"soft-chromatic","third"=>"enharmonic","plagal-second"=>"hard-chromatic",_=>"soft-diatonic"};
     public static double[] FromRoot(int degree,IReadOnlyList<double> rootIntervals)
     {
@@ -34,7 +40,7 @@ public static class ByzantineIntonation
         var offset=Offset(degree,anchor,intervals,anchored);var hz=referenceNi*Math.Pow(2,(offset+globalMoria+alterations[degree%7])/72);
         if(hz is <35 or >2000)throw new ArgumentException("Ο φθόγγος είναι εκτός 35–2000 Hz.");return hz;
     }
-    public static void ValidateAlterations(IReadOnlyList<double> values){if(values.Count!=7||values.Any(v=>!double.IsFinite(v)||v is <-72 or >72))throw new ArgumentException("Απαιτούνται επτά αλλοιώσεις από -72 έως +72 μόρια.");}
+    public static void ValidateAlterations(IReadOnlyList<double> values){if(values.Count!=7||values.Any(v=>!double.IsFinite(v)||v < -MaximumAlteration || v > MaximumAlteration))throw new ArgumentException("Απαιτούνται επτά αλλοιώσεις από -7200 έως +7200 μόρια.");}
     public static string PitchLabel(int degree)=>ByzantineTuning.Notes[degree%7]+(degree>=14?" δις άνω":degree>=7?" άνω":"");
     public static string NoteName(int degree,int anchor,IReadOnlyList<double> intervals,bool anchored,IReadOnlyList<double> alterations)
     {

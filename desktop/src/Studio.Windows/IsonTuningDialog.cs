@@ -15,7 +15,7 @@ internal sealed class IsonTuningDialog:Form
         for(var i=0;i<7;i++){
             var name=$"{ByzantineTuning.Notes[i]} προς {ByzantineTuning.Notes[(i+1)%7]}";
             steps[i]=new(){Minimum=0.01m,Maximum=71.94m,DecimalPlaces=2,Increment=0.1m,Value=(decimal)original.Intervals[i],Width=180,AccessibleName="Διάστημα "+name+" σε μόρια"};
-            alterations[i]=new(){Minimum=-72,Maximum=72,DecimalPlaces=2,Increment=0.1m,Value=(decimal)original.Alterations[i],Width=180,AccessibleName="Πρόσθετη ύφεση ή δίεση "+ByzantineTuning.Notes[i]+" σε μόρια"};
+            alterations[i]=new(){Minimum=-ByzantineIntonation.MaximumAlteration,Maximum=ByzantineIntonation.MaximumAlteration,DecimalPlaces=2,Increment=0.1m,Value=(decimal)original.Alterations[i],Width=180,AccessibleName="Πρόσθετη ύφεση ή δίεση "+ByzantineTuning.Notes[i]+" σε μόρια"};
             table.Controls.Add(new Label{Text=name,AutoSize=true});table.Controls.Add(steps[i]);table.Controls.Add(alterations[i]);
             steps[i].ValueChanged+=(_,_)=>UpdateSummary();alterations[i].ValueChanged+=(_,_)=>UpdateSummary();
         }
@@ -24,7 +24,7 @@ internal sealed class IsonTuningDialog:Form
         apply.Click+=(_,_)=>{try{var result=BuildTuning();result.Validate();Result=result;DialogResult=DialogResult.OK;}catch(ArgumentException e){summary.Text=e.Message;summary.Focus();}};AcceptButton=apply;CancelButton=cancel;AccessibilityContract.Apply(this);UpdateSummary();
     }
     private IsonTuning BuildTuning()=>new(steps.Select(n=>(double)n.Value).ToArray(),alterations.Select(n=>(double)n.Value).ToArray(),"custom",anchored);
-    private void UpdateSummary(){var sum=steps.Where(s=>s is not null).Sum(s=>s.Value);summary.Text=$"Άθροισμα: {sum:0.##} από 72 μόρια. Ρύθμισε όλα τα διαστήματα πριν την Εφαρμογή. Αρνητική αλλοίωση: ύφεση, θετική: δίεση, μηδέν: χωρίς πρόσθετη αλλοίωση. Καμία αλλαγή δεν εφαρμόζεται πριν την Εφαρμογή.";apply.Enabled=steps.All(s=>s is not null)&&sum==72;}
+    private void UpdateSummary(){var sum=steps.Where(s=>s is not null).Sum(s=>s.Value);summary.Text=$"Άθροισμα: {sum:0.##} από 72 μόρια. Ρύθμισε όλα τα διαστήματα πριν την Εφαρμογή. Οι πρόσθετες αλλοιώσεις μετακινούν μόνο τον ομώνυμο φθόγγο σε κάθε οκτάβα, όχι τους υπόλοιπους. Όριο ±7200 μόρια. Αρνητική αλλοίωση: ύφεση, θετική: δίεση, μηδέν: χωρίς πρόσθετη αλλοίωση. Καμία αλλαγή δεν εφαρμόζεται πριν την Εφαρμογή.";apply.Enabled=steps.All(s=>s is not null)&&sum==72;}
     internal void Probe(bool accept)
     {
         var first=steps[0].Value;steps[0].Value=first+0.1m;if(apply.Enabled||Result is not null)throw new InvalidOperationException("Unbalanced editor applied changes");steps[1].Value-=0.1m;if(!apply.Enabled)throw new InvalidOperationException("Balanced editor rejected changes");if(accept)apply.PerformClick();else DialogResult=DialogResult.Cancel;

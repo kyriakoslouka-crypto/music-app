@@ -42,6 +42,13 @@ public sealed partial class MainForm
         var directory=Path.GetDirectoryName(manifest)!;for(var note=0;note<8;note++){var hz=IsonFrequency(note);var sample=IsonRenderer.Select(isonBank,((IsonVoice)isonVoice.SelectedItem!).Id,hz);await Task.Run(()=>CachedIson(directory,sample,hz,0.45,CancellationToken.None));}
         var maximum=0.0;foreach(var key in new[]{Keys.Up,Keys.Down,Keys.Right,Keys.Left}){var watch=Stopwatch.StartNew();Check(Arrow(key),"Arrow was not handled");await Settled();maximum=Math.Max(maximum,watch.Elapsed.TotalMilliseconds);Check(pump(),"Live PCM vanished");}
         Check(isonNote.SelectedIndex==0&&isonVoice.SelectedIndex==0&&opens()==1,"Arrows reopened device or did not change both dimensions");
+        Check(Arrow(Keys.Shift|Keys.Up),"Octave up not handled");await Settled();Check(isonNote.SelectedIndex==7&&opens()==1&&pump(),"Octave up failed");
+        Check(Arrow(Keys.Shift|Keys.Down),"Octave down not handled");await Settled();Check(isonNote.SelectedIndex==0&&opens()==1&&pump(),"Octave down failed");
+        Arrow(Keys.Shift|Keys.Down);Check(isonNote.SelectedIndex==0,"Lower octave wrapped");
+        var unaltered=Enumerable.Range(0,15).Select(n=>IsonFrequency(n)).ToArray();isonLoaded=false;isonNote.SelectedIndex=6;isonCustomAccidental.Value=90;isonAlterations[6]=90;isonLoaded=true;RefreshIsonNotes();
+        Check(isonCustomAccidental.Value==90,"Large numeric alteration lost");for(var n=0;n<15;n++)Check(Math.Abs(IsonFrequency(n)/unaltered[n]-(n%7==6?Math.Pow(2,90.0/72):1))<1e-9,"Alteration moved another pitch");
+        var largeSaved=JsonSerializer.Deserialize<IsonPreferences>(JsonSerializer.Serialize(CaptureIsonPreferences()))!;isonLoaded=false;isonAlterations=new double[7];ApplyIsonPreferences(largeSaved);isonLoaded=true;RefreshIsonNotes();Check(isonCustomAccidental.Value==90,"Large alteration restore failed");
+        isonLoaded=false;isonAlterations=new double[7];isonNote.SelectedIndex=0;isonLoaded=true;RefreshIsonNotes();
         var previousDegree=isonNote.SelectedIndex;isonNote.SelectedIndex=14;await Settled();Check(isonNote.SelectedIndex==previousDegree&&audio.IsPlaying,"Unsupported upper pitch killed live navigation");
         for(var i=0;i<20;i++)Arrow(i%2==0?Keys.Up:Keys.Down);await Settled();Check(isonNote.SelectedIndex==0,"Stale fast navigation won");
         foreach(var item in ByzantineModes.All.Skip(1).Concat(ByzantineModes.All.Take(1))){isonMode.SelectedItem=item;await Settled();Check(isonNote.SelectedIndex==item.Degree,"Mode basis did not apply");}
@@ -59,6 +66,6 @@ public sealed partial class MainForm
         isonKeyboard.Focus();
         ToggleIsonPause();Check(audio.IsPaused&&tabs.SelectedTab==isonPage,"Pause changed tab");isonKeyboard.Focus();Arrow(Keys.Up);await Settled();Check(audio.IsPaused,"Changing a paused ison resumed it");ToggleIsonPause();Check(audio.IsPlaying,"Resume failed");Check(opens()==1,"Device reopened");
         Stop();Check(!IsonArrow(Keys.Up)&&!audio.IsPlaying,"Stopped arrows restarted audio");
-        return new{ManualStarts=1,ArrowDirections=4,RapidChanges=20,ModeCount=8,GenusCount=5,SharpFlatPassed=true,IntonationRestorePassed=true,UnsupportedPitchPreservesLive=true,FreeTuningPassed=true,PerModeRestorePassed=true,NativeTuningEditorPassed=true,DeviceReopenCount=opens()-1,CachedSwitchMaxMilliseconds=maximum,PausePreserved=true,StopPreserved=true};
+        return new{ManualStarts=1,OctaveArrowsPassed=true,IndependentLargeAlterationsPassed=true,ArrowDirections=4,RapidChanges=20,ModeCount=8,GenusCount=5,SharpFlatPassed=true,IntonationRestorePassed=true,UnsupportedPitchPreservesLive=true,FreeTuningPassed=true,PerModeRestorePassed=true,NativeTuningEditorPassed=true,DeviceReopenCount=opens()-1,CachedSwitchMaxMilliseconds=maximum,PausePreserved=true,StopPreserved=true};
     }
 }

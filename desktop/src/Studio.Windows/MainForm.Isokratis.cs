@@ -11,14 +11,14 @@ public sealed partial class MainForm
     private readonly ComboBox isonGenus=Combo("Διαστηματικό γένος ισοκρατήματος",[]);
     private readonly ComboBox isonAccidental=Combo("Πρόσθετη ύφεση ή δίεση επιλεγμένου φθόγγου",["Χωρίς πρόσθετη αλλοίωση","Ύφεση 2 μορίων","Ύφεση 4 μορίων","Ύφεση 6 μορίων","Ύφεση 8 μορίων","Δίεση 2 μορίων","Δίεση 4 μορίων","Δίεση 6 μορίων","Δίεση 8 μορίων"]);
     private static readonly double[] IsonAccidentalValues=[0,-2,-4,-6,-8,2,4,6,8];
-    private readonly NumericUpDown isonCustomAccidental=Number("Ελεύθερη πρόσθετη αλλοίωση επιλεγμένου φθόγγου σε μόρια",-72,72,0);
+    private readonly NumericUpDown isonCustomAccidental=Number("Ελεύθερη πρόσθετη αλλοίωση επιλεγμένου φθόγγου σε μόρια",-ByzantineIntonation.MaximumAlteration,ByzantineIntonation.MaximumAlteration,0);
     private readonly Button isonEditTuning=new(){Text="Προσωπικό κούρδισμα ανά φθόγγο",AutoSize=true};
     private readonly Button isonResetTuning=new(){Text="Επαναφορά προτύπου επιλεγμένου ήχου",AutoSize=true};
     private Dictionary<string,IsonTuning> isonModeTunings=[];private string isonTuningModeId="first";
     private bool isonAnchorReference=true;
     private double[] isonAlterations=new double[7];private bool isonIntonationChanging;
     private readonly ComboBox isonMode=Combo("Ήχος βυζαντινού ισοκρατήματος",[]);
-    private readonly Button isonKeyboard=new(){Text="Ζωντανός χειρισμός με βέλη",AccessibleName="Ζωντανός χειρισμός ισοκράτη με τα τέσσερα βέλη",AccessibleDescription="Πάνω και κάτω: φθόγγος. Δεξιά και αριστερά: φωνή. Esc: διακοπή. Tab: κανονική πλοήγηση στις ρυθμίσεις.",AutoSize=true};
+    private readonly Button isonKeyboard=new(){Text="Ζωντανός χειρισμός με βέλη",AccessibleName="Ζωντανός χειρισμός ισοκράτη με τα τέσσερα βέλη",AccessibleDescription="Shift και πάνω ή κάτω: οκτάβα. Πάνω και κάτω: φθόγγος. Δεξιά και αριστερά: φωνή. Esc: διακοπή. Tab: κανονική πλοήγηση στις ρυθμίσεις.",AutoSize=true};
     private readonly System.Windows.Forms.Timer isonPreferenceSave=new(){Interval=350};
     private readonly IsonLoopCache isonCache=new();private bool isonArmed;private CancellationTokenSource? isonWarmWork;private string? isonWarmKey;
     private readonly ComboBox isonNote=Combo("Φθόγγος ισοκρατήματος",Enumerable.Range(0,15).Select(ByzantineIntonation.PitchLabel).ToArray());
@@ -45,7 +45,7 @@ public sealed partial class MainForm
         isonBase.DecimalPlaces=3;isonBase.Value=130.813m;isonBase.Increment=0.1m;isonMoria.DecimalPlaces=2;isonMoria.Increment=0.5m;
         var layout=new TableLayoutPanel{Dock=DockStyle.Fill,ColumnCount=1,RowCount=4,Padding=new(12)};
         layout.RowStyles.Add(new(SizeType.AutoSize));layout.RowStyles.Add(new(SizeType.AutoSize));layout.RowStyles.Add(new(SizeType.AutoSize));layout.RowStyles.Add(new(SizeType.Percent,100));
-        layout.Controls.Add(new Label{AutoSize=true,MaximumSize=new(900,0),Text="Εγκατάσταση φωνών μία φορά. Ctrl+L: έναρξη και ζωντανός χειρισμός. Πάνω/κάτω: φθόγγοι, δεξιά/αριστερά: φωνές. Tab: ρυθμίσεις, Esc: διακοπή. Οι ήχοι επιλέγουν βάση και διαστηματικό γένος. Οι σειρές αρχίζουν από Νη και έχουν 72 μόρια ανά οκτάβα. Η βάση του ήχου παραμένει σταθερή κατά την αλλαγή γένους. Δεν εφαρμόζονται αυτόματες έλξεις."});
+        layout.Controls.Add(new Label{AutoSize=true,MaximumSize=new(900,0),Text="Εγκατάσταση φωνών μία φορά. Ctrl+L: έναρξη και ζωντανός χειρισμός. Πάνω/κάτω: φθόγγοι, Shift+πάνω/κάτω: οκτάβα, δεξιά/αριστερά: φωνές. Tab: ρυθμίσεις, Esc: διακοπή. Οι ήχοι επιλέγουν βάση και διαστηματικό γένος. Οι σειρές αρχίζουν από Νη και έχουν 72 μόρια ανά οκτάβα. Η βάση του ήχου παραμένει σταθερή κατά την αλλαγή γένους. Δεν εφαρμόζονται αυτόματες έλξεις."});
         var fields=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};
         fields.Controls.AddRange([new Label{Text="Ήχος",AutoSize=true},isonMode,new Label{Text="Γένος",AutoSize=true},isonGenus,new Label{Text="Αλλοίωση φθόγγου",AutoSize=true},isonAccidental,new Label{Text="Ελεύθερη αλλοίωση ±",AutoSize=true},isonCustomAccidental,new Label{Text="Φωνή",AutoSize=true},isonVoice,new Label{Text="Φθόγγος",AutoSize=true},isonNote,new Label{Text="Νη Hz",AutoSize=true},isonBase,new Label{Text="Μόρια ±",AutoSize=true},isonMoria,new Label{Text="Ένταση",AutoSize=true},isonVolume,new Label{Text="Διαστήματα",AutoSize=true},isonIntervals]);layout.Controls.Add(fields);
         var buttons=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};var play=new Button{Text="Έναρξη ισοκρατήματος (Ctrl+L)",AutoSize=true};var stop=new Button{Text="Διακοπή ισοκρατήματος (Esc)",AutoSize=true};
@@ -168,7 +168,9 @@ public sealed partial class MainForm
     }
     private bool IsonArrow(Keys key)
     {
-        if(!isonArmed||!isonKeyboard.Focused||key is not (Keys.Up or Keys.Down or Keys.Left or Keys.Right))return false;
+        if(!isonArmed||!isonKeyboard.Focused)return false;
+        if(key is (Keys.Shift|Keys.Up) or (Keys.Shift|Keys.Down)){var next=ByzantineIntonation.ShiftOctave(isonNote.SelectedIndex,key==(Keys.Shift|Keys.Up)?1:-1);if(next!=isonNote.SelectedIndex)isonNote.SelectedIndex=next;return true;}
+        if(key is not (Keys.Up or Keys.Down or Keys.Left or Keys.Right))return false;
         var combo=key is Keys.Up or Keys.Down?isonNote:isonVoice;if(combo.Items.Count==0)return true;
         var delta=key is Keys.Up or Keys.Right?1:-1;combo.SelectedIndex=(combo.SelectedIndex+combo.Items.Count+delta)%combo.Items.Count;return true;
     }
