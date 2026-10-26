@@ -57,6 +57,7 @@ public static class AccessibilityContract
         result["AudioDiagnosticRegression"]=form.AuditAudioDiagnostic();
         result["AutomaticPracticeRegression"]=form.AuditAutomaticPractice();
         result["NewStudyFeatures"]=form.AuditNewStudy();
+        result["Isokratis"]=form.AuditIson();
         using var installer=new PianoSetupDialog(Path.Combine(Path.GetTempPath(),"studio-audit-unused"));
         result["PianoSetupDialog"]=Audit(installer);
         File.WriteAllText(path,JsonSerializer.Serialize(result,new JsonSerializerOptions {WriteIndented=true}));

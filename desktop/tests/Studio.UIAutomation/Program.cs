@@ -3,10 +3,11 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Windows.Automation;
 
+if(args.Length==3&&args[0]=="--ison-check")return await WindowsIsonCheck.Run(args[1],args[2]);
 if(args.Length==2&&args[0]=="--audio-output-check")return AudioOutputChecks.Run(args[1]);
 if(args.Length==3&&args[0]=="--piano-check")return await WindowsPianoCheck.Run(args[1],args[2]);
-var expected = new[] { "Ρυθμίσεις", "Εξάσκηση", "Πρόοδος", "Εξετάσεις και προσαρμογή", "Οδηγίες", "Απρόοπτα διαγωνίσματα" };
-var content = new[] { "Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand", "Οδηγία τρέχουσας άσκησης", "Στατιστικά και ιστορικό", "Εκπαιδευτικό εξεταστικό προφίλ", "Οδηγίες και περιορισμοί έκδοσης", "Επίπεδο απρόοπτου διαγωνίσματος" };
+var expected = new[] { "Ρυθμίσεις", "Εξάσκηση", "Πρόοδος", "Εξετάσεις και προσαρμογή", "Οδηγίες", "Απρόοπτα διαγωνίσματα", "Βυζαντινός ισοκράτης" };
+var content = new[] { "Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand", "Οδηγία τρέχουσας άσκησης", "Στατιστικά και ιστορικό", "Εκπαιδευτικό εξεταστικό προφίλ", "Οδηγίες και περιορισμοί έκδοσης", "Επίπεδο απρόοπτου διαγωνίσματος", "Φωνή βυζαντινού ισοκράτη" };
 if (args[0] == "--fixture")
 {
     var thread = new Thread(() => {
@@ -57,14 +58,14 @@ try
                 return chain.ToArray();
             }).ToArray();
             references.Add(new { Mode = mode, ReferenceOnly = mode != "explicit", Count = tabs.Count, Names = names,Parents=parents });
-            if (mode == "explicit") Check(names.SequenceEqual(expected), "Explicit provider exposes exactly six named fixture headers");
+            if (mode == "explicit") Check(names.SequenceEqual(expected), "Explicit provider exposes exactly seven named fixture headers");
         } finally { Close(fixture); }
     }
     application = Process.Start(new ProcessStartInfo(args[0], "--uia-test-mode") { UseShellExecute = false })!;
     var appWindow = FindWindow(application);
     var appTabs = Tabs(appWindow);
-    Check(Names(appTabs).SequenceEqual(expected), "Application exposes exactly six correctly ordered named tabs");
-    Check(Enumerable.Range(0, appTabs.Count).Select(i => appTabs[i].Current.AutomationId).Distinct().Count() == 6, "All six headers have unique automation identifiers");
+    Check(Names(appTabs).SequenceEqual(expected), "Application exposes exactly seven correctly ordered named tabs");
+    Check(Enumerable.Range(0, appTabs.Count).Select(i => appTabs[i].Current.AutomationId).Distinct().Count() == 7, "All seven headers have unique automation identifiers");
     for (var i = 0; i < appTabs.Count; i++) {
         var selection = (SelectionItemPattern)appTabs[i].GetCurrentPattern(SelectionItemPattern.Pattern);
         selection.Select();
