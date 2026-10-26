@@ -1,0 +1,12 @@
+{
+  "Version": "0.5.15",
+  "SourceCommit": "9a5fef20f540797d40478fb8c176c26a71303b01",
+  "Passed": false,
+  "InstallerPassed": false,
+  "PortablePassed": false,
+  "StandalonePassed": false,
+  "TrainingHasFiveTabs": true,
+  "IsokratisHasThreeTabs": false,
+  "UninstallPreservesUserFile": false,
+  "Error": "Independent portable failed"
+}
