@@ -1,0 +1,360 @@
+{
+  "ReleaseTag": "v0.5.15-preview.86",
+  "VerifiedAtUtc": "2026-10-26T15:48:38.628778+00:00",
+  "ReleaseUrl": "https://github.com/kyriakoslouka-crypto/music-app/releases/tag/v0.5.15-preview.86",
+  "AllHttpsDownloadsAndHashesVerified": true,
+  "UserComputerDownloadVerified": false,
+  "Files": [
+    {
+      "File": "accessibility-audit.json",
+      "SHA256": "1a8a70cdad33ddacda8d87ccd1eb354e7264ad241619c7501f87dc5d35267261",
+      "Bytes": 114930,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/accessibility-audit.json"
+    },
+    {
+      "File": "audio-output-check.json",
+      "SHA256": "012b4c61177d00eab283a8100a3b9b38ef820edb869f22f397f308ee92d78430",
+      "Bytes": 1453,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/audio-output-check.json"
+    },
+    {
+      "File": "automatic-practice-check.json",
+      "SHA256": "2416788c15e0348ea6fb421fddefdc4d86a6a9e37b3444b06dfee0fd61810c85",
+      "Bytes": 320,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/automatic-practice-check.json"
+    },
+    {
+      "File": "isokratis-package-check.json",
+      "SHA256": "245e95deaa832a363bf53b49cd726aa2eb4cd0b2e5ecb7fdc09a9f5972637af7",
+      "Bytes": 300,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/isokratis-package-check.json"
+    },
+    {
+      "File": "isokratis-typed-uia.json",
+      "SHA256": "1cebb8d65b45475e47ea8a1ea795466be4d23270483893d65e4a0cad233f568a",
+      "Bytes": 10508,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/isokratis-typed-uia.json"
+    },
+    {
+      "File": "ison-live-check.json",
+      "SHA256": "c7bf1cddf05b24c5055ea3a2bf44ab011fdda81ab528817d6e8e767b78c4821a",
+      "Bytes": 860,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ison-live-check.json"
+    },
+    {
+      "File": "nvda-accessibility-audit.json",
+      "SHA256": "6c7527efa62dce7779c85f6d25a81ac47a81dfa7e3dcd89aa306c6010726736d",
+      "Bytes": 116211,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/nvda-accessibility-audit.json"
+    },
+    {
+      "File": "nvda-smoke.json",
+      "SHA256": "0afa5be279d72482fe99eec079bf75602b04d22849169e4f4ffbc4f0f12dbd45",
+      "Bytes": 1673,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/nvda-smoke.json"
+    },
+    {
+      "File": "portable-integrity.json",
+      "SHA256": "f55d7b2bd4c01579d7b958cf468d9c69f15d00f694b98d42023531e86212f590",
+      "Bytes": 274,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/portable-integrity.json"
+    },
+    {
+      "File": "ProfessionalEarTrainingStudio-0.5.15-Portable.zip",
+      "SHA256": "f08b4967cca16123bbb3d7f32786ea8368fa2fe93f695383933a4bb09348fb32",
+      "Bytes": 77239303,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalEarTrainingStudio-0.5.15-Portable.zip"
+    },
+    {
+      "File": "ProfessionalEarTrainingStudio-0.5.15-Setup.exe",
+      "SHA256": "2cbff08624e320a1c0168b02cbaf850830a6ffcfa99225b97ddf014b3d1d41d3",
+      "Bytes": 52717378,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalEarTrainingStudio-0.5.15-Setup.exe"
+    },
+    {
+      "File": "ProfessionalEarTrainingStudio-0.5.15-Source.zip",
+      "SHA256": "fd2463d56e89f166831b913b71b97fa035066f0cc5f92f514b00fe6001bc4c4f",
+      "Bytes": 800783,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalEarTrainingStudio-0.5.15-Source.zip"
+    },
+    {
+      "File": "ProfessionalEarTrainingStudio-0.5.15-Standalone.exe",
+      "SHA256": "67752af3c381e1702dabec4f01055d497b0e17af2f1f63a9caea5a02af87eaa0",
+      "Bytes": 76397187,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalEarTrainingStudio-0.5.15-Standalone.exe"
+    },
+    {
+      "File": "ProfessionalIsokratis-0.5.15-Portable.zip",
+      "SHA256": "2a3b2ed3a7b5f195566fc47c4ca34f4827f6e02afe8415ac5c85ed097c591731",
+      "Bytes": 77164589,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalIsokratis-0.5.15-Portable.zip"
+    },
+    {
+      "File": "ProfessionalIsokratis-0.5.15-Setup.exe",
+      "SHA256": "43252b53613853cff9b3753ee6b5e47c71fbe459220c1e3f7ae4ca0f3b6cc0af",
+      "Bytes": 52651881,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalIsokratis-0.5.15-Setup.exe"
+    },
+    {
+      "File": "ProfessionalIsokratis-0.5.15-Standalone.exe",
+      "SHA256": "203e0ff991a4795c5dd13055b66ce87c6d74d0d888ba0df119a1563811b24f39",
+      "Bytes": 76400785,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalIsokratis-0.5.15-Standalone.exe"
+    },
+    {
+      "File": "READINESS.json",
+      "SHA256": "4832e7555812b81a516e7dea3f8a8e484c2253eb237f64d972ed7e80410fe5d1",
+      "Bytes": 2096,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/READINESS.json"
+    },
+    {
+      "File": "README.md",
+      "SHA256": "cb0c823344e9eb96841e70284648f95688e48c4c5e9547c4f5423147bb1b016d",
+      "Bytes": 15147,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/README.md"
+    },
+    {
+      "File": "source-build-smoke.json",
+      "SHA256": "50fd514c1b97ba59f8aab020376cc4a9945168a0b10a21c263d21fafd617d7df",
+      "Bytes": 149,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/source-build-smoke.json"
+    },
+    {
+      "File": "TEST-RESULTS.json",
+      "SHA256": "fe4881d54fcd6b43324b4ec473cbbf224f5dbc73e77980ef4894f16545f3c25f",
+      "Bytes": 16916,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/TEST-RESULTS.json"
+    },
+    {
+      "File": "typed-uia-audit.json",
+      "SHA256": "b585322950c71093745d2afb448090130bc172bfccf171544abe10137d858a77",
+      "Bytes": 11536,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/typed-uia-audit.json"
+    },
+    {
+      "File": "WINDOWS-CHECKS.json",
+      "SHA256": "96986e4d989abc19cace41abf7e5835d1a9d22e1618d01026c4fbdc0b3011ee5",
+      "Bytes": 344,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/WINDOWS-CHECKS.json"
+    },
+    {
+      "File": "windows-ison-check.json",
+      "SHA256": "63d8533c4b84453d43eae60dd5d212f1865f52dd8b9b3bccc4962f77fe2efe35",
+      "Bytes": 1185,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/windows-ison-check.json"
+    },
+    {
+      "File": "windows-maestro-tests.json",
+      "SHA256": "5e4502196db2270807c7408762438cf4f6949a6f83faa1ec285de3f4af245c42",
+      "Bytes": 18511,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/windows-maestro-tests.json"
+    },
+    {
+      "File": "windows-package-smoke.json",
+      "SHA256": "41d8340e1ab4c69c608d582378b6c8ecf7dae47534eb03b53e5589edb477457f",
+      "Bytes": 265,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/windows-package-smoke.json"
+    },
+    {
+      "File": "windows-piano-check.json",
+      "SHA256": "7d7368dd887506f31a9be578689dbd30f9b41c5166461965644d6e9d460260c5",
+      "Bytes": 726,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/windows-piano-check.json"
+    },
+    {
+      "File": "Οδηγίες/ACCEPTANCE-0.1.0.md",
+      "SHA256": "5507010dcdf73f50f54406b384f2835e97f25ca64cbab2a365e41433e6694a01",
+      "Bytes": 8513,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ACCEPTANCE-0.1.0.md"
+    },
+    {
+      "File": "Οδηγίες/ACCEPTANCE-PROTOCOL.md",
+      "SHA256": "f12d99cf62ed70b6712782fb72c00a85120fb18a926f95544303ccceb57773dd",
+      "Bytes": 3880,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ACCEPTANCE-PROTOCOL.md"
+    },
+    {
+      "File": "Οδηγίες/ACCEPTANCE.md",
+      "SHA256": "2ad2d9e3263bc145a1dbb286b16ff4c6effc93a23c06456263d05752600d3248",
+      "Bytes": 5688,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ACCEPTANCE.md"
+    },
+    {
+      "File": "Οδηγίες/ANSWER-CHOICES.md",
+      "SHA256": "c620412a3cb92369f7bde44f1430725aa49d018fcc74c782df0afe674934227b",
+      "Bytes": 4511,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ANSWER-CHOICES.md"
+    },
+    {
+      "File": "Οδηγίες/AUDIO-OUTPUT-RECOVERY.md",
+      "SHA256": "606b0b77966c62a8b4e96996518e7b39e76b398d929ddb6f64d5564193f37cc4",
+      "Bytes": 6746,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/AUDIO-OUTPUT-RECOVERY.md"
+    },
+    {
+      "File": "Οδηγίες/AUTOMATIC-PRACTICE.md",
+      "SHA256": "285810b1860b2f81786356476934873c894057429b69b779b2fc252353c3286b",
+      "Bytes": 5705,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/AUTOMATIC-PRACTICE.md"
+    },
+    {
+      "File": "Οδηγίες/BYZANTINE-INTONATION.md",
+      "SHA256": "c4f00252c5747b6465e0ef5f833482aedd5ca675f2869a155295cc115317a0de",
+      "Bytes": 9839,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/BYZANTINE-INTONATION.md"
+    },
+    {
+      "File": "Οδηγίες/BYZANTINE-ISOKRATIS.md",
+      "SHA256": "98727a5ba147f851eae83b08dde65c4d6d8e65fb9c90b96c5b0588e762d0fbd3",
+      "Bytes": 7215,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/BYZANTINE-ISOKRATIS.md"
+    },
+    {
+      "File": "Οδηγίες/CADENCE-CHECKS.md",
+      "SHA256": "c3158c59e42a92f59f70b4cc2bf3f1e692d46fe8ec1aa76d752441cc8ec2f70b",
+      "Bytes": 9425,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/CADENCE-CHECKS.md"
+    },
+    {
+      "File": "Οδηγίες/CONTINUE-TO-1.0.md",
+      "SHA256": "7e435d8be334cca73fb5c47bb3b93d9094b9157cdfd835af2f481468142e9632",
+      "Bytes": 4050,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/CONTINUE-TO-1.0.md"
+    },
+    {
+      "File": "Οδηγίες/DIAGNOSTIC-PUBLICATION.md",
+      "SHA256": "ccb2006be85708506a77e4fdc6dc84d3b8f2a62536690cf0f272caad3fe44134",
+      "Bytes": 1664,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/DIAGNOSTIC-PUBLICATION.md"
+    },
+    {
+      "File": "Οδηγίες/DIFFICULTY-LEVELS.md",
+      "SHA256": "626a1dde825e8828b430faa066043d18102ad50a2aac320bd0d70e19f6a36f73",
+      "Bytes": 10609,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/DIFFICULTY-LEVELS.md"
+    },
+    {
+      "File": "Οδηγίες/FIRST-RUN-NVDA.md",
+      "SHA256": "9903177f7816699055aa5fb4b9666cca73b898a479e6ba93e0a249e41faa4d48",
+      "Bytes": 9579,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/FIRST-RUN-NVDA.md"
+    },
+    {
+      "File": "Οδηγίες/FREE-ISOKRATIS-TUNING.md",
+      "SHA256": "0d45fea46b61591d87b7d4d66798e8eeb37fefe3ed44f728139a85736aacc1a5",
+      "Bytes": 7504,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/FREE-ISOKRATIS-TUNING.md"
+    },
+    {
+      "File": "Οδηγίες/HARDENING-0.5.0.md",
+      "SHA256": "a4db7e473944dbe9c1dbaf23e5d2682c56d907aaa71ca80b7920d654de99cc9e",
+      "Bytes": 4397,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/HARDENING-0.5.0.md"
+    },
+    {
+      "File": "Οδηγίες/INDEPENDENT-APPLICATIONS.md",
+      "SHA256": "a197a064a79d0f1c334901be12f8ea25dd522a176379290dc95dfbf0ee2f1d13",
+      "Bytes": 3719,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/INDEPENDENT-APPLICATIONS.md"
+    },
+    {
+      "File": "Οδηγίες/KNOWN-LIMITATIONS.md",
+      "SHA256": "a1f9fe59a1e67503df650a72a57e6d9cb58c9701ae89d276e8c894fbfa721552",
+      "Bytes": 3704,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/KNOWN-LIMITATIONS.md"
+    },
+    {
+      "File": "Οδηγίες/LIVE-ISOKRATIS.md",
+      "SHA256": "cfdec7d10d42cb89683a6db559bf7c180c5a656098deaa6dcee5982166b3bb5c",
+      "Bytes": 6229,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/LIVE-ISOKRATIS.md"
+    },
+    {
+      "File": "Οδηγίες/NVDA-TEST-PROTOCOL.md",
+      "SHA256": "018fde487025aa52a1487106811bebf1b1f124c6c4721d34d13a4a193d3084fe",
+      "Bytes": 6037,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/NVDA-TEST-PROTOCOL.md"
+    },
+    {
+      "File": "Οδηγίες/PIANO-FIDELITY.md",
+      "SHA256": "01de8fad07e28b820666d5f76f4549bab271e3d4bb08687bf3904b3e45e8e51a",
+      "Bytes": 3185,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/PIANO-FIDELITY.md"
+    },
+    {
+      "File": "Οδηγίες/PIANO-SOURCE.md",
+      "SHA256": "5b66335e10a9ae1527eb7bbecd56b5a1512d28945a7d778d430c84aefa7f20fd",
+      "Bytes": 4827,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/PIANO-SOURCE.md"
+    },
+    {
+      "File": "Οδηγίες/RHYTHMIC-WRITING.md",
+      "SHA256": "ccd2a11e9cedf0a8c3c037906f027e45a745531b1ea08a37f5cf5f536ac80a29",
+      "Bytes": 7200,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/RHYTHMIC-WRITING.md"
+    },
+    {
+      "File": "Οδηγίες/SCORES-COACH-SURPRISE.md",
+      "SHA256": "6cb6a41934731bb5582b507f259175c41d19ba4041ab400ad7e001b536628f63",
+      "Bytes": 10427,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/SCORES-COACH-SURPRISE.md"
+    },
+    {
+      "File": "Οδηγίες/SHARING-AND-RIGHTS.md",
+      "SHA256": "3db4c3f30f149f040ca2db1e0f05faa8874321a8eebaa47e9cf75176e3d323d7",
+      "Bytes": 3208,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/SHARING-AND-RIGHTS.md"
+    },
+    {
+      "File": "Οδηγίες/UIA-ROOT-CAUSE.md",
+      "SHA256": "be1900328e59b36b03bac205bdd56d7d0f53f47e974166ddfd6e58b5bd678627",
+      "Bytes": 4464,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/UIA-ROOT-CAUSE.md"
+    },
+    {
+      "File": "Οδηγίες/VALIDATION-0.1.0.md",
+      "SHA256": "1376faa525974c7158fe1ad8c029587019faaaebaab456b64df5d3186073e433",
+      "Bytes": 6613,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/VALIDATION-0.1.0.md"
+    },
+    {
+      "File": "Οδηγίες/VALIDATION.md",
+      "SHA256": "88a904b5abba616b14eb211a1784faaea38eabed21964a3816cd0a4e821ee0cf",
+      "Bytes": 3910,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/VALIDATION.md"
+    },
+    {
+      "File": "Οδηγίες/VERSION-0.2.0.md",
+      "SHA256": "5b271882ee19c23663d445b23cc0fd335217191f28be1da2221a783aeabbcebf",
+      "Bytes": 5237,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/VERSION-0.2.0.md"
+    },
+    {
+      "File": "Οδηγίες/VERSION-0.3.0.md",
+      "SHA256": "2865903b227bf6ca3170aff586f1b6e4d66ee9cd5e593cdda41732d4b19469db",
+      "Bytes": 3868,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/VERSION-0.3.0.md"
+    },
+    {
+      "File": "Οδηγίες/VERSION-0.4.0.md",
+      "SHA256": "4d64245412cd0455afcac8618d82421b90f58e43105bc08631c745dbaef4e317",
+      "Bytes": 3760,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/VERSION-0.4.0.md"
+    },
+    {
+      "File": "Οδηγίες/VERSION-0.5.0.md",
+      "SHA256": "cac1143a8c8d0fc8945e236e54c5375304414668818e6f0b5c62d82477b82154",
+      "Bytes": 5362,
+      "Url": "https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/VERSION-0.5.0.md"
+    }
+  ],
+  "PortableAndSourceCrcVerified": true,
+  "NoPrivateSamplesInPortableOrSource": true,
+  "CriticalSourceMatchesCommit": true,
+  "ReadinessRecomputedAndMatches": true,
+  "SourceCommit": "fe3da29ff06695d11b48216b9cb22eeab303395f",
+  "WrittenCategoriesNativeChoicesVerified": 12,
+  "SingleStartLiveNavigationVerified": true,
+  "ByzantineIntonationVerified": true,
+  "FreePersonalTuningVerified": true
+}
