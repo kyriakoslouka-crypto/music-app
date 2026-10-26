@@ -1,0 +1,49 @@
+{
+  "Passed": true,
+  "SourceCommit": "04437991fea7fb15dd2174d2f508b32091b5f35b",
+  "NvdaVersion": "2026.2",
+  "InstallerSha256": "f3f8d29974a88d687b3c4809be192219ec579c5bdabcda5aaf53635288bca824",
+  "SignatureValid": true,
+  "ActualNvdaProcessTested": true,
+  "SpeechAnnouncementsPassed": true,
+  "Windows11UserTested": false,
+  "HumanListeningTested": false,
+  "Synthesizer": "silence",
+  "Checks": [
+    {
+      "Name": "Εξάσκηση",
+      "Passed": true,
+      "SpeechPipelineEvidence": "Speaking [LangChangeCommand ('el'), 'Εξάσκηση', 'καρτέλα', 'επιλεγμένο', CancellableSpeech (still valid)]"
+    },
+    {
+      "Name": "Πρόοδος",
+      "Passed": true,
+      "SpeechPipelineEvidence": "Speaking [LangChangeCommand ('el'), 'Πρόοδος', 'καρτέλα', 'επιλεγμένο', CancellableSpeech (still valid)]"
+    },
+    {
+      "Name": "Εξετάσεις και προσαρμογή",
+      "Passed": true,
+      "SpeechPipelineEvidence": "Speaking [LangChangeCommand ('el'), 'Εξετάσεις και προσαρμογή', 'καρτέλα', 'επιλεγμένο', CancellableSpeech (still valid)]"
+    },
+    {
+      "Name": "Οδηγίες",
+      "Passed": true,
+      "SpeechPipelineEvidence": "Speaking [LangChangeCommand ('el'), 'Οδηγίες', 'καρτέλα', 'επιλεγμένο', CancellableSpeech (still valid)]"
+    },
+    {
+      "Name": "Απρόοπτα διαγωνίσματα",
+      "Passed": true,
+      "SpeechPipelineEvidence": "Speaking [LangChangeCommand ('el'), 'Απρόοπτα διαγωνίσματα', 'καρτέλα', 'επιλεγμένο', CancellableSpeech (still valid)]"
+    },
+    {
+      "Name": "Βυζαντινός ισοκράτης",
+      "Passed": true,
+      "SpeechPipelineEvidence": "Speaking [LangChangeCommand ('el'), 'Βυζαντινός ισοκράτης', 'καρτέλα', 'επιλεγμένο', CancellableSpeech (still valid)]"
+    },
+    {
+      "Name": "Ρυθμίσεις",
+      "Passed": true,
+      "SpeechPipelineEvidence": "Speaking [LangChangeCommand ('el'), 'Ρυθμίσεις', 'καρτέλα', 'επιλεγμένο', CancellableSpeech (still valid)]"
+    }
+  ]
+}

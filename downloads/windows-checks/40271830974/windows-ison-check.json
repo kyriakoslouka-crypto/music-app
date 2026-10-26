@@ -1,0 +1,44 @@
+{
+  "Version": "0.5.12",
+  "SourceCommit": "04437991fea7fb15dd2174d2f508b32091b5f35b",
+  "Passed": true,
+  "Error": null,
+  "DecodedFormats": 4,
+  "Checks": [
+    {
+      "SourcePath": "voices_mmm/a3-hum.mp3",
+      "NativeDecodePassed": true,
+      "Frames": 379480,
+      "EstimatedRootHz": 109.14524006545525,
+      "Confidence": 0.9458489484650849,
+      "LoopFrames": 170888
+    },
+    {
+      "SourcePath": "voices_new/karampasis_sf_file/sample-00-midi-43.mp3",
+      "NativeDecodePassed": true,
+      "Frames": 264432,
+      "EstimatedRootHz": 97.4469664263673,
+      "Confidence": 0.8096887520152182,
+      "LoopFrames": 162141
+    },
+    {
+      "SourcePath": "voices_pa3/a3_ison3.mp3",
+      "NativeDecodePassed": true,
+      "Frames": 638788,
+      "EstimatedRootHz": 110,
+      "Confidence": 0,
+      "LoopFrames": 170888
+    },
+    {
+      "SourcePath": "voices_pa3/a4_ison2.mp3",
+      "NativeDecodePassed": true,
+      "Frames": 539760,
+      "EstimatedRootHz": 220,
+      "Confidence": 0,
+      "LoopFrames": 170888
+    }
+  ],
+  "HumanListeningTested": false,
+  "PhysicalAudioTested": false,
+  "PrivateSamplesBundled": false
+}
