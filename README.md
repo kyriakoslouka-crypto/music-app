@@ -2,12 +2,14 @@
 
 Native Windows 11 x64, ελληνικά, πληκτρολόγιο/NVDA σχεδιασμός και πραγματικό Maestro Concert Grand Yamaha CF-3.
 
-Η υλοποίηση προχώρησε διαδοχικά έως **0.5.9**, με διαστήματα/συγχορδίες, πτώσεις/κλίμακες/τρόπους/ρυθμό, ντικτέ/σολφέζ, πολυφωνία/χρωματική/σειρές και ανεξάρτητες εκπαιδευτικές εξετάσεις. Η τελική επαγγελματική **1.0.0 δεν δηλώνεται ολοκληρωμένη** χωρίς Windows/NVDA/ήχο acceptance.
+Η υλοποίηση προχώρησε διαδοχικά έως **0.5.10**, με διαστήματα/συγχορδίες, πτώσεις/κλίμακες/τρόπους/ρυθμό, ντικτέ/σολφέζ, πολυφωνία/χρωματική/σειρές και ανεξάρτητες εκπαιδευτικές εξετάσεις. Η τελική επαγγελματική **1.0.0 δεν δηλώνεται ολοκληρωμένη** χωρίς Windows/NVDA/ήχο acceptance.
 
-[Νέος επαληθευμένος εγκαταστάτης Windows](https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.9-preview.74/ProfessionalEarTrainingStudio-0.5.9-Setup.exe) · [Όλα τα νέα παραδοτέα](https://github.com/kyriakoslouka-crypto/music-app/releases/tag/v0.5.9-preview.74) · [Αναφορά παράδοσης και ακριβές σημείο συνέχισης](downloads/0.5.9/README.md) · [Οδηγίες](desktop/README.md) · [Πραγματικές δοκιμές](downloads/0.5.9/README.md#πραγματικοί-έλεγχοι) · [Περιορισμοί](desktop/docs/KNOWN-LIMITATIONS.md) · [Συνέχιση προς 1.0](desktop/docs/CONTINUE-TO-1.0.md).
+[Νέος επαληθευμένος εγκαταστάτης Windows](https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.10-preview.76/ProfessionalEarTrainingStudio-0.5.10-Setup.exe) · [Όλα τα νέα παραδοτέα](https://github.com/kyriakoslouka-crypto/music-app/releases/tag/v0.5.10-preview.76) · [Αναφορά παράδοσης και ακριβές σημείο συνέχισης](downloads/0.5.10/README.md) · [Οδηγίες](desktop/README.md) · [Πραγματικές δοκιμές](downloads/0.5.10/README.md#πραγματικοί-έλεγχοι) · [Περιορισμοί](desktop/docs/KNOWN-LIMITATIONS.md) · [Συνέχιση προς 1.0](desktop/docs/CONTINUE-TO-1.0.md).
 
 `desktop/deliverables/releases/` διατηρεί πλήρη versioned πακέτα, source ZIP, οδηγίες και tests. Το τοπικό filesystem δεν ισοδυναμεί με δημόσια λήψη. Η εξωτερική παράδοση τεκμηριώνεται χωριστά. Τα δείγματα πιάνου δεν αναδιανέμονται· εγκαθίστανται ιδιωτικά από τη δημοσιευμένη πηγή.
 
-Νέα έβδομη καρτέλα: βυζαντινός ισοκράτης από ιδιωτικά εισαγόμενα ZIP φωνών, με συνεχή βρόχο και ρύθμιση σε μόρια. [Οδηγίες](desktop/docs/BYZANTINE-ISOKRATIS.md). Οι ασκήσεις φθορών και χροών αφαιρέθηκαν από τον προγραμματισμό.
+Νέο στη 0.5.10: επιλογές απάντησης αντί πληκτρολόγησης σε όλες τις 12 πρώην γραπτές κατηγορίες, με πλήρη ελληνική περιγραφή. [Οδηγίες](desktop/docs/ANSWER-CHOICES.md).
+
+Έβδομη καρτέλα: βυζαντινός ισοκράτης από ιδιωτικά εισαγόμενα ZIP φωνών, με συνεχή βρόχο και ρύθμιση σε μόρια. [Οδηγίες](desktop/docs/BYZANTINE-ISOKRATIS.md). Οι ασκήσεις φθορών και χροών αφαιρέθηκαν από τον προγραμματισμό.
 
 Το παλιό root web prototype διατηρείται για ιστορική αναφορά. Η κύρια εφαρμογή είναι το solution στο `desktop/`.

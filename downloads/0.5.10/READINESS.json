@@ -1,0 +1,52 @@
+{
+  "Version": "0.5.10",
+  "SourceCommit": "cf5b31d358f963c53023bda6d7f01fe9535ce6a8",
+  "TargetFinalVersion": "1.0.0",
+  "ReadyForWindows11Trial": true,
+  "ReadyForProfessionalFinal": false,
+  "AutomatedChecks": {
+    "CoreTestsPassed": true,
+    "NativeIsonDecodeRenderPassed": true,
+    "IsonNativeAccessibilityPassed": true,
+    "ResponseOptionTestsPassed": true,
+    "ResponseOptionNativeUiPassed": true,
+    "IsonUnitTestsPassed": true,
+    "NativeWindowsBuildPassed": true,
+    "EvidenceMatchesSourceCommit": true,
+    "WindowsTypedUIAPassed": true,
+    "WindowsKeyboardAndExamBoundariesPassed": true,
+    "AutomaticPracticeSafetyPassed": true,
+    "AutomaticPracticeEndToEndPassed": true,
+    "InstalledAndStandalonePassed": true,
+    "PortableIntegrityPassed": true,
+    "WindowsPianoFidelityPassed": true,
+    "WindowsMaestroTestsPassed": true,
+    "DifficultyCurriculumChecksPassed": true,
+    "IndependentCadenceEvidencePassed": true,
+    "NotationCoachSurpriseTestsPassed": true,
+    "NotationAndSurpriseUiPassed": true,
+    "CadenceContextChecksPassed": true,
+    "RhythmicNotationChecksPassed": true,
+    "AudioOutputRecoveryChecksPassed": true,
+    "DeliveredSourceRebuildPassed": true,
+    "ActualNvdaSpeechPipelinePassed": true
+  },
+  "Checks": {
+    "AutomatedChecksPassed": true,
+    "ManualEvidenceMatchesRelease": false,
+    "NvdaActuallyTestedAndPassed": false,
+    "PhysicalAudioHardwarePassed": false,
+    "ProfessionalPianoListeningPassed": false,
+    "DownloadOnUserComputerPassed": false,
+    "RemainingCurriculumScopeResolvedOrAccepted": false
+  },
+  "MissingAutomated": [],
+  "Missing": [
+    "ManualEvidenceMatchesRelease",
+    "NvdaActuallyTestedAndPassed",
+    "PhysicalAudioHardwarePassed",
+    "ProfessionalPianoListeningPassed",
+    "DownloadOnUserComputerPassed",
+    "RemainingCurriculumScopeResolvedOrAccepted"
+  ]
+}
