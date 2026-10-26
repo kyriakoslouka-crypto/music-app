@@ -32,6 +32,14 @@ public static class ResponseOptions
         for(var i=choices.Count-1;i>0;i--){var j=random.Next(i+1);(choices[i],choices[j])=(choices[j],choices[i]);}
         return choices.Select((c,i)=>c with{Name=$"Επιλογή {i+1}. {c.Name}"}).ToArray();
     }
+    public static string Instruction(Exercise exercise)=>exercise.Category switch{
+        Category.RhythmDictation=>$"Μία μπάρα εισαγωγής ορίζει τον παλμό. Έπειτα ακολουθούν {exercise.Score!.Bars} μέτρα {exercise.Score.MeterId}. Η εισαγωγή δεν περιλαμβάνεται στις επιλογές.",
+        Category.HarmonicDictation or Category.ChromaticHarmony=>"Η πρώτη τονική συγχορδία είναι πλαίσιο. Επίλεξε μόνο τη διαδοχή που ακολουθεί μετά από αυτήν.",
+        Category.Polyphony2 or Category.Polyphony3 or Category.Polyphony4 or Category.InnerVoice=>$"Τέσσερις παλμοί εισαγωγής και μετά πολυφωνία. Ζητείται η φωνή {exercise.Score!.TargetVoice+1}. Η πρώτη φωνή είναι η ψηλότερη.",
+        Category.TwelveToneRows=>"Τέσσερις παλμοί εισαγωγής και μετά δωδεκαφθογγική σειρά, χωρίς τονική συγχορδία.",
+        Category.AtonalSolfege=>"Μία νότα αναφοράς, τέσσερις παλμοί εισαγωγής και μετά η μελωδία. Το τελικό ασθενές σήμα δεν ανήκει στην απάντηση.",
+        _=>"Τονικό πλαίσιο, τέσσερις παλμοί εισαγωγής και μετά η μελωδία. Το πλαίσιο και το τελικό ασθενές σήμα δεν ανήκουν στην απάντηση."
+    };
     public static string Describe(Exercise exercise,string text)
     {
         if(exercise.Category==Category.RhythmDictation){
