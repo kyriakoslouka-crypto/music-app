@@ -232,6 +232,7 @@ if (fontIndex >=0 && fontIndex+1<args.Length) {
         Throws<OperationCanceledException>(()=>renderer.Render(e,new(),renderer.Presets[0],cancel.Token));
     });
 } else Console.WriteLine("NOT RUN: real SF2 render (provide --soundfont path). No Windows/NVDA/hardware tests run by this runner.");
+Studio.Tests.IntonationTests.Register(Test);
 Studio.Tests.LiveIsonTests.Register(Test);
 Studio.Tests.ResponseOptionTests.Register(Test);
 Studio.Tests.IsonTests.Register(Test,args);

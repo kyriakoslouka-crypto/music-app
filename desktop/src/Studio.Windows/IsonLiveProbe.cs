@@ -39,13 +39,18 @@ public sealed partial class MainForm
         isonLoaded=false;isonManifest=manifest;isonBank=IsonBank.Load(manifest);PopulateIson();isonBase.Value=100;isonNote.SelectedIndex=0;isonLoaded=true;
         devices.Items.Clear();devices.Items.Add(new OutputDevice("probe","Δοκιμαστική έξοδος"));devices.SelectedIndex=0;tabs.SelectedTab=isonPage;
         await PlayIson();Check(isonKeyboard.Focused&&opens()==1&&pump(),"Initial live start/focus/PCM failed");
-        var directory=Path.GetDirectoryName(manifest)!;for(var note=0;note<8;note++){var hz=ByzantineTuning.Frequency(100,note,0,ByzantineTuning.Diatonic);var sample=IsonRenderer.Select(isonBank,((IsonVoice)isonVoice.SelectedItem!).Id,hz);await Task.Run(()=>CachedIson(directory,sample,hz,0.45,CancellationToken.None));}
+        var directory=Path.GetDirectoryName(manifest)!;for(var note=0;note<8;note++){var hz=IsonFrequency(note);var sample=IsonRenderer.Select(isonBank,((IsonVoice)isonVoice.SelectedItem!).Id,hz);await Task.Run(()=>CachedIson(directory,sample,hz,0.45,CancellationToken.None));}
         var maximum=0.0;foreach(var key in new[]{Keys.Up,Keys.Down,Keys.Right,Keys.Left}){var watch=Stopwatch.StartNew();Check(Arrow(key),"Arrow was not handled");await Settled();maximum=Math.Max(maximum,watch.Elapsed.TotalMilliseconds);Check(pump(),"Live PCM vanished");}
         Check(isonNote.SelectedIndex==0&&isonVoice.SelectedIndex==0&&opens()==1,"Arrows reopened device or did not change both dimensions");
         for(var i=0;i<20;i++)Arrow(i%2==0?Keys.Up:Keys.Down);await Settled();Check(isonNote.SelectedIndex==0,"Stale fast navigation won");
         foreach(var item in ByzantineModes.All.Skip(1).Concat(ByzantineModes.All.Take(1))){isonMode.SelectedItem=item;await Settled();Check(isonNote.SelectedIndex==item.Degree,"Mode basis did not apply");}
+        var basis=100*Math.Pow(2,12.0/72);
+        foreach(var genus in ByzantineIntonation.All.Where(g=>g.Id!="custom")){isonGenus.SelectedItem=genus;await Settled();Check(Math.Abs(IsonFrequency(IsonAnchor)-basis)<1e-7,"Genus shifted tonic");}
+        var natural=IsonFrequency();isonAccidental.SelectedIndex=6;await Settled();Check(Math.Abs(IsonFrequency()/natural-Math.Pow(2,4.0/72))<1e-9,"Sharp did not retune");isonAccidental.SelectedIndex=2;await Settled();Check(Math.Abs(IsonFrequency()/natural-Math.Pow(2,-4.0/72))<1e-9,"Flat did not retune");var expectedFlat=IsonFrequency();var snapshot=new IsonPreferences(((IsonVoice)isonVoice.SelectedItem!).Id,isonNote.SelectedIndex,isonBase.Value,isonMoria.Value,isonVolume.Value,isonIntervals.Text,((ByzantineMode)isonMode.SelectedItem!).Id,((ByzantineGenus)isonGenus.SelectedItem!).Id,isonAlterations.ToArray(),IsonAnchored);
+        var saved=JsonSerializer.Deserialize<IsonPreferences>(JsonSerializer.Serialize(snapshot))!;isonLoaded=false;isonAlterations=new double[7];ApplyIsonPreferences(saved);isonLoaded=true;RefreshIsonNotes();Check(Math.Abs(IsonFrequency()-expectedFlat)<1e-9&&isonNote.SelectedItem!.ToString()!.Contains("ύφεση"),"Saved accidental/genre did not restore");
+        isonAccidental.SelectedIndex=0;await Settled();
         ToggleIsonPause();Check(audio.IsPaused&&tabs.SelectedTab==isonPage,"Pause changed tab");isonKeyboard.Focus();Arrow(Keys.Up);await Settled();Check(audio.IsPaused,"Changing a paused ison resumed it");ToggleIsonPause();Check(audio.IsPlaying,"Resume failed");Check(opens()==1,"Device reopened");
         Stop();Check(!IsonArrow(Keys.Up)&&!audio.IsPlaying,"Stopped arrows restarted audio");
-        return new{ManualStarts=1,ArrowDirections=4,RapidChanges=20,ModeCount=8,DeviceReopenCount=opens()-1,CachedSwitchMaxMilliseconds=maximum,PausePreserved=true,StopPreserved=true};
+        return new{ManualStarts=1,ArrowDirections=4,RapidChanges=20,ModeCount=8,GenusCount=5,SharpFlatPassed=true,IntonationRestorePassed=true,DeviceReopenCount=opens()-1,CachedSwitchMaxMilliseconds=maximum,PausePreserved=true,StopPreserved=true};
     }
 }

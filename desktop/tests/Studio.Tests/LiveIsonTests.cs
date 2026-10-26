@@ -9,7 +9,7 @@ public static class LiveIsonTests
     public static void Register(Action<string,Action> test)
     {
         test("Live ison: eight distinct echos labels and explicit indicative drone bases",()=>{
-            Check(ByzantineModes.All.Length==8&&ByzantineModes.All.Select(m=>m.Id).Distinct().Count()==8);Check(ByzantineModes.All.Select(m=>m.Degree).SequenceEqual(new[]{1,4,3,4,1,1,6,0}));Check(ByzantineModes.All.All(m=>m.Degree is >=0 and <=7));
+            Check(ByzantineModes.All.Length==8&&ByzantineModes.All.Select(m=>m.Id).Distinct().Count()==8);Check(ByzantineModes.All.Select(m=>m.Degree).SequenceEqual(new[]{1,4,3,2,1,1,6,0}));Check(ByzantineModes.All.All(m=>m.Degree is >=0 and <=7));
         });
         test("Live ison: smooth latest-request loop replacements preserve stereo and buffer offsets",()=>{
             var cursor=new LiveLoopCursor([0.2f,-0.2f]);cursor.Replace([0.6f,-0.6f]);cursor.Replace([0.8f,-0.8f]);var data=Enumerable.Repeat(99f,6000).ToArray();Check(cursor.Read(data,8,5000)==5000);
