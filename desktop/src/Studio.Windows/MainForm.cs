@@ -40,7 +40,7 @@ public sealed partial class MainForm : Form
     private readonly ComboBox soloVoice=Combo("Απομόνωση πολυφωνικής φωνής",["Όλες οι φωνές","Φωνή 1 — ψηλότερη","Φωνή 2","Φωνή 3","Φωνή 4"]);
     private readonly NumericUpDown segmentStart=Number("Αρχή τμήματος ακρόασης σε χρόνους",0,256,0);
     private readonly NumericUpDown segmentEnd=Number("Τέλος τμήματος σε χρόνους, 0 για ολόκληρο",0,256,0);
-    private readonly Button previewAnswer=new(){Text="Ακρόαση γραπτής απάντησης (Ctrl+Shift+R)",AutoSize=true,Visible=false};
+    private readonly Button previewAnswer=new(){Text="Ακρόαση επιλεγμένης απάντησης (Ctrl+Shift+R)",AutoSize=true,Visible=false};
     private bool adjustingSegments;
     private readonly Stopwatch tapClock=new();
     private readonly List<double> taps=[];
@@ -53,7 +53,8 @@ public sealed partial class MainForm : Form
     private readonly NumericUpDown velocity = Number("Δυναμική MIDI velocity", 1, 127, 85);
     private readonly CheckBox pedal = new() { Text = "Πεντάλ sustain (CC64)", AutoSize = true, AccessibleName = "Πεντάλ sustain" };
     private readonly CheckBox cancelSpeech = new() { Text = "Διακοπή ομιλίας NVDA πριν τον ήχο (προαιρετικό DLL)", AutoSize = true };
-    private readonly ListBox answers = new() { Dock = DockStyle.Fill, AccessibleName = "Απαντήσεις άσκησης", IntegralHeight = false };
+    private readonly TextBox optionDescription=new(){Dock=DockStyle.Bottom,Height=85,Multiline=true,ReadOnly=true,ScrollBars=ScrollBars.Vertical,AccessibleName="Πλήρης περιγραφή επιλεγμένης απάντησης",Visible=false};
+    private readonly ListBox answers = new() { Dock = DockStyle.Fill, AccessibleName = "Απαντήσεις άσκησης", IntegralHeight = false, HorizontalScrollbar = true };
     private readonly TextBox status = new() { ReadOnly = true, Multiline = true, Height = 85, Dock = DockStyle.Fill, AccessibleName = "Κατάσταση και αποτέλεσμα", Text = "Εγκατάστησε το Maestro Concert Grand με το πρώτο κουμπί ή φόρτωσε δικό σου SF2. Δεν χρησιμοποιείται συνθετικό υποκατάστατο." };
     private readonly TextBox stats = new() { ReadOnly = true, Multiline = true, Dock = DockStyle.Fill, AccessibleName = "Στατιστικά και ιστορικό", ScrollBars = ScrollBars.Vertical };
     private readonly Button submit = new() { Text = "&Υποβολή (Ctrl+Enter)", AutoSize = true, Enabled = false };
@@ -144,7 +145,8 @@ public sealed partial class MainForm : Form
         layout.RowStyles.Add(new(SizeType.Absolute,110));layout.RowStyles.Add(new(SizeType.Percent,100));
         layout.RowStyles.Add(new(SizeType.AutoSize));layout.RowStyles.Add(new(SizeType.AutoSize));layout.RowStyles.Add(new(SizeType.Absolute,100));
         layout.Controls.Add(prompt);
-        var input=new Panel{Dock=DockStyle.Fill};input.Controls.Add(answers);input.Controls.Add(response);layout.Controls.Add(input);
+        var input=new Panel{Dock=DockStyle.Fill};input.Controls.Add(answers);input.Controls.Add(response);input.Controls.Add(optionDescription);
+        answers.SelectedIndexChanged+=(_,_)=>optionDescription.Text=answers.SelectedItem is Option selected?selected.Name:"Επίλεξε απάντηση με τα βέλη.";layout.Controls.Add(input);
         var tapsPanel=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};tapsPanel.Controls.AddRange([tap,resetTaps]);layout.Controls.Add(tapsPanel);
         var buttons=new FlowLayoutPanel{AutoSize=true,Dock=DockStyle.Fill};var diagnostics=new Button{Text="Στοιχεία ήχου (F6)",AccessibleName="Ανάγνωση τελευταίου σφάλματος ήχου με F6",AutoSize=true};diagnostics.Click+=(_,_)=>ReadAudioFailure();
         scoreView.Click+=(_,_)=>ViewScore();buttons.Controls.AddRange([next,replay,pause,previewAnswer,submit,scoreView,diagnostics]);layout.Controls.Add(buttons);layout.Controls.Add(status);
@@ -159,7 +161,7 @@ public sealed partial class MainForm : Form
     private void BuildHelp()
     {
         var help = new TextBox { Multiline = true, ReadOnly = true, Dock = DockStyle.Fill, ScrollBars = ScrollBars.Vertical, AccessibleName = "Οδηγίες και περιορισμοί έκδοσης", Text =
-            "VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3)+" — Ακουστική εκπαίδευση\r\n\r\nΣτην πρώτη εκκίνηση εμφανίζεται οδηγός εγκατάστασης Maestro Concert Grand (Yamaha CF-3, 5 δυναμικές). Alt+Ε κατεβάζει την επιλεγμένη βιβλιοθήκη από την πηγή της και την εγκαθιστά τοπικά. Απαιτούνται περίπου 263 MB λήψης και 3 GB ελεύθερα. Μετά λειτουργεί offline. Η βιβλιοθήκη έχει περιοριστική άδεια και δεν αναδιανέμεται από την εφαρμογή.\r\n\r\nCtrl+N: νέα άσκηση. Ctrl+R: απεριόριστες επαναλήψεις του ίδιου παραδείγματος. Επαναλήψεις 0: συνεχής βρόχος μέχρι Esc ή υποβολή. Ctrl+P: παύση/συνέχεια. Ctrl+Enter: υποβολή. Esc: διακοπή. Ctrl+Home: ρυθμίσεις. Ctrl+Shift+S: διακοπή και ανάγνωση κατάστασης. Ctrl+Tab: καρτέλες. F1: οδηγίες. F6: πλήρης αναφορά τελευταίου σφάλματος ήχου, χωρίς αντιγραφή από παράθυρο. Tab/Shift+Tab, βέλη, Space και Enter: φυσικά controls Windows.\r\n\r\nΑλλαγή BPM, δυναμικής, πεντάλ ή επαναλήψεων διατηρεί την τρέχουσα άσκηση. Πάτησε Ctrl+R για νέο rendering, χωρίς αλλαγή τονικού ύψους. Αλλαγή τονικότητας, έκτασης ή τύπου άσκησης απαιτεί Ctrl+N. Στα βασικά διαστήματα και τις νότες η τονικότητα περιορίζει τους φθόγγους. Στις κλίμακες και τους τρόπους ορίζει το κέντρο. Στις πτώσεις ορίζει μείζονα ή ελάσσονα. Οι νέες ακολουθίες ανακοινώνουν πρώτα την οδηγία και αρχίζουν με Ctrl+R. Ctrl+I διαβάζει την οδηγία ξανά.\r\n\r\nΗ εφαρμογή δεν αποστέλλει ανακοινώσεις όσο παίζει μουσική. Οι απαντήσεις ανακοινώνονται μέσω UI Automation αφού σταματήσει ο ήχος. Η ίδια η πλοήγηση μπορεί να προκαλεί ομιλία NVDA. Προαιρετικό επίσημο nvdaControllerClient64.dll επιτρέπει ακύρωση τρέχουσας ομιλίας πριν την αναπαραγωγή.\r\n\r\nΔιαστήματα 0–24 ημιτονίων, δέκα τύποι συγχορδιών, ακουστικά διακριτές αναστροφές και νότες 21–108. Συμμετρικές συγχορδίες αποκλείονται από τις αναστροφές. Η αναγνώριση μεμονωμένων νοτών είναι άσκηση απόλυτου ύψους. Η τονική ορθογραφία εναρμονίων δεν εξετάζεται.\r\n\r\nΗ πρόοδος και οι έγκυρες ρυθμίσεις αποθηκεύονται αυτόματα στο LocalAppData\\ProfessionalEarTrainingStudio. Δεν υπάρχει τηλεμετρία ή επίσημη σχέση ABRSM. Η πραγματική συμβατότητα NVDA, WASAPI/ASIO και η ακουστική ποιότητα χρειάζονται δοκιμές σε Windows 11. Νέες ασκήσεις: πτώσεις με τονικό πλαίσιο, κλίμακες σε άνοδο/κάθοδο, τρόποι, ρυθμικά σχήματα και μέτρα. Στη ρυθμική υπαγόρευση γράφεις διάρκειες όπως 1/4 1/8 1/8 1/2, r για παύση και | ανά μέτρο. Στα κτυπήματα χρησιμοποιείς F8 σε κάθε έναρξη και μια επιπλέον φορά στο τελικό όριο. Δεν βαθμολογείται μικρόφωνο ή φωνή. Μελωδικό ντικτέ: ντο1/4 ρε1/8 ή ντορε2/4 μιφα2/8. Δεν χρειάζονται οκτάβες. Αρμονικό: I ii6 V7 I. Σολφέζ/μνήμη: ντο ρε μι, χωρίς υποχρεωτική οκτάβα, σταθερό ντο. Ctrl+Shift+R παίζει τη γραπτή απάντηση. Η φωνή δεν καταγράφεται ή βαθμολογείται. Η αρχή και το τέλος τμήματος επιλέγονται στις Ρυθμίσεις. Τα έξι επίπεδα αλλάζουν το ρεπερτόριο, το μήκος, τις υποδιαιρέσεις και τις διατάξεις. Μετά από αλλαγή επιπέδου Ctrl+N για νέο παράδειγμα. Η έκταση και το BPM που επέλεξες διατηρούνται. Προβολή παρτιτούρας: μετά την απάντηση στην εξάσκηση ή μετά το τέλος ολόκληρης της εξέτασης. Η Πρόοδος προτείνει αδυναμίες με βάση το ιστορικό. Η έκτη καρτέλα Απρόοπτα διαγωνίσματα προσφέρει κατηγορίες με Space, επίπεδο, ερωτήσεις και χρόνο. Η έβδομη καρτέλα Βυζαντινός ισοκράτης εισάγει μαζί όλα τα ZIP φωνών. Ctrl+L: συνεχές ισοκράτημα, Esc: διακοπή ή ακύρωση εισαγωγής. Τα επτά διαστήματα αθροίζουν 72 μόρια ανά οκτάβα. Δεν περιλαμβάνονται ακόμη ασκήσεις ήχων, φθορών ή χροών. Δες και τις οδηγίες docs στον φάκελο εγκατάστασης." };
+            "VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3)+" — Ακουστική εκπαίδευση\r\n\r\nΝΕΟ 0.5.10: Όλες οι ασκήσεις που ζητούσαν γραπτή απάντηση έχουν τώρα 2–4 επιλογές. Μετά την ακρόαση διάλεξε με βέλη και Ctrl+Enter. Δεν πληκτρολογείς νότες ή αξίες. Tab στην πλήρη περιγραφή της επιλογής επιτρέπει ανάγνωση μεγάλων ακολουθιών. Ctrl+Shift+R ακούει την επιλογή μόνο στην εξάσκηση. Οι παλιές οδηγίες γραφής παρακάτω αφορούν την εσωτερική μορφή δεδομένων, όχι απαίτηση πληκτρολόγησης.\r\n\r\nΣτην πρώτη εκκίνηση εμφανίζεται οδηγός εγκατάστασης Maestro Concert Grand (Yamaha CF-3, 5 δυναμικές). Alt+Ε κατεβάζει την επιλεγμένη βιβλιοθήκη από την πηγή της και την εγκαθιστά τοπικά. Απαιτούνται περίπου 263 MB λήψης και 3 GB ελεύθερα. Μετά λειτουργεί offline. Η βιβλιοθήκη έχει περιοριστική άδεια και δεν αναδιανέμεται από την εφαρμογή.\r\n\r\nCtrl+N: νέα άσκηση. Ctrl+R: απεριόριστες επαναλήψεις του ίδιου παραδείγματος. Επαναλήψεις 0: συνεχής βρόχος μέχρι Esc ή υποβολή. Ctrl+P: παύση/συνέχεια. Ctrl+Enter: υποβολή. Esc: διακοπή. Ctrl+Home: ρυθμίσεις. Ctrl+Shift+S: διακοπή και ανάγνωση κατάστασης. Ctrl+Tab: καρτέλες. F1: οδηγίες. F6: πλήρης αναφορά τελευταίου σφάλματος ήχου, χωρίς αντιγραφή από παράθυρο. Tab/Shift+Tab, βέλη, Space και Enter: φυσικά controls Windows.\r\n\r\nΑλλαγή BPM, δυναμικής, πεντάλ ή επαναλήψεων διατηρεί την τρέχουσα άσκηση. Πάτησε Ctrl+R για νέο rendering, χωρίς αλλαγή τονικού ύψους. Αλλαγή τονικότητας, έκτασης ή τύπου άσκησης απαιτεί Ctrl+N. Στα βασικά διαστήματα και τις νότες η τονικότητα περιορίζει τους φθόγγους. Στις κλίμακες και τους τρόπους ορίζει το κέντρο. Στις πτώσεις ορίζει μείζονα ή ελάσσονα. Οι νέες ακολουθίες ανακοινώνουν πρώτα την οδηγία και αρχίζουν με Ctrl+R. Ctrl+I διαβάζει την οδηγία ξανά.\r\n\r\nΗ εφαρμογή δεν αποστέλλει ανακοινώσεις όσο παίζει μουσική. Οι απαντήσεις ανακοινώνονται μέσω UI Automation αφού σταματήσει ο ήχος. Η ίδια η πλοήγηση μπορεί να προκαλεί ομιλία NVDA. Προαιρετικό επίσημο nvdaControllerClient64.dll επιτρέπει ακύρωση τρέχουσας ομιλίας πριν την αναπαραγωγή.\r\n\r\nΔιαστήματα 0–24 ημιτονίων, δέκα τύποι συγχορδιών, ακουστικά διακριτές αναστροφές και νότες 21–108. Συμμετρικές συγχορδίες αποκλείονται από τις αναστροφές. Η αναγνώριση μεμονωμένων νοτών είναι άσκηση απόλυτου ύψους. Η τονική ορθογραφία εναρμονίων δεν εξετάζεται.\r\n\r\nΗ πρόοδος και οι έγκυρες ρυθμίσεις αποθηκεύονται αυτόματα στο LocalAppData\\ProfessionalEarTrainingStudio. Δεν υπάρχει τηλεμετρία ή επίσημη σχέση ABRSM. Η πραγματική συμβατότητα NVDA, WASAPI/ASIO και η ακουστική ποιότητα χρειάζονται δοκιμές σε Windows 11. Νέες ασκήσεις: πτώσεις με τονικό πλαίσιο, κλίμακες σε άνοδο/κάθοδο, τρόποι, ρυθμικά σχήματα και μέτρα. Στη ρυθμική υπαγόρευση γράφεις διάρκειες όπως 1/4 1/8 1/8 1/2, r για παύση και | ανά μέτρο. Στα κτυπήματα χρησιμοποιείς F8 σε κάθε έναρξη και μια επιπλέον φορά στο τελικό όριο. Δεν βαθμολογείται μικρόφωνο ή φωνή. Μελωδικό ντικτέ: ντο1/4 ρε1/8 ή ντορε2/4 μιφα2/8. Δεν χρειάζονται οκτάβες. Αρμονικό: I ii6 V7 I. Σολφέζ/μνήμη: ντο ρε μι, χωρίς υποχρεωτική οκτάβα, σταθερό ντο. Ctrl+Shift+R παίζει τη γραπτή απάντηση. Η φωνή δεν καταγράφεται ή βαθμολογείται. Η αρχή και το τέλος τμήματος επιλέγονται στις Ρυθμίσεις. Τα έξι επίπεδα αλλάζουν το ρεπερτόριο, το μήκος, τις υποδιαιρέσεις και τις διατάξεις. Μετά από αλλαγή επιπέδου Ctrl+N για νέο παράδειγμα. Η έκταση και το BPM που επέλεξες διατηρούνται. Προβολή παρτιτούρας: μετά την απάντηση στην εξάσκηση ή μετά το τέλος ολόκληρης της εξέτασης. Η Πρόοδος προτείνει αδυναμίες με βάση το ιστορικό. Η έκτη καρτέλα Απρόοπτα διαγωνίσματα προσφέρει κατηγορίες με Space, επίπεδο, ερωτήσεις και χρόνο. Η έβδομη καρτέλα Βυζαντινός ισοκράτης εισάγει μαζί όλα τα ZIP φωνών. Ctrl+L: συνεχές ισοκράτημα, Esc: διακοπή ή ακύρωση εισαγωγής. Τα επτά διαστήματα αθροίζουν 72 μόρια ανά οκτάβα. Δεν περιλαμβάνονται ασκήσεις ήχων. Οι ασκήσεις φθορών και χροών δεν προγραμματίζονται. Δες και τις οδηγίες docs στον φάκελο εγκατάστασης." };
         var page = new AccessibleTabPage("Οδηγίες");helpPage=page;helpControl=help; page.Controls.Add(help); tabs.TabPages.Add(page);
     }
     private Settings ReadSettings() => new((Category)category.SelectedIndex, (Level)level.SelectedIndex, (Direction)direction.SelectedIndex,
@@ -255,13 +257,14 @@ public sealed partial class MainForm : Form
         Stop();playbackCache.Clear();activeSettings=settings;
         adjustingSegments=true;segmentStart.Value=(decimal)settings.SegmentStart;segmentEnd.Value=(decimal)(settings.SegmentEnd??0);soloVoice.SelectedIndex=Math.Min(4,settings.SoloVoice+1);adjustingSegments=false;
         session.Begin(exercise); answered = false; heard = false;
-            answers.Items.Clear(); answers.Items.AddRange(exercise.Choices.Cast<object>().ToArray()); answers.SelectedIndex = -1;
+            answers.Items.Clear(); answers.Items.AddRange(ResponseOptions.Create(exercise,settings).Cast<object>().ToArray()); answers.SelectedIndex = -1;
             response.Clear();taps.Clear();tapClock.Reset();
-            answers.Visible=exercise.AnswerKind==AnswerKind.Choice;response.Visible=exercise.AnswerKind==AnswerKind.Text;
+            answers.Visible=exercise.AnswerKind!=AnswerKind.Taps;response.Visible=false;optionDescription.Visible=exercise.AnswerKind==AnswerKind.Text;
             tap.Visible=resetTaps.Visible=exercise.AnswerKind==AnswerKind.Taps;previewAnswer.Visible=exercise.AnswerKind==AnswerKind.Text;
             segmentStart.Enabled=segmentEnd.Enabled=exercise.Score is not null;
             soloVoice.Enabled=exercise.Category is Category.Polyphony2 or Category.Polyphony3 or Category.Polyphony4 or Category.InnerVoice;
             prompt.Text=CategoryName(exercise.Category)+$". Επίπεδο {settings.Level}. "+(exercise.Score is not null?LevelCurriculum.Describe(settings)+" "+exercise.Score.Prompt+$" Συνολική διάρκεια με πλαίσιο: {exercise.Score.LengthBeats:F2} χρόνοι.":LevelCurriculum.Describe(settings)+" Άκουσε, επίλεξε απάντηση με τα βέλη και πάτησε Ctrl+Enter. Ctrl+R για επανάληψη.");
+            if(exercise.AnswerKind==AnswerKind.Text)prompt.Text=CategoryName(exercise.Category)+$". {answers.Items.Count} επιλογές απάντησης. Άκουσε το παράδειγμα με Ctrl+R. Επίλεξε ολόκληρη την ακολουθία με τα βέλη και πάτησε Ctrl+Enter. Δεν χρειάζεται πληκτρολόγηση. Οι νότες αναγράφονται χωρίς οκτάβες. Κάθε αξία είναι ξεχωριστή έναρξη, εκτός αν αναφέρεται σύζευξη. {(exercise.Category is Category.Polyphony2 or Category.Polyphony3 or Category.Polyphony4 or Category.InnerVoice?$"Ζητείται η φωνή {exercise.Score!.TargetVoice+1}, με την πρώτη φωνή ψηλότερη.":$"Αναφορά: {Theory.NoteName(exercise.Score!.Tonic)}.")} Ctrl+Shift+R: ακρόαση της επιλογής μόνο στην εξάσκηση.";
             UpdateScoreAccess();tabs.SelectedIndex = 1; status.Text = "Νέα άσκηση. Προετοιμασία ήχου.";
             submit.Enabled = false; SavePreferences();
             replay.Enabled=true;Tell("Νέα άσκηση. "+prompt.Text+(automaticPractice.Checked&&exam is null?$" Αυτόματη ακρόαση σε {automaticDelay.Value} δευτερόλεπτα. Esc ακυρώνει. Ctrl+R για άμεση ακρόαση.":" Πάτησε Ctrl+R για την πρώτη ακρόαση.")+" Ctrl+I για ανάγνωση οδηγίας.");
@@ -324,7 +327,7 @@ public sealed partial class MainForm : Form
         Stop();using var cancellation=new CancellationTokenSource();rendering=cancellation;
         try
         {
-            var original=session.Current;var score=TheoryV3.Preview(original,response.Text,activeSettings);var renderer=piano;var settings=activeSettings;
+            var original=session.Current;var selected=answers.SelectedItem as Option??throw new InvalidOperationException("Επίλεξε πρώτα απάντηση με τα βέλη.");var score=TheoryV3.Preview(original,selected.Id,activeSettings);var renderer=piano;var settings=activeSettings;
             var clip=await Task.Run(()=>renderer.RenderPreview(score,settings,preset,cancellation.Token));cancellation.Token.ThrowIfCancellationRequested();
             if(!IsDisposed&&session.Current==original)StartPlayback(clip,true);
         }
@@ -353,15 +356,16 @@ public sealed partial class MainForm : Form
             var settings=new Settings(c,Level.Intermediate,MinNote:36,MaxNote:96);var e=g.Next(settings);
             playbackCache.Store("stale",settings,[1,2]);PresentExercise(e,settings).GetAwaiter().GetResult();
             if(heard||answered||submit.Enabled||answers.SelectedIndex!=-1||response.Text.Length!=0||playbackCache.Get("stale",settings)is not null||session.Current?.Id!=e.Id)throw new InvalidOperationException("Λανθασμένη παρουσίαση νέας ερώτησης: "+c);
-            if(answers.Visible!=(e.AnswerKind==AnswerKind.Choice)||response.Visible!=(e.AnswerKind==AnswerKind.Text)||tap.Visible!=(e.AnswerKind==AnswerKind.Taps))throw new InvalidOperationException("Λανθασμένος τύπος απάντησης: "+c);
-            records.Add(new{Category=CategoryName(c),AnswerKind=e.AnswerKind.ToString(),DeferredPlayback=true,CacheInvalidated=true,NoPreselectedAnswer=true});
+            if(answers.Visible!=(e.AnswerKind!=AnswerKind.Taps)||response.Visible||tap.Visible!=(e.AnswerKind==AnswerKind.Taps))throw new InvalidOperationException("Λανθασμένος τύπος απάντησης: "+c);
+            if(e.AnswerKind==AnswerKind.Text){if(answers.Items.Count<2||!optionDescription.Visible||!optionDescription.ReadOnly)throw new InvalidOperationException("Λείπουν επιλογές γραπτής κατηγορίας.");answers.SelectedIndex=0;if(optionDescription.Text!=((Option)answers.Items[0]).Name||answered)throw new InvalidOperationException("Η επιλογή πρέπει μόνο να περιγράφεται, όχι να υποβάλλεται.");answers.SelectedIndex=-1;}
+            records.Add(new{Category=CategoryName(c),AnswerKind=e.AnswerKind.ToString(),ChoiceCount=answers.Items.Count,NoTypingRequired=e.AnswerKind!=AnswerKind.Text||(!response.Visible&&answers.Visible),DeferredPlayback=true,CacheInvalidated=true,NoPreselectedAnswer=answers.SelectedIndex==-1});
         }
         return records.ToArray();
     }
     private void FocusResponse()
     {
         if(session.Current is null||answered)return;
-        if(session.Current.AnswerKind==AnswerKind.Choice)answers.Focus();else if(session.Current.AnswerKind==AnswerKind.Text)response.Focus();else tap.Focus();
+        if(session.Current.AnswerKind!=AnswerKind.Taps)answers.Focus();else tap.Focus();
     }
     private void RecordTap()
     {
@@ -384,14 +388,16 @@ public sealed partial class MainForm : Form
             }
             else
             {
-                var text=session.Current.AnswerKind==AnswerKind.Text?response.Text:string.Join(' ',taps.Select(t=>t.ToString("R",CultureInfo.InvariantCulture)));
+                if(session.Current.AnswerKind==AnswerKind.Text&&answers.SelectedItem is not Option){Tell("Επίλεξε απάντηση με τα βέλη.");return;}
+                var text=session.Current.AnswerKind==AnswerKind.Text?((Option)answers.SelectedItem!).Id:string.Join(' ',taps.Select(t=>t.ToString("R",CultureInfo.InvariantCulture)));
                 attempt=exam is not null?exam.Submit(text):session.AnswerResponse(text,activeSettings);
             }
             if(exam is not null){SaveExam();UpdateExamStatus();}
             history.Add(attempt);answered=true;submit.Enabled=false;tapClock.Stop();UpdateScoreAccess();
             var saved=storageHealthy;
             var analysis=attempt.Category==Category.Cadences&&automaticPractice.Checked?"Αρμονική κίνηση: "+CadenceAnalysis.FromScore(attempt.Snapshot!.Score!).Formula+". Οι αναλυτικές νότες βρίσκονται στην Πρόοδο.":attempt.Analysis;
-            var message=$"{(attempt.Correct?"Σωστά.":"Λάθος.")} Σωστή απάντηση: {attempt.ExpectedName}. {analysis}";
+            var expectedLabel=session.Current.AnswerKind==AnswerKind.Text?ResponseOptions.Describe(session.Current,session.Current.Score!.ExpectedText!):attempt.ExpectedName;
+            var message=$"{(attempt.Correct?"Σωστά.":"Λάθος.")} Σωστή απάντηση: {expectedLabel}. {analysis}";
             try{if(storageHealthy)store.Save(history);else message+=" Η αποθήκευση είναι απενεργοποιημένη λόγω προηγούμενου σφάλματος.";}
             catch(Exception ex){saved=false;message+=" Η απάντηση δεν αποθηκεύτηκε: "+ex.Message;}
             message+=saved&&automaticPractice.Checked&&exam is null?$" Αυτόματη επόμενη άσκηση σε {automaticDelay.Value} δευτερόλεπτα. Esc ακυρώνει.":" Ctrl+N για συνέχεια.";

@@ -39,6 +39,8 @@ automated={
  'CoreTestsPassed':core.get('Version')==version and success(core,96),
  'NativeIsonDecodeRenderPassed':ison.get('Version')==version and ison.get('Passed')is True and ison.get('DecodedFormats')==4 and ison.get('PrivateSamplesBundled')is False,
  'IsonNativeAccessibilityPassed':isinstance(uia.get('Isokratis'),dict)and flags(uia['Isokratis'],['Passed','NoSamplesBundled'])and uia['Isokratis'].get('TabCount')==7,
+ 'ResponseOptionTestsPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Response options:')and o.get('Passed')is True])>=4,
+ 'ResponseOptionNativeUiPassed':len([p for p in records(uia,'PresentationRegression')if p.get('AnswerKind')=='Text'and p.get('NoTypingRequired')is True and p.get('NoPreselectedAnswer')is True and p.get('ChoiceCount',0)>=2])==12,
  'IsonUnitTestsPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Ison:')and o.get('Passed')is True])>=4,
  'NativeWindowsBuildPassed':windows.get('NativeWindowsBuildSucceeded')is True,
  'EvidenceMatchesSourceCommit':bool(commit)and all(r.get('SourceCommit')==commit for r in [core,piano,maestro,nvda,recovery,flow,ison]),
