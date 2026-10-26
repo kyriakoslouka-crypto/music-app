@@ -28,6 +28,8 @@ public sealed partial class MainForm
     private IsonBank? isonBank;private string? isonManifest;private bool isonPlaying,isonLoaded,isonImporting;
     private CancellationTokenSource? isonWork,isonImportWork;private long isonRequest;
     private sealed record IsonPreferences(string VoiceId,int Degree,decimal Base,decimal Moria,decimal Volume,string Intervals,string ModeId="first",string? GenusId=null,double[]? Alterations=null,bool? Anchored=null);
+    private IsonPreferences? isonLastGood;
+    private IsonPreferences CaptureIsonPreferences()=>new((isonVoice.SelectedItem as IsonVoice)?.Id??"",isonNote.SelectedIndex,isonBase.Value,isonMoria.Value,isonVolume.Value,isonIntervals.Text,(isonMode.SelectedItem as ByzantineMode)?.Id??"first",(isonGenus.SelectedItem as ByzantineGenus)?.Id,isonAlterations.ToArray(),isonAnchorReference);
     private sealed record IsonVoice(string Id,string Name,double Low,double High){public override string ToString()=>$"{Name} — {Low:F1} έως {High:F1} Hz";}
     private static IsonLibraryStore IsonStore=>new(DataDirectory);
     private void BuildIsokratis()
@@ -74,7 +76,7 @@ public sealed partial class MainForm
         catch(Exception e)when(e is ArgumentException or FormatException or OverflowException){Stop();isonStatus.Text=e.Message;}
     }
     private void SaveIsonPreferences(){if(auditOnly||uiTestMode||!isonLoaded)return;isonPreferenceSave.Stop();isonPreferenceSave.Start();}
-    private void WriteIsonPreferences(){if(auditOnly||uiTestMode||!isonLoaded)return;try{var path=Path.Combine(DataDirectory,"isokratis-settings.json");var temporary=path+".tmp";File.WriteAllText(temporary,JsonSerializer.Serialize(new IsonPreferences((isonVoice.SelectedItem as IsonVoice)?.Id??"",isonNote.SelectedIndex,isonBase.Value,isonMoria.Value,isonVolume.Value,isonIntervals.Text,(isonMode.SelectedItem as ByzantineMode)?.Id??"first",(isonGenus.SelectedItem as ByzantineGenus)?.Id,isonAlterations,isonAnchorReference)));File.Move(temporary,path,true);}catch(Exception e)when(e is IOException or UnauthorizedAccessException){isonStatus.Text+=" Δεν αποθηκεύτηκαν ρυθμίσεις: "+e.Message;}}
+    private void WriteIsonPreferences(){if(auditOnly||uiTestMode||!isonLoaded)return;try{var path=Path.Combine(DataDirectory,"isokratis-settings.json");var temporary=path+".tmp";File.WriteAllText(temporary,JsonSerializer.Serialize(CaptureIsonPreferences()));File.Move(temporary,path,true);}catch(Exception e)when(e is IOException or UnauthorizedAccessException){isonStatus.Text+=" Δεν αποθηκεύτηκαν ρυθμίσεις: "+e.Message;}}
     private void PopulateIson()
     {
         isonVoice.Items.Clear();if(isonBank is null)return;
@@ -126,9 +128,9 @@ public sealed partial class MainForm
             source.Token.ThrowIfCancellationRequested();if(IsDisposed||request!=isonRequest||tabs.SelectedTab!=isonPage)return;
             if(cancelSpeech.Checked&&focusKeyboard)NvdaSpeech.Cancel();heard=false;submit.Enabled=false;if(!isonPlaying||!audio.TrySwitchLoop(loop.Samples)){var generation=++playbackGeneration;
             audio.Play(loop.Samples,device,error=>{if(IsDisposed||!IsHandleCreated)return;try{BeginInvoke((Action)(()=>{if(generation!=playbackGeneration)return;isonPlaying=false;playing=false;if(error is not null)ShowAudioFailure(error);}));}catch(InvalidOperationException)when(IsDisposed||Disposing){}},true);}
-            isonPlaying=true;playing=audio.IsPlaying;SaveIsonPreferences();isonStatus.Text=$"Παίζει {voice.Name} στα {frequency:F3} Hz. Εκτιμώμενη βάση δείγματος: {loop.EstimatedRootHz:F3} Hz, αξιοπιστία {loop.Confidence:P0}. Esc για διακοπή. Η εκτίμηση κουρδίσματος και η ακουστική ποιότητα χρειάζονται προσωπικό έλεγχο.\r\n"+IsonIntonationSummary();WarmIson(voice.Id,directory,volume);
+            isonPlaying=true;playing=audio.IsPlaying;isonLastGood=CaptureIsonPreferences();SaveIsonPreferences();isonStatus.Text=$"Παίζει {voice.Name} στα {frequency:F3} Hz. Εκτιμώμενη βάση δείγματος: {loop.EstimatedRootHz:F3} Hz, αξιοπιστία {loop.Confidence:P0}. Esc για διακοπή. Η εκτίμηση κουρδίσματος και η ακουστική ποιότητα χρειάζονται προσωπικό έλεγχο.\r\n"+IsonIntonationSummary();WarmIson(voice.Id,directory,volume);
         }catch(OperationCanceledException){if(!IsDisposed&&ReferenceEquals(isonWork,source))isonStatus.Text="Η προετοιμασία ακυρώθηκε. Ctrl+L για έναρξη.";}
-        catch(Exception e){if(!IsDisposed&&(source is null||ReferenceEquals(isonWork,source))){Stop();isonStatus.Text="Δεν ξεκίνησε ο ισοκράτης: "+e.Message;}}
+        catch(Exception e){if(!IsDisposed&&(source is null||ReferenceEquals(isonWork,source))){if(isonPlaying&&(audio.IsPlaying||audio.IsPaused)&&isonLastGood is not null){isonLoaded=false;ApplyIsonPreferences(isonLastGood);isonLoaded=true;RefreshIsonNotes();isonArmed=true;SaveIsonPreferences();isonStatus.Text="Η νέα επιλογή δεν υποστηρίζεται: "+e.Message+" Διατηρήθηκε το προηγούμενο έγκυρο ισοκράτημα. Τα βέλη παραμένουν ενεργά.";}else{Stop();isonStatus.Text="Δεν ξεκίνησε ο ισοκράτης: "+e.Message;}}}
         finally{if(ReferenceEquals(isonWork,source))isonWork=null;source?.Dispose();}
     }
     private void ToggleIsonPause()

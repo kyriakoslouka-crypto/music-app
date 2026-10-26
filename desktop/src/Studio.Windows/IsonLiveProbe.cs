@@ -42,6 +42,7 @@ public sealed partial class MainForm
         var directory=Path.GetDirectoryName(manifest)!;for(var note=0;note<8;note++){var hz=IsonFrequency(note);var sample=IsonRenderer.Select(isonBank,((IsonVoice)isonVoice.SelectedItem!).Id,hz);await Task.Run(()=>CachedIson(directory,sample,hz,0.45,CancellationToken.None));}
         var maximum=0.0;foreach(var key in new[]{Keys.Up,Keys.Down,Keys.Right,Keys.Left}){var watch=Stopwatch.StartNew();Check(Arrow(key),"Arrow was not handled");await Settled();maximum=Math.Max(maximum,watch.Elapsed.TotalMilliseconds);Check(pump(),"Live PCM vanished");}
         Check(isonNote.SelectedIndex==0&&isonVoice.SelectedIndex==0&&opens()==1,"Arrows reopened device or did not change both dimensions");
+        var previousDegree=isonNote.SelectedIndex;isonNote.SelectedIndex=14;await Settled();Check(isonNote.SelectedIndex==previousDegree&&audio.IsPlaying,"Unsupported upper pitch killed live navigation");
         for(var i=0;i<20;i++)Arrow(i%2==0?Keys.Up:Keys.Down);await Settled();Check(isonNote.SelectedIndex==0,"Stale fast navigation won");
         foreach(var item in ByzantineModes.All.Skip(1).Concat(ByzantineModes.All.Take(1))){isonMode.SelectedItem=item;await Settled();Check(isonNote.SelectedIndex==item.Degree,"Mode basis did not apply");}
         var basis=100*Math.Pow(2,12.0/72);
@@ -51,6 +52,6 @@ public sealed partial class MainForm
         isonAccidental.SelectedIndex=0;await Settled();
         ToggleIsonPause();Check(audio.IsPaused&&tabs.SelectedTab==isonPage,"Pause changed tab");isonKeyboard.Focus();Arrow(Keys.Up);await Settled();Check(audio.IsPaused,"Changing a paused ison resumed it");ToggleIsonPause();Check(audio.IsPlaying,"Resume failed");Check(opens()==1,"Device reopened");
         Stop();Check(!IsonArrow(Keys.Up)&&!audio.IsPlaying,"Stopped arrows restarted audio");
-        return new{ManualStarts=1,ArrowDirections=4,RapidChanges=20,ModeCount=8,GenusCount=5,SharpFlatPassed=true,IntonationRestorePassed=true,DeviceReopenCount=opens()-1,CachedSwitchMaxMilliseconds=maximum,PausePreserved=true,StopPreserved=true};
+        return new{ManualStarts=1,ArrowDirections=4,RapidChanges=20,ModeCount=8,GenusCount=5,SharpFlatPassed=true,IntonationRestorePassed=true,UnsupportedPitchPreservesLive=true,DeviceReopenCount=opens()-1,CachedSwitchMaxMilliseconds=maximum,PausePreserved=true,StopPreserved=true};
     }
 }
