@@ -8,7 +8,7 @@ public static class ByzantineTuning
     {
         var values=text.Split((char[]?)null,StringSplitOptions.RemoveEmptyEntries).Select(s=>double.Parse(s.Replace(',','.'),CultureInfo.InvariantCulture)).ToArray();Validate(values);return values;
     }
-    public static void Validate(IReadOnlyList<double> intervals){if(intervals.Count!=7||intervals.Any(v=>!double.IsFinite(v)||v<=0||v>36)||Math.Abs(intervals.Sum()-72)>0.000001)throw new ArgumentException("Γράψε επτά θετικά διαστήματα, με άθροισμα 72 μόρια, π.χ. 12 10 8 12 12 10 8.");}
+    public static void Validate(IReadOnlyList<double> intervals){if(intervals.Count!=7||intervals.Any(v=>!double.IsFinite(v)||v<=0||v>=72)||Math.Abs(intervals.Sum()-72)>0.000001)throw new ArgumentException("Γράψε επτά θετικά διαστήματα, με άθροισμα 72 μόρια, π.χ. 12 10 8 12 12 10 8.");}
     public static double Frequency(double baseHz,int degree,double adjustment,IReadOnlyList<double> intervals)
     {
         Validate(intervals);if(!double.IsFinite(baseHz)||baseHz is <35 or >800||degree is <0 or >7||!double.IsFinite(adjustment)||adjustment is < -72 or >72)throw new ArgumentException("Μη έγκυρη βάση, βαθμίδα ή μεταφορά μορίων.");

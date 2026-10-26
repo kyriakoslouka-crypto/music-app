@@ -82,7 +82,7 @@ public sealed partial class MainForm
     }
     private void SetExamLocks(bool active)
     {
-        foreach(var c in new Control[]{category,level,direction,root,tonality,minimum,maximum,meter,bars,tempo,repeats,velocity,pedal,segmentStart,segmentEnd,soloVoice,automaticPractice,automaticDelay,surpriseCategories,surpriseLevel,surpriseCount,surpriseMinutes,surprisePlays,coachPractice,isonGenus,isonAccidental,isonMode,isonKeyboard,isonImport,isonVoice,isonNote,isonBase,isonMoria,isonVolume,isonIntervals})c.Enabled=!active;
+        foreach(var c in new Control[]{category,level,direction,root,tonality,minimum,maximum,meter,bars,tempo,repeats,velocity,pedal,segmentStart,segmentEnd,soloVoice,automaticPractice,automaticDelay,surpriseCategories,surpriseLevel,surpriseCount,surpriseMinutes,surprisePlays,coachPractice,isonCustomAccidental,isonEditTuning,isonResetTuning,isonGenus,isonAccidental,isonMode,isonKeyboard,isonImport,isonVoice,isonNote,isonBase,isonMoria,isonVolume,isonIntervals})c.Enabled=!active;
         previewAnswer.Enabled=!active;examHistory.Enabled=wrongHistory.Enabled=surpriseHistory.Enabled=!active;
     }
     private void SaveExam(){if(exam is null||auditOnly||uiTestMode)return;try{examStore.Save(exam.State);}catch(Exception ex){Error("Η εξέταση δεν αποθηκεύτηκε: "+ex.Message);}}

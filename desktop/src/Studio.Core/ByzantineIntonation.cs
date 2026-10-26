@@ -34,7 +34,7 @@ public static class ByzantineIntonation
         var offset=Offset(degree,anchor,intervals,anchored);var hz=referenceNi*Math.Pow(2,(offset+globalMoria+alterations[degree%7])/72);
         if(hz is <35 or >2000)throw new ArgumentException("Ο φθόγγος είναι εκτός 35–2000 Hz.");return hz;
     }
-    public static void ValidateAlterations(IReadOnlyList<double> values){if(values.Count!=7||values.Any(v=>!double.IsFinite(v)||v is <-8 or >8))throw new ArgumentException("Απαιτούνται επτά αλλοιώσεις από -8 έως +8 μόρια.");}
+    public static void ValidateAlterations(IReadOnlyList<double> values){if(values.Count!=7||values.Any(v=>!double.IsFinite(v)||v is <-72 or >72))throw new ArgumentException("Απαιτούνται επτά αλλοιώσεις από -72 έως +72 μόρια.");}
     public static string PitchLabel(int degree)=>ByzantineTuning.Notes[degree%7]+(degree>=14?" δις άνω":degree>=7?" άνω":"");
     public static string NoteName(int degree,int anchor,IReadOnlyList<double> intervals,bool anchored,IReadOnlyList<double> alterations)
     {
