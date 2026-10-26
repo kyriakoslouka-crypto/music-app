@@ -16,6 +16,19 @@ public static class FreeTuningTests
             foreach(var value in new[]{-7200.0,7200.0}){changed[6]=value;ByzantineIntonation.ValidateAlterations(changed);var restored=JsonSerializer.Deserialize<double[]>(JsonSerializer.Serialize(changed))!;Check(restored[6]==value);}
             foreach(var value in new[]{-7200.01,7200.01,double.NaN,double.PositiveInfinity}){changed[6]=value;try{ByzantineIntonation.ValidateAlterations(changed);throw new Exception("Invalid alteration accepted");}catch(ArgumentException){}}
         });
+        test("Free tuning: all seven notes have independent signed large alterations in every mode",()=>{
+            foreach(var mode in ByzantineModes.All)foreach(var selected in Enumerable.Range(0,7))foreach(var amount in new[]{-90.5,90.5}){
+                var steps=ByzantineIntonation.ModeIntervals(mode.Id);var alterations=new double[7];alterations[selected]=amount;
+                var tuning=new IsonTuning(steps,alterations,"custom",true);tuning.Validate();
+                var restored=JsonSerializer.Deserialize<IsonTuning>(JsonSerializer.Serialize(tuning))!;restored.Validate();
+                for(var degree=0;degree<15;degree++){
+                    var natural=ByzantineIntonation.Frequency(130,degree,mode.Degree,steps,true,0,new double[7]);
+                    var actual=ByzantineIntonation.Frequency(130,degree,mode.Degree,restored.Intervals,true,0,restored.Alterations);
+                    Check(Math.Abs(actual/natural-(degree%7==selected?Math.Pow(2,amount/72):1))<1e-9);
+                }
+                foreach(var bound in new[]{-7200.0,7200.0}){alterations[selected]=bound;ByzantineIntonation.ValidateAlterations(alterations);}
+            }
+        });
         test("Free tuning: octave arrows preserve pitch class and stop at boundaries",()=>{
             for(var degree=0;degree<15;degree++)foreach(var direction in new[]{-1,1}){
                 var target=ByzantineIntonation.ShiftOctave(degree,direction);Check(target%7==degree%7);
