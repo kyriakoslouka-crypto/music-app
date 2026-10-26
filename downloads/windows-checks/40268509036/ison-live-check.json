@@ -1,0 +1,20 @@
+{
+  "Version": "0.5.11",
+  "SourceCommit": "78dd30cf07aa6bca3f528bdab0196109a831cea9",
+  "Passed": true,
+  "Error": null,
+  "DeviceOpens": 1,
+  "Metrics": {
+    "ManualStarts": 1,
+    "ArrowDirections": 4,
+    "RapidChanges": 20,
+    "ModeCount": 8,
+    "DeviceReopenCount": 0,
+    "CachedSwitchMaxMilliseconds": 28.9124,
+    "PausePreserved": true,
+    "StopPreserved": true
+  },
+  "PhysicalHardwareTested": false,
+  "HumanNvdaTested": false,
+  "InputSimulation": "Native command dispatch with simulated audio backend"
+}
