@@ -52,7 +52,7 @@ public static class AccessibilityContract
     {
         var result=new Dictionary<string,object>();
         result["MainForm"]=Audit(form);
-        if(form.IsIsokratisOnly){result["Isokratis"]=form.AuditIson();result["ApplicationSplit"]=form.AuditApplicationSplit();File.WriteAllText(path,JsonSerializer.Serialize(result,new JsonSerializerOptions{WriteIndented=true}));return;}
+        if(form.IsIsokratisOnly){result["AudioDiagnosticRegression"]=form.AuditAudioDiagnostic();result["Isokratis"]=form.AuditIson();result["ApplicationSplit"]=form.AuditApplicationSplit();File.WriteAllText(path,JsonSerializer.Serialize(result,new JsonSerializerOptions{WriteIndented=true}));return;}
         result["ApplicationSplit"]=form.AuditApplicationSplit();
         result["PresentationRegression"]=form.AuditPresentations();
         result["ExamBoundaryRegression"]=form.AuditExamBoundaries();

@@ -29,6 +29,7 @@ try{
         if(!$process.WaitForExit(45000)){$process.Kill($true);throw 'Independent audit timed out'}
         if($process.ExitCode -ne 0){throw "Independent $variant startup failed"}
         $audit=Get-Content $report -Raw | ConvertFrom-Json
+        if(!$audit.AudioDiagnosticRegression.Passed){throw "Independent $variant audio diagnostics inaccessible"}
         if(!$audit.ApplicationSplit.Passed -or !$audit.ApplicationSplit.IsokratisOnly -or $audit.ApplicationSplit.TabNames.Count -ne 3 -or !$audit.ApplicationSplit.NoPianoSetup){throw 'Independent application contains training tabs'}
         $result.IsokratisHasThreeTabs=$true
         switch($variant){'installed'{$result.InstallerPassed=$true};'portable'{$result.PortablePassed=$true};'standalone'{$result.StandalonePassed=$true}}

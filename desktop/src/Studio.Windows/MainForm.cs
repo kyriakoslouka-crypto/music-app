@@ -454,7 +454,7 @@ public sealed partial class MainForm : Form
         if(!status.AccessibilityObject.RaiseAutomationNotification(AutomationNotificationKind.ActionCompleted,AutomationNotificationProcessing.ImportantMostRecent,text))
         {status.Focus();status.Select(0,0);}
     }
-    private void Error(string text){if(IsDisposed||Disposing)return;Stop();if(regressionError is not null){regressionError(text);return;}MessageBox.Show(this,text,"Professional Ear Training Studio",MessageBoxButtons.OK,MessageBoxIcon.Warning);}
+    private void Error(string text){if(IsDisposed||Disposing)return;Stop();if(regressionError is not null){regressionError(text);return;}if(IsIsokratisOnly){tabs.SelectedTab=isonPage;isonStatus.Text=text;isonStatus.Focus();return;}MessageBox.Show(this,text,"Professional Ear Training Studio",MessageBoxButtons.OK,MessageBoxIcon.Warning);}
     private void UpdateHistory()
     {
         if(exam?.Running==true){stats.Text="Οι αναλυτικές απαντήσεις της τρέχουσας εξέτασης εμφανίζονται μετά τον τερματισμό της.";return;}
@@ -480,6 +480,7 @@ public sealed partial class MainForm : Form
                 case Keys.Control|Keys.Tab:tabs.SelectedIndex=(tabs.SelectedIndex+1)%tabs.TabCount;tabs.Focus();return true;
                 case Keys.Control|Keys.Shift|Keys.Tab:tabs.SelectedIndex=(tabs.SelectedIndex+tabs.TabCount-1)%tabs.TabCount;tabs.Focus();return true;
                 case Keys.Control|Keys.Home:Stop();tabs.SelectedIndex=1;devices.Focus();return true;
+                case Keys.F6:ReadAudioFailure();return true;
                 case Keys.F1:tabs.SelectedTab=helpPage;helpControl.Focus();return true;
                 case Keys.Escape:isonImportWork?.Cancel();Stop();return true;
                 default:return base.ProcessCmdKey(ref msg,keyData);
