@@ -135,12 +135,12 @@ try{
     if(!$window){throw 'No native UIA window found.'}
     $condition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::TabItem)
     $tabs=$window.FindAll([System.Windows.Automation.TreeScope]::Descendants,$condition)
-    for($i=0;$i -lt 50 -and $tabs.Count -lt 7;$i++){
+    for($i=0;$i -lt 50 -and $tabs.Count -lt 5;$i++){
         Start-Sleep -Milliseconds 200
         $window=Find-Window $process.Id
         if($window){$tabs=$window.FindAll([System.Windows.Automation.TreeScope]::Descendants,$condition)}
     }
-    if($tabs.Count -lt 7){
+    if($tabs.Count -lt 5){
         $details=@($window.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition) | ForEach-Object { $_.Current.ControlType.ProgrammaticName+': '+$_.Current.Name }) -join '; '
         $tabContainer=$window.FindFirst([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Tab))
         $walker=[System.Windows.Automation.TreeWalker]::RawViewWalker
@@ -150,12 +150,12 @@ try{
         $childCount=$tabContainer.FindAll([System.Windows.Automation.TreeScope]::Children,$condition).Count
         $client=[System.Windows.Automation.AutomationElement].Assembly.Location
         $directCount=$window.FindAll([System.Windows.Automation.TreeScope]::Descendants,$condition).Count
-        throw "Client=$client; forward=$($forward -join ','); child count=$childCount; Direct count=$directCount; collection=$($tabs.GetType().FullName); reverse=$($backwards -join ','); Expected seven application tabs; found $($tabs.Count) on $($window.Current.Name). Tree: $details"
+        throw "Client=$client; forward=$($forward -join ','); child count=$childCount; Direct count=$directCount; collection=$($tabs.GetType().FullName); reverse=$($backwards -join ','); Expected five application tabs; found $($tabs.Count) on $($window.Current.Name). Tree: $details"
     }
-    $expected=@('Ρυθμίσεις','Εξάσκηση','Πρόοδος','Εξετάσεις και προσαρμογή','Οδηγίες','Απρόοπτα διαγωνίσματα','Βυζαντινός ισοκράτης')
+    $expected=@('Ρυθμίσεις','Εξάσκηση','Πρόοδος','Εξετάσεις και προσαρμογή','Οδηγίες')
     if($tabs.Count -ne $expected.Count){throw 'Unexpected tab count.'}
     for($i=0;$i -lt $expected.Count;$i++){if($tabs[$i].Current.Name -ne $expected[$i]){throw "Wrong tab order/name at $i"}}
-    if(@($tabs | ForEach-Object {$_.Current.AutomationId} | Select-Object -Unique).Count -ne 7){throw 'Tab automation identifiers are not unique.'}
+    if(@($tabs | ForEach-Object {$_.Current.AutomationId} | Select-Object -Unique).Count -ne 5){throw 'Tab automation identifiers are not unique.'}
     foreach($tab in $tabs){
         $pattern=$tab.GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern)
         $pattern.Select();Start-Sleep -Milliseconds 100
@@ -169,17 +169,17 @@ try{
     $tabs[0].GetCurrentPattern([System.Windows.Automation.SelectionItemPattern]::Pattern).Select()
     $tabs[0].SetFocus();Wait-Foreground $window;Wait-ControlFocus $tabs[0]
     $keyboardChecks=@();$nvdaChecks=@()
-    for($i=1;$i -le 7;$i++){
+    for($i=1;$i -le 5;$i++){
         $speechOffset=if($NvdaLog){(Nvda-LogText).Length}else{0}
         Wait-Foreground $window;[PetsInputWindow]::TabChord($false);Start-Sleep -Milliseconds 150
-        $wanted=$i%7
+        $wanted=$i%5
         Wait-SelectedTab $tabs[$wanted]
         if($NvdaLog){$nvdaChecks+=Wait-NvdaAnnouncement $expected[$wanted] $speechOffset}
         $keyboardChecks+="Ctrl+Tab: $($expected[$wanted])"
     }
     Wait-Foreground $window;[PetsInputWindow]::TabChord($true);Start-Sleep -Milliseconds 150
-    Wait-SelectedTab $tabs[6]
-    $keyboardChecks+='Ctrl+Shift+Tab: Βυζαντινός ισοκράτης'
+    Wait-SelectedTab $tabs[4]
+    $keyboardChecks+='Ctrl+Shift+Tab: Οδηγίες'
     [PetsInputWindow]::Key(0x70);Start-Sleep -Milliseconds 150
     $focused=[System.Windows.Automation.AutomationElement]::FocusedElement
     if($focused.Current.ProcessId -ne $process.Id -or $focused.Current.Name -ne 'Οδηγίες και περιορισμοί έκδοσης'){throw 'F1 did not focus the help text.'}

@@ -54,6 +54,9 @@ jobs:
       - name: Verify real installer, portable archive and standalone startup
         shell: pwsh
         run: ./desktop/scripts/Test-WindowsPackages.ps1
+      - name: Verify independent isokratis application and package
+        shell: pwsh
+        run: ./desktop/scripts/Test-IsokratisPackage.ps1
       - name: Verify actual Windows Maestro installation and lossless PCM
         shell: pwsh
         run: |
@@ -83,7 +86,7 @@ jobs:
         timeout-minutes: 2
         shell: pwsh
         run: |
-          $exe=Join-Path $PWD 'desktop/artifacts/win-x64/ProfessionalEarTrainingStudio.exe'
+          $exe=Join-Path $PWD 'desktop/artifacts/isokratis-win-x64/ProfessionalIsokratis.exe'
           $report=Join-Path $PWD 'desktop/artifacts/ison-live-check.json'
           $process=Start-Process $exe -ArgumentList @('--ison-live-check',('"'+$report+'"'),'--uia-test-mode') -PassThru
           if(!$process.WaitForExit(60000)){$process.Kill($true);throw 'Live ison probe timed out'}

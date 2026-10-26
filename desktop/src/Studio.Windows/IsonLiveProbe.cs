@@ -22,7 +22,7 @@ internal static class IsonLiveProbe
         try{
             var wave=Path.Combine(root,"wave.wav");using(var writer=new WaveFileWriter(wave,new WaveFormat(44100,16,2))){for(var i=0;i<44100*3;i++){var value=(short)(Math.Sin(2*Math.PI*110*i/44100)*10000);writer.Write(BitConverter.GetBytes(value),0,2);writer.Write(BitConverter.GetBytes(value),0,2);}}
             var sha=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(wave))).ToLowerInvariant();File.Move(wave,Path.Combine(root,sha+".wav"));var manifest=Path.Combine(root,"isokratis-bank.json");File.WriteAllText(manifest,JsonSerializer.Serialize(new IsonBank(1,[new("a","Φωνή πρώτη","test.mp3",sha+".wav",110,sha,sha),new("b","Φωνή δεύτερη","test.mp3",sha+".wav",110,sha,sha)])));
-            using var output=new AudioOutput((_,_)=>{opens++;return new(player);});using var form=new MainForm(true,output,true);
+            using var output=new AudioOutput((_,_)=>{opens++;return new(player);});using var form=new MainForm(true,output,true,true);
             form.Shown+=async(_,_)=>{try{metrics=await form.ProbeLiveIson(manifest,()=>opens,()=>{var bytes=new byte[8192];return player.Source!.Read(bytes,0,bytes.Length)==bytes.Length&&bytes.Any(b=>b!=0);});}catch(Exception ex){error=ex.ToString();}finally{form.Close();}};
             Application.Run(form);
         }catch(Exception ex){error=ex.ToString();}finally{Directory.Delete(root,true);}

@@ -35,7 +35,7 @@ public sealed partial class MainForm
     private IsonPreferences? isonLastGood;
     private IsonPreferences CaptureIsonPreferences(){SaveCurrentIsonTuning(isonTuningModeId);return new((isonVoice.SelectedItem as IsonVoice)?.Id??"",isonNote.SelectedIndex,isonBase.Value,isonMoria.Value,isonVolume.Value,isonIntervals.Text,(isonMode.SelectedItem as ByzantineMode)?.Id??"first",(isonGenus.SelectedItem as ByzantineGenus)?.Id,isonAlterations.ToArray(),isonAnchorReference,IsonTuning.CopyMap(isonModeTunings));}
     private sealed record IsonVoice(string Id,string Name,double Low,double High){public override string ToString()=>$"{Name} — {Low:F1} έως {High:F1} Hz";}
-    private static IsonLibraryStore IsonStore=>new(DataDirectory);
+    private IsonLibraryStore IsonStore=>new(IsonDataDirectory);
     private void BuildIsokratis()
     {
         isonCustomAccidental.DecimalPlaces=2;isonCustomAccidental.Increment=0.1m;
@@ -88,7 +88,7 @@ public sealed partial class MainForm
         catch(Exception e)when(e is ArgumentException or FormatException or OverflowException){Stop();isonStatus.Text=e.Message;}
     }
     private void SaveIsonPreferences(){if(auditOnly||uiTestMode||!isonLoaded)return;isonPreferenceSave.Stop();isonPreferenceSave.Start();}
-    private void WriteIsonPreferences(){if(auditOnly||uiTestMode||!isonLoaded)return;try{CurrentIsonTuning().Validate();var path=Path.Combine(DataDirectory,"isokratis-settings.json");var temporary=path+".tmp";File.WriteAllText(temporary,JsonSerializer.Serialize(CaptureIsonPreferences()));File.Move(temporary,path,true);}catch(Exception e)when(e is IOException or UnauthorizedAccessException or ArgumentException or FormatException or OverflowException){isonStatus.Text+=" Δεν αποθηκεύτηκαν ρυθμίσεις: "+e.Message;}}
+    private void WriteIsonPreferences(){if(auditOnly||uiTestMode||!isonLoaded)return;try{CurrentIsonTuning().Validate();Directory.CreateDirectory(IsonDataDirectory);var path=Path.Combine(IsonDataDirectory,"isokratis-settings.json");var temporary=path+".tmp";File.WriteAllText(temporary,JsonSerializer.Serialize(CaptureIsonPreferences()));File.Move(temporary,path,true);}catch(Exception e)when(e is IOException or UnauthorizedAccessException or ArgumentException or FormatException or OverflowException){isonStatus.Text+=" Δεν αποθηκεύτηκαν ρυθμίσεις: "+e.Message;}}
     private void PopulateIson()
     {
         isonVoice.Items.Clear();if(isonBank is null)return;
@@ -99,7 +99,7 @@ public sealed partial class MainForm
         if(auditOnly||uiTestMode)return;
         try{
             var installed=IsonStore.Load();if(installed is not null){isonManifest=installed.Manifest;isonBank=installed.Bank;PopulateIson();isonImport.Text="Αντικατάσταση εγκατεστημένων φωνών";isonImport.AccessibleName="Αντικατάσταση ήδη εγκατεστημένων φωνών από ZIP";isonStatus.Text=$"Οι {isonBank.Samples.Length} φωνές φορτώθηκαν αυτόματα από την εγκατεστημένη βιβλιοθήκη. Δεν χρειάζονται ξανά ZIP. Ctrl+L για έναρξη.";}
-            var path=Path.Combine(DataDirectory,"isokratis-settings.json");if(File.Exists(path)){
+            var path=Path.Combine(IsonDataDirectory,"isokratis-settings.json");if(File.Exists(path)){
                 var p=JsonSerializer.Deserialize<IsonPreferences>(File.ReadAllText(path));if(p is not null)ApplyIsonPreferences(p);
             }
         }catch(Exception e){isonStatus.Text="Πρόβλημα φόρτωσης ρύθμισης: "+e.Message+". Η εγκατεστημένη βιβλιοθήκη διατηρείται. Ελέγξτε τα πεδία ρυθμίσεων.";}
@@ -117,7 +117,7 @@ public sealed partial class MainForm
             if(exam is not null&&exam.State.Finished is null)throw new InvalidOperationException("Ολοκλήρωσε πρώτα την εξέταση.");
             using var dialog=new OpenFileDialog{Filter="ZIP φωνών (*.zip)|*.zip",Multiselect=true,Title="Επίλεξε όλα τα ZIP φωνών, part001 και part002 μαζί"};if(dialog.ShowDialog(this)!=DialogResult.OK)return;
             Stop();isonImporting=true;isonImport.Enabled=false;isonCancelImport.Enabled=true;using var source=new CancellationTokenSource();isonImportWork=source;
-            var destination=Path.Combine(DataDirectory,"isokratis-banks",Guid.NewGuid().ToString("N"));
+            var destination=Path.Combine(IsonDataDirectory,"isokratis-banks",Guid.NewGuid().ToString("N"));
             var progress=new Progress<string>(s=>{if(!IsDisposed)isonStatus.Text=s;});
             var manifest=await Task.Run(()=>IsonBank.Import(dialog.FileNames,destination,IsonDecoder.Decode,progress,source.Token),source.Token);
             if(IsDisposed)return;source.Token.ThrowIfCancellationRequested();var bank=IsonBank.Load(manifest);

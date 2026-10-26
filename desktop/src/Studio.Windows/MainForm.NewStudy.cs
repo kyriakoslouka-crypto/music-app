@@ -12,7 +12,7 @@ public sealed partial class MainForm
     private readonly TextBox surpriseReport=new(){AccessibleName="Κατάσταση και αναφορά απρόοπτου διαγωνίσματος",ReadOnly=true,Multiline=true,ScrollBars=ScrollBars.Vertical,Dock=DockStyle.Fill};
     private readonly ListBox surpriseHistory=new(){AccessibleName="Ιστορικό απρόοπτων διαγωνισμάτων",Dock=DockStyle.Fill};
     private sealed record CategoryItem(Category Category){public override string ToString()=>CategoryName(Category);}
-    private int ExamTab=>exam?.State.Profile.Id.StartsWith("surprise-",StringComparison.Ordinal)==true?5:3;
+    private int ExamTab=>3;
     private void UpdateScoreAccess()=>scoreView.Enabled=session.Current is not null&&ScoreNotation.CanReveal(answered,exam?.State);
     private void ViewScore()
     {
@@ -81,6 +81,6 @@ public sealed partial class MainForm
         using var denseBitmap=new Bitmap(denseCanvas.Width,denseCanvas.Height);denseCanvas.DrawToBitmap(denseBitmap,denseCanvas.ClientRectangle);
         using var denseStream=new MemoryStream();denseBitmap.Save(denseStream,System.Drawing.Imaging.ImageFormat.Png);
         if(!NotationCanvas.MusicFontName.Contains("Bravura",StringComparison.Ordinal))throw new InvalidOperationException("Missing music font");
-        return new{Passed=true,TabName="Απρόοπτα διαγωνίσματα",TabCount=tabs.TabCount,NativeScoreControls=controls,MusicFont=NotationCanvas.MusicFontName,PreviewPngBase64=Convert.ToBase64String(stream.ToArray()),DensePreviewPngBase64=Convert.ToBase64String(denseStream.ToArray()),PrivacyChecksPassed=true};
+        return new{Passed=true,TabName="Παρτιτούρες",TabCount=tabs.TabCount,NativeScoreControls=controls,MusicFont=NotationCanvas.MusicFontName,PreviewPngBase64=Convert.ToBase64String(stream.ToArray()),DensePreviewPngBase64=Convert.ToBase64String(denseStream.ToArray()),PrivacyChecksPassed=true};
     }
 }

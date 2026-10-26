@@ -10,6 +10,10 @@ items={
  f'ProfessionalEarTrainingStudio-{version}-Setup.exe':base/'artifacts'/f'ProfessionalEarTrainingStudio-{version}-Setup.exe',
  f'ProfessionalEarTrainingStudio-{version}-Portable.zip':base/'artifacts'/f'ProfessionalEarTrainingStudio-{version}-win-x64.zip',
  f'ProfessionalEarTrainingStudio-{version}-Standalone.exe':base/'artifacts/standalone-win-x64/ProfessionalEarTrainingStudio.exe'}
+items.update({
+ f'ProfessionalIsokratis-{version}-Setup.exe':base/'artifacts'/f'ProfessionalIsokratis-{version}-Setup.exe',
+ f'ProfessionalIsokratis-{version}-Portable.zip':base/'artifacts'/f'ProfessionalIsokratis-{version}-win-x64.zip',
+ f'ProfessionalIsokratis-{version}-Standalone.exe':base/'artifacts/isokratis-standalone/ProfessionalIsokratis.exe'})
 for name,source in items.items():shutil.copy2(source,folder/name)
 source=folder/f'ProfessionalEarTrainingStudio-{version}-Source.zip'
 with zipfile.ZipFile(source,'w',compression=zipfile.ZIP_DEFLATED)as archive:
@@ -21,7 +25,7 @@ shutil.copytree(base/'docs',folder/'Οδηγίες',dirs_exist_ok=True)
 shutil.copy2(base/'README.md',folder/'README.md')
 report=base/'artifacts'/f'tests-{version}.json'
 if report.exists():shutil.copy2(report,folder/'TEST-RESULTS.json')
-for name in ['WINDOWS-CHECKS.json','accessibility-audit.json','typed-uia-audit.json','windows-package-smoke.json','portable-integrity.json','windows-piano-check.json','windows-maestro-tests.json','source-build-smoke.json','nvda-smoke.json','nvda-accessibility-audit.json','audio-output-check.json','automatic-practice-check.json','windows-ison-check.json','ison-live-check.json']:
+for name in ['WINDOWS-CHECKS.json','accessibility-audit.json','typed-uia-audit.json','windows-package-smoke.json','portable-integrity.json','windows-piano-check.json','windows-maestro-tests.json','source-build-smoke.json','nvda-smoke.json','nvda-accessibility-audit.json','audio-output-check.json','automatic-practice-check.json','windows-ison-check.json','ison-live-check.json','isokratis-typed-uia.json','isokratis-package-check.json']:
  if(base/'artifacts'/name).exists():shutil.copy2(base/'artifacts'/name,folder/name)
 subprocess.run([sys.executable,str(base/'scripts/release-readiness.py'),'--output',str(folder/'READINESS.json')],check=True)
 lines=[]

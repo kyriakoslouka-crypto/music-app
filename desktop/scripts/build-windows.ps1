@@ -42,3 +42,24 @@ if ($Installer) {
     if ($LASTEXITCODE -ne 0) { throw 'Installer build failed' }
 }
 Get-ChildItem artifacts -File | Get-FileHash -Algorithm SHA256 | Format-Table
+
+# Independent isokratis executable: shares the tested engine, has its own entry point and installer identity.
+Run-Dotnet publish src/Studio.Isokratis/Studio.Isokratis.csproj -c Release -r win-x64 --self-contained true -o artifacts/isokratis-win-x64
+Run-Dotnet publish src/Studio.Isokratis/Studio.Isokratis.csproj -c Release -r win-x64 --self-contained true '-p:PublishSingleFile=true' '-p:IncludeNativeLibrariesForSelfExtract=true' '-p:EnableCompressionInSingleFile=true' '-p:DebugType=none' '-p:DebugSymbols=false' -o artifacts/isokratis-standalone
+foreach($folder in @('artifacts/isokratis-win-x64','artifacts/isokratis-standalone')){
+    foreach($file in @('ProfessionalEarTrainingStudio.exe','ProfessionalEarTrainingStudio.deps.json','ProfessionalEarTrainingStudio.runtimeconfig.json')){Remove-Item (Join-Path $folder $file) -ErrorAction SilentlyContinue}
+}
+Copy-Item docs/INDEPENDENT-APPLICATIONS.md artifacts/isokratis-win-x64/README.md
+Copy-Item src/Studio.Windows/Assets/ThirdPartyLicenses.txt artifacts/isokratis-win-x64/SOFTWARE-LICENSES.txt
+Compress-Archive -Path artifacts/isokratis-win-x64/* -DestinationPath "artifacts/ProfessionalIsokratis-$studioVersion-win-x64.zip" -Force
+if($Installer){
+    $publishRoot=(Resolve-Path artifacts/isokratis-win-x64).Path
+    $manifest=[System.Collections.Generic.List[string]]::new()
+    Get-ChildItem $publishRoot -File -Recurse | ForEach-Object {$manifest.Add('Delete "$INSTDIR\'+$_.FullName.Substring($publishRoot.Length+1)+'"')}
+    Get-ChildItem $publishRoot -Directory -Recurse | Sort-Object {$_.FullName.Length} -Descending | ForEach-Object {$manifest.Add('RMDir "$INSTDIR\'+$_.FullName.Substring($publishRoot.Length+1)+'"')}
+    $manifest | Set-Content artifacts/isokratis-uninstall-files.nsh -Encoding utf8
+    $output=Join-Path $PWD "artifacts/ProfessionalIsokratis-$studioVersion-Setup.exe"
+    $uninstall=Join-Path $PWD 'artifacts/isokratis-uninstall-files.nsh'
+    & $nsis.Source "-DAPP_VERSION=$studioVersion" '-DAPP_ID=ProfessionalIsokratis' '-DAPP_NAME=Professional Isokratis' "-DPUBLISH_DIR=$publishRoot" "-DOUTPUT_FILE=$output" "-DUNINSTALL_INCLUDE=$uninstall" installer/Studio.nsi
+    if($LASTEXITCODE -ne 0){throw 'Independent isokratis installer failed'}
+}

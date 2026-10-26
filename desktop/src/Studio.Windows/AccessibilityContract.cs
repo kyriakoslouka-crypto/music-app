@@ -52,12 +52,14 @@ public static class AccessibilityContract
     {
         var result=new Dictionary<string,object>();
         result["MainForm"]=Audit(form);
+        if(form.IsIsokratisOnly){result["Isokratis"]=form.AuditIson();result["ApplicationSplit"]=form.AuditApplicationSplit();File.WriteAllText(path,JsonSerializer.Serialize(result,new JsonSerializerOptions{WriteIndented=true}));return;}
+        result["ApplicationSplit"]=form.AuditApplicationSplit();
         result["PresentationRegression"]=form.AuditPresentations();
         result["ExamBoundaryRegression"]=form.AuditExamBoundaries();
         result["AudioDiagnosticRegression"]=form.AuditAudioDiagnostic();
         result["AutomaticPracticeRegression"]=form.AuditAutomaticPractice();
         result["NewStudyFeatures"]=form.AuditNewStudy();
-        result["Isokratis"]=form.AuditIson();
+        using(var isokratis=new MainForm(true,true)){result["Isokratis"]=isokratis.AuditIson();}
         using var installer=new PianoSetupDialog(Path.Combine(Path.GetTempPath(),"studio-audit-unused"));
         result["PianoSetupDialog"]=Audit(installer);
         File.WriteAllText(path,JsonSerializer.Serialize(result,new JsonSerializerOptions {WriteIndented=true}));

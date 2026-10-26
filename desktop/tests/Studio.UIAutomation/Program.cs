@@ -6,8 +6,10 @@ using System.Windows.Automation;
 if(args.Length==3&&args[0]=="--ison-check")return await WindowsIsonCheck.Run(args[1],args[2]);
 if(args.Length==2&&args[0]=="--audio-output-check")return AudioOutputChecks.Run(args[1]);
 if(args.Length==3&&args[0]=="--piano-check")return await WindowsPianoCheck.Run(args[1],args[2]);
-var expected = new[] { "Ρυθμίσεις", "Εξάσκηση", "Πρόοδος", "Εξετάσεις και προσαρμογή", "Οδηγίες", "Απρόοπτα διαγωνίσματα", "Βυζαντινός ισοκράτης" };
-var content = new[] { "Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand", "Οδηγία τρέχουσας άσκησης", "Στατιστικά και ιστορικό", "Εκπαιδευτικό εξεταστικό προφίλ", "Οδηγίες και περιορισμοί έκδοσης", "Επίπεδο απρόοπτου διαγωνίσματος", "Φωνή βυζαντινού ισοκράτη" };
+var fixtureExpected = new[] { "Ρυθμίσεις", "Εξάσκηση", "Πρόοδος", "Εξετάσεις και προσαρμογή", "Οδηγίες", "Απρόοπτα διαγωνίσματα", "Βυζαντινός ισοκράτης" };
+var isokratis=args.Contains("--isokratis");
+string[] expected=isokratis?["Βυζαντινός ισοκράτης","Ρυθμίσεις ήχου","Οδηγίες"]:["Ρυθμίσεις","Εξάσκηση","Πρόοδος","Εξετάσεις και προσαρμογή","Οδηγίες"];
+string[] content=isokratis?["Φωνή βυζαντινού ισοκράτη","Έξοδος ήχου","Οδηγίες ανεξάρτητου ισοκράτη"]:["Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand", "Οδηγία τρέχουσας άσκησης", "Στατιστικά και ιστορικό", "Εκπαιδευτικό εξεταστικό προφίλ", "Οδηγίες και περιορισμοί έκδοσης"];
 if (args[0] == "--fixture")
 {
     var thread = new Thread(() => {
@@ -15,7 +17,7 @@ if (args[0] == "--fixture")
         var form = new System.Windows.Forms.Form { Text = "UIA fixture", Width = 1000, Height = 800, Font = new System.Drawing.Font("Segoe UI", 11) };
         System.Windows.Forms.TabControl tabs = args[1] == "explicit" ? new Studio.Windows.AccessibleTabControl() : args[1]=="native"?new Studio.Windows.NativeAccessibleTabControl():new System.Windows.Forms.TabControl();
         tabs.Dock = System.Windows.Forms.DockStyle.Fill;
-        foreach (var name in expected) {
+        foreach (var name in fixtureExpected) {
             System.Windows.Forms.TabPage page=(args[1]=="explicit"||args[1]=="native")?new Studio.Windows.AccessibleTabPage(name):new System.Windows.Forms.TabPage(name);
             page.Controls.Add(new System.Windows.Forms.TextBox { Text = name, Dock = System.Windows.Forms.DockStyle.Fill, AccessibleName = name });
             tabs.TabPages.Add(page);
@@ -58,31 +60,40 @@ try
                 return chain.ToArray();
             }).ToArray();
             references.Add(new { Mode = mode, ReferenceOnly = mode != "explicit", Count = tabs.Count, Names = names,Parents=parents });
-            if (mode == "explicit") Check(names.SequenceEqual(expected), "Explicit provider exposes exactly seven named fixture headers");
+            if (mode == "explicit") Check(names.SequenceEqual(fixtureExpected), "Explicit provider exposes exactly seven named fixture headers");
         } finally { Close(fixture); }
     }
     application = Process.Start(new ProcessStartInfo(args[0], "--uia-test-mode") { UseShellExecute = false })!;
     var appWindow = FindWindow(application);
     var appTabs = Tabs(appWindow);
-    Check(Names(appTabs).SequenceEqual(expected), "Application exposes exactly seven correctly ordered named tabs");
-    Check(Enumerable.Range(0, appTabs.Count).Select(i => appTabs[i].Current.AutomationId).Distinct().Count() == 7, "All seven headers have unique automation identifiers");
+    Check(Names(appTabs).SequenceEqual(expected), "Application exposes exactly the expected correctly ordered named tabs");
+    Check(Enumerable.Range(0, appTabs.Count).Select(i => appTabs[i].Current.AutomationId).Distinct().Count() == expected.Length, "All application headers have unique automation identifiers");
     for (var i = 0; i < appTabs.Count; i++) {
         var selection = (SelectionItemPattern)appTabs[i].GetCurrentPattern(SelectionItemPattern.Pattern);
         selection.Select();
         Check(selection.Current.IsSelected, "SelectionItem selects " + expected[i]);
         var sentinel = appWindow.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, content[i]));
         Check(sentinel is not null, "Native page content remains exposed: " + expected[i]);
-        if(i is 1 or 2 or 4)Check(sentinel!.TryGetCurrentPattern(TextPattern.Pattern,out _),"Native TextPattern retained: "+expected[i]);
-        if(i==3){
+        if(!isokratis&&(i is 1 or 2 or 4))Check(sentinel!.TryGetCurrentPattern(TextPattern.Pattern,out _),"Native TextPattern retained: "+expected[i]);
+        if(!isokratis&&i==3){
             Check(sentinel!.TryGetCurrentPattern(ExpandCollapsePattern.Pattern,out _),"Native ComboBox ExpandCollapsePattern retained");
             Check(sentinel.TryGetCurrentPattern(ValuePattern.Pattern,out _),"Native ComboBox selected value remains readable");
         }
     }
+    if(!isokratis){
     ((SelectionItemPattern)appTabs[0].GetCurrentPattern(SelectionItemPattern.Pattern)).Select();
     var speed=appWindow.FindFirst(TreeScope.Descendants,new AndCondition(new PropertyCondition(AutomationElement.NameProperty,"Ταχύτητα BPM"),new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Spinner)));
     var speedEdit=speed?.FindFirst(TreeScope.Descendants,new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Edit));
     Check(speedEdit is not null&&speedEdit.TryGetCurrentPattern(ValuePattern.Pattern,out _),"Numeric tempo exposes its native editable ValuePattern");
     Check(speed is not null&&speed.Current.HelpText.Contains("30")&&speed.Current.HelpText.Contains("240"),"Numeric tempo exposes its Greek minimum/maximum help text");
+    }else{
+        ((SelectionItemPattern)appTabs[0].GetCurrentPattern(SelectionItemPattern.Pattern)).Select();
+        var numeric=appWindow.FindFirst(TreeScope.Descendants,new AndCondition(new PropertyCondition(AutomationElement.NameProperty,"Ελεύθερη πρόσθετη αλλοίωση επιλεγμένου φθόγγου σε μόρια"),new PropertyCondition(AutomationElement.ControlTypeProperty,ControlType.Spinner)));
+        Check(numeric is not null,"Standalone ison exposes independent alteration spinner");
+        Check(appWindow.Current.Name.StartsWith("Professional Isokratis"),"Standalone has independent window identity");
+        var piano=appWindow.FindFirst(TreeScope.Descendants,new PropertyCondition(AutomationElement.NameProperty,"Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand"));
+        Check(piano is null,"Standalone has no piano installer");
+    }
 }
 catch (Exception ex) {
     error = ex.ToString();

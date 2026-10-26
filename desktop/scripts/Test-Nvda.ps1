@@ -54,7 +54,7 @@ startupNotification = False
     & "$PSScriptRoot/Test-Accessibility.ps1" -Exe $Exe -Report $auditPath -NvdaLog $log
     $audit=Get-Content $auditPath -Raw | ConvertFrom-Json
     $result.Checks=@($audit.NvdaSpeechChecks)
-    if(!$audit.UIAutomationPassed -or $result.Checks.Count -ne 7 -or @($result.Checks | Where-Object {!$_.Passed}).Count){throw 'Incomplete real NVDA announcements/UIA keyboard evidence.'}
+    if(!$audit.UIAutomationPassed -or $result.Checks.Count -ne 5 -or @($result.Checks | Where-Object {!$_.Passed}).Count){throw 'Incomplete real NVDA announcements/UIA keyboard evidence.'}
     $result.SpeechAnnouncementsPassed=$true;$result.Passed=$true
 }catch{
     $result.Error=$_.Exception.Message

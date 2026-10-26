@@ -13,6 +13,8 @@ public sealed partial class MainForm : Form
     private static readonly string DataDirectory=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfessionalEarTrainingStudio");
     private static readonly string MaestroDirectory=Path.Combine(DataDirectory,"Piano","Maestro");
     private readonly bool auditOnly;
+    internal bool IsIsokratisOnly { get; }
+    private string IsonDataDirectory=>Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"ProfessionalIsokratis");
     private readonly bool uiTestMode=Environment.GetCommandLineArgs().Contains("--uia-test-mode");
     private readonly System.Windows.Forms.Timer preferenceSave=new(){Interval=600};
     private readonly ProgressStore store = new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfessionalEarTrainingStudio"));
@@ -64,16 +66,19 @@ public sealed partial class MainForm : Form
     private readonly Button setup=new(){Text="&Εγκατάσταση / επισκευή Maestro Concert Grand…",AutoSize=true,AccessibleName="Εγκατάσταση ή επισκευή πραγματικού πιάνου Maestro Concert Grand"};
     private readonly Button load = new() { Text = "&Φόρτωση πιάνου SF2…", AutoSize = true };
 
-    public MainForm(bool auditOnly=false):this(auditOnly,null,false){}
-    internal MainForm(bool auditOnly,AudioOutput? suppliedOutput,bool skipShownAudit)
+    public MainForm(bool auditOnly=false):this(auditOnly,null,false,false){}
+    public MainForm(bool auditOnly,bool isokratisOnly):this(auditOnly,null,false,isokratisOnly){}
+    internal MainForm(bool auditOnly,AudioOutput? suppliedOutput,bool skipShownAudit,bool isokratisOnly=false)
     {
         if(suppliedOutput is not null)audio=suppliedOutput;
-        this.auditOnly=auditOnly; meter.SelectedIndex=2;
+        this.auditOnly=auditOnly;IsIsokratisOnly=isokratisOnly; meter.SelectedIndex=2;
         segmentStart.DecimalPlaces=segmentEnd.DecimalPlaces=2;segmentStart.Increment=segmentEnd.Increment=0.25m;
-        Text = "Professional Ear Training Studio — VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3);
+        Text = (IsIsokratisOnly?"Professional Isokratis":"Professional Ear Training Studio")+" — VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3);
         AccessibleName = Text; MinimumSize = new(720, 560); Size = new(1000, 800);
         Font = new("Segoe UI", 11); StartPosition = FormStartPosition.CenterScreen;
-        BuildSettings(); BuildPractice(); BuildHistory(); BuildExams(); BuildHelp(); BuildSurprise(); BuildIsokratis(); Controls.Add(tabs);
+        if(IsIsokratisOnly){BuildIsokratis();BuildIsonSettings();BuildIsonHelp();}
+        else {BuildSettings();BuildPractice();BuildHistory();BuildExams();BuildHelp();}
+        Controls.Add(tabs);
         next.Click += async (_, _) => await NewExercise();
         replay.Click += async (_, _) => await Replay();
         pause.Click += (_, _) => TogglePause();
@@ -101,13 +106,13 @@ public sealed partial class MainForm : Form
                 catch(Exception ex){Console.Error.WriteLine(ex);Environment.ExitCode=1;}
                 Close();return;
             }
-            await Initialize();InitializeIson();
+            if(IsIsokratisOnly)InitializeStandaloneIson();else await Initialize();
             if(uiTestMode){
                 var args=Environment.GetCommandLineArgs();var marker=Array.IndexOf(args,"--uia-state-path");
                 if(marker>=0&&marker+1<args.Length)File.WriteAllText(args[marker+1],System.Text.Json.JsonSerializer.Serialize(AccessibilityContract.TabSnapshot(tabs),new System.Text.Json.JsonSerializerOptions{WriteIndented=true}));
             }
         };
-        FormClosing += (_, _) => { isonPreferenceSave.Stop();WriteIsonPreferences();isonPreferenceSave.Dispose();isonImportWork?.Cancel();StopIsonWork(); examTimer.Stop();examTimer.Dispose();if(exam is not null)SaveExam();preferenceSave.Stop(); if(!auditOnly&&!uiTestMode){SavePreferences();if(storageHealthy)try{store.Save(history);}catch(Exception ex){Error("Η τελευταία αποθήκευση ιστορικού απέτυχε: "+ex.Message);}} Stop(); audio.Dispose(); preferenceSave.Dispose(); };
+        FormClosing += (_, _) => { isonPreferenceSave.Stop();WriteIsonPreferences();isonPreferenceSave.Dispose();isonImportWork?.Cancel();StopIsonWork(); examTimer.Stop();examTimer.Dispose();if(exam is not null)SaveExam();preferenceSave.Stop(); if(!auditOnly&&!uiTestMode&&!IsIsokratisOnly){SavePreferences();if(storageHealthy)try{store.Save(history);}catch(Exception ex){Error("Η τελευταία αποθήκευση ιστορικού απέτυχε: "+ex.Message);}} Stop(); audio.Dispose(); preferenceSave.Dispose(); };
     }
     private static ComboBox Combo(string name, string[] values)
     {
@@ -161,7 +166,7 @@ public sealed partial class MainForm : Form
     private void BuildHelp()
     {
         var help = new TextBox { Multiline = true, ReadOnly = true, Dock = DockStyle.Fill, ScrollBars = ScrollBars.Vertical, AccessibleName = "Οδηγίες και περιορισμοί έκδοσης", Text =
-            "VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3)+" — Ακουστική εκπαίδευση\r\n\r\nΝΕΟ 0.5.10: Όλες οι ασκήσεις που ζητούσαν γραπτή απάντηση έχουν τώρα 2–4 επιλογές. Μετά την ακρόαση διάλεξε με βέλη και Ctrl+Enter. Δεν πληκτρολογείς νότες ή αξίες. Tab στην πλήρη περιγραφή της επιλογής επιτρέπει ανάγνωση μεγάλων ακολουθιών. Ctrl+Shift+R ακούει την επιλογή μόνο στην εξάσκηση. Οι παλιές οδηγίες γραφής παρακάτω αφορούν την εσωτερική μορφή δεδομένων, όχι απαίτηση πληκτρολόγησης.\r\n\r\nΣτην πρώτη εκκίνηση εμφανίζεται οδηγός εγκατάστασης Maestro Concert Grand (Yamaha CF-3, 5 δυναμικές). Alt+Ε κατεβάζει την επιλεγμένη βιβλιοθήκη από την πηγή της και την εγκαθιστά τοπικά. Απαιτούνται περίπου 263 MB λήψης και 3 GB ελεύθερα. Μετά λειτουργεί offline. Η βιβλιοθήκη έχει περιοριστική άδεια και δεν αναδιανέμεται από την εφαρμογή.\r\n\r\nCtrl+N: νέα άσκηση. Ctrl+R: απεριόριστες επαναλήψεις του ίδιου παραδείγματος. Επαναλήψεις 0: συνεχής βρόχος μέχρι Esc ή υποβολή. Ctrl+P: παύση/συνέχεια. Ctrl+Enter: υποβολή. Esc: διακοπή. Ctrl+Home: ρυθμίσεις. Ctrl+Shift+S: διακοπή και ανάγνωση κατάστασης. Ctrl+Tab: καρτέλες. F1: οδηγίες. F6: πλήρης αναφορά τελευταίου σφάλματος ήχου, χωρίς αντιγραφή από παράθυρο. Tab/Shift+Tab, βέλη, Space και Enter: φυσικά controls Windows.\r\n\r\nΑλλαγή BPM, δυναμικής, πεντάλ ή επαναλήψεων διατηρεί την τρέχουσα άσκηση. Πάτησε Ctrl+R για νέο rendering, χωρίς αλλαγή τονικού ύψους. Αλλαγή τονικότητας, έκτασης ή τύπου άσκησης απαιτεί Ctrl+N. Στα βασικά διαστήματα και τις νότες η τονικότητα περιορίζει τους φθόγγους. Στις κλίμακες και τους τρόπους ορίζει το κέντρο. Στις πτώσεις ορίζει μείζονα ή ελάσσονα. Οι νέες ακολουθίες ανακοινώνουν πρώτα την οδηγία και αρχίζουν με Ctrl+R. Ctrl+I διαβάζει την οδηγία ξανά.\r\n\r\nΗ εφαρμογή δεν αποστέλλει ανακοινώσεις όσο παίζει μουσική. Οι απαντήσεις ανακοινώνονται μέσω UI Automation αφού σταματήσει ο ήχος. Η ίδια η πλοήγηση μπορεί να προκαλεί ομιλία NVDA. Προαιρετικό επίσημο nvdaControllerClient64.dll επιτρέπει ακύρωση τρέχουσας ομιλίας πριν την αναπαραγωγή.\r\n\r\nΔιαστήματα 0–24 ημιτονίων, δέκα τύποι συγχορδιών, ακουστικά διακριτές αναστροφές και νότες 21–108. Συμμετρικές συγχορδίες αποκλείονται από τις αναστροφές. Η αναγνώριση μεμονωμένων νοτών είναι άσκηση απόλυτου ύψους. Η τονική ορθογραφία εναρμονίων δεν εξετάζεται.\r\n\r\nΗ πρόοδος και οι έγκυρες ρυθμίσεις αποθηκεύονται αυτόματα στο LocalAppData\\ProfessionalEarTrainingStudio. Δεν υπάρχει τηλεμετρία ή επίσημη σχέση ABRSM. Η πραγματική συμβατότητα NVDA, WASAPI/ASIO και η ακουστική ποιότητα χρειάζονται δοκιμές σε Windows 11. Νέες ασκήσεις: πτώσεις με τονικό πλαίσιο, κλίμακες σε άνοδο/κάθοδο, τρόποι, ρυθμικά σχήματα και μέτρα. Στη ρυθμική υπαγόρευση γράφεις διάρκειες όπως 1/4 1/8 1/8 1/2, r για παύση και | ανά μέτρο. Στα κτυπήματα χρησιμοποιείς F8 σε κάθε έναρξη και μια επιπλέον φορά στο τελικό όριο. Δεν βαθμολογείται μικρόφωνο ή φωνή. Μελωδικό ντικτέ: ντο1/4 ρε1/8 ή ντορε2/4 μιφα2/8. Δεν χρειάζονται οκτάβες. Αρμονικό: I ii6 V7 I. Σολφέζ/μνήμη: ντο ρε μι, χωρίς υποχρεωτική οκτάβα, σταθερό ντο. Ctrl+Shift+R παίζει τη γραπτή απάντηση. Η φωνή δεν καταγράφεται ή βαθμολογείται. Η αρχή και το τέλος τμήματος επιλέγονται στις Ρυθμίσεις. Τα έξι επίπεδα αλλάζουν το ρεπερτόριο, το μήκος, τις υποδιαιρέσεις και τις διατάξεις. Μετά από αλλαγή επιπέδου Ctrl+N για νέο παράδειγμα. Η έκταση και το BPM που επέλεξες διατηρούνται. Προβολή παρτιτούρας: μετά την απάντηση στην εξάσκηση ή μετά το τέλος ολόκληρης της εξέτασης. Η Πρόοδος προτείνει αδυναμίες με βάση το ιστορικό. Η έκτη καρτέλα Απρόοπτα διαγωνίσματα προσφέρει κατηγορίες με Space, επίπεδο, ερωτήσεις και χρόνο. Η έβδομη καρτέλα Βυζαντινός ισοκράτης εισάγει μαζί όλα τα ZIP φωνών. Ctrl+L μία φορά: συνεχές ισοκράτημα και ζωντανός χειρισμός. Πάνω/κάτω: φθόγγοι, Shift+πάνω/κάτω: οκτάβα, δεξιά/αριστερά: φωνές. Tab: κανονική πλοήγηση. Esc: διακοπή ή ακύρωση εισαγωγής. Οι οκτώ ήχοι φορτώνουν τα διαστηματικά πρότυπα που όρισε ο χρήστης. Στον Δ΄ προεπιλέγεται Βου Λέγετος και στον Βαρύ Ζω διατονικός. Το γένος επιλέγεται χωριστά και οι πρόσθετες υφέσεις/διέσεις έχουν γρήγορες επιλογές 2, 4, 6 ή 8 και ελεύθερη αριθμητική τιμή από -7200 έως +7200 μόρια, με δεκαδικά, μόνο στον επιλεγμένο ομώνυμο φθόγγο χωρίς μετατόπιση των άλλων. Το Προσωπικό κούρδισμα ανά φθόγγο επιτρέπει επεξεργασία κάθε διαστήματος και αλλοίωσης, με Εφαρμογή ή Ακύρωση. Τα προσωπικά κουρδίσματα αποθηκεύονται χωριστά για κάθε ήχο και επανέρχονται όταν αλλάζεις ήχο. Η Επαναφορά προτύπου αφορά μόνο τον επιλεγμένο ήχο. Οι ενδείξεις συγκρίνουν με τη διατονική αναφορά Νη. Υπάρχουν 15 φθόγγοι έως Νη δις άνω. Δεν εφαρμόζονται αυτόματες έλξεις. Δες BYZANTINE-INTONATION.md στις οδηγίες. Οι φωνές φορτώνονται αυτόματα από την προσωπική εγκατάσταση, χωρίς νέα ZIP. Τα επτά διαστήματα αθροίζουν 72 μόρια ανά οκτάβα. Δεν περιλαμβάνονται ασκήσεις ήχων. Οι ασκήσεις φθορών και χροών δεν προγραμματίζονται. Δες και τις οδηγίες docs στον φάκελο εγκατάστασης." };
+            "VERSION "+typeof(MainForm).Assembly.GetName().Version!.ToString(3)+" — Ακουστική εκπαίδευση\r\n\r\nΝΕΟ 0.5.10: Όλες οι ασκήσεις που ζητούσαν γραπτή απάντηση έχουν τώρα 2–4 επιλογές. Μετά την ακρόαση διάλεξε με βέλη και Ctrl+Enter. Δεν πληκτρολογείς νότες ή αξίες. Tab στην πλήρη περιγραφή της επιλογής επιτρέπει ανάγνωση μεγάλων ακολουθιών. Ctrl+Shift+R ακούει την επιλογή μόνο στην εξάσκηση. Οι παλιές οδηγίες γραφής παρακάτω αφορούν την εσωτερική μορφή δεδομένων, όχι απαίτηση πληκτρολόγησης.\r\n\r\nΣτην πρώτη εκκίνηση εμφανίζεται οδηγός εγκατάστασης Maestro Concert Grand (Yamaha CF-3, 5 δυναμικές). Alt+Ε κατεβάζει την επιλεγμένη βιβλιοθήκη από την πηγή της και την εγκαθιστά τοπικά. Απαιτούνται περίπου 263 MB λήψης και 3 GB ελεύθερα. Μετά λειτουργεί offline. Η βιβλιοθήκη έχει περιοριστική άδεια και δεν αναδιανέμεται από την εφαρμογή.\r\n\r\nCtrl+N: νέα άσκηση. Ctrl+R: απεριόριστες επαναλήψεις του ίδιου παραδείγματος. Επαναλήψεις 0: συνεχής βρόχος μέχρι Esc ή υποβολή. Ctrl+P: παύση/συνέχεια. Ctrl+Enter: υποβολή. Esc: διακοπή. Ctrl+Home: ρυθμίσεις. Ctrl+Shift+S: διακοπή και ανάγνωση κατάστασης. Ctrl+Tab: καρτέλες. F1: οδηγίες. F6: πλήρης αναφορά τελευταίου σφάλματος ήχου, χωρίς αντιγραφή από παράθυρο. Tab/Shift+Tab, βέλη, Space και Enter: φυσικά controls Windows.\r\n\r\nΑλλαγή BPM, δυναμικής, πεντάλ ή επαναλήψεων διατηρεί την τρέχουσα άσκηση. Πάτησε Ctrl+R για νέο rendering, χωρίς αλλαγή τονικού ύψους. Αλλαγή τονικότητας, έκτασης ή τύπου άσκησης απαιτεί Ctrl+N. Στα βασικά διαστήματα και τις νότες η τονικότητα περιορίζει τους φθόγγους. Στις κλίμακες και τους τρόπους ορίζει το κέντρο. Στις πτώσεις ορίζει μείζονα ή ελάσσονα. Οι νέες ακολουθίες ανακοινώνουν πρώτα την οδηγία και αρχίζουν με Ctrl+R. Ctrl+I διαβάζει την οδηγία ξανά.\r\n\r\nΗ εφαρμογή δεν αποστέλλει ανακοινώσεις όσο παίζει μουσική. Οι απαντήσεις ανακοινώνονται μέσω UI Automation αφού σταματήσει ο ήχος. Η ίδια η πλοήγηση μπορεί να προκαλεί ομιλία NVDA. Προαιρετικό επίσημο nvdaControllerClient64.dll επιτρέπει ακύρωση τρέχουσας ομιλίας πριν την αναπαραγωγή.\r\n\r\nΔιαστήματα 0–24 ημιτονίων, δέκα τύποι συγχορδιών, ακουστικά διακριτές αναστροφές και νότες 21–108. Συμμετρικές συγχορδίες αποκλείονται από τις αναστροφές. Η αναγνώριση μεμονωμένων νοτών είναι άσκηση απόλυτου ύψους. Η τονική ορθογραφία εναρμονίων δεν εξετάζεται.\r\n\r\nΗ πρόοδος και οι έγκυρες ρυθμίσεις αποθηκεύονται αυτόματα στο LocalAppData\\ProfessionalEarTrainingStudio. Δεν υπάρχει τηλεμετρία ή επίσημη σχέση ABRSM. Η πραγματική συμβατότητα NVDA, WASAPI/ASIO και η ακουστική ποιότητα χρειάζονται δοκιμές σε Windows 11. Νέες ασκήσεις: πτώσεις με τονικό πλαίσιο, κλίμακες σε άνοδο/κάθοδο, τρόποι, ρυθμικά σχήματα και μέτρα. Στη ρυθμική υπαγόρευση γράφεις διάρκειες όπως 1/4 1/8 1/8 1/2, r για παύση και | ανά μέτρο. Στα κτυπήματα χρησιμοποιείς F8 σε κάθε έναρξη και μια επιπλέον φορά στο τελικό όριο. Δεν βαθμολογείται μικρόφωνο ή φωνή. Μελωδικό ντικτέ: ντο1/4 ρε1/8 ή ντορε2/4 μιφα2/8. Δεν χρειάζονται οκτάβες. Αρμονικό: I ii6 V7 I. Σολφέζ/μνήμη: ντο ρε μι, χωρίς υποχρεωτική οκτάβα, σταθερό ντο. Ctrl+Shift+R παίζει τη γραπτή απάντηση. Η φωνή δεν καταγράφεται ή βαθμολογείται. Η αρχή και το τέλος τμήματος επιλέγονται στις Ρυθμίσεις. Τα έξι επίπεδα αλλάζουν το ρεπερτόριο, το μήκος, τις υποδιαιρέσεις και τις διατάξεις. Μετά από αλλαγή επιπέδου Ctrl+N για νέο παράδειγμα. Η έκταση και το BPM που επέλεξες διατηρούνται. Προβολή παρτιτούρας: μετά την απάντηση στην εξάσκηση ή μετά το τέλος ολόκληρης της εξέτασης. Η Πρόοδος προτείνει αδυναμίες με βάση το ιστορικό. Ο ισοκράτης μεταφέρθηκε στην ανεξάρτητη εφαρμογή Professional Isokratis. Η καρτέλα απρόοπτων διαγωνισμάτων αφαιρέθηκε· οι κανονικές εξετάσεις, η πρόοδος και οι παλιές αποθηκευμένες εξετάσεις διατηρούνται. Δες και τις οδηγίες docs στον φάκελο εγκατάστασης." };
         var page = new AccessibleTabPage("Οδηγίες");helpPage=page;helpControl=help; page.Controls.Add(help); tabs.TabPages.Add(page);
     }
     private Settings ReadSettings() => new((Category)category.SelectedIndex, (Level)level.SelectedIndex, (Direction)direction.SelectedIndex,
@@ -408,7 +413,7 @@ public sealed partial class MainForm : Form
     }
     private void SavePreferences()
     {
-        if (loading || !storageHealthy || auditOnly || uiTestMode) return;
+        if (loading || !storageHealthy || auditOnly || uiTestMode || IsIsokratisOnly) return;
         var preset = presets.SelectedItem as PianoPreset;
         try { var valid=ReadSettings();Theory.Validate(valid);store.SavePreferences(new(valid, fontPath, preset?.Bank ?? 0, preset?.Program ?? 0, (devices.SelectedItem as OutputDevice)?.Id,cancelSpeech.Checked,automaticPractice.Checked,(int)automaticDelay.Value)); }
         catch(ArgumentException){ /* Preserve the previous valid settings while a range is being edited. */ }
@@ -470,6 +475,16 @@ public sealed partial class MainForm : Form
         if(tabs.SelectedTab==isonPage&&keyData==(Keys.Control|Keys.P)){ToggleIsonPause();return true;}
         if(tabs.SelectedTab==isonPage&&keyData==Keys.Escape){isonImportWork?.Cancel();Stop();return true;}
         if(tabs.SelectedTab==isonPage&&(keyData==(Keys.Control|Keys.L)||keyData==(Keys.Control|Keys.R))){_=PlayIson();return true;}
+        if(IsIsokratisOnly){
+            switch(keyData){
+                case Keys.Control|Keys.Tab:tabs.SelectedIndex=(tabs.SelectedIndex+1)%tabs.TabCount;tabs.Focus();return true;
+                case Keys.Control|Keys.Shift|Keys.Tab:tabs.SelectedIndex=(tabs.SelectedIndex+tabs.TabCount-1)%tabs.TabCount;tabs.Focus();return true;
+                case Keys.Control|Keys.Home:Stop();tabs.SelectedIndex=1;devices.Focus();return true;
+                case Keys.F1:tabs.SelectedTab=helpPage;helpControl.Focus();return true;
+                case Keys.Escape:isonImportWork?.Cancel();Stop();return true;
+                default:return base.ProcessCmdKey(ref msg,keyData);
+            }
+        }
         switch (keyData)
         {
             case Keys.Control | Keys.Tab: tabs.SelectedIndex=(tabs.SelectedIndex+1)%tabs.TabPages.Count;tabs.Focus();return true;
