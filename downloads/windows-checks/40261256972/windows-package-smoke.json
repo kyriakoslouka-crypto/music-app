@@ -1,0 +1,10 @@
+{
+  "Version": "0.5.9",
+  "Passed": true,
+  "InstallerProcessPassed": true,
+  "InstalledFilesMatch": true,
+  "InstalledManagedAuditPassed": true,
+  "StandaloneManagedAuditPassed": true,
+  "UninstallPreservesUserFile": true,
+  "InstalledFileCount": 514
+}

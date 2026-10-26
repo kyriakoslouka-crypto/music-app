@@ -1,0 +1,2345 @@
+{
+  "MainForm": [
+    {
+      "Path": "MainForm",
+      "Type": "MainForm",
+      "Name": "Professional Ear Training Studio \u2014 VERSION 0.5.9",
+      "Role": "Client",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections",
+      "Type": "AccessibleTabControl",
+      "Name": "\u039A\u03CD\u03C1\u03B9\u03B5\u03C2 \u03B5\u03BD\u03CC\u03C4\u03B7\u03C4\u03B5\u03C2 \u03B5\u03C6\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE\u03C2",
+      "Role": "PageTabList",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0",
+      "Type": "AccessibleTabPage",
+      "Name": "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2",
+      "Role": "Client",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0",
+      "Type": "TableLayoutPanel",
+      "Name": "\u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03B9\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "Client",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_0",
+      "Type": "Label",
+      "Name": "\u03A0\u03C1\u03BF\u03C4\u03B5\u03B9\u03BD\u03CC\u03BC\u03B5\u03BD\u03BF concert grand",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_1",
+      "Type": "Button",
+      "Name": "\u0395\u03B3\u03BA\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03AE \u03B5\u03C0\u03B9\u03C3\u03BA\u03B5\u03C5\u03AE \u03C0\u03C1\u03B1\u03B3\u03BC\u03B1\u03C4\u03B9\u03BA\u03BF\u03CD \u03C0\u03B9\u03AC\u03BD\u03BF\u03C5 Maestro Concert Grand",
+      "Role": "PushButton",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_2",
+      "Type": "Label",
+      "Name": "\u0394\u03B9\u03BA\u03AE \u03C3\u03BF\u03C5 \u03B2\u03B9\u03B2\u03BB\u03B9\u03BF\u03B8\u03AE\u03BA\u03B7 \u03C0\u03B9\u03AC\u03BD\u03BF\u03C5",
+      "Role": "StaticText",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_3",
+      "Type": "Button",
+      "Name": "\u03A6\u03CC\u03C1\u03C4\u03C9\u03C3\u03B7 \u03C0\u03B9\u03AC\u03BD\u03BF\u03C5 SF2\u2026",
+      "Role": "PushButton",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_4",
+      "Type": "Label",
+      "Name": "\u038C\u03C1\u03B3\u03B1\u03BD\u03BF",
+      "Role": "StaticText",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_5",
+      "Type": "ComboBox",
+      "Name": "\u038C\u03C1\u03B3\u03B1\u03BD\u03BF SF2",
+      "Role": "ComboBox",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_6",
+      "Type": "Label",
+      "Name": "\u0388\u03BE\u03BF\u03B4\u03BF\u03C2",
+      "Role": "StaticText",
+      "TabIndex": 6,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_7",
+      "Type": "ComboBox",
+      "Name": "\u0388\u03BE\u03BF\u03B4\u03BF\u03C2 \u03AE\u03C7\u03BF\u03C5",
+      "Role": "ComboBox",
+      "TabIndex": 7,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_8",
+      "Type": "Label",
+      "Name": "\u03A3\u03C5\u03C3\u03BA\u03B5\u03C5\u03AD\u03C2",
+      "Role": "StaticText",
+      "TabIndex": 8,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_9",
+      "Type": "Button",
+      "Name": "\u0391\u03BD\u03B1\u03BD\u03AD\u03C9\u03C3\u03B7 \u03C3\u03C5\u03C3\u03BA\u03B5\u03C5\u03CE\u03BD",
+      "Role": "PushButton",
+      "TabIndex": 9,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_10",
+      "Type": "Label",
+      "Name": "\u039A\u03B1\u03C4\u03B7\u03B3\u03BF\u03C1\u03AF\u03B1",
+      "Role": "StaticText",
+      "TabIndex": 10,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_11",
+      "Type": "ComboBox",
+      "Name": "\u039A\u03B1\u03C4\u03B7\u03B3\u03BF\u03C1\u03AF\u03B1 \u03AC\u03C3\u03BA\u03B7\u03C3\u03B7\u03C2",
+      "Role": "ComboBox",
+      "TabIndex": 11,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_12",
+      "Type": "Label",
+      "Name": "\u0395\u03C0\u03AF\u03C0\u03B5\u03B4\u03BF",
+      "Role": "StaticText",
+      "TabIndex": 12,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_13",
+      "Type": "ComboBox",
+      "Name": "\u0395\u03C0\u03AF\u03C0\u03B5\u03B4\u03BF",
+      "Role": "ComboBox",
+      "TabIndex": 13,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_14",
+      "Type": "Label",
+      "Name": "\u0391\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7 \u03B4\u03B9\u03B1\u03C3\u03C4\u03B7\u03BC\u03AC\u03C4\u03C9\u03BD",
+      "Role": "StaticText",
+      "TabIndex": 14,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_15",
+      "Type": "ComboBox",
+      "Name": "\u03A4\u03C1\u03CC\u03C0\u03BF\u03C2 \u03B1\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7\u03C2",
+      "Role": "ComboBox",
+      "TabIndex": 15,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_16",
+      "Type": "Label",
+      "Name": "\u0391\u03C1\u03C7\u03B9\u03BA\u03AE \u03BD\u03CC\u03C4\u03B1 / \u03B8\u03B5\u03BC\u03AD\u03BB\u03B9\u03BF\u03C2",
+      "Role": "StaticText",
+      "TabIndex": 16,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_17",
+      "Type": "ComboBox",
+      "Name": "\u0391\u03C1\u03C7\u03B9\u03BA\u03AE \u03BD\u03CC\u03C4\u03B1 \u03AE \u03B8\u03B5\u03BC\u03AD\u03BB\u03B9\u03BF\u03C2",
+      "Role": "ComboBox",
+      "TabIndex": 17,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_18",
+      "Type": "Label",
+      "Name": "\u03A4\u03BF\u03BD\u03B9\u03BA\u03CC\u03C4\u03B7\u03C4\u03B1 (\u03C6\u03B8\u03CC\u03B3\u03B3\u03BF\u03B9 \u03BA\u03BB\u03AF\u03BC\u03B1\u03BA\u03B1\u03C2)",
+      "Role": "StaticText",
+      "TabIndex": 18,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_19",
+      "Type": "ComboBox",
+      "Name": "\u03A4\u03BF\u03BD\u03B9\u03BA\u03CC\u03C4\u03B7\u03C4\u03B1 \u03B1\u03C3\u03BA\u03AE\u03C3\u03B5\u03C9\u03BD",
+      "Role": "ComboBox",
+      "TabIndex": 19,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_20",
+      "Type": "Label",
+      "Name": "\u03A7\u03B1\u03BC\u03B7\u03BB\u03CC\u03C4\u03B5\u03C1\u03B7 \u03BD\u03CC\u03C4\u03B1 MIDI (21\u2013108)",
+      "Role": "StaticText",
+      "TabIndex": 20,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_21",
+      "Type": "NumericUpDown",
+      "Name": "\u039A\u03B1\u03C4\u03CE\u03C4\u03B5\u03C1\u03B7 \u03BD\u03CC\u03C4\u03B1 MIDI, \u039B\u03B1 0 = 21",
+      "Role": "SpinButton",
+      "TabIndex": 21,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_21/mainSections_0_0_21_0",
+      "Type": "UpDownButtons",
+      "Name": "\u039A\u03B1\u03C4\u03CE\u03C4\u03B5\u03C1\u03B7 \u03BD\u03CC\u03C4\u03B1 MIDI, \u039B\u03B1 0 = 21 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_21/mainSections_0_0_21_1",
+      "Type": "UpDownEdit",
+      "Name": "\u039A\u03B1\u03C4\u03CE\u03C4\u03B5\u03C1\u03B7 \u03BD\u03CC\u03C4\u03B1 MIDI, \u039B\u03B1 0 = 21",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_22",
+      "Type": "Label",
+      "Name": "\u03A5\u03C8\u03B7\u03BB\u03CC\u03C4\u03B5\u03C1\u03B7 \u03BD\u03CC\u03C4\u03B1 MIDI (21\u2013108)",
+      "Role": "StaticText",
+      "TabIndex": 22,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_23",
+      "Type": "NumericUpDown",
+      "Name": "\u0391\u03BD\u03CE\u03C4\u03B5\u03C1\u03B7 \u03BD\u03CC\u03C4\u03B1 MIDI, \u039D\u03C4\u03BF 8 = 108",
+      "Role": "SpinButton",
+      "TabIndex": 23,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_23/mainSections_0_0_23_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0391\u03BD\u03CE\u03C4\u03B5\u03C1\u03B7 \u03BD\u03CC\u03C4\u03B1 MIDI, \u039D\u03C4\u03BF 8 = 108 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_23/mainSections_0_0_23_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0391\u03BD\u03CE\u03C4\u03B5\u03C1\u03B7 \u03BD\u03CC\u03C4\u03B1 MIDI, \u039D\u03C4\u03BF 8 = 108",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_24",
+      "Type": "Label",
+      "Name": "\u039C\u03AD\u03C4\u03C1\u03BF \u03C5\u03C0\u03B1\u03B3\u03CC\u03C1\u03B5\u03C5\u03C3\u03B7\u03C2 / \u03BA\u03C4\u03C5\u03C0\u03B7\u03BC\u03AC\u03C4\u03C9\u03BD",
+      "Role": "StaticText",
+      "TabIndex": 24,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_25",
+      "Type": "ComboBox",
+      "Name": "\u039C\u03AD\u03C4\u03C1\u03BF \u03C1\u03C5\u03B8\u03BC\u03B9\u03BA\u03AE\u03C2 \u03C5\u03C0\u03B1\u03B3\u03CC\u03C1\u03B5\u03C5\u03C3\u03B7\u03C2 \u03BA\u03B1\u03B9 \u03B1\u03BD\u03B1\u03C0\u03B1\u03C1\u03B1\u03B3\u03C9\u03B3\u03AE\u03C2",
+      "Role": "ComboBox",
+      "TabIndex": 25,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_26",
+      "Type": "Label",
+      "Name": "\u03A0\u03BB\u03AE\u03B8\u03BF\u03C2 \u03BC\u03AD\u03C4\u03C1\u03C9\u03BD \u03C1\u03C5\u03B8\u03BC\u03BF\u03CD",
+      "Role": "StaticText",
+      "TabIndex": 26,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_27",
+      "Type": "NumericUpDown",
+      "Name": "\u0391\u03C1\u03B9\u03B8\u03BC\u03CC\u03C2 \u03BC\u03AD\u03C4\u03C1\u03C9\u03BD \u03C1\u03C5\u03B8\u03BC\u03BF\u03CD",
+      "Role": "SpinButton",
+      "TabIndex": 27,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_27/mainSections_0_0_27_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0391\u03C1\u03B9\u03B8\u03BC\u03CC\u03C2 \u03BC\u03AD\u03C4\u03C1\u03C9\u03BD \u03C1\u03C5\u03B8\u03BC\u03BF\u03CD \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_27/mainSections_0_0_27_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0391\u03C1\u03B9\u03B8\u03BC\u03CC\u03C2 \u03BC\u03AD\u03C4\u03C1\u03C9\u03BD \u03C1\u03C5\u03B8\u03BC\u03BF\u03CD",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_28",
+      "Type": "Label",
+      "Name": "\u03A4\u03B1\u03C7\u03CD\u03C4\u03B7\u03C4\u03B1 BPM",
+      "Role": "StaticText",
+      "TabIndex": 28,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_29",
+      "Type": "NumericUpDown",
+      "Name": "\u03A4\u03B1\u03C7\u03CD\u03C4\u03B7\u03C4\u03B1 BPM",
+      "Role": "SpinButton",
+      "TabIndex": 29,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_29/mainSections_0_0_29_0",
+      "Type": "UpDownButtons",
+      "Name": "\u03A4\u03B1\u03C7\u03CD\u03C4\u03B7\u03C4\u03B1 BPM \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_29/mainSections_0_0_29_1",
+      "Type": "UpDownEdit",
+      "Name": "\u03A4\u03B1\u03C7\u03CD\u03C4\u03B7\u03C4\u03B1 BPM",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_30",
+      "Type": "Label",
+      "Name": "\u0395\u03C0\u03B1\u03BD\u03B1\u03BB\u03AE\u03C8\u03B5\u03B9\u03C2 (0 = \u03B1\u03C0\u03B5\u03C1\u03B9\u03CC\u03C1\u03B9\u03C3\u03C4\u03B1)",
+      "Role": "StaticText",
+      "TabIndex": 30,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_31",
+      "Type": "NumericUpDown",
+      "Name": "\u0395\u03C0\u03B1\u03BD\u03B1\u03BB\u03AE\u03C8\u03B5\u03B9\u03C2: 0 \u03B3\u03B9\u03B1 \u03B1\u03C0\u03B5\u03C1\u03B9\u03CC\u03C1\u03B9\u03C3\u03C4\u03B7 \u03C3\u03C5\u03BD\u03B5\u03C7\u03AE \u03B1\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7",
+      "Role": "SpinButton",
+      "TabIndex": 31,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_31/mainSections_0_0_31_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0395\u03C0\u03B1\u03BD\u03B1\u03BB\u03AE\u03C8\u03B5\u03B9\u03C2: 0 \u03B3\u03B9\u03B1 \u03B1\u03C0\u03B5\u03C1\u03B9\u03CC\u03C1\u03B9\u03C3\u03C4\u03B7 \u03C3\u03C5\u03BD\u03B5\u03C7\u03AE \u03B1\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_31/mainSections_0_0_31_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0395\u03C0\u03B1\u03BD\u03B1\u03BB\u03AE\u03C8\u03B5\u03B9\u03C2: 0 \u03B3\u03B9\u03B1 \u03B1\u03C0\u03B5\u03C1\u03B9\u03CC\u03C1\u03B9\u03C3\u03C4\u03B7 \u03C3\u03C5\u03BD\u03B5\u03C7\u03AE \u03B1\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_32",
+      "Type": "Label",
+      "Name": "\u0394\u03C5\u03BD\u03B1\u03BC\u03B9\u03BA\u03AE (1\u2013127)",
+      "Role": "StaticText",
+      "TabIndex": 32,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_33",
+      "Type": "NumericUpDown",
+      "Name": "\u0394\u03C5\u03BD\u03B1\u03BC\u03B9\u03BA\u03AE MIDI velocity",
+      "Role": "SpinButton",
+      "TabIndex": 33,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_33/mainSections_0_0_33_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0394\u03C5\u03BD\u03B1\u03BC\u03B9\u03BA\u03AE MIDI velocity \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_33/mainSections_0_0_33_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0394\u03C5\u03BD\u03B1\u03BC\u03B9\u03BA\u03AE MIDI velocity",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_34",
+      "Type": "Label",
+      "Name": "\u03A0\u03B5\u03BD\u03C4\u03AC\u03BB",
+      "Role": "StaticText",
+      "TabIndex": 34,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_35",
+      "Type": "CheckBox",
+      "Name": "\u03A0\u03B5\u03BD\u03C4\u03AC\u03BB sustain",
+      "Role": "CheckButton",
+      "TabIndex": 35,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_36",
+      "Type": "Label",
+      "Name": "\u039F\u03BC\u03B9\u03BB\u03AF\u03B1",
+      "Role": "StaticText",
+      "TabIndex": 36,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_37",
+      "Type": "CheckBox",
+      "Name": "\u0394\u03B9\u03B1\u03BA\u03BF\u03C0\u03AE \u03BF\u03BC\u03B9\u03BB\u03AF\u03B1\u03C2 NVDA \u03C0\u03C1\u03B9\u03BD \u03C4\u03BF\u03BD \u03AE\u03C7\u03BF (\u03C0\u03C1\u03BF\u03B1\u03B9\u03C1\u03B5\u03C4\u03B9\u03BA\u03CC DLL)",
+      "Role": "CheckButton",
+      "TabIndex": 37,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_38",
+      "Type": "Label",
+      "Name": "\u03A3\u03C5\u03BD\u03B5\u03C7\u03AE\u03C2 \u03B5\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Role": "StaticText",
+      "TabIndex": 38,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_39",
+      "Type": "CheckBox",
+      "Name": "\u0391\u03C5\u03C4\u03CC\u03BC\u03B1\u03C4\u03B7 \u03C3\u03C5\u03BD\u03AD\u03C7\u03B5\u03B9\u03B1 \u03BA\u03B1\u03B9 \u03B1\u03BD\u03B1\u03C0\u03B1\u03C1\u03B1\u03B3\u03C9\u03B3\u03AE \u03B5\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7\u03C2",
+      "Role": "CheckButton",
+      "TabIndex": 39,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_40",
+      "Type": "Label",
+      "Name": "\u0391\u03BD\u03B1\u03BC\u03BF\u03BD\u03AE \u03B1\u03BD\u03B1\u03C4\u03C1\u03BF\u03C6\u03BF\u03B4\u03CC\u03C4\u03B7\u03C3\u03B7\u03C2 \u03BA\u03B1\u03B9 \u03BF\u03B4\u03B7\u03B3\u03AF\u03B1\u03C2 (\u03B4\u03B5\u03C5\u03C4\u03B5\u03C1\u03CC\u03BB\u03B5\u03C0\u03C4\u03B1)",
+      "Role": "StaticText",
+      "TabIndex": 40,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_41",
+      "Type": "NumericUpDown",
+      "Name": "\u0391\u03BD\u03B1\u03BC\u03BF\u03BD\u03AE \u03B1\u03C5\u03C4\u03CC\u03BC\u03B1\u03C4\u03B7\u03C2 \u03C3\u03C5\u03BD\u03AD\u03C7\u03B5\u03B9\u03B1\u03C2 \u03C3\u03B5 \u03B4\u03B5\u03C5\u03C4\u03B5\u03C1\u03CC\u03BB\u03B5\u03C0\u03C4\u03B1",
+      "Role": "SpinButton",
+      "TabIndex": 41,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_41/mainSections_0_0_41_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0391\u03BD\u03B1\u03BC\u03BF\u03BD\u03AE \u03B1\u03C5\u03C4\u03CC\u03BC\u03B1\u03C4\u03B7\u03C2 \u03C3\u03C5\u03BD\u03AD\u03C7\u03B5\u03B9\u03B1\u03C2 \u03C3\u03B5 \u03B4\u03B5\u03C5\u03C4\u03B5\u03C1\u03CC\u03BB\u03B5\u03C0\u03C4\u03B1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_41/mainSections_0_0_41_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0391\u03BD\u03B1\u03BC\u03BF\u03BD\u03AE \u03B1\u03C5\u03C4\u03CC\u03BC\u03B1\u03C4\u03B7\u03C2 \u03C3\u03C5\u03BD\u03AD\u03C7\u03B5\u03B9\u03B1\u03C2 \u03C3\u03B5 \u03B4\u03B5\u03C5\u03C4\u03B5\u03C1\u03CC\u03BB\u03B5\u03C0\u03C4\u03B1",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_42",
+      "Type": "Label",
+      "Name": "\u0391\u03C0\u03BF\u03BC\u03CC\u03BD\u03C9\u03C3\u03B7 \u03C0\u03BF\u03BB\u03C5\u03C6\u03C9\u03BD\u03B9\u03BA\u03AE\u03C2 \u03C6\u03C9\u03BD\u03AE\u03C2",
+      "Role": "StaticText",
+      "TabIndex": 42,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_43",
+      "Type": "ComboBox",
+      "Name": "\u0391\u03C0\u03BF\u03BC\u03CC\u03BD\u03C9\u03C3\u03B7 \u03C0\u03BF\u03BB\u03C5\u03C6\u03C9\u03BD\u03B9\u03BA\u03AE\u03C2 \u03C6\u03C9\u03BD\u03AE\u03C2",
+      "Role": "ComboBox",
+      "TabIndex": 43,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_44",
+      "Type": "Label",
+      "Name": "\u0391\u03C1\u03C7\u03AE \u03C4\u03BC\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 (\u03C7\u03C1\u03CC\u03BD\u03BF\u03B9)",
+      "Role": "StaticText",
+      "TabIndex": 44,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_45",
+      "Type": "NumericUpDown",
+      "Name": "\u0391\u03C1\u03C7\u03AE \u03C4\u03BC\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 \u03B1\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7\u03C2 \u03C3\u03B5 \u03C7\u03C1\u03CC\u03BD\u03BF\u03C5\u03C2",
+      "Role": "SpinButton",
+      "TabIndex": 45,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_45/mainSections_0_0_45_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0391\u03C1\u03C7\u03AE \u03C4\u03BC\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 \u03B1\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7\u03C2 \u03C3\u03B5 \u03C7\u03C1\u03CC\u03BD\u03BF\u03C5\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_45/mainSections_0_0_45_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0391\u03C1\u03C7\u03AE \u03C4\u03BC\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 \u03B1\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7\u03C2 \u03C3\u03B5 \u03C7\u03C1\u03CC\u03BD\u03BF\u03C5\u03C2",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_46",
+      "Type": "Label",
+      "Name": "\u03A4\u03AD\u03BB\u03BF\u03C2 \u03C4\u03BC\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 (0 = \u03CC\u03BB\u03BF)",
+      "Role": "StaticText",
+      "TabIndex": 46,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_47",
+      "Type": "NumericUpDown",
+      "Name": "\u03A4\u03AD\u03BB\u03BF\u03C2 \u03C4\u03BC\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 \u03C3\u03B5 \u03C7\u03C1\u03CC\u03BD\u03BF\u03C5\u03C2, 0 \u03B3\u03B9\u03B1 \u03BF\u03BB\u03CC\u03BA\u03BB\u03B7\u03C1\u03BF",
+      "Role": "SpinButton",
+      "TabIndex": 47,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_47/mainSections_0_0_47_0",
+      "Type": "UpDownButtons",
+      "Name": "\u03A4\u03AD\u03BB\u03BF\u03C2 \u03C4\u03BC\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 \u03C3\u03B5 \u03C7\u03C1\u03CC\u03BD\u03BF\u03C5\u03C2, 0 \u03B3\u03B9\u03B1 \u03BF\u03BB\u03CC\u03BA\u03BB\u03B7\u03C1\u03BF \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_47/mainSections_0_0_47_1",
+      "Type": "UpDownEdit",
+      "Name": "\u03A4\u03AD\u03BB\u03BF\u03C2 \u03C4\u03BC\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 \u03C3\u03B5 \u03C7\u03C1\u03CC\u03BD\u03BF\u03C5\u03C2, 0 \u03B3\u03B9\u03B1 \u03BF\u03BB\u03CC\u03BA\u03BB\u03B7\u03C1\u03BF",
+      "Role": "Text",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_48",
+      "Type": "Label",
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Role": "StaticText",
+      "TabIndex": 48,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_0/mainSections_0_0/mainSections_0_0_49",
+      "Type": "Button",
+      "Name": "\u0388\u03BD\u03B1\u03C1\u03BE\u03B7 \u03B5\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7\u03C2 (Ctrl\u002BN)",
+      "Role": "PushButton",
+      "TabIndex": 49,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1",
+      "Type": "AccessibleTabPage",
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0",
+      "Type": "TableLayoutPanel",
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_0",
+      "Type": "TextBox",
+      "Name": "\u039F\u03B4\u03B7\u03B3\u03AF\u03B1 \u03C4\u03C1\u03AD\u03C7\u03BF\u03C5\u03C3\u03B1\u03C2 \u03AC\u03C3\u03BA\u03B7\u03C3\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_1",
+      "Type": "Panel",
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_1/mainSections_1_0_1_0",
+      "Type": "ListBox",
+      "Name": "\u0391\u03C0\u03B1\u03BD\u03C4\u03AE\u03C3\u03B5\u03B9\u03C2 \u03AC\u03C3\u03BA\u03B7\u03C3\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_1/mainSections_1_0_1_1",
+      "Type": "TextBox",
+      "Name": "\u0393\u03C1\u03B1\u03C0\u03C4\u03AE \u03B1\u03C0\u03AC\u03BD\u03C4\u03B7\u03C3\u03B7 \u03C7\u03C9\u03C1\u03AF\u03C2 \u03C0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B1",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_2",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 3",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_2/mainSections_1_0_2_0",
+      "Type": "Button",
+      "Name": "\u039A\u03C4\u03CD\u03C0\u03B7\u03BC\u03B1 \u03C1\u03C5\u03B8\u03BC\u03BF\u03CD \u03BC\u03B5 F8",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_2/mainSections_1_0_2_1",
+      "Type": "Button",
+      "Name": "\u039A\u03B1\u03B8\u03B1\u03C1\u03B9\u03C3\u03BC\u03CC\u03C2 \u03BA\u03C4\u03C5\u03C0\u03B7\u03BC\u03AC\u03C4\u03C9\u03BD",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 4",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_0",
+      "Type": "Button",
+      "Name": "\u039D\u03AD\u03B1 \u03AC\u03C3\u03BA\u03B7\u03C3\u03B7 (Ctrl\u002BN)",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_1",
+      "Type": "Button",
+      "Name": "\u0395\u03C0\u03B1\u03BD\u03AC\u03BB\u03B7\u03C8\u03B7 (Ctrl\u002BR)",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_2",
+      "Type": "Button",
+      "Name": "\u03A0\u03B1\u03CD\u03C3\u03B7 / \u03C3\u03C5\u03BD\u03AD\u03C7\u03B5\u03B9\u03B1 (Ctrl\u002BP)",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_3",
+      "Type": "Button",
+      "Name": "\u0391\u03BA\u03C1\u03CC\u03B1\u03C3\u03B7 \u03B3\u03C1\u03B1\u03C0\u03C4\u03AE\u03C2 \u03B1\u03C0\u03AC\u03BD\u03C4\u03B7\u03C3\u03B7\u03C2 (Ctrl\u002BShift\u002BR)",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_4",
+      "Type": "Button",
+      "Name": "\u03A5\u03C0\u03BF\u03B2\u03BF\u03BB\u03AE (Ctrl\u002BEnter)",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_5",
+      "Type": "Button",
+      "Name": "\u03A0\u03C1\u03BF\u03B2\u03BF\u03BB\u03AE \u03C0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B1\u03C2 \u03BC\u03B5\u03C4\u03AC \u03C4\u03B7\u03BD \u03B1\u03C0\u03AC\u03BD\u03C4\u03B7\u03C3\u03B7",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_3/mainSections_1_0_3_6",
+      "Type": "Button",
+      "Name": "\u0391\u03BD\u03AC\u03B3\u03BD\u03C9\u03C3\u03B7 \u03C4\u03B5\u03BB\u03B5\u03C5\u03C4\u03B1\u03AF\u03BF\u03C5 \u03C3\u03C6\u03AC\u03BB\u03BC\u03B1\u03C4\u03BF\u03C2 \u03AE\u03C7\u03BF\u03C5 \u03BC\u03B5 F6",
+      "Role": "None",
+      "TabIndex": 6,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_1/mainSections_1_0/mainSections_1_0_4",
+      "Type": "TextBox",
+      "Name": "\u039A\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03BA\u03B1\u03B9 \u03B1\u03C0\u03BF\u03C4\u03AD\u03BB\u03B5\u03C3\u03BC\u03B1",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_2",
+      "Type": "AccessibleTabPage",
+      "Name": "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_2/mainSections_2_0",
+      "Type": "TableLayoutPanel",
+      "Name": "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_2/mainSections_2_0/mainSections_2_0_0",
+      "Type": "Button",
+      "Name": "\u0395\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7 \u03C0\u03C1\u03BF\u03C4\u03B5\u03B9\u03BD\u03CC\u03BC\u03B5\u03BD\u03B7\u03C2 \u03B1\u03B4\u03C5\u03BD\u03B1\u03BC\u03AF\u03B1\u03C2",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_2/mainSections_2_0/mainSections_2_0_1",
+      "Type": "TextBox",
+      "Name": "\u03A3\u03C4\u03B1\u03C4\u03B9\u03C3\u03C4\u03B9\u03BA\u03AC \u03BA\u03B1\u03B9 \u03B9\u03C3\u03C4\u03BF\u03C1\u03B9\u03BA\u03CC",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3",
+      "Type": "AccessibleTabPage",
+      "Name": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0",
+      "Type": "TableLayoutPanel",
+      "Name": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_0",
+      "Type": "Label",
+      "Name": "\u0391\u03BD\u03B5\u03BE\u03AC\u03C1\u03C4\u03B7\u03C4\u03BF \u03C0\u03C1\u03BF\u03C6\u03AF\u03BB",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_1",
+      "Type": "ComboBox",
+      "Name": "\u0395\u03BA\u03C0\u03B1\u03B9\u03B4\u03B5\u03C5\u03C4\u03B9\u03BA\u03CC \u03B5\u03BE\u03B5\u03C4\u03B1\u03C3\u03C4\u03B9\u03BA\u03CC \u03C0\u03C1\u03BF\u03C6\u03AF\u03BB",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_2",
+      "Type": "Label",
+      "Name": "\u039B\u03B5\u03C0\u03C4\u03AC, 0 = \u03C7\u03C9\u03C1\u03AF\u03C2 \u03CC\u03C1\u03B9\u03BF",
+      "Role": "StaticText",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_3",
+      "Type": "NumericUpDown",
+      "Name": "\u03A7\u03C1\u03BF\u03BD\u03B9\u03BA\u03CC \u03CC\u03C1\u03B9\u03BF \u03BB\u03B5\u03C0\u03C4\u03AC, 0 \u03B3\u03B9\u03B1 \u03C7\u03C9\u03C1\u03AF\u03C2 \u03CC\u03C1\u03B9\u03BF",
+      "Role": "SpinButton",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_3/mainSections_3_0_0_3_0",
+      "Type": "UpDownButtons",
+      "Name": "\u03A7\u03C1\u03BF\u03BD\u03B9\u03BA\u03CC \u03CC\u03C1\u03B9\u03BF \u03BB\u03B5\u03C0\u03C4\u03AC, 0 \u03B3\u03B9\u03B1 \u03C7\u03C9\u03C1\u03AF\u03C2 \u03CC\u03C1\u03B9\u03BF \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_0/mainSections_3_0_0_3/mainSections_3_0_0_3_1",
+      "Type": "UpDownEdit",
+      "Name": "\u03A7\u03C1\u03BF\u03BD\u03B9\u03BA\u03CC \u03CC\u03C1\u03B9\u03BF \u03BB\u03B5\u03C0\u03C4\u03AC, 0 \u03B3\u03B9\u03B1 \u03C7\u03C9\u03C1\u03AF\u03C2 \u03CC\u03C1\u03B9\u03BF",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_1",
+      "Type": "TextBox",
+      "Name": "\u03A0\u03B5\u03C1\u03B9\u03B3\u03C1\u03B1\u03C6\u03AE \u03BA\u03B1\u03B9 \u03B1\u03BD\u03B5\u03C0\u03AF\u03C3\u03B7\u03BC\u03BF\u03C2 \u03C7\u03B1\u03C1\u03B1\u03BA\u03C4\u03AE\u03C1\u03B1\u03C2 \u03C0\u03C1\u03BF\u03C6\u03AF\u03BB",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 3",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_0",
+      "Type": "Button",
+      "Name": "\u0388\u03BD\u03B1\u03C1\u03BE\u03B7 \u03B5\u03BE\u03AD\u03C4\u03B1\u03C3\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_1",
+      "Type": "Button",
+      "Name": "\u03A3\u03C5\u03BD\u03AD\u03C7\u03B9\u03C3\u03B7 \u03B1\u03C0\u03BF\u03B8\u03B7\u03BA\u03B5\u03C5\u03BC\u03AD\u03BD\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_2",
+      "Type": "Button",
+      "Name": "\u03A0\u03B1\u03C1\u03AC\u03BB\u03B5\u03B9\u03C8\u03B7 \u03C4\u03C1\u03AD\u03C7\u03BF\u03C5\u03C3\u03B1\u03C2",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_3",
+      "Type": "Button",
+      "Name": "\u03A4\u03B5\u03C1\u03BC\u03B1\u03C4\u03B9\u03C3\u03BC\u03CC\u03C2 \u03BA\u03B1\u03B9 \u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_4",
+      "Type": "Button",
+      "Name": "\u0395\u03C0\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03C3\u03B5 \u03B5\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_2/mainSections_3_0_2_5",
+      "Type": "Button",
+      "Name": "\u03A0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B5\u03C2 \u03BF\u03BB\u03BF\u03BA\u03BB\u03B7\u03C1\u03C9\u03BC\u03AD\u03BD\u03B7\u03C2 \u03B5\u03BE\u03AD\u03C4\u03B1\u03C3\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_3",
+      "Type": "TextBox",
+      "Name": "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2 \u03B5\u03BE\u03AD\u03C4\u03B1\u03C3\u03B7\u03C2 \u03BA\u03B1\u03B9 \u03B1\u03BD\u03B1\u03BB\u03C5\u03C4\u03B9\u03BA\u03AE \u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_4",
+      "Type": "ListBox",
+      "Name": "\u0399\u03C3\u03C4\u03BF\u03C1\u03B9\u03BA\u03CC \u03BF\u03BB\u03BF\u03BA\u03BB\u03B7\u03C1\u03C9\u03BC\u03AD\u03BD\u03C9\u03BD \u03B5\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03C9\u03BD",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_5",
+      "Type": "ListBox",
+      "Name": "\u039B\u03B1\u03BD\u03B8\u03B1\u03C3\u03BC\u03AD\u03BD\u03B1 \u03C0\u03B1\u03C1\u03B1\u03B4\u03B5\u03AF\u03B3\u03BC\u03B1\u03C4\u03B1 \u03B3\u03B9\u03B1 \u03B1\u03BA\u03C1\u03B9\u03B2\u03AE \u03B5\u03C0\u03B1\u03BD\u03AC\u03BB\u03B7\u03C8\u03B7",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_6",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0395\u03BE\u03B5\u03C4\u03AC\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03B3\u03AE \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 7",
+      "Role": "None",
+      "TabIndex": 6,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_6/mainSections_3_0_6_0",
+      "Type": "Button",
+      "Name": "\u03A0\u03C1\u03BF\u03C3\u03B1\u03C1\u03BC\u03BF\u03C3\u03BC\u03AD\u03BD\u03B7 \u03B5\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7 \u03B1\u03B4\u03C5\u03BD\u03B1\u03BC\u03AF\u03B1\u03C2",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_6/mainSections_3_0_6_1",
+      "Type": "Button",
+      "Name": "\u0395\u03C0\u03B1\u03BD\u03AC\u03BB\u03B7\u03C8\u03B7 \u03B5\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03BF\u03C5 \u03BB\u03AC\u03B8\u03BF\u03C5\u03C2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_3/mainSections_3_0/mainSections_3_0_6/mainSections_3_0_6_2",
+      "Type": "Button",
+      "Name": "\u0391\u03BD\u03B1\u03BD\u03AD\u03C9\u03C3\u03B7 \u03B9\u03C3\u03C4\u03BF\u03C1\u03B9\u03BA\u03BF\u03CD/\u03B1\u03B4\u03C5\u03BD\u03B1\u03BC\u03B9\u03CE\u03BD",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_4",
+      "Type": "AccessibleTabPage",
+      "Name": "\u039F\u03B4\u03B7\u03B3\u03AF\u03B5\u03C2",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_4/mainSections_4_0",
+      "Type": "TextBox",
+      "Name": "\u039F\u03B4\u03B7\u03B3\u03AF\u03B5\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03B5\u03C1\u03B9\u03BF\u03C1\u03B9\u03C3\u03BC\u03BF\u03AF \u03AD\u03BA\u03B4\u03BF\u03C3\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5",
+      "Type": "AccessibleTabPage",
+      "Name": "\u0391\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03B1 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03B1",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0",
+      "Type": "TableLayoutPanel",
+      "Name": "\u0391\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03B1 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03B1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_0",
+      "Type": "Label",
+      "Name": "\u03A4\u03C5\u03C7\u03B1\u03AF\u03B1 \u03B8\u03AD\u03BC\u03B1\u03C4\u03B1 \u03B1\u03C0\u03CC \u03C4\u03B9\u03C2 \u03B5\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03B5\u03C2 \u03BA\u03B1\u03C4\u03B7\u03B3\u03BF\u03C1\u03AF\u03B5\u03C2. \u039B\u03CD\u03C3\u03B5\u03B9\u03C2 \u03BA\u03B1\u03B9 \u03C0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B5\u03C2 \u03BC\u03B5\u03C4\u03AC \u03C4\u03BF \u03C4\u03AD\u03BB\u03BF\u03C2. Space \u03B5\u03C0\u03B9\u03BB\u03AD\u03B3\u03B5\u03B9/\u03B1\u03C0\u03BF\u03B5\u03C0\u03B9\u03BB\u03AD\u03B3\u03B5\u03B9 \u03BA\u03B1\u03C4\u03B7\u03B3\u03BF\u03C1\u03AF\u03B1. 0 \u03BB\u03B5\u03C0\u03C4\u03AC: \u03C7\u03C9\u03C1\u03AF\u03C2 \u03C7\u03C1\u03BF\u03BD\u03B9\u03BA\u03CC \u03CC\u03C1\u03B9\u03BF.",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0391\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03B1 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03B1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_0",
+      "Type": "Label",
+      "Name": "\u0395\u03C0\u03AF\u03C0\u03B5\u03B4\u03BF",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_1",
+      "Type": "ComboBox",
+      "Name": "\u0395\u03C0\u03AF\u03C0\u03B5\u03B4\u03BF \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03BF\u03C2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_2",
+      "Type": "Label",
+      "Name": "\u0395\u03C1\u03C9\u03C4\u03AE\u03C3\u03B5\u03B9\u03C2",
+      "Role": "StaticText",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_3",
+      "Type": "NumericUpDown",
+      "Name": "\u03A0\u03BB\u03AE\u03B8\u03BF\u03C2 \u03B5\u03C1\u03C9\u03C4\u03AE\u03C3\u03B5\u03C9\u03BD \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03BF\u03C2",
+      "Role": "SpinButton",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_3/mainSections_5_0_1_3_0",
+      "Type": "UpDownButtons",
+      "Name": "\u03A0\u03BB\u03AE\u03B8\u03BF\u03C2 \u03B5\u03C1\u03C9\u03C4\u03AE\u03C3\u03B5\u03C9\u03BD \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03BF\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_3/mainSections_5_0_1_3_1",
+      "Type": "UpDownEdit",
+      "Name": "\u03A0\u03BB\u03AE\u03B8\u03BF\u03C2 \u03B5\u03C1\u03C9\u03C4\u03AE\u03C3\u03B5\u03C9\u03BD \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03BF\u03C2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_4",
+      "Type": "Label",
+      "Name": "\u039B\u03B5\u03C0\u03C4\u03AC",
+      "Role": "StaticText",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_5",
+      "Type": "NumericUpDown",
+      "Name": "\u03A7\u03C1\u03BF\u03BD\u03B9\u03BA\u03CC \u03CC\u03C1\u03B9\u03BF \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03C3\u03B5 \u03BB\u03B5\u03C0\u03C4\u03AC, 0 \u03C7\u03C9\u03C1\u03AF\u03C2 \u03CC\u03C1\u03B9\u03BF",
+      "Role": "SpinButton",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_5/mainSections_5_0_1_5_0",
+      "Type": "UpDownButtons",
+      "Name": "\u03A7\u03C1\u03BF\u03BD\u03B9\u03BA\u03CC \u03CC\u03C1\u03B9\u03BF \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03C3\u03B5 \u03BB\u03B5\u03C0\u03C4\u03AC, 0 \u03C7\u03C9\u03C1\u03AF\u03C2 \u03CC\u03C1\u03B9\u03BF \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_5/mainSections_5_0_1_5_1",
+      "Type": "UpDownEdit",
+      "Name": "\u03A7\u03C1\u03BF\u03BD\u03B9\u03BA\u03CC \u03CC\u03C1\u03B9\u03BF \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03C3\u03B5 \u03BB\u03B5\u03C0\u03C4\u03AC, 0 \u03C7\u03C9\u03C1\u03AF\u03C2 \u03CC\u03C1\u03B9\u03BF",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_6",
+      "Type": "Label",
+      "Name": "\u0391\u03BA\u03C1\u03BF\u03AC\u03C3\u03B5\u03B9\u03C2",
+      "Role": "StaticText",
+      "TabIndex": 6,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_7",
+      "Type": "NumericUpDown",
+      "Name": "\u0391\u03BA\u03C1\u03BF\u03AC\u03C3\u03B5\u03B9\u03C2 \u03B1\u03BD\u03AC \u03B5\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7 \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5",
+      "Role": "SpinButton",
+      "TabIndex": 7,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_7/mainSections_5_0_1_7_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0391\u03BA\u03C1\u03BF\u03AC\u03C3\u03B5\u03B9\u03C2 \u03B1\u03BD\u03AC \u03B5\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7 \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_1/mainSections_5_0_1_7/mainSections_5_0_1_7_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0391\u03BA\u03C1\u03BF\u03AC\u03C3\u03B5\u03B9\u03C2 \u03B1\u03BD\u03AC \u03B5\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7 \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_2",
+      "Type": "CheckedListBox",
+      "Name": "\u039A\u03B1\u03C4\u03B7\u03B3\u03BF\u03C1\u03AF\u03B5\u03C2 \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03BF\u03C2",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0391\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03B1 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03B1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 4",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_0",
+      "Type": "Button",
+      "Name": "\u0388\u03BD\u03B1\u03C1\u03BE\u03B7 \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03BF\u03C2",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_1",
+      "Type": "Button",
+      "Name": "\u03A3\u03C5\u03BD\u03AD\u03C7\u03B9\u03C3\u03B7 \u03B1\u03C0\u03BF\u03B8\u03B7\u03BA\u03B5\u03C5\u03BC\u03AD\u03BD\u03B7\u03C2 \u03B5\u03BE\u03AD\u03C4\u03B1\u03C3\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_2",
+      "Type": "Button",
+      "Name": "\u03A0\u03B1\u03C1\u03AC\u03BB\u03B5\u03B9\u03C8\u03B7 \u03B5\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_3",
+      "Type": "Button",
+      "Name": "\u03A4\u03B5\u03C1\u03BC\u03B1\u03C4\u03B9\u03C3\u03BC\u03CC\u03C2 \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03BA\u03B1\u03B9 \u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_4",
+      "Type": "Button",
+      "Name": "\u0395\u03C0\u03B9\u03C3\u03C4\u03C1\u03BF\u03C6\u03AE \u03C3\u03C4\u03B7\u03BD \u03B5\u03BE\u03AC\u03C3\u03BA\u03B7\u03C3\u03B7",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_3/mainSections_5_0_3_5",
+      "Type": "Button",
+      "Name": "\u03A0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B5\u03C2 \u03B5\u03C0\u03B9\u03BB\u03B5\u03B3\u03BC\u03AD\u03BD\u03BF\u03C5 \u03BF\u03BB\u03BF\u03BA\u03BB\u03B7\u03C1\u03C9\u03BC\u03AD\u03BD\u03BF\u03C5 \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_4",
+      "Type": "TextBox",
+      "Name": "\u039A\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03BA\u03B1\u03B9 \u03B1\u03BD\u03B1\u03C6\u03BF\u03C1\u03AC \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03BF\u03C5 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03BF\u03C2",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_5/mainSections_5_0/mainSections_5_0_5",
+      "Type": "ListBox",
+      "Name": "\u0399\u03C3\u03C4\u03BF\u03C1\u03B9\u03BA\u03CC \u03B1\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03C9\u03BD \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03B9\u03C3\u03BC\u03AC\u03C4\u03C9\u03BD",
+      "Role": "None",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6",
+      "Type": "AccessibleTabPage",
+      "Name": "\u0392\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03CC\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 6,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0",
+      "Type": "TableLayoutPanel",
+      "Name": "\u0392\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03CC\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_0",
+      "Type": "Label",
+      "Name": "\u0399\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03BC\u03B1 \u03B1\u03C0\u03CC \u03C4\u03B9\u03C2 \u03B4\u03B9\u03BA\u03AD\u03C2 \u03C3\u03BF\u03C5 \u03B7\u03C7\u03BF\u03B3\u03C1\u03B1\u03C6\u03B7\u03BC\u03AD\u03BD\u03B5\u03C2 \u03C6\u03C9\u03BD\u03AD\u03C2. \u0395\u03B9\u03C3\u03AC\u03B3\u03B1\u03B3\u03B5 \u03BC\u03B1\u03B6\u03AF \u03CC\u03BB\u03B1 \u03C4\u03B1 ZIP. \u0397 \u03B1\u03C1\u03C7\u03B9\u03BA\u03AE \u03BA\u03BB\u03AF\u03BC\u03B1\u03BA\u03B1 \u03B5\u03AF\u03BD\u03B1\u03B9 \u03B4\u03B9\u03B1\u03C4\u03BF\u03BD\u03B9\u03BA\u03CC \u03C0\u03C1\u03CC\u03C4\u03C5\u03C0\u03BF 72 \u03BC\u03BF\u03C1\u03AF\u03C9\u03BD. \u039C\u03C0\u03BF\u03C1\u03B5\u03AF\u03C2 \u03BD\u03B1 \u03B1\u03BB\u03BB\u03AC\u03BE\u03B5\u03B9\u03C2 \u03C4\u03B1 \u03B5\u03C0\u03C4\u03AC \u03B4\u03B9\u03B1\u03C3\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1. \u0394\u03B5\u03BD \u03B5\u03AF\u03BD\u03B1\u03B9 \u03B1\u03BA\u03CC\u03BC\u03B7 \u03B1\u03C3\u03BA\u03AE\u03C3\u03B5\u03B9\u03C2 \u03B1\u03BD\u03B1\u03B3\u03BD\u03CE\u03C1\u03B9\u03C3\u03B7\u03C2 \u03AE\u03C7\u03C9\u03BD, \u03C6\u03B8\u03BF\u03C1\u03CE\u03BD \u03AE \u03C7\u03C1\u03BF\u03CE\u03BD. Ctrl\u002BL: \u03AD\u03BD\u03B1\u03C1\u03BE\u03B7, Esc: \u03B4\u03B9\u03B1\u03BA\u03BF\u03C0\u03AE. \u03A7\u03C1\u03B7\u03C3\u03B9\u03BC\u03BF\u03C0\u03BF\u03B9\u03B5\u03AF\u03C4\u03B1\u03B9 \u03B7 \u03AD\u03BE\u03BF\u03B4\u03BF\u03C2 \u03AE\u03C7\u03BF\u03C5 \u03C4\u03C9\u03BD \u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03C9\u03BD.",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0392\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03CC\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_0",
+      "Type": "Label",
+      "Name": "\u03A6\u03C9\u03BD\u03AE",
+      "Role": "StaticText",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_1",
+      "Type": "ComboBox",
+      "Name": "\u03A6\u03C9\u03BD\u03AE \u03B2\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03BF\u03CD \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_2",
+      "Type": "Label",
+      "Name": "\u03A6\u03B8\u03CC\u03B3\u03B3\u03BF\u03C2",
+      "Role": "StaticText",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_3",
+      "Type": "ComboBox",
+      "Name": "\u03A6\u03B8\u03CC\u03B3\u03B3\u03BF\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03B1\u03C4\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_4",
+      "Type": "Label",
+      "Name": "\u039D\u03B7 Hz",
+      "Role": "StaticText",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_5",
+      "Type": "NumericUpDown",
+      "Name": "\u0392\u03AC\u03C3\u03B7 \u039D\u03B7 \u03C3\u03B5 Hz",
+      "Role": "SpinButton",
+      "TabIndex": 5,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_5/mainSections_6_0_1_5_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0392\u03AC\u03C3\u03B7 \u039D\u03B7 \u03C3\u03B5 Hz \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_5/mainSections_6_0_1_5_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0392\u03AC\u03C3\u03B7 \u039D\u03B7 \u03C3\u03B5 Hz",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_6",
+      "Type": "Label",
+      "Name": "\u039C\u03CC\u03C1\u03B9\u03B1 \u00B1",
+      "Role": "StaticText",
+      "TabIndex": 6,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_7",
+      "Type": "NumericUpDown",
+      "Name": "\u039C\u03B5\u03C4\u03B1\u03C6\u03BF\u03C1\u03AC \u03C3\u03B5 \u03BC\u03CC\u03C1\u03B9\u03B1, 72 \u03B1\u03BD\u03AC \u03BF\u03BA\u03C4\u03AC\u03B2\u03B1",
+      "Role": "SpinButton",
+      "TabIndex": 7,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_7/mainSections_6_0_1_7_0",
+      "Type": "UpDownButtons",
+      "Name": "\u039C\u03B5\u03C4\u03B1\u03C6\u03BF\u03C1\u03AC \u03C3\u03B5 \u03BC\u03CC\u03C1\u03B9\u03B1, 72 \u03B1\u03BD\u03AC \u03BF\u03BA\u03C4\u03AC\u03B2\u03B1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_7/mainSections_6_0_1_7_1",
+      "Type": "UpDownEdit",
+      "Name": "\u039C\u03B5\u03C4\u03B1\u03C6\u03BF\u03C1\u03AC \u03C3\u03B5 \u03BC\u03CC\u03C1\u03B9\u03B1, 72 \u03B1\u03BD\u03AC \u03BF\u03BA\u03C4\u03AC\u03B2\u03B1",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_8",
+      "Type": "Label",
+      "Name": "\u0388\u03BD\u03C4\u03B1\u03C3\u03B7",
+      "Role": "StaticText",
+      "TabIndex": 8,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_9",
+      "Type": "NumericUpDown",
+      "Name": "\u0388\u03BD\u03C4\u03B1\u03C3\u03B7 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7 \u03C3\u03B5 \u03C0\u03BF\u03C3\u03BF\u03C3\u03C4\u03CC",
+      "Role": "SpinButton",
+      "TabIndex": 9,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_9/mainSections_6_0_1_9_0",
+      "Type": "UpDownButtons",
+      "Name": "\u0388\u03BD\u03C4\u03B1\u03C3\u03B7 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7 \u03C3\u03B5 \u03C0\u03BF\u03C3\u03BF\u03C3\u03C4\u03CC \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "SpinButton",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_9/mainSections_6_0_1_9_1",
+      "Type": "UpDownEdit",
+      "Name": "\u0388\u03BD\u03C4\u03B1\u03C3\u03B7 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7 \u03C3\u03B5 \u03C0\u03BF\u03C3\u03BF\u03C3\u03C4\u03CC",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_10",
+      "Type": "Label",
+      "Name": "\u0394\u03B9\u03B1\u03C3\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1",
+      "Role": "StaticText",
+      "TabIndex": 10,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_11",
+      "Type": "TextBox",
+      "Name": "\u0395\u03C0\u03C4\u03AC \u03B4\u03B9\u03B1\u03C3\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1 \u03C3\u03B5 \u03BC\u03CC\u03C1\u03B9\u03B1, \u03AC\u03B8\u03C1\u03BF\u03B9\u03C3\u03BC\u03B1 72",
+      "Role": "None",
+      "TabIndex": 11,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_2",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0392\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03CC\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 3",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_2/mainSections_6_0_2_0",
+      "Type": "Button",
+      "Name": "\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD \u03C4\u03C9\u03BD ZIP \u03C6\u03C9\u03BD\u03CE\u03BD \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_2/mainSections_6_0_2_1",
+      "Type": "Button",
+      "Name": "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7 \u03B5\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE\u03C2",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": false
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_2/mainSections_6_0_2_2",
+      "Type": "Button",
+      "Name": "\u0388\u03BD\u03B1\u03C1\u03BE\u03B7 \u03B9\u03C3\u03BF\u03BA\u03C1\u03B1\u03C4\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 (Ctrl\u002BL)",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_2/mainSections_6_0_2_3",
+      "Type": "Button",
+      "Name": "\u0394\u03B9\u03B1\u03BA\u03BF\u03C0\u03AE \u03B9\u03C3\u03BF\u03BA\u03C1\u03B1\u03C4\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 (Esc)",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "MainForm/mainSections/mainSections_6/mainSections_6_0/mainSections_6_0_3",
+      "Type": "TextBox",
+      "Name": "\u039A\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03B2\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03BF\u03CD \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    }
+  ],
+  "PresentationRegression": [
+    {
+      "Category": "\u0394\u03B9\u03B1\u03C3\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A3\u03C5\u03B3\u03C7\u03BF\u03C1\u03B4\u03AF\u03B5\u03C2",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u0391\u03BD\u03B1\u03C3\u03C4\u03C1\u03BF\u03C6\u03AD\u03C2",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u039D\u03CC\u03C4\u03B5\u03C2",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A0\u03C4\u03CE\u03C3\u03B5\u03B9\u03C2",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u039A\u03BB\u03AF\u03BC\u03B1\u03BA\u03B5\u03C2",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A4\u03C1\u03CC\u03C0\u03BF\u03B9",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A1\u03C5\u03B8\u03BC\u03B9\u03BA\u03AC \u03C3\u03C7\u03AE\u03BC\u03B1\u03C4\u03B1",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u039C\u03AD\u03C4\u03C1\u03B1",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A1\u03C5\u03B8\u03BC\u03B9\u03BA\u03AE \u03C5\u03C0\u03B1\u03B3\u03CC\u03C1\u03B5\u03C5\u03C3\u03B7",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A1\u03C5\u03B8\u03BC\u03B9\u03BA\u03AE \u03B1\u03BD\u03B1\u03C0\u03B1\u03C1\u03B1\u03B3\u03C9\u03B3\u03AE",
+      "AnswerKind": "Taps",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u039C\u03B5\u03BB\u03C9\u03B4\u03B9\u03BA\u03CC \u03BD\u03C4\u03B9\u03BA\u03C4\u03AD",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u0391\u03C1\u03BC\u03BF\u03BD\u03B9\u03BA\u03CC \u03BD\u03C4\u03B9\u03BA\u03C4\u03AD",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u0392\u03B1\u03B8\u03BC\u03AF\u03B4\u03B5\u03C2",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A4\u03BF\u03BD\u03B9\u03BA\u03CC \u03C3\u03BF\u03BB\u03C6\u03AD\u03B6",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u0391\u03C4\u03BF\u03BD\u03B9\u03BA\u03CC \u03C3\u03BF\u03BB\u03C6\u03AD\u03B6",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u039C\u03B5\u03BB\u03C9\u03B4\u03B9\u03BA\u03AE \u03BC\u03BD\u03AE\u03BC\u03B7",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u0394\u03AF\u03C6\u03C9\u03BD\u03B7 \u03C0\u03BF\u03BB\u03C5\u03C6\u03C9\u03BD\u03AF\u03B1",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A4\u03C1\u03AF\u03C6\u03C9\u03BD\u03B7 \u03C0\u03BF\u03BB\u03C5\u03C6\u03C9\u03BD\u03AF\u03B1",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A4\u03B5\u03C4\u03C1\u03AC\u03C6\u03C9\u03BD\u03B7 \u03C0\u03BF\u03BB\u03C5\u03C6\u03C9\u03BD\u03AF\u03B1",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u0395\u03C3\u03C9\u03C4\u03B5\u03C1\u03B9\u03BA\u03AE \u03B3\u03C1\u03B1\u03BC\u03BC\u03AE",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A7\u03C1\u03C9\u03BC\u03B1\u03C4\u03B9\u03BA\u03AE \u03B1\u03C1\u03BC\u03BF\u03BD\u03AF\u03B1",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u0394\u03C9\u03B4\u03B5\u03BA\u03B1\u03C6\u03B8\u03BF\u03B3\u03B3\u03B9\u03BA\u03AD\u03C2 \u03C3\u03B5\u03B9\u03C1\u03AD\u03C2",
+      "AnswerKind": "Text",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u039C\u03B5\u03C4\u03B1\u03C3\u03C7\u03B7\u03BC\u03B1\u03C4\u03B9\u03C3\u03BC\u03BF\u03AF \u03C3\u03B5\u03B9\u03C1\u03AC\u03C2",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A4\u03C1\u03BF\u03C0\u03B9\u03BA\u03AC \u03C7\u03B1\u03C1\u03B1\u03BA\u03C4\u03B7\u03C1\u03B9\u03C3\u03C4\u03B9\u03BA\u03AC",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A0\u03C1\u03BF\u03C7\u03C9\u03C1\u03B7\u03BC\u03AD\u03BD\u03B7 \u03B1\u03BD\u03AC\u03BB\u03C5\u03C3\u03B7",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u03A3\u03CD\u03BD\u03B8\u03B5\u03C4\u03B1 \u03B4\u03B9\u03B1\u03C3\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    },
+    {
+      "Category": "\u0395\u03BA\u03C4\u03B5\u03C4\u03B1\u03BC\u03AD\u03BD\u03B5\u03C2 \u03C3\u03C5\u03B3\u03C7\u03BF\u03C1\u03B4\u03AF\u03B5\u03C2",
+      "AnswerKind": "Choice",
+      "DeferredPlayback": true,
+      "CacheInvalidated": true,
+      "NoPreselectedAnswer": true
+    }
+  ],
+  "ExamBoundaryRegression": [
+    {
+      "State": "ExpiredBeforeTimer",
+      "Command": "Replay",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "ExpiredBeforeTimer",
+      "Command": "Submit",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "ExpiredBeforeTimer",
+      "Command": "PreviewAnswer",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "Finished",
+      "Command": "Replay",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "Finished",
+      "Command": "Submit",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    },
+    {
+      "State": "Finished",
+      "Command": "PreviewAnswer",
+      "Rejected": true,
+      "HistoryUnchanged": true
+    }
+  ],
+  "AudioDiagnosticRegression": {
+    "Passed": true,
+    "Shortcut": "F6",
+    "ReadOnly": true,
+    "ReadingStartsAtFirstLine": true,
+    "DeviceAndOriginalErrorPreserved": true,
+    "ModalCopyRequired": false,
+    "PhysicalAudioTested": false
+  },
+  "AutomaticPracticeRegression": {
+    "Passed": true,
+    "Executed": 6,
+    "Checks": [
+      {
+        "Name": "Opt-in only",
+        "Passed": true
+      },
+      {
+        "Name": "Same answered question advances after wait",
+        "Passed": true
+      },
+      {
+        "Name": "Esc/Stop cancels pending action",
+        "Passed": true
+      },
+      {
+        "Name": "Finished exam never falls back to automatic practice",
+        "Passed": true
+      },
+      {
+        "Name": "Leaving practice cancels the action",
+        "Passed": true
+      },
+      {
+        "Name": "Replaced question rejects stale continuation",
+        "Passed": true
+      }
+    ],
+    "SimulatedWait": true,
+    "PhysicalAudioTested": false
+  },
+  "NewStudyFeatures": {
+    "Passed": true,
+    "TabName": "\u0391\u03C0\u03C1\u03CC\u03BF\u03C0\u03C4\u03B1 \u03B4\u03B9\u03B1\u03B3\u03C9\u03BD\u03AF\u03C3\u03BC\u03B1\u03C4\u03B1",
+    "TabCount": 7,
+    "NativeScoreControls": [
+      {
+        "Path": "ScoreViewer",
+        "Type": "ScoreViewer",
+        "Name": "\u03A0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B1 \u2014 \u03B6\u03B7\u03C4\u03BF\u03CD\u03BC\u03B5\u03BD\u03BF \u03BC\u03BF\u03C5\u03C3\u03B9\u03BA\u03CC \u03BC\u03AD\u03C1\u03BF\u03C2",
+        "Role": "Client",
+        "TabIndex": 0,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0",
+        "Type": "TableLayoutPanel",
+        "Name": "\u03A0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B1 \u2014 \u03B6\u03B7\u03C4\u03BF\u03CD\u03BC\u03B5\u03BD\u03BF \u03BC\u03BF\u03C5\u03C3\u03B9\u03BA\u03CC \u03BC\u03AD\u03C1\u03BF\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+        "Role": "None",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0",
+        "Type": "FlowLayoutPanel",
+        "Name": "\u03A0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B1 \u2014 \u03B6\u03B7\u03C4\u03BF\u03CD\u03BC\u03B5\u03BD\u03BF \u03BC\u03BF\u03C5\u03C3\u03B9\u03BA\u03CC \u03BC\u03AD\u03C1\u03BF\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+        "Role": "None",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_0",
+        "Type": "ComboBox",
+        "Name": "\u0395\u03C1\u03CE\u03C4\u03B7\u03C3\u03B7 \u03C0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B1\u03C2",
+        "Role": "None",
+        "TabIndex": 0,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_1",
+        "Type": "Button",
+        "Name": "\u039C\u03B5\u03B3\u03AD\u03B8\u03C5\u03BD\u03C3\u03B7",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_2",
+        "Type": "Button",
+        "Name": "\u03A3\u03BC\u03AF\u03BA\u03C1\u03C5\u03BD\u03C3\u03B7",
+        "Role": "None",
+        "TabIndex": 2,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_3",
+        "Type": "Button",
+        "Name": "\u0391\u03C1\u03B9\u03C3\u03C4\u03B5\u03C1\u03AC",
+        "Role": "None",
+        "TabIndex": 3,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_4",
+        "Type": "Button",
+        "Name": "\u0394\u03B5\u03BE\u03B9\u03AC",
+        "Role": "None",
+        "TabIndex": 4,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_5",
+        "Type": "Button",
+        "Name": "\u03A0\u03AC\u03BD\u03C9",
+        "Role": "None",
+        "TabIndex": 5,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_6",
+        "Type": "Button",
+        "Name": "\u039A\u03AC\u03C4\u03C9",
+        "Role": "None",
+        "TabIndex": 6,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_0/ScoreViewer_0_0_7",
+        "Type": "Button",
+        "Name": "\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF",
+        "Role": "None",
+        "TabIndex": 7,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_1",
+        "Type": "Panel",
+        "Name": "\u039F\u03C0\u03C4\u03B9\u03BA\u03CC \u03C0\u03B5\u03BD\u03C4\u03AC\u03B3\u03C1\u03B1\u03BC\u03BC\u03BF",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_1/ScoreViewer_0_1_0",
+        "Type": "NotationCanvas",
+        "Name": "\u03A0\u03B5\u03BD\u03C4\u03AC\u03B3\u03C1\u03B1\u03BC\u03BC\u03BF \u03BC\u03B5 \u03BD\u03CC\u03C4\u03B5\u03C2",
+        "Role": "Graphic",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "ScoreViewer/ScoreViewer_0/ScoreViewer_0_2",
+        "Type": "TextBox",
+        "Name": "\u0391\u03BD\u03B1\u03BB\u03C5\u03C4\u03B9\u03BA\u03AE \u03C0\u03C1\u03BF\u03C3\u03B2\u03AC\u03C3\u03B9\u03BC\u03B7 \u03C0\u03B5\u03C1\u03B9\u03B3\u03C1\u03B1\u03C6\u03AE \u03C0\u03B1\u03C1\u03C4\u03B9\u03C4\u03BF\u03CD\u03C1\u03B1\u03C2",
+        "Role": "None",
+        "TabIndex": 2,
+        "TabStop": true,
+        "Enabled": true
+      }
+    ],
+    "MusicFont": "Bravura",
+    "PreviewPngBase64": "iVBORw0KGgoAAAANSUhEUgAAA4QAAAGkCAYAAABpfeskAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACM6SURBVHhe7d3dcdu81jbgdLFP35N0kQO3kA72jFtwC\u002B7AHbgCV\u002BAG3EAacAMpIN\u002BszLeejWcZpKg/ihSuawYTS6JIAGQs3AZJffsDAADAkL7VJwAAABiDQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADGpXgfDbt29/y/fv3/\u002B8vb3Vl8/2\u002Bfn55\u002Bnp6V/beX5\u002B/vv8teS2rrmNW/vx48ffNr6/v9eXAACAG7poIPz58\u002Bc/ASfK6\u002BtrXeRv8GmXibJUfd/Hx0dd5CwRAOs2okS7riECUqw/Que9yv19rT4EAABOtzyNLVADYcwMVRESa\u002BBaKsLF79\u002B//wlulw4ZWZ\u002BYJQyxrZiJzMeXFkEwthfbuVfRf9HGX79\u002B1ZcAAIAbW57GFqiBMEo9FTJPHzwlEKY2VNb1n6OdIbz07CMAAMDWHJ/GZmQgbINhe9poe7pou0yKWaTHx8d/hcVDs4z1WsKckZoKdW0dXl5e/vVabL/ddswM1tm7Xr1DPtfOWsb6e8tGvdp2RhCNZeu2Ujyfy7b90T4f749TUHuBuy3hnDYs3cbSfQkAANzO1QJh3pwlwk7KIBdBoRdKarCor6d2Ji/W1coQ0m63ym3XZXqns0ZpT3fs1Tvkcxmm8nTQumwbWGuZC0ztzW7aWdEMZ7Hd3gxtLeGcNizdRn2ufQ0AANiGi47Q20CYN0yJkoEqw0uEol4oycc15LVidq2GjHZmLZ/LG7W0y\u002BeMYe\u002BU0zb8xM81uOVyvXqHfK62vZ3BrDN9uc52Fq7OeKa2He0ybZ9HvbOvp\u002Bo599qSNizdRj4/ty8BAIDb\u002BjqSP0MbTkKGgvzqhnwcwagXJmoIi1JP\u002B8wZwHbGLANLG5ryKw56gbA\u002B19atvYFMu1w\u002B36t3yOfa2ct6SupUqAv5/FyAynW3y2R96ram6jn32pI2tKbWE5bsSwAA4La\u002BjuTPUANhhraYDctZublgVU9RrCGiDW4xS5UzjhmQatBb\u002Blx93GpPyQy9eod8ri31FNC57eTzuZ2edmYzQnU741i/42\u002BqnnOv1fpHqW1oTa0nHNqXAADA7X0dyZ\u002BhBsL2tMMMVhlcaphol52alao3OGlDR4SjXuBa8lz7uAar\u002BhUXtd4pn4vS3kylbUu7nVNmCNtAHO/PWbh6LWSYqufca0va0Jpaz5J9CQAA3N7XtHCGGghD/bL3umw\u002B14a9vDNphLx4Pq9Zy3XlLGMvyOXjDFbtqaX5XBskI2S1QWvq2r6sU1vv3rWLveCY6zvnGsKUQS3Wn/3Re89UPedeW9KG1tR6ev1W9yUAAHB7Vw\u002BEbfhqr8\u002BrgbANZbVE8GtnndpZvLruNowcKnnjmdC75i1LhLcMPPVOpDkDlo\u002Bz7W1YbftjbjvtclPafph7T61nu1x97dg2pLqeXObQvgQAALbh6oGw/W6/NsjVQBgiLNTvrovlImBMzUb11tOGwphFi/W21xxGacNgivq16\u002Bt9P2D83Dudsq1v6t34JsR22rrkdpbK90Wps38pnm\u002B339brEm0Ic9uY25cAAMA2XDQQAgAAsB8CIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAM6iKB8OXl5c\u002B3b9\u002B\u002BlHj\u002BmmL9b29v9enNeXx8/PP5\u002BVmf3p2Pj48/T09P9em79evXr8XtbY/779\u002B//33vJVzq2Il9F3Wr7Zl6/lS/f//\u002B8/Pnz/r03au/Aw/p/e5q33/pPsz9kuu/1P6\u002Btl4/renYfjvmdwYAbMXhkcsJYpD548eP\u002BvTFxWB5D56fn\u002BtTuxTtuEQ42YvX19fF7Y3BYhz3IUNWDCbPdcljJ\u002BoTYbW2aer5U8TgPfthRBFglvwhrPe7K8JE7O/39/f60tna38mxn3vb36Jb1/PYfjvmdwYAbMVVAmF8gF5qhgT2oA2EIWYVthiMYsDaC5lTz7NczAydM5t1qT8i9ERIifXHfmY5/QbACC4eCOOv4\u002B3AMgY48YEaA6U87SYHTbFce5pUlDxVKv5KHrMW8Vz8m\u002B\u002BJx\u002B1faWN77Sk68XqKAXmuL\u002BoR78vtxHvitfav8bGNXPfU9qtjthciKEdg7q13bpvxvvbUpSpfy79Ox3tzm/Far/7R/3U2Y65\u002B7XYP1SdM9UG7fKw/25yldwzEe2Ob8Th\u002Bbuvd9vvStk6tY\u002B54nRPLtQEw/ygyt76p43\u002Bq35b0\u002BVSfpWhz\u002B3ju\u002Bbnjsd3\u002B0j4PU/t7qs3tdpa0v7W0/q2p\u002BsW/c793IjC0j3vtObSO2G4bPHrrCKf2Saw7lql/sGvfN3X8zB2r8XPv\u002BA5zv0\u002Bm9k88nuqn2ObU7\u002Bw0VdfQtnVp353Tb2GuD3IdeWrqkv8LU68vbQ8AVBf91IgwEh949a/c8eGUA8McOOTPoZ5mlX\u002BVrafgtQPsumxqf26DQn5At3Wrg4lYPh7Pbb86ZnshBgY56GvXO7fNbPOhv1K3A6fYdqyz9lcrByqtqfqFXM/S\u002Bkz1Qa6n1\u002Basfx5L\u002BVo8H3WLNtZ9XsNcT23r1DpCPN87Xue07Yh\u002BycFgvtZb39Tx3\u002Bu3JX0\u002B12ch1hGvxzHeHsu953v7Zu5Y6Jnq897\u002B7rU51O3Mtb/V21av/q3ee7J\u002BtZ3t8dP7vddrz9w6QtYxSuyz3jrCKX0S7ajHYK63tqN3/Ewdq/n\u002Buu409fuk19f52lw/Tf3Obh2qa1jad\u002Bf2W5jqg3Yd8bsnlz\u002B033uvL20PAPR8HRWdIT7U8kOx1X649x7XD\u002B761/bQzjbU97eP25\u002BjLjnID\u002B1fVVP8HB/oIdYf2z60/dYp22vleue2GQOR\u002BlpPOyjI5Wud2oFHqPWpj3v9vrQ\u002BYa4Pem2e20a7r6IdOfDLZY9ta28dveXq455sY5RYbxu46vvr43r8h9pvvf6oesu0fRb9Hfszlmtn8XvP9/ZN71g4ps9762xfr21uX\u002B\u002B1LeTguOptq1f/Vu89vbrUx9l/1Vx76uPoxzZUpLl1TPVJFbNXNTTF\u002BzI8zK0vXsvjJ/SO1ak21Z/Dkt93ob6vrrP\u002Bzu6Zq2uvrdWl\u002Bq22pbYz3lvfP7ffe6/36gAAS/37k\u002BoMvQ/4VD8Q6\u002BP6wd1bV/0QbU19aLaD1fjAjA/R\u002BlfXWG9\u002BwMeALD7ED22/dez2at2z7XPbrP0zJ9YR28jtHjNg7z1ut52vLa3PoT7oDaTbbbSvZdjNdeW6Q/4h4ti29tbRW64\u002B7oll6mA\u002B1ffXx7U/e/1Wl\u002Bk51Gd5fNcZmN7zc8djyOWO6fO5/d1rc/v6VPsvHQin6ld/bh/36naoPfXxKevovaenHheh1xd1uXr85DJ1m1Ntqj\u002BHfP\u002Bx\u002B6d93Pud3TNX195rVe2P0KtjXa72W21Lu\u002B14LdoS7cg/Ih3a773Xl7QHAKb8\u002B5PqRL1Tplr1A7E\u002Brh\u002Bo9XSi\u002BKCMx/nBH9vKAUF8OLYDwlgunguxznwtlq8foiHr3n6gHtp\u002B69jttcvntnunULXbzDb2tl9FG9r\u002BzfXmqVhx\u002BlKGoNp3Yap\u002B\u002BVqsY2l95vognqttzoFRaNsfy8Z62hm9HHS1f8U/tq29dYS2/9rHU\u002BEjtO2optaX6vHf67clfT7XZzmITPFztHvq\u002Bbpv6v\u002BBug\u002BX9HldZ7u/e20OuZ0l7W/VbU3Vf\u002B49bf1C/Nz7vRM/R7vbuk215xLrOLZParvi315fzB0/qR6r\u002Bf6px/Fz7/dJrVPdP1P91K7nUAiaquvSvqt1PLXfpvogXwu5jnj/of3ee32qPXO/swAgXSQQ5qxULfUvqak\u002Bzg/adqah3nCgvZFAfsjla/nhGuK5\u002BLDMD\u002BH8cI4Pz7ae7YdkvF6vpZvbfuvY7cXPMUjJ59vB1tw2M\u002BjlQKgnBxtRh3a98XNuL9aZ2699F\u002Bbql\u002B2J9yypz1QftOtp2xz7oK1PW\u002B/4uQ7Qop/jcR0YLW1r6K0jHrfy8dzgqq1XNbW\u002BVI//qX5b0udTfdbOgOZysY2p58Pc8djuw2P6fGp/T7X52GOutbT\u002BU\u002B\u002Bpx\u002BPc7522zVG3qfZcYh2n9MnSvpg6fmooan9Xx\u002BNW\u002Bzh\u002Bnvp9MlenuX4Kvd/ZVa\u002Bux/bdXB2X9ttcH8TjFEFv7rOj3V7v9V57sh8BYM5FAuGx2g/BS7vmunuO3d6xy1cZ\u002BnrhIwYJMdiI104dBBxbv7n6XFsMnnIW4VRL1nFsnxxy7vpu2edbsOX2X6Jup6zjlPdcS3t8n3usr\u002BHafbd2H1y7PQDcn3U/qf6/a35AXnPdPcdu79jle\u002BLDvv7FPAcBKYJO\u002B9fspU6pX68\u002Ba6izW6dYso5T\u002BmTOJdZ3qz7fii23v84snuKU9p3ynmvYWyAM1\u002By7W/TBNdsDwP1Z/5Pqytb\u002B8F17e1NydjDFYCDqNnUq1D1YEuYOucQ6AABgr7aRZgAAAFidQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKA2Hwh///795\u002Bnp6c\u002B3b9/\u002BvL\u002B/15cBAAA40aYDYYTBHz9\u002B/A2DWT4\u002BPupiAAAAnGDTgbCGwSwRFAEAADjPZgPhy8vLlyCY5fn5uS4OAADAkTYZCD8/P7\u002BEwFoAAAA4zyaTVd5EZq68vb3VtwEAAHCETQbCGv6\u002Bf//\u002B9xTSCIHxczwXoREAAIDTbS4QxldLtGEwgl\u002BcQpp\u002B/fr1T0gEAADgdJsLhHHDmHZmsA2DKe8\u002B6m6jAAAAp9tcIPz58\u002Bc/gXDqi\u002BhzmZgtBAAA4DSbC4QZBmMWcGoGMAPhVGAEAADgsM0GwriJzJRDM4gAAAActqlA\u002BPHx8U/Yi5972pvOCIQAAACn22wgPHS66NwyAAAAHHZWIHx4ePgnnCmKoiiKoiiKoijXLZHBLumsQHhpOUMYN5SpYjaw7YjHx8e6CMDf3w8AACyzqZHTVCCMMJjfPZjl9fX1X8sABIEQAGC5zY2caiDshcEovS\u002BsBxAIAQCW29zIqQ2EU2HQ6aLAFIEQAGC5zY2cYjD3/fv3yTAY5devX/VtAH8JhAAAy21u5JRfKxGhsAbBKE9PT/UtAP8QCAEAltvcyGlqVjCLaweBOQIhAMBymxk5zZ0imuX9/b2\u002BDeBfBEIAgOU2MXKKawKnThHN8vLyUt8G8IVACACw3Fkjp4eHhy/BTVEURVEURVEURblOiQx2SWcFwnPFzGBtYC1xE5k4nRRgifi9AQDAMjcbOb29vX0Jf7UIg8CxBEIAgOVuMnJaMjMYJUIjwDEEQgCA5VYfOR0Kg3FzmcfHx78/Pz8/17ezc7FP47sml5Q4VuBYAiEAwHKrjpzi9M\u002B5u4nG107E9wx\u002BfHz8fRzBkPtS9/lc8QcBThHHDgAAy6w6csqZv16J6wXzS\u002Bfj33guAiL3pe73uSIQcoo4dgAAWGa1kVN8qXwd8Gfp3TwmX6vPc5r//ve/9ambqPt\u002BrgiE69vKcXKOOHYAAFhmtZHT1KmivTAY4hqyeD1nDTnPVgbJdf/PFYFwfVs5Ts5xD20AAFjLKiOnqa\u002BYmAqDIcJALONOo5exlUFyBv0lxb5f31aOk3PcQxsAANZy1sjp4eHhyyBeURRFURRFURRFuU6JDHZJZwXCJaa\u002BZqJ3KmgsGzeSqcv2ytzsIl9Fn8Eh93Cc3EMbAADWcvWR08vLy5cw1zsVcOq00rkS1yUKhctEf8Eh93Cc3EMbAADWcvWRU71mLB7XEJffO3hKiVDIYdFXcMg9HCf30AYAgLVcfeRU7y76\u002BvpaF/myzLElTh9lXvQTHHIPx8k9tAEAYC1XHznV8FZnB\u002BdOFc2gGLOKEfrq622J6w\u002BZFn0Eh9zDcXIPbQAAWMvVR05taIsbxlSPj49fwl2ExAiOef1h\u002B310vWsSo8TzTDNIZol7OE7uoQ0AAGu5\u002BsipDW29LxqvwS6uJ0x5bWHMELZ61xz2wib/Y5DMEvdwnNxDGwAA1nL1kVP7NRKHAmG9vjC\u002BmiKe7904pjdTyDT9wxL3cJzcQxsAANZy9ZFTe0rooUDY\u002B27CfK1eexiPayCsy/A/BskscQ/HyT20AQBgLWeNnB4eHr6EMkVRFEVRFEVRFOU6JTLYJZ0VCJfI0z6j9K7za\u002B8y2rtTaMwqxmv1dNLQnjbaWzf/E30Eh9zDcXIPbQAAWMsqI6f2KyN6p4XmdYa9U0ojCE691gZC30U4zyCZJe7hOLmHNgAArGWVkVM7S9gLdjEzmK/XmcC8o2hvBjDuPprva\u002B9OylcGySxxD8fJPbQBAGAtq42c2tm8XniLUJgBL25EkzeIaW8e02pDZrzPDWXm1f6Dnns4Tu6hDQAAa1l15NSeOtq7XjDE8xEe29AYXzsR72lDYvt1FlPr4n8MklniHo6Te2gDAMBaVh85taGwnh46JWcO39/fv4TB3mzjlkWdoz1rM0jeF8fJ6e6hDQAAa7nJyKm9s2iUeDx3ymeebtpeMxihcG9hMGTd12aQvC\u002BOk9PdQxsAANZys5FTBMD2usIocWpozCDG81nicZ4ymsvEzOJcgNwyA32WcJyc7h7aAACwlk2MnOJU0Ah/MQPYng6aATBnBuPnvQbBZKDPEo6T091DGwAA1nLWyOnh4eFf4U1RFEVRFEVRFEW5XokMdklnBcI15SzhHq8bbEUbzPxwiOMEAIA17Gb0l3cnjRvQ7Fkd6MdXZjw/P1/9jpIG\u002BvviOAEAYA27Gf3lDWhiULxnOdXb3jE1yzWvjzTQ3xfHCQAAa9jN6C9uPBOD1cfHx/rSrtTBvYE\u002BPfXYcJwAAHANNx39RciLgBezIFHmTgeNawdjsHqL66ouqQ7uLzXQj/6J02rbu7TGXVmzTw3096UeG44TAACu4Wajvzj1sw50o8RgtScGwbnMnrVtjYF49EN\u002Bz\u002BIpA/3Pz8/uaYVtydNt2Q/HCQAAa7jJ6C9ukFEHo22J13vy9VMGxFuRbYgZmWxHDtSPbdehfqyF/XCcAACwhpuM/qZmB7PETEVPvn7sgHhLov71tNdTBvqxbM4YLS3sh\u002BMEAIA13GT0d\u002BjUtak7iebrxwyItybqf4mB/uvr65d\u002Bmyp5vRj74TgBAGANNxn9HQqEvZvL3NNNZWobDg30Hx4evvTRpUqsm\u002B2JfeM4AQDg2m4SCPPmFVMlboBR5WmmUzed2YtoQzvQj8F9tntqoN9T\u002B2yqRIg4Zr1sg\u002BMEAIA13CQQTt3kIq51ipnAqh0MT91wZi\u002BiDTHQjzbFTGh7fdcxA/Il14XFdnrhmu1znAAAsIabBMIQ3z/YDkjjOwl7A914Lq9tmrq2cE/qYLwtvfZPiZBQ39\u002BW6CuD/P2q\u002B9NxAgDANdwsELZBL0oNhDET2J5aGqeKHjMQ3qo6IG/Lse2LPmv7ML\u002Bvbu\u002BzqDhOAABYx80CYYiB7aHrCWMg27vJzF7V9p0z0Od\u002B1WPDcQIAwDXcNBC24trBuEV\u002BBMQoMatxjzMYdXDf3nHVQJ/kOAEAYA2bCYSjiNAbM57tzXMOfZ0A43GcAACwBoFwAwz0WcJxAgDApQmEG2CgzxKOEwAALk0g3AADfZZwnAAAcGkC4QYY6LOE4wQAgEsTCDfAQJ8lHCcAAFyaQLgB9/j1Glye4wQAgEsTCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmELPLt27c/P3/\u002BrE9v3l7rDQAAaxAIWSSC1Y8fP\u002BrTm7fXegMAwBoEQhbZa7Daa70BAGANAiGL7DVY7bXeAACwBoGQRfYarPZabwAAWINAyCJ7DVZ7rTcAAKxBIGSRGqx\u002B/fr15/n5efN38NxrvQEAYA0CIYtEsMqvcMifs/z\u002B/bsuvhl7rTcAAKxBIGSRGqb2EqxqXfdSbwAAWINAyCI1TF0qWH18fPx5enr6e1pnru/79\u002B9/3t7e6qInqXXdS70BAGANAiGLtEEqgk9chxf/nhqsPj8/u6dxtuXl5aW\u002B7Wh7rTcAAKxBIGSRDDsxA5ZBKoPRscEqbuxSQ9RUOdde6w0AAGswcmWRCDn16xtOCVaxbM7QLSnHrLtnr/UGAIA1CIQscqlg9fr6\u002BiU8TZXY3jHr7tlrvQEAYA0CIYtcKlj95z//\u002BRKgpkqEsHPttd4AALAGgZBFarCKMJUB6JhgVcPTVInQdsx6p\u002By13gAAsAaBkEUyWEXYiRu0tNfTHROAaoDqldhO3M3zEvZabwAAWINAyCI1/LTlksEqvhbikqGqrn8v9QYAgDXcNBDGbfxj1ia\u002Bty1LfOG3gfX21AB0TrB6f3//8oXuEajieLi0Wte91BsAANZwViB8eHj4MshWFEVRFEVRFEVRrlMig13SWYHwWDEbmA2JmZWYDcxZmpgVjBnC2uAoZmBur\u002B6TvFNnlGNn2ta013pzOvsKAGC51UZOEQBjoBan3M0FvHitDuKjTN3KP5aP15xmel3RxxHoI8SnU76\u002BYe3B\u002Bl7rzensKwCA5VYZOcW1VxkGlwS3qS8Br0GyzijGdljPXoPVXuvNMvYVAMByVx85xaD7lMBWw2CUuInH3DIx0Gc9ew1We603y9hXAADLXX3k1F43eMwAPE8xraU9dbS9HixKvGck0f78jr1b2Guw2mu9T3Xr42Rte95XAABru/rIqQ1tMSjNLwaPfyMsTolrvmoYjNLOAsYppLn\u002Bp6enRaej3pNse/TlLQb7ew1We633qW59nKxtz/sKAGBtVx851UBXy9ysXl02y2jBb0r0Q/bJ4\u002BNjffnq9hqs9lrvU936OFnbnvcVAMDarj5yqmGuV\u002BrNYlJdLssx1yLeu/aU3JglXdPUfpsT9by1vdb7HLc8Tta2930FALCmq4\u002BcapjrlalTR\u002Bs1glmmvoJiVHka7h76Juq4R3utd2tPx8k57mFfAQCs5ayR08PDw5ewpiiKoiiKoiiKolynRAa7pLMC4RLtqWpTZeoU0KkZwrnrDkeU3/PYllNOi1xD1G2P9lrv1p6Ok3Pcw74CAFjLKiOnuLtoHYhmmbsd/pJAGO\u002BNO5KOrBe6t3pHyb0O1vda79aejpNz3MO\u002BAgBYyyojpxhw9sJdhMG5O4b23hMlrzlsv5pihLsnTpn6zsYtzqRGvfZor/Vu7ek4Occ97CsAgLWsOnKK09PiZhYvLy9/w9yhmYk6cM2Sp5i2N8mIcs83ypgSfVj7Z8v9sdfB\u002Bl7rnfZ2nJxj7/sKAGBNmx451YFrlgyS9fkImqOJNtd\u002BiBKzq4cC9y3sdbC\u002B13qnvR0n59j7vgIAWNNmR04xm1gHr1HiNNMUMxv5fMwWzp1\u002Beo96NwnJstXrKvc6WN9rvcMej5Nz7HlfAQCsbbMjp94NMKLUWcAIgUtOP703c6cAbvl6yr0O1vda770eJ\u002BfY674CALiFzY6cnp6evgxgo4w2Czgl\u002BqH2TZYtz/rsdbC\u002B13rv9Tg5x173FQDALWx25FRvGBPlXmc0TjV1XdiWZ0v3Oljfa73DHo\u002BTc\u002Bx5XwEArO2skdPDw8OXQaaiKIqiKIqiKIpynRIZ7JLOCoTX0jtdNJ7jq5jlaWdT25vubFHUcY/2Wu\u002B0t\u002BPkHHvfVwAAa9rcyKl3zdOIdxA9Rr0j65b7aq\u002BD9b3Wu7Wn4\u002BQc97CvAADWsrmRU292ML\u002BInmntdWJb/qLxvQ7W91rvai/HyTnuZV8BAKxhUyOnuOthDYP3Omi9lOiz6KPad1u9YcheB\u002Bt7rXfa23Fyjr3vKwCANW1m5FSvcYoSs4X3OGC9lJ8/f34J0Fm2eo3YXgfre6132ONxco497ysAgLVtZuQUA9N2oCoMzpv6KoG2bPFrOvY6WN9rvfd6nJxjr/sKAOAWNjFyqtcNOk30sDqbOlXe3t7qW29qr4P1vdZ7r8fJOfa6rwAAbuHmI6caBu9pYHpNdUAfJWZZ4xqxKHEjnufn57\u002BBYEv\u002B7//\u002Brz61C3utdz1G9nKcnEMgBABY7mYjpzgdtL22KQepLFNPsY0SXysArRGPE4EQAGC5s0ZODw8PXwabiqIoiqIoiqIoynVKZLBLOisQniJOCc3GxOyF7xg8XdwMpO1L6BntOIl2AgCwzGojpzhFtB2Yxt0P3UX0PNF/7SmBn5\u002BfdREY7jgRCAEAlltl5NTOCsZNZO59QLqm9lrMGPQL2fSMdJwIhAAAy1115NQOQiMI3vvNLG4p7hQZ/Rz/wpQRjhOBEABguauOnCIQxqmhgiCwFoEQAGA5IyfgrgiEAADLGTkBd0UgBABYzsgJuCsCIQDAckZOwF0RCAEAljtr5PTw8PDP10koiqIoiqIoiqIo1y2RwS7prEAIAADAfgmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUAIhAADAoARCAACAQQmEAAAAgxIIAQAABiUQAgAADEogBAAAGJRACAAAMCiBEAAAYFACIQAAwKAEQgAAgEEJhAAAAIMSCAEAAAYlEAIAAAxKIAQAABiUQAgAADAogRAAAGBQAiEAAMCgBEIAAIBBCYQAAACDEggBAAAGJRACAAAMSiAEAAAYlEAIAAAwKIEQAABgUP8PDuetsSkjv6cAAAAASUVORK5CYII=",
+    "DensePreviewPngBase64": "iVBORw0KGgoAAAANSUhEUgAABD4AAAGLCAYAAAAvaFK0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAACm1SURBVHhe7d3tkdNKtwZQkiELfkwKZPBWkQIpkAEZEAERTAIkQAKTAAFwa3Pu5vTZ05Jlj92W2mtVdYFtWX66/THSdkt\u002B9xsAAABgUu/qFQAAAACzUPgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkdovDx69ev358/f/797t27P\u002B3Dhw\u002B/n5\u002Bf62J38/79\u002Bz\u002B5fvz4UW8a7uPHj3\u002ByfP/\u002Bvd4EAAAAD\u002BeqhY/c6a4trr\u002B0UBFFjyws1LaHnfuXl5c/WT59\u002BlRvGi7GKgtDAAAAwKDCx1sKFe1Mj58/f76a/RGX7\u002Bnbt29/ckQB5N6iuBRZ9jDzBAAAAPbgZoWPlIWBaDFz41x53y9fvvy9LmdZXFpMAQAAAB7DzQsfIQ69yOvjkJAsgrSHv7SzOHL2RMxcyOvqLIa8Pu7XXo4Maen\u002BSzl76/j69Wt32cieh\u002BDEv1GAaR/v1KE9sXw7LrW14xQzXVL7mHloS7QYh1hne3t7v1xuy/iELf2LttaHaOesDwAAAK5teOGjXaY9F0UephEtZomEdsd4qeWOfL1c739J4SNmmbSPlWKnvebI\u002B8W/p2a21PX2Wpsx19eOUc50qferLbXrTUvjs7V/bcalds76AAAA4NpuXvhoD3XJne62ENLK63IWxz0LH70iQ10uZ13EzIo2U8wSWdLO0ohxyNktmSnz1/VGhnYWSGofN/uYy7XX5eUt45PXnepfFHByVsnSmIat6wMAAIBre72X\u002BganZgCc2knOQyFy53xpxzzk9bcofGSOaHWnvF1nWxDpHarTs3T/9pCa9v653rZY1CtStP1uizbnFj6W8p3q39KYXro\u002BAAAAuIYhhY/YyW13bpd2kuush6Wd5pDX50lP8/KpHfuw9Pht5mz1p2GX1pmFi/bxe07dv17fLt9bf\u002B/63mNsXa53XTjVv6UxvXR9AAAAcA03K3ysaQ/FaOWshnZnOJfLw19C7zCUvNzetz23xLmFjzZjO\u002Buj3ZFvT8i5tM6qvf/SjI82a1ia7RHy\u002BlMFjd5yvfG5tH9Lt1\u002B6PgAAALiGq\u002B51bt2Zbc/7kUWFdge5/ena9pCIWCbOEdE\u002BTlwOeTlaHFJTl2uLF737t\u002BvI4kC7XM5YaX9KN5erJ\u002B/Mk7P21HN8xOVYZ3t4TdXe1v5SS6hZwlrhI9exND6X9m9pTC9dHwAAAFzD673sN9ha\u002BGh3/nut3XFeW7adQVBv67XcuW8LL\u002B31eTl30NsCQltYaGeDZIsiRlukaZev6o5/2\u002BohPXXZduZL6D3eqcLHUstxuKR/dUyvOV4AAABwqfUKxZm2Fj5CFDTaHd9o9VwgKa5rd55jp7kteoS6Yx2zJGJmQ/vTsTmzIB67dyhLXm53wtuMWZSo2WNdOXMjxyCuWxP520NYen0KOdujXXZtlkrYUvg4NT7n9q/ep81Tb9uyPgAAALiG0xWKg\u002BjtcB9dO9ujPWSkzgqp1gofM40PAAAAnKLwsVPtIT55eEvOmojZGnF7O/OjpfABAAAA/1D42Kn2V156J1aN1p6wtaXwAQAAAP\u002BYpvAxk3a2Ry1UxHlA8rwfS7\u002BG0it8AAAAwCNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATOsqhY\u002BvX7/\u002Bfvfu3asW199SrP/79\u002B/16t359OnT75eXl3r14fz48eP358\u002Bf69XT\u002Bvnz5\u002Bb\u002Btq/79\u002B/f/7nvNVzrtRPPXWSr/Vm6/lK/fv36/fHjx3r19Opn4Cm9z672/tcew3xecv3Xer5vrTdOI507bud8ZgAAMM7pLfQLxM7Uhw8f6tVXFzuFR/Dly5d61SFFP66xE34U375929zf2CmK133IYkLsNL3VNV87kSeKMrVPS9dfInZScxweUeyobyn49j67Yqc5nu/n5\u002Bd605u1n8nxPPcef4/unfPccTvnMwMAgHFuUviIDcVrfeMNR9AWPkJ8S7zHAkDsmPWKKUvXs1180/\u002BW2QnXKpb1xM54rD\u002BeZ7YzbgAAc7h64SO\u002B7Wx3oGJDPjYcY4cgpwvnzkEs107vjpZTvONbz/gWOq6Lf/M\u002Bcbn91i0er51aHLen2PHM9UWOuF8\u002BTtwnbmu/XY3HyHUvPX51zuOFKAhFYai33rXHjPu1U66rvC2/bYz75mPGbb38Mf712\u002Bm1fO3jnsoTlsagXT7Wn33O1nsNxH3jMeNy/L/N3Y771r4urWPt9bomlmsLHVn8W1vf0ut/ady2jPnSmKXoc3t57fq112P7\u002BFvHPCw930t9bh9nS/9bW/O3lvLFv2ufO7Fj3F7u9efUOuJx2x3s3jrCpWMS645lamG6vd/S62fttRr/772\u002Bw9rnydLzE5eXxikec\u002BkzOy1lDW1ft47dW8YtrI1BriMPqdnyXli6fWt/AAAe0VW3jmKnOzbs6reWsRGWO0C5gZz/D3V6eH7LVg8daHck67Kp/X\u002B7Q5wbom22utEcy8fltcevznm8EBvAuXPTrnftMbPPp751bHcQ4rFjnXW8WrlB3lrKF3I9W/MsjUGup9fnzJ\u002Bvpbwtro9s0cf6nNeiRU/t69I6Qlzfe72uafsR45I7PXlbb31Lr//euG0Z87UxC7GOuD1e4\u002B1ruXd977lZey30LI157/nu9TnUx1nrf6v3WL38rd59Ml/tZ/v66X3u9fqzto6QGaPFc9ZbR7hkTKIf9TWY66396L1\u002Bll6ref\u002B67rT0edIb67xtbZyWPrNbp7KGrWP31nELS2PQriM\u002Be3L5U8977/at/QEAeFSvt/7fIDbecuOv1W7E9i7XDdT67Wlovz2u928vt/\u002BPLLkzG9pvyVL8PzZcQ6w/HvvU47cuebxWrnftMWODu97W02785vI1U7uBHWqeerk37lvzhLUx6PV57THa5yr6kTs4uey5fe2to7dcvdyTfYwW620LC/X\u002B9XJ9/Yc6br3xqHrLtGMW4x3PZyzXzsrqXd97bnqvhXPGvLfO9vba5/b2Xt9C7gRWvcfq5W/17tPLUi/n\u002BFVr/amXYxzbnee0to6lMaliNkItDsT9cid5bX1xW75\u002BQu\u002B1utSn\u002Bv\u002Bw5fMu1PvVddbP7J61rL2\u002BVtcat9qX2s\u002B4b73/2vPeu72XAQCAf/13i\u002BwNehuyqW741ct1A7W3rrqx2FraOGx3ymLDMDYW67dosd7ckI0dj9hYPfX4rXMfr2bPvq89Zh2fNbGOeIx83HN2THuX28fO27bmOTUGvR3G9jHa27Kok\u002BvKdYcsuJ3b1946esvVyz2xTN1pTfX\u002B9XIdz9641WV6To1Zvr7rN\u002Bq969dejyGXO2fM157vXp/b25f6f\u002B3Cx1K\u002B\u002Bv/2ci/bqf7Uy5eso3efnvq6CL2xqMvV108uUx9zqU/1/yHvf\u002B7z017ufWb3rGXt3VbV8Qi9jHW5Om61L\u002B1jx23Rl\u002BhHFktPPe\u002B927f0BwDgkf13i\u002BxCvanerbrhVy/XDcc6DTo2CONybuDGY\u002BWGb2wEtjs\u002BsVxcF2KdeVssXzcWQ2ZvNxxPPX7r3Mdrl8/H7k39bh8z\u002B9h7/Cr60I5vrjenkMe069zZr2MXlvLlbbGOrXnWxiCuq33OHYDQ9j\u002BWjfW0MzRy56L9VvbcvvbWEdrxay8v7WSHth/V0vpSff33xm3LmK\u002BNWe4spfh/9Hvp\u002Bvrc1PdAfQ63jHldZ/t89/oc8nG29L9VH2sp/9p92nwh/t/73In/R7/bbEv9ucY6zh2T2q/4tzcWa6\u002BfVF\u002Bref\u002Bly/H/3udJzVSfn6Vxatdzamd/KevWsasZLx23pTHI20KuI\u002B5/6nnv3b7Un7XPLACAR3KVwkfOMqitfjOW6uXcoGy/Oa4nvmtPaJcbc3lbbkSGuC42CnNjMzdCYyOxzdluDMbt9VwXa4/fOvfx4v\u002BxMZ7XtzsVa4\u002BZBY3c4O/JjerI0K43/p\u002BPF\u002BvMx69jF9byZX/iPlvyLI1Bu562z/EctHna3PH/uiMS4xyX6w7A1r6G3jricisvr\u002B1EtLmqpfWl\u002BvpfGrctY740Zu2MllwuHmPp\u002BrD2emyfw3PGfOn5Xurzua\u002B51tb8S/epr8e1z522z5FtqT/XWMclY7J1LJZeP3Xnv/2sjsut9nL8f\u002BnzZC3T2jiF3md21ct67titZdw6bmtjEJdTFDTW/na0j9e7vdefHEcAgEd3lcLHudqNvWu75bp7zn28c5evsrjR28mOjeHYqI7bLt3YPTffWp5bi52E/Fb4UlvWce6YnPLW9d1zzPdgz/2/RrZL1nHJfW6lfX2/9bU\u002Bwq3HbvQY3Lo/AABHNHaL7P/dckPwluvuOffxzl2\u002BJzZq6zegubGbYoe\u002B/XZyq0vy9fKMUGcrXGLLOi4ZkzXXWN\u002B9xnwv9tz/OlPkEpf075L73MLRCh/hlmN3jzG4ZX8AAI5o/BbZjY3eyBz9eEtytkeKjd7ItjSFewZbihanXGMdAAAA7Nc\u002B9toBAAAAbkDhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFq7L3z8\u002BvXr9\u002BfPn3\u002B/e/fu9/Pzc70ZAAAAYNGuCx9R9Pjw4cOfoke2Hz9\u002B1MUAAAAAunZd\u002BKhFj2xREAEAAAA4ZbeFj69fv74qeGT78uVLXRwAAADglV0WPl5eXl4VO2oDAAAAOGWXFYQ8mela\u002B/79e70bAAAAwH/ssvBRixzv37//c\u002BhLFDvi/3FdFEcAAAAA1uyu8BE/WdsWPaLAEYe\u002BpJ8/f/4thgAAAACs2V3hI05c2s70aIseKX/txa\u002B7AAAAAGt2V/j4\u002BPHj38JHzP7oyWVi9gcAAADAkt0VPrLoEbM6lmZ0ZOFjqTACAAAAEHZb\u002BIiTmS45NSMEAAAAIOyq8PHjx4\u002B/RY34f0978lOFDwAAAGDNbgsfpw5zWVsGAAAAILyp8PH09PS3CKFpmqZpmqZpmqZpmvbWFrWGa3pT4ePacsZHnNi0itkd7UB8\u002BvSpLgIAAACsiP3pR7OrHi8VPqLoEde1hY9v3779ZxkAAABgncLHDtTCR6/oEe3l5eU/92NdjNn379/r1bsn91hyjyX3WEfNDQBwTQofO9AWPpaKHg5zOd9Rx03useQeS\u002B6xjpobAOCaFD52IJ6E9\u002B/fLxY9ov38\u002BbPejRNy7I72SzhyjyX3WHKPddTcAADXFNtDj2Z3Pc6fq43iR26ktu3z58/1LmyQ4/f169d6067JPZbcY8k91lFzAwBcU2wPPZrd9Xhplke2vZzbIws0R3nRtGN4pBkzco8l91hyj3XU3AAA1xTbQo9mNz1eO7Ql2/Pzc73bXeSvz2Q7gjqWR9nol3ssuceSe6yj5gYAuKbYDno0u\u002BhxbHwuHdqSbU9Tk2uB5gjqeEY7wq8b1Mxy31bNLPdt1cxy31bNfJTcAADXFNtAj\u002BZNPX56enq1EalpmqZpmqZpmqZpmnZpi1rDNb2p8PFWMdOjdrC2OJnpXs7AH\u002BcXyVxfvnz5\u002B/8jiJwxqyZy1xkr3759q4vvhtxjyT2W3GMdOfcRZ6bIPdZRcwMwXvzNeDR363H8cW43OnttT0WPkBvKkT0OvcmcR5BZczzjPCXthv9ej3WXeyy5x5J7rCPnjhNqH43cYx01NwDjxd\u002BMR3OXHm\u002BZ6RFtT99c5AyP3Kg4auGjjmkUl/K2PRWZktxjyT2W3GMdPffRyD3WUXMDMN4j/r0Y3uNTRY\u002BYhvzp06c//49iwx60s1Nyo/iohY/4drPKbzxj3PdG7rHkHkvusY6ee08n\u002Bd5C7rGOmhuA8eLvxaMZ2uMoGqz9ektseMZ5NPLnYveyARqzPGrW2iLznrVZ60ZRe\u002B6S\u002BP\u002BeyD2W3GPJPdYMufd6OE6P3GMdNTcA48XfikcztMc5k6PXYqpxbmzmBmjvW7l7mK3wEa2eyC9nsNQp4Pcm91hyjyX3WLPkPspOrdxjHTU3AOPF34lHM6zHz8/Pr/4oZ\u002BudxDRvq9fvRW4gH\u002BVFU8c8WrvRH\u002BMc1\u002B3l8KJUM8t9WzWz3LdVM8t9WzXzkXMfYae2Zpb7tmrmI\u002BXeywzfc8g91pFzx37O0Rw19//\u002B9796FQviOX40w3q8dIhLr\u002BgRcpbF3qYcpxkKH9Hajf64fIQNfrlvp\u002BaV\u002B7ZqXrlvq\u002BY9eu6979TWvHLfVs17tNxHI/dYco915Nxs84hjNaTH7clB27ZU9Aix4RnL7G3K8VHFWEbxKQo29ZCj2OjP86q0OwB7IPdYco8l91hHzx1/M\u002BuXCHveqZV7rCPnjrb3Q4Yrucc6eu49vwd7jpybbR5xrN7U46enp79vDE3TNE3TNE3TNE3TtLe2qDVc05sKH1tEpbB2IlrvEJZYNn9S8FRbmy3Cazlu9ZvMGMe8Lb4h2tuYyj2W3GPJPdbRc7czICNjzlqJzHsk91hHzx2tvjf3TO6xjp47DuE/kiPnZptHHKub97g9F0a23uErS4fDrLU9bqDuVTtudcxyo2iPJ42Seyy5x5J7rKPnrjuu0Yf8smBv5yUJco919NzZjrJTK/dYM\u002BQ\u002B0mEjR87NNo84Vjfvcf0p2LhcNzjzuOpLWv0DT187ZnXDPp6PvG1v5B5L7rHkHmvG3Pnz73Jfj9xjtbmz7bFAU9XMct9WzXzE3EfIm46cm20ecaxu3uMoTLRvnl6Fti5zbjvizy2NVscsNoraAlTOuImfHd4TuceSeyy5x5opdytnVsp9HXKPVXMv5d\u002Bbmlfu26p5j5q7/ZuzZ0fOzTaPOFY37/GpN87aIS5ZEIlZIu0x2L12pGlY91DHK8e3fT7iur1VdWtmuW\u002BrZpb7tmpmuW\u002BrZj5y7nZjP/LHdbFjuyc1s9y3VTMfLXds69Uvwva8Uyv3WEfPnW1vf1\u002BWHDk32zziWN28x\u002B2bJo4xreLDqr65ohgSf6Dz24n2zdY7Z0i0vf0h35s6Xtnajf49jmPNK/dt1bxy31bNK/dt1bxHz91u7MflvW2Y1rxy31bNe7TcKQ5/bk9035spvAdyj3X03G1ri\u002B17VTMfKTfbPOJY3bzH7Rum98e2vqna3\u002BfOc3/UMwr3zgnSK6rwrxyj\u002BNCKaa7tuVdioyiui//vcQqs3OPIPZbcYx05dxRn4m9fbNy333ZG7vybKPd1yD1WZmxzxXu03antnRT/3uQe68i52/ditLYYuVdHzs02jzhWN\u002B9x\u002B4F0qvBRq7V5Mq5441W9mR8jtRvMR5BZ258R7h1mtLdDhuQeS\u002B6x5B7r6Lnbb9vav4G5cSr3dcg9VuarX2BFP9ptrbZfeyD3WEfOXQs00fZWgKyOnJttHnGsbt7jqA7mm\u002BVU4aPdGK231w\u002ByuNzet7fMrdQZJ0ew9By0G/3tdO\u002B9kHssuceSeyy5x5J7rKPnjlYPM4usWbCp/bo3ucc6cu7UFmgi757NkJt1jzhWb\u002Brx09PTfz6INE3TNE3TNE3TNE3T3tKi1nBNbyp8bNH\u002BdnydnhbabyJ60y\u002Bjchu31cNgQjuFs7fuW4gc9Uk5gpq5jnVWyuv19yb3WHKPJfdYs\u002BfuzZq8J7nHmiV3tLrNl9Pt95S9Zpb7tmrmI\u002BVuxfuy7cNe1WxHzc2yRxyrIT1uf4q292GUH1S96WlZaOjd1hY\u002B4jFurS3iZEHmKC\u002Ba9sMqW7tRlOMchag9qZnlvq2aWe7bqpnlvq2a\u002Bai5Ywe2PVwh/x7t7dhruceaJXe29n24x\u002Bw1r9y3VfMeKXfVfolaizd7MVNu\u002Bh5xrIb0uBYMqraKWN9IeT6N3oyO9piz9tdgbiULNPEh2xZdjiBytuOVLTf6c5x7z889yT2W3GPJPdaRc9fW7tTKfV01s9y3FZlCbCvG9lXOTImW783c5trjDq3cYxw9d7X3H0lYynXU3Lz2iGM1rMdtoaBXpIgPrXwzxQlR8w91/Nt7g7XFlLjfrU/WlVXkeKxwxMJHij8I7R\u002BMGLu9bxAFuW9P7rHkHuvouePvZP2VDrmvT\u002B6xMneKrO1M4bic22C5g7sHco81S\u002B4UGTP7ngo1abbcvPaIYzW0x\u002B0H1NKHUv7BbosjuXEaH2oh/m1/XmlpXdcSleX2gzUcufAR2j8YMZa5QbS3DzG5x5J7LLnHmiV3/M3Lv4HxRUHm3uMhOi25b2uW3Cl/FbDd3sttsD2Qe6zZcof8\u002BxN92JsZc/NfjzhWw3vcFj/qYS1LciZIbIzWokdbILmV3tTo2rbmiGVz1shISy/udizX\u002BiH3eeQeS\u002B6x5B6rl7v91i2/HJD7OuQeq5c7xPZeOysr3qc9cp9H7rGWcof2/blE7vOsZeK/HnGs7tLjdgZFtLi8Vp3N2RXxBsr7xAfb0h/va2sfd6ltzZLZR1t6cbeHDEVbeh7kPo/cY8k9ltxjLeWOLwPkvj65x1rKHdrssS3YI/d55B5rLXfYUpCUe7tTufnXI47V3Xocf3jbw0WixZsoZoTE9dniclvJjf/HTJGlP9yjXHqoyx4/CLIva1PW5D6P3GPJPZbcY63lzsL82jdrcp9H7rHWcofMvnQImtznkXusU7lzJvzSLHi5z3MqN/96xLHaRY/jQyo2OuNDK94k8URki0JHfpjlCbr2YKbCR4xp3H60DX65r0/useQea8bc8W2b3Ncl91hruUPOEj7aN/lyX9esuXN/Yumkw3Kf51Ru/vWIY/WmHj89Pf0ZNE3TNE3TNE3TNE3TtGu0qDVc05sKHyPlrI\u002BlY8mOIvqwxwpoVsqPNkVQ7uuSeyy5x5o1d0w1lvt65B7rVO6Q24C9Wb9yn0fusU7lztlYS9nWbrulWXPz2A7z6shjyfb2M2znqh8EcWbkmCa2dtztNZz6IMgzNG\u002Bdsib3Orn/Ifc6uf8h97pTuXMDdOsUb7nXyf2PveQOuQ3YK9rIfR65/7GX3OcWEORedyo3j\u002B0wr45Tx5IdRfQhWrzx8//ZehXqa9nyQRDLxB\u002BNHrnPI7fcW8gt9xZbcy/9fZT7PHLvL3duAy7t0Mq9ndz7yp0FhMjVI/d5TuXmsR3m1REfYvFiXjsx1xHUN/\u002BePghimbXK7VKT\u002BzW5Xze5X5P7dZP7NblfN7lfmzn3lh3aXpP7Nblft3vmzkMsTxUke03u107l5rHd9dURH0xRyIhqYLS1w1hOTak6ivrmv9YHQYxPfEsZ45Pri1/ByTHd8kGwNr41q9xy99SscsvdU7PKLXdPzSr34\u002Ba\u002Bxw6t3HJv8dbcmXntELSlJvf5uXlsd3t1RIWwvhGixYu5J94kucyRtX2NN2qMQ/x76QfBy8tLdxpZ2/LDaU2sJ5bZskEkt9xyr5Nb7i2ulTv/Psq9Tu5j5g65zXhqh1ZuuY\u002BWO9fRyxzk/se1cvPY7vLqyBPILbW4vSdvv\u002BQNsxfZh6hMZj/yjXxuv06NY21rooIayywdSiS33EHu0\u002BSWe4tb5I4sPXLLHY6aO2SO6EMlt9zpaLnjcXOZpQxyXy833OXVkRXZpRYVu568/dw3zJ5E/vptyyUfBLFsVk63tjW5QbQ29nLLLfc6uf8h97pb5Y6/rT1yyx2Omjus5ZBb7rSWY4\u002B58z0ZuZYyyH293HCXV0e\u002B8Jfa2h/laOe8YfYm8l/jg\u002BDbt2\u002Bvxm2pxePFv6dERXUpg9xyJ7mXyf0vuZddO3c8dqwzpgL3yC13OGruEDta8c1xj9xyp6PljseNGYZLmYPc18sNd3l15At/qfXeSG118ch6fTj1QfD09PRqjK7VYt1bxLJyv73J/Zrcr5vcr8n9usn9mtyvm9yvyf26yf2a3K/b7LmZ210KH3nymaXW\u002BzYiD49ZOvnpUUQf2g\u002BCePNnv5c\u002BCHrqmC21\u002BJA5Z71L5H6dsdfklntLk1vuLU1uubc0ueXe0uSWe0t79NzM7S6Fj6WT1MQxXDGzo2rfLHHfI4s\u002BxAdB9ClmtrTHrZ3zht1yvFs8Tq\u002BIdAm55d5Cbrm3kFvuLeSWewu55d5CbrnhLoWPEMeGtS/Y\u002BDmk3hshrovbY7mlc38cSX2ztq3X/yXxIVLv37YYq2t\u002BCNT1yy13T12/3HL31PXLLXdPXb/ccvfU9cstd09dv9xy83juVviIF30WNKLVwkfM7GgPiYlDXM55o\u002BxVfcO27dz\u002BxZi1YxhV0fgAuMWsmJpVbrl7ala55e6pWeWWu6dmlVvunppVbrl7ala55ebx3K3wEeKFf\u002Bp8H/FCj2rfLGr/3vJBMFLNKvdt1axy31bNKvdt1axy31bNKvdt1axy31bNKvdt1axy31bNKjdc7q6Fj1ac2yN\u002BsigKIdGiujdjJa\u002B\u002B\u002BeNkPEf4IJB7LLnHknssuceSeyy5x5J7LLnHkhuuZzeFj0cRxZ2YwdKexDU/DPb8QSD3WHKPJfdYco8l91hyjyX3WHKPJTdcj8LHDhz1g0DuseQeS\u002B6x5B5L7rHkHkvuseQeS264jMLHDhz1g0DuseQeS\u002B6x5B5L7rHkHkvuseQeS264jMLHDhz1g0DuseQeS\u002B6x5B5L7rHkHkvuseQeS264jMLHDhz1g0DuseQeS\u002B6x5B5L7rHkHkvuseQeS264jMLHDhz1g0DuseQeS\u002B6x5B5L7rHkHkvuseQeS264jMLHDhz1Z3vlHkvuseQeS\u002B6x5B5L7rHkHkvuseSGyyh8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAaSl8AAAAANNS\u002BAAAAACmpfABAAAATEvhAwAAAJiWwgcAAAAwLYUPAAAAYFoKHwAAAMC0FD4AAACAad218PHz58/f379///3169e/7cePH79fXl7qogAAAABne1Ph4\u002Bnp6fe7d\u002B80TdM0TdM0TdM0TdOu0qLWcE1vKnycK2Z3ZEe\u002BfPnyZ3bHr1\u002B//twWszxixkftcLSYGQIAAAC8TexjP5phPY5CRwzwhw8fVgsZcVstfET79u1bXfSPWD5uc3gMAAAArFP4uJHn5\u002Be/RY8tBYooZNTCR2/mR50hEo8DAAAA9Cl83EAcynJJYaIWPaK9f/9\u002BdZmPHz/\u002B53YAAADgXwofN9Ce1yPP57FFHhpTW3vISxQ62tviPgAAAECfwscNtMWJONQlZm3E/\u002BPfKIosiROf1qJHtHZWRxz6kuv//PnzpsNoAAAA4FEpfNxALVzUtjZLoy6bbQ8FjragAwAAAEfwiPuwN\u002B9xLVr0Wj1paarLZTvnXCG3UGejAAAAwBE84j7szXtcixa9tnTISz2HR7aln7YdJQ7ZafMAAADAETziPuybevz09PSqKKFpmqZpmqZpmqZpmnZpi1rDNb2p8LFF\u002B6suS23p0JWlGR9r5wW5pTi3SJsh/38PdUzW2r3GCwAAgH251z7sPQ3pcT00pG1x29LP3G4pfMR945wbI2Q/opjz9evXv3nuoY7JWlP4AAAAINxrH/aehvQ4ihO9IkYUEtZ\u002BoaV3n2h5TpD2JKOfPn2qd7\u002BqnOGRP6er8AEAAMDR3Gsf9p6G9jh\u002BvSVOTBpFgyhaLM30SHUHPlseGvP\u002B/fv/XH\u002Brk562h\u002BtkZoUPAAAAjuZe\u002B7D3tOse1x34bFl8qNdHMeIWlmaetG3U4TYp\u002Bhq5trTR2QAAANin2H99NLvtccwOqcWFaHF4TIoZHnl9zP5YO2zmLfZY\u002BAAAAIBzKXzsyNKvwdRZHVHs2HLYzLXd\u002B1AXAAAAONcj7sPutsefP39\u002BVfSIdqtZHedS\u002BAAAAOBoHnEfdrc9ricujXbrX24BAACAmSl8nOnp6elVcULTNE3TNE3TNE3TNO3SFrWGa3pT4eNWeoe5xHUAAADA5WL/\u002BtHsrsdxDo9a9LjlL7YAAADAo1D42IHebI/n5\u002Be6GAAAAHAmhY87i5\u002BlrUWPb9\u002B\u002B1cUAAACACyh83NGvX79e/ZJLzP6I6wEAAIC3U/i4ow8fPih6AAAAwA0pfNxJPa\u002BHw1sAAADg\u002BhQ\u002B7qAWPb5//14X2aWPHz/\u002BzQwAAABH8Ij7sHfrcRzG0hYP4lCXOLnpEdSTsAIAAMARPOI\u002B7Jt6/PT09J8CgKZpmqZpmqZpmqZp2lta1Bqu6U2Fj0vEoSzZmZjl8fz8XBfZtTj/SH1SAAAA4AgecR92WI/j0JZPnz79LRZ8/fr1cL/a8vLy8jf/ly9fFD4AAAA4lEfchx3S43aWR5zMNAoIR5Q/uRv9icKNwgcAAABH8oj7sDftcXsC0yh4/Pz5sy5yGDnDI/oTFD4AAAA4mkfch71pj6PwEQWCIxc8QjtjJQ/PUfgAAADgaB5xH/bxenyB9md3l9pRfooXAACAx6XwQZfCBwAAADNQ\u002BGAzh7oAAABwNI\u002B4D/t4Pb4ShQ8AAACO5hH3Yd/U46enp1eHfGiapmmapmmapmmapl3aotZwTW8qfAAAAADsmcIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApqXwAQAAAExL4QMAAACYlsIHAAAAMC2FDwAAAGBaCh8AAADAtBQ\u002BAAAAgGkpfAAAAADTUvgAAAAApvV/fEHp282bx1sAAAAASUVORK5CYII=",
+    "PrivacyChecksPassed": true
+  },
+  "Isokratis": {
+    "Passed": true,
+    "TabCount": 7,
+    "Controls": [
+      {
+        "Path": "mainSections_6",
+        "Type": "AccessibleTabPage",
+        "Name": "\u0392\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03CC\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03C2",
+        "Role": "None",
+        "TabIndex": 6,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0",
+        "Type": "TableLayoutPanel",
+        "Name": "\u0392\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03CC\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+        "Role": "None",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_0",
+        "Type": "Label",
+        "Name": "\u0399\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03BC\u03B1 \u03B1\u03C0\u03CC \u03C4\u03B9\u03C2 \u03B4\u03B9\u03BA\u03AD\u03C2 \u03C3\u03BF\u03C5 \u03B7\u03C7\u03BF\u03B3\u03C1\u03B1\u03C6\u03B7\u03BC\u03AD\u03BD\u03B5\u03C2 \u03C6\u03C9\u03BD\u03AD\u03C2. \u0395\u03B9\u03C3\u03AC\u03B3\u03B1\u03B3\u03B5 \u03BC\u03B1\u03B6\u03AF \u03CC\u03BB\u03B1 \u03C4\u03B1 ZIP. \u0397 \u03B1\u03C1\u03C7\u03B9\u03BA\u03AE \u03BA\u03BB\u03AF\u03BC\u03B1\u03BA\u03B1 \u03B5\u03AF\u03BD\u03B1\u03B9 \u03B4\u03B9\u03B1\u03C4\u03BF\u03BD\u03B9\u03BA\u03CC \u03C0\u03C1\u03CC\u03C4\u03C5\u03C0\u03BF 72 \u03BC\u03BF\u03C1\u03AF\u03C9\u03BD. \u039C\u03C0\u03BF\u03C1\u03B5\u03AF\u03C2 \u03BD\u03B1 \u03B1\u03BB\u03BB\u03AC\u03BE\u03B5\u03B9\u03C2 \u03C4\u03B1 \u03B5\u03C0\u03C4\u03AC \u03B4\u03B9\u03B1\u03C3\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1. \u0394\u03B5\u03BD \u03B5\u03AF\u03BD\u03B1\u03B9 \u03B1\u03BA\u03CC\u03BC\u03B7 \u03B1\u03C3\u03BA\u03AE\u03C3\u03B5\u03B9\u03C2 \u03B1\u03BD\u03B1\u03B3\u03BD\u03CE\u03C1\u03B9\u03C3\u03B7\u03C2 \u03AE\u03C7\u03C9\u03BD, \u03C6\u03B8\u03BF\u03C1\u03CE\u03BD \u03AE \u03C7\u03C1\u03BF\u03CE\u03BD. Ctrl\u002BL: \u03AD\u03BD\u03B1\u03C1\u03BE\u03B7, Esc: \u03B4\u03B9\u03B1\u03BA\u03BF\u03C0\u03AE. \u03A7\u03C1\u03B7\u03C3\u03B9\u03BC\u03BF\u03C0\u03BF\u03B9\u03B5\u03AF\u03C4\u03B1\u03B9 \u03B7 \u03AD\u03BE\u03BF\u03B4\u03BF\u03C2 \u03AE\u03C7\u03BF\u03C5 \u03C4\u03C9\u03BD \u03A1\u03C5\u03B8\u03BC\u03AF\u03C3\u03B5\u03C9\u03BD.",
+        "Role": "StaticText",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1",
+        "Type": "FlowLayoutPanel",
+        "Name": "\u0392\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03CC\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 2",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_0",
+        "Type": "Label",
+        "Name": "\u03A6\u03C9\u03BD\u03AE",
+        "Role": "StaticText",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_1",
+        "Type": "ComboBox",
+        "Name": "\u03A6\u03C9\u03BD\u03AE \u03B2\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03BF\u03CD \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_2",
+        "Type": "Label",
+        "Name": "\u03A6\u03B8\u03CC\u03B3\u03B3\u03BF\u03C2",
+        "Role": "StaticText",
+        "TabIndex": 2,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_3",
+        "Type": "ComboBox",
+        "Name": "\u03A6\u03B8\u03CC\u03B3\u03B3\u03BF\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03B1\u03C4\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2",
+        "Role": "None",
+        "TabIndex": 3,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_4",
+        "Type": "Label",
+        "Name": "\u039D\u03B7 Hz",
+        "Role": "StaticText",
+        "TabIndex": 4,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_5",
+        "Type": "NumericUpDown",
+        "Name": "\u0392\u03AC\u03C3\u03B7 \u039D\u03B7 \u03C3\u03B5 Hz",
+        "Role": "SpinButton",
+        "TabIndex": 5,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_5/mainSections_6_0_1_5_0",
+        "Type": "UpDownButtons",
+        "Name": "\u0392\u03AC\u03C3\u03B7 \u039D\u03B7 \u03C3\u03B5 Hz \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+        "Role": "SpinButton",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_5/mainSections_6_0_1_5_1",
+        "Type": "UpDownEdit",
+        "Name": "\u0392\u03AC\u03C3\u03B7 \u039D\u03B7 \u03C3\u03B5 Hz",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_6",
+        "Type": "Label",
+        "Name": "\u039C\u03CC\u03C1\u03B9\u03B1 \u00B1",
+        "Role": "StaticText",
+        "TabIndex": 6,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_7",
+        "Type": "NumericUpDown",
+        "Name": "\u039C\u03B5\u03C4\u03B1\u03C6\u03BF\u03C1\u03AC \u03C3\u03B5 \u03BC\u03CC\u03C1\u03B9\u03B1, 72 \u03B1\u03BD\u03AC \u03BF\u03BA\u03C4\u03AC\u03B2\u03B1",
+        "Role": "SpinButton",
+        "TabIndex": 7,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_7/mainSections_6_0_1_7_0",
+        "Type": "UpDownButtons",
+        "Name": "\u039C\u03B5\u03C4\u03B1\u03C6\u03BF\u03C1\u03AC \u03C3\u03B5 \u03BC\u03CC\u03C1\u03B9\u03B1, 72 \u03B1\u03BD\u03AC \u03BF\u03BA\u03C4\u03AC\u03B2\u03B1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+        "Role": "SpinButton",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_7/mainSections_6_0_1_7_1",
+        "Type": "UpDownEdit",
+        "Name": "\u039C\u03B5\u03C4\u03B1\u03C6\u03BF\u03C1\u03AC \u03C3\u03B5 \u03BC\u03CC\u03C1\u03B9\u03B1, 72 \u03B1\u03BD\u03AC \u03BF\u03BA\u03C4\u03AC\u03B2\u03B1",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_8",
+        "Type": "Label",
+        "Name": "\u0388\u03BD\u03C4\u03B1\u03C3\u03B7",
+        "Role": "StaticText",
+        "TabIndex": 8,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_9",
+        "Type": "NumericUpDown",
+        "Name": "\u0388\u03BD\u03C4\u03B1\u03C3\u03B7 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7 \u03C3\u03B5 \u03C0\u03BF\u03C3\u03BF\u03C3\u03C4\u03CC",
+        "Role": "SpinButton",
+        "TabIndex": 9,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_9/mainSections_6_0_1_9_0",
+        "Type": "UpDownButtons",
+        "Name": "\u0388\u03BD\u03C4\u03B1\u03C3\u03B7 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7 \u03C3\u03B5 \u03C0\u03BF\u03C3\u03BF\u03C3\u03C4\u03CC \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+        "Role": "SpinButton",
+        "TabIndex": 0,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_9/mainSections_6_0_1_9_1",
+        "Type": "UpDownEdit",
+        "Name": "\u0388\u03BD\u03C4\u03B1\u03C3\u03B7 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7 \u03C3\u03B5 \u03C0\u03BF\u03C3\u03BF\u03C3\u03C4\u03CC",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_10",
+        "Type": "Label",
+        "Name": "\u0394\u03B9\u03B1\u03C3\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1",
+        "Role": "StaticText",
+        "TabIndex": 10,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_1/mainSections_6_0_1_11",
+        "Type": "TextBox",
+        "Name": "\u0395\u03C0\u03C4\u03AC \u03B4\u03B9\u03B1\u03C3\u03C4\u03AE\u03BC\u03B1\u03C4\u03B1 \u03C3\u03B5 \u03BC\u03CC\u03C1\u03B9\u03B1, \u03AC\u03B8\u03C1\u03BF\u03B9\u03C3\u03BC\u03B1 72",
+        "Role": "None",
+        "TabIndex": 11,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_2",
+        "Type": "FlowLayoutPanel",
+        "Name": "\u0392\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03CC\u03C2 \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7\u03C2 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 3",
+        "Role": "None",
+        "TabIndex": 2,
+        "TabStop": false,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_2/mainSections_6_0_2_0",
+        "Type": "Button",
+        "Name": "\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE \u03CC\u03BB\u03C9\u03BD \u03C4\u03C9\u03BD ZIP \u03C6\u03C9\u03BD\u03CE\u03BD \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7",
+        "Role": "None",
+        "TabIndex": 0,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_2/mainSections_6_0_2_1",
+        "Type": "Button",
+        "Name": "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7 \u03B5\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE\u03C2",
+        "Role": "None",
+        "TabIndex": 1,
+        "TabStop": true,
+        "Enabled": false
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_2/mainSections_6_0_2_2",
+        "Type": "Button",
+        "Name": "\u0388\u03BD\u03B1\u03C1\u03BE\u03B7 \u03B9\u03C3\u03BF\u03BA\u03C1\u03B1\u03C4\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 (Ctrl\u002BL)",
+        "Role": "None",
+        "TabIndex": 2,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_2/mainSections_6_0_2_3",
+        "Type": "Button",
+        "Name": "\u0394\u03B9\u03B1\u03BA\u03BF\u03C0\u03AE \u03B9\u03C3\u03BF\u03BA\u03C1\u03B1\u03C4\u03AE\u03BC\u03B1\u03C4\u03BF\u03C2 (Esc)",
+        "Role": "None",
+        "TabIndex": 3,
+        "TabStop": true,
+        "Enabled": true
+      },
+      {
+        "Path": "mainSections_6/mainSections_6_0/mainSections_6_0_3",
+        "Type": "TextBox",
+        "Name": "\u039A\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03B2\u03C5\u03B6\u03B1\u03BD\u03C4\u03B9\u03BD\u03BF\u03CD \u03B9\u03C3\u03BF\u03BA\u03C1\u03AC\u03C4\u03B7",
+        "Role": "None",
+        "TabIndex": 3,
+        "TabStop": true,
+        "Enabled": true
+      }
+    ],
+    "NoSamplesBundled": true,
+    "IntervalCount": 7
+  },
+  "PianoSetupDialog": [
+    {
+      "Path": "PianoSetupDialog",
+      "Type": "PianoSetupDialog",
+      "Name": "\u0395\u03B3\u03BA\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03C0\u03C1\u03B1\u03B3\u03BC\u03B1\u03C4\u03B9\u03BA\u03BF\u03CD \u03C0\u03B9\u03AC\u03BD\u03BF\u03C5",
+      "Role": "Client",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0",
+      "Type": "TableLayoutPanel",
+      "Name": "\u0395\u03B3\u03BA\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03C0\u03C1\u03B1\u03B3\u03BC\u03B1\u03C4\u03B9\u03BA\u03BF\u03CD \u03C0\u03B9\u03AC\u03BD\u03BF\u03C5 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_0",
+      "Type": "TextBox",
+      "Name": "\u03A0\u03BB\u03B7\u03C1\u03BF\u03C6\u03BF\u03C1\u03AF\u03B5\u03C2 \u03BA\u03B1\u03B9 \u03AC\u03B4\u03B5\u03B9\u03B1 Maestro Concert Grand",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_1",
+      "Type": "LinkLabel",
+      "Name": "\u0386\u03BD\u03BF\u03B9\u03B3\u03BC\u03B1 \u03B1\u03C1\u03C7\u03B9\u03BA\u03AE\u03C2 \u03C0\u03B7\u03B3\u03AE\u03C2 Maestro \u03BA\u03B1\u03B9 \u03AC\u03B4\u03B5\u03B9\u03B1\u03C2",
+      "Role": "StaticText",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_2",
+      "Type": "ProgressBar",
+      "Name": "\u03A0\u03C1\u03CC\u03BF\u03B4\u03BF\u03C2 \u03B5\u03B3\u03BA\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7\u03C2 \u03C0\u03B9\u03AC\u03BD\u03BF\u03C5",
+      "Role": "None",
+      "TabIndex": 2,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_3",
+      "Type": "TextBox",
+      "Name": "\u039A\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03B5\u03B3\u03BA\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7\u03C2",
+      "Role": "None",
+      "TabIndex": 3,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_4",
+      "Type": "FlowLayoutPanel",
+      "Name": "\u0395\u03B3\u03BA\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 \u03C0\u03C1\u03B1\u03B3\u03BC\u03B1\u03C4\u03B9\u03BA\u03BF\u03CD \u03C0\u03B9\u03AC\u03BD\u03BF\u03C5 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 1 \u2014 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF 5",
+      "Role": "None",
+      "TabIndex": 4,
+      "TabStop": false,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_4/PianoSetupDialog_0_4_0",
+      "Type": "Button",
+      "Name": "\u0395\u03B3\u03BA\u03B1\u03C4\u03AC\u03C3\u03C4\u03B1\u03C3\u03B7 Maestro Concert Grand",
+      "Role": "None",
+      "TabIndex": 0,
+      "TabStop": true,
+      "Enabled": true
+    },
+    {
+      "Path": "PianoSetupDialog/PianoSetupDialog_0/PianoSetupDialog_0_4/PianoSetupDialog_0_4_1",
+      "Type": "Button",
+      "Name": "\u0391\u03BA\u03CD\u03C1\u03C9\u03C3\u03B7 / \u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF",
+      "Role": "None",
+      "TabIndex": 1,
+      "TabStop": true,
+      "Enabled": true
+    }
+  ]
+}
