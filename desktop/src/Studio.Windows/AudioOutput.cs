@@ -27,11 +27,11 @@ public sealed class AudioOutput : IDisposable
     {
         public readonly AudioBackend Backend=backend;
         public readonly bool EventSync=eventSync;
-        public EventHandler<StoppedEventArgs>? Handler;
+        public EventHandler<StoppedEventArgs>? Handler;public PcmSource? Source;
     }
     private sealed class Request(float[] pcm,OutputDevice device,Action<Exception?> finished,bool loop)
     {
-        public readonly float[] Pcm=pcm;public readonly OutputDevice Device=device;public readonly Action<Exception?> Finished=finished;public readonly bool Loop=loop;
+        public float[] Pcm=pcm;public readonly OutputDevice Device=device;public readonly Action<Exception?> Finished=finished;public readonly bool Loop=loop;
         public readonly SynchronizationContext? Context=SynchronizationContext.Current;
         public Attempt? Active;public Exception? FirstFailure;public int Cancelled,Completed,RecoveryQueued;
     }
@@ -72,6 +72,12 @@ public sealed class AudioOutput : IDisposable
             catch(Exception second){if(!Alive(request))return;Stop();throw new AudioPlaybackException(device,first,second);}
         }
     }
+    public bool TrySwitchLoop(float[] pcm)
+    {
+        if(pcm.Length==0||pcm.Length%2!=0)throw new ArgumentException("Απαιτείται stereo βρόχος.");
+        var request=Volatile.Read(ref current);if(request is null||!request.Loop||!Alive(request)||request.Active?.Source is not { } source||(!IsPlaying&&!IsPaused))return false;
+        source.Replace(pcm);Volatile.Write(ref request.Pcm,pcm);return true;
+    }
     private bool Alive(Request request)=>ReferenceEquals(Volatile.Read(ref current),request)&&Volatile.Read(ref request.Cancelled)==0;
     private void Start(Request request,bool eventSync)
     {
@@ -82,7 +88,8 @@ public sealed class AudioOutput : IDisposable
             attempt.Handler=(_,e)=>Stopped(request,attempt,e.Exception);
             attempt.Backend.Player.PlaybackStopped+=attempt.Handler;
             // A fresh cursor starts the original piano example from its beginning on retry.
-            attempt.Backend.Player.Init(new PcmSource(request.Pcm,request.Loop).ToWaveProvider());
+            attempt.Source=new PcmSource(request.Pcm,request.Loop);
+            attempt.Backend.Player.Init(attempt.Source.ToWaveProvider());
             if(!Alive(request)){Release(attempt);return;}
             Interlocked.Exchange(ref request.Active,attempt);
             if(!Alive(request)){
@@ -144,7 +151,9 @@ public sealed class AudioOutput : IDisposable
     private sealed class PcmSource(float[] samples,bool loop) : ISampleProvider
     {
         private readonly LoopingPcmCursor cursor=new(samples,loop);
+        private readonly LiveLoopCursor? live=loop?new(samples):null;
+        public void Replace(float[] pcm){if(live is null)throw new InvalidOperationException("Not a loop");live.Replace(pcm);}
         public WaveFormat WaveFormat{get;}=WaveFormat.CreateIeeeFloatWaveFormat(PianoRenderer.SampleRate,2);
-        public int Read(float[] buffer,int offset,int count)=>cursor.Read(buffer,offset,count);
+        public int Read(float[] buffer,int offset,int count)=>live?.Read(buffer,offset,count)??cursor.Read(buffer,offset,count);
     }
 }

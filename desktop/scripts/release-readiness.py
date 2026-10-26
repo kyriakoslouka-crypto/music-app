@@ -22,7 +22,7 @@ def read(name):
 core=read(f'tests-{version}.json')
 windows=read('WINDOWS-CHECKS.json');typed=read('typed-uia-audit.json');uia=read('accessibility-audit.json')
 package=read('windows-package-smoke.json');portable=read('portable-integrity.json');piano=read('windows-piano-check.json')
-flow=read('automatic-practice-check.json');ison=read('windows-ison-check.json')
+live=read('ison-live-check.json');flow=read('automatic-practice-check.json');ison=read('windows-ison-check.json')
 recovery=read('audio-output-check.json')
 maestro=read('windows-maestro-tests.json');source=read('source-build-smoke.json');nvda=read('nvda-smoke.json')
 commit=args.expected_commit or os.environ.get('GITHUB_SHA')or piano.get('SourceCommit')
@@ -38,12 +38,14 @@ boundaries=records(uia,'ExamBoundaryRegression');announcements=records(nvda,'Che
 automated={
  'CoreTestsPassed':core.get('Version')==version and success(core,96),
  'NativeIsonDecodeRenderPassed':ison.get('Version')==version and ison.get('Passed')is True and ison.get('DecodedFormats')==4 and ison.get('PrivateSamplesBundled')is False,
- 'IsonNativeAccessibilityPassed':isinstance(uia.get('Isokratis'),dict)and flags(uia['Isokratis'],['Passed','NoSamplesBundled'])and uia['Isokratis'].get('TabCount')==7,
+ 'IsonNativeAccessibilityPassed':isinstance(uia.get('Isokratis'),dict)and flags(uia['Isokratis'],['Passed','NoSamplesBundled'])and uia['Isokratis'].get('TabCount')==7 and uia['Isokratis'].get('ModeCount')==8,
  'ResponseOptionTestsPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Response options:')and o.get('Passed')is True])>=4,
  'ResponseOptionNativeUiPassed':len([p for p in records(uia,'PresentationRegression')if p.get('AnswerKind')=='Text'and p.get('NoTypingRequired')is True and p.get('NoPreselectedAnswer')is True and p.get('ChoiceCount',0)>=2])==12,
+ 'LiveIsonNavigationPassed':live.get('Version')==version and live.get('Passed')is True and live.get('DeviceOpens')==1 and live.get('Metrics',{}).get('ArrowDirections')==4 and live.get('Metrics',{}).get('ModeCount')==8,
+ 'LiveIsonStorageTestsPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Live ison:')and o.get('Passed')is True])>=4,
  'IsonUnitTestsPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Ison:')and o.get('Passed')is True])>=4,
  'NativeWindowsBuildPassed':windows.get('NativeWindowsBuildSucceeded')is True,
- 'EvidenceMatchesSourceCommit':bool(commit)and all(r.get('SourceCommit')==commit for r in [core,piano,maestro,nvda,recovery,flow,ison]),
+ 'EvidenceMatchesSourceCommit':bool(commit)and all(r.get('SourceCommit')==commit for r in [core,piano,maestro,nvda,recovery,flow,ison,live]),
  'WindowsTypedUIAPassed':typed.get('Passed')is True and success(typed,24),
  'WindowsKeyboardAndExamBoundariesPassed':uia.get('UIAutomationPassed')is True and len(records(uia,'KeyboardChecks'))>=26 and len(boundaries)==6 and all(b.get('Rejected')is True and b.get('HistoryUnchanged')is True for b in boundaries),
  'AutomaticPracticeSafetyPassed':isinstance(uia.get('AutomaticPracticeRegression'),dict)and uia['AutomaticPracticeRegression'].get('Passed')is True and uia['AutomaticPracticeRegression'].get('Executed',0)>=6,
@@ -58,7 +60,7 @@ automated={
  'NotationAndSurpriseUiPassed':isinstance(uia.get('NewStudyFeatures'),dict)and flags(uia['NewStudyFeatures'],['Passed','PrivacyChecksPassed'])and uia['NewStudyFeatures'].get('TabCount')==7 and uia['NewStudyFeatures'].get('MusicFont')=='Bravura',
  'CadenceContextChecksPassed':any(o.get('Name')=='Cadences: no authentic context before plagal and independent final-chord classification'and o.get('Passed')is True for o in records(maestro,'Outcomes')),
  'RhythmicNotationChecksPassed':len([o for o in records(maestro,'Outcomes')if o.get('Name','').startswith('Rhythm input:')and o.get('Passed')is True])>=12,
- 'AudioOutputRecoveryChecksPassed':recovery.get('Version')==version and recovery.get('Passed')is True and success(recovery,8),
+ 'AudioOutputRecoveryChecksPassed':recovery.get('Version')==version and recovery.get('Passed')is True and success(recovery,9),
  'DeliveredSourceRebuildPassed':source.get('Version')==version and flags(source,['Passed','FrozenRestorePassed','SourceBuildPassed','TypedUiAProjectBuildPassed']),
  'ActualNvdaSpeechPipelinePassed':flags(nvda,['Passed','SignatureValid','ActualNvdaProcessTested','SpeechAnnouncementsPassed'])and len(announcements)==7 and all(c.get('Passed')is True for c in announcements)and {c.get('Name')for c in announcements}=={'Ρυθμίσεις','Εξάσκηση','Πρόοδος','Εξετάσεις και προσαρμογή','Οδηγίες','Απρόοπτα διαγωνίσματα','Βυζαντινός ισοκράτης'},
 }

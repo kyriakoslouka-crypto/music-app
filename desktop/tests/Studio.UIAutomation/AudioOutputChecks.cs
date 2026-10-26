@@ -25,6 +25,12 @@ internal static class AudioOutputChecks
     {
         var results=new List<object>();var failed=0;float[] pcm=[0.1f,0.2f,0.3f,0.4f];var device=new OutputDevice("same-device","Ίδια συσκευή");
         void Test(string name,Action action){try{action();results.Add(new{Name=name,Passed=true});}catch(Exception ex){failed++;results.Add(new{Name=name,Passed=false,Error=ex.ToString()});}}
+        Test("Live ison replaces looping PCM through the actual byte adapter without reopening a device",()=>{
+            var player=new FakePlayer();var calls=0;using var output=new AudioOutput((_,_)=>{calls++;return new(player);});output.Play(pcm,device,_=>{},true);
+            Check(output.TrySwitchLoop([0.7f,0.7f,0.7f,0.7f]),"Live loop rejected");var bytes=new byte[16000];Check(player.Source!.Read(bytes,8,12000)==12000,"Live output ended");
+            Check(calls==1&&player.Plays==1&&player.Stops==0,"Device reopened during change");Check(Math.Abs(BitConverter.ToSingle(bytes,8+11992)-0.7f)<1e-6,"Replacement did not reach byte output");
+            output.PauseOrResume();Check(output.TrySwitchLoop([0.2f,0.2f]),"Paused loop update failed");Check(output.IsPaused,"Replacement resumed paused audio");output.Stop();Check(!output.TrySwitchLoop(pcm),"Stopped audio restarted");
+        });
         Test("Actual NAudio float-to-byte adapter preserves exact PCM at nonzero offsets and loop boundaries",()=>{
             var player=new FakePlayer();using var output=new AudioOutput((_,_)=>new(player));output.Play(pcm,device,_=>{},true);
             const string expected="CDCCCC3DCDCC4C3E9A99993ECDCCCC3E";
