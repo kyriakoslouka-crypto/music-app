@@ -1,0 +1,27 @@
+{
+  "Version": "0.5.13",
+  "SourceCommit": "07edc1b6765304e653ce119673653f3921f04656",
+  "Passed": true,
+  "Error": null,
+  "DeviceOpens": 1,
+  "Metrics": {
+    "ManualStarts": 1,
+    "ArrowDirections": 4,
+    "RapidChanges": 20,
+    "ModeCount": 8,
+    "GenusCount": 5,
+    "SharpFlatPassed": true,
+    "IntonationRestorePassed": true,
+    "UnsupportedPitchPreservesLive": true,
+    "FreeTuningPassed": true,
+    "PerModeRestorePassed": true,
+    "NativeTuningEditorPassed": true,
+    "DeviceReopenCount": 0,
+    "CachedSwitchMaxMilliseconds": 31.6004,
+    "PausePreserved": true,
+    "StopPreserved": true
+  },
+  "PhysicalHardwareTested": false,
+  "HumanNvdaTested": false,
+  "InputSimulation": "Native command dispatch with simulated audio backend"
+}
