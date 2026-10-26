@@ -5,6 +5,7 @@ from pathlib import Path,PurePosixPath
 parser=argparse.ArgumentParser()
 parser.add_argument('archive',type=Path)
 parser.add_argument('--report',type=Path,required=True)
+parser.add_argument('--exe',choices=['ProfessionalEarTrainingStudio.exe','ProfessionalIsokratis.exe'],default='ProfessionalEarTrainingStudio.exe')
 args=parser.parse_args()
 result={'Passed':False,'Archive':args.archive.name}
 try:
@@ -14,7 +15,7 @@ try:
             path=PurePosixPath(name.replace('\\','/'))
             if path.is_absolute()or'..'in path.parts or':'in name:raise ValueError('Unsafe ZIP entry: '+name)
             if path.suffix.lower()in{'.wav','.flac','.sf2','.sfz','.mp3','.ogg','.m4a','.aac'}or name.endswith('.studio-piano.json'):raise ValueError('Private piano material in package: '+name)
-        if 'ProfessionalEarTrainingStudio.exe'not in names:raise ValueError('Portable root EXE missing')
+        if args.exe not in names:raise ValueError('Portable root EXE missing')
         bad=archive.testzip()
         if bad:raise ValueError('CRC failure: '+bad)
         result.update(Passed=True,Entries=len(names),PrivatePianoSamplesBundled=False,PrivateIsokratisSamplesBundled=False)

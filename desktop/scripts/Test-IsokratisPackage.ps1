@@ -12,7 +12,7 @@ try{
     $training=Get-Content "$artifacts/accessibility-audit.json" -Raw | ConvertFrom-Json
     if(!$training.ApplicationSplit.Passed -or $training.ApplicationSplit.TabNames.Count -ne 5){throw 'Training tabs were not reduced to five'}
     $result.TrainingHasFiveTabs=$true
-    python "$PSScriptRoot/check-portable.py" "$artifacts/ProfessionalIsokratis-$version-win-x64.zip" --report "$artifacts/isokratis-portable-integrity.json"
+    python "$PSScriptRoot/check-portable.py" "$artifacts/ProfessionalIsokratis-$version-win-x64.zip" --report "$artifacts/isokratis-portable-integrity.json" --exe ProfessionalIsokratis.exe
     if($LASTEXITCODE -ne 0){throw 'Independent portable failed'}
     Expand-Archive "$artifacts/ProfessionalIsokratis-$version-win-x64.zip" "$root/portable"
     $installer=Start-Process "$artifacts/ProfessionalIsokratis-$version-Setup.exe" -ArgumentList @('/S',"/D=$root/installed") -PassThru -Wait
