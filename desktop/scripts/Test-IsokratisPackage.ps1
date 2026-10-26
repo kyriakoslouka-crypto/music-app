@@ -4,6 +4,7 @@ $base=Split-Path $PSScriptRoot -Parent
 $version=$props.Project.PropertyGroup.Version
 $artifacts=Join-Path $base 'artifacts'
 $root=Join-Path $env:TEMP ('Isokratis-package-'+[guid]::NewGuid().ToString('N'))
+$installRoot=Join-Path $root 'installed'
 $result=[ordered]@{Version=$version;SourceCommit=$env:GITHUB_SHA;Passed=$false;InstallerPassed=$false;PortablePassed=$false;StandalonePassed=$false;TrainingHasFiveTabs=$false;IsokratisHasThreeTabs=$false;UninstallPreservesUserFile=$false}
 try{
     $exe=Join-Path $artifacts 'isokratis-win-x64/ProfessionalIsokratis.exe'
@@ -15,7 +16,7 @@ try{
     python "$PSScriptRoot/check-portable.py" "$artifacts/ProfessionalIsokratis-$version-win-x64.zip" --report "$artifacts/isokratis-portable-integrity.json" --exe ProfessionalIsokratis.exe
     if($LASTEXITCODE -ne 0){throw 'Independent portable failed'}
     Expand-Archive "$artifacts/ProfessionalIsokratis-$version-win-x64.zip" "$root/portable"
-    $installer=Start-Process "$artifacts/ProfessionalIsokratis-$version-Setup.exe" -ArgumentList @('/S',"/D=$root/installed") -PassThru -Wait
+    $installer=Start-Process "$artifacts/ProfessionalIsokratis-$version-Setup.exe" -ArgumentList @('/S',"/D=$installRoot") -PassThru -Wait
     if($installer.ExitCode -ne 0){throw 'Independent installer failed'}
     foreach($file in Get-ChildItem "$artifacts/isokratis-win-x64" -File -Recurse){
         $relative=$file.FullName.Substring((Resolve-Path "$artifacts/isokratis-win-x64").Path.Length+1)
