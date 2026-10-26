@@ -95,6 +95,13 @@ public sealed partial class MainForm
         catch(Exception e){if(!IsDisposed&&(source is null||ReferenceEquals(isonWork,source))){Stop();isonStatus.Text="Δεν ξεκίνησε ο ισοκράτης: "+e.Message;}}
         finally{if(ReferenceEquals(isonWork,source))isonWork=null;source?.Dispose();}
     }
+    private void ToggleIsonPause()
+    {
+        if(!isonPlaying){isonStatus.Text="Δεν υπάρχει ενεργό ισοκράτημα. Ctrl+L για έναρξη.";return;}
+        try{if(audio.IsPaused&&cancelSpeech.Checked)NvdaSpeech.Cancel();audio.PauseOrResume();playing=audio.IsPlaying;isonStatus.Text=playing?"Συνέχεια ισοκρατήματος. Esc για διακοπή.":"Παύση ισοκρατήματος. Ctrl+P για συνέχεια.";
+            if(!playing)isonStatus.AccessibilityObject.RaiseAutomationNotification(AutomationNotificationKind.ActionCompleted,AutomationNotificationProcessing.ImportantMostRecent,isonStatus.Text);
+        }catch(Exception e){Stop();isonStatus.Text="Αποτυχία παύσης ή συνέχειας: "+e.Message;}
+    }
     private void StopIsonWork(){isonRequest++;isonWork?.Cancel();if(isonPlaying&&!IsDisposed)isonStatus.Text="Το ισοκράτημα σταμάτησε. Ctrl+L για νέα έναρξη.";isonPlaying=false;}
     internal object AuditIson(){var controls=AccessibilityContract.Audit(isonPage);if(isonVoice.AccessibilityObject.Name!="Φωνή βυζαντινού ισοκράτη"||isonStatus.ReadOnly!=true)throw new InvalidOperationException("Missing ison accessibility");return new{Passed=true,TabCount=tabs.TabCount,Controls=controls,NoSamplesBundled=true,IntervalCount=ByzantineTuning.Diatonic.Length};}
 }

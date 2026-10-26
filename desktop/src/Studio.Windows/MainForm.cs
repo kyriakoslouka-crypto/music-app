@@ -460,6 +460,7 @@ public sealed partial class MainForm : Form
     private static string CategoryName(Category value)=>CategoryLabels.Name(value);
     protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
     {
+        if(tabs.SelectedTab==isonPage&&keyData==(Keys.Control|Keys.P)){ToggleIsonPause();return true;}
         if(tabs.SelectedTab==isonPage&&keyData==Keys.Escape){isonImportWork?.Cancel();Stop();return true;}
         if(tabs.SelectedTab==isonPage&&(keyData==(Keys.Control|Keys.L)||keyData==(Keys.Control|Keys.R))){_=PlayIson();return true;}
         switch (keyData)
