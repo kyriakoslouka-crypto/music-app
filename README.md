@@ -2,13 +2,15 @@
 
 Native Windows 11 x64, ελληνικά, πληκτρολόγιο/NVDA σχεδιασμός και πραγματικό Maestro Concert Grand Yamaha CF-3.
 
-Η υλοποίηση προχώρησε διαδοχικά έως **0.5.15**, με διαστήματα/συγχορδίες, πτώσεις/κλίμακες/τρόπους/ρυθμό, ντικτέ/σολφέζ, πολυφωνία/χρωματική/σειρές και ανεξάρτητες εκπαιδευτικές εξετάσεις. Η τελική επαγγελματική **1.0.0 δεν δηλώνεται ολοκληρωμένη** χωρίς Windows/NVDA/ήχο acceptance.
+Η υλοποίηση προχώρησε διαδοχικά έως **0.5.16**, με διαστήματα/συγχορδίες, πτώσεις/κλίμακες/τρόπους/ρυθμό, ντικτέ/σολφέζ, πολυφωνία/χρωματική/σειρές και ανεξάρτητες εκπαιδευτικές εξετάσεις. Η τελική επαγγελματική **1.0.0 δεν δηλώνεται ολοκληρωμένη** χωρίς Windows/NVDA/ήχο acceptance.
 
-[Νέος επαληθευμένος εγκαταστάτης Windows](https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalEarTrainingStudio-0.5.15-Setup.exe) · [Όλα τα νέα παραδοτέα](https://github.com/kyriakoslouka-crypto/music-app/releases/tag/v0.5.15-preview.86) · [Αναφορά παράδοσης και ακριβές σημείο συνέχισης](downloads/0.5.15/README.md) · [Οδηγίες](desktop/README.md) · [Πραγματικές δοκιμές](downloads/0.5.15/README.md#πραγματικοί-έλεγχοι) · [Περιορισμοί](desktop/docs/KNOWN-LIMITATIONS.md) · [Συνέχιση προς 1.0](desktop/docs/CONTINUE-TO-1.0.md).
+[Νέος επαληθευμένος εγκαταστάτης Windows](https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.16-preview.88/ProfessionalEarTrainingStudio-0.5.16-Setup.exe) · [Όλα τα νέα παραδοτέα](https://github.com/kyriakoslouka-crypto/music-app/releases/tag/v0.5.16-preview.88) · [Αναφορά παράδοσης και ακριβές σημείο συνέχισης](downloads/0.5.16/README.md) · [Οδηγίες](desktop/README.md) · [Πραγματικές δοκιμές](downloads/0.5.16/README.md#πραγματικοί-έλεγχοι) · [Περιορισμοί](desktop/docs/KNOWN-LIMITATIONS.md) · [Συνέχιση προς 1.0](desktop/docs/CONTINUE-TO-1.0.md).
 
 `desktop/deliverables/releases/` διατηρεί πλήρη versioned πακέτα, source ZIP, οδηγίες και tests. Το τοπικό filesystem δεν ισοδυναμεί με δημόσια λήψη. Η εξωτερική παράδοση τεκμηριώνεται χωριστά. Τα δείγματα πιάνου δεν αναδιανέμονται· εγκαθίστανται ιδιωτικά από τη δημοσιευμένη πηγή.
 
-Νέο στη 0.5.15: η ακουστική εκπαίδευση κρατά πέντε καρτέλες και ο ισοκράτης μεταφέρεται στο ανεξάρτητο **Professional Isokratis**, με δικό του εγκαταστάτη/Portable/EXE και αυτόματη υιοθέτηση παλιών φωνών/κουρδισμάτων. Η καρτέλα Απρόοπτα διαγωνίσματα αφαιρείται από τη διεπαφή, με διατήρηση ιστορικού και κανονικών εξετάσεων. [Εγκαταστάτης ισοκράτη](https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.15-preview.86/ProfessionalIsokratis-0.5.15-Setup.exe) · [Οδηγίες διαχωρισμού](desktop/docs/INDEPENDENT-APPLICATIONS.md).
+Νέο στη 0.5.16: 21 διαθέσιμες κατηγορίες χωρίς τις επτά συμφωνημένες κατηγορίες ρυθμού, μελωδικού ντικτέ και σολφέζ, και αυτόματη συνέχεια/ακρόαση εξετάσεων με ακύρωση. [Οδηγίες](desktop/docs/SIMPLIFIED-CURRICULUM.md).
+
+Στη 0.5.15: η ακουστική εκπαίδευση κρατά πέντε καρτέλες και ο ισοκράτης μεταφέρεται στο ανεξάρτητο **Professional Isokratis**, με δικό του εγκαταστάτη/Portable/EXE και αυτόματη υιοθέτηση παλιών φωνών/κουρδισμάτων. Η καρτέλα Απρόοπτα διαγωνίσματα αφαιρείται από τη διεπαφή, με διατήρηση ιστορικού και κανονικών εξετάσεων. [Εγκαταστάτης ισοκράτη](https://github.com/kyriakoslouka-crypto/music-app/releases/download/v0.5.16-preview.88/ProfessionalIsokratis-0.5.16-Setup.exe) · [Οδηγίες διαχωρισμού](desktop/docs/INDEPENDENT-APPLICATIONS.md).
 
 Στη 0.5.14: Shift+πάνω/κάτω για οκτάβα στον ζωντανό ισοκράτη, ανεξάρτητες αλλοιώσεις ±7200 μορίων ανά ομώνυμο φθόγγο και διατήρηση προσωπικού κουρδίσματος ανά ήχο. [Οδηγίες](desktop/docs/FREE-ISOKRATIS-TUNING.md) · [Δικός σου κώδικας και δικαιώματα τρίτων](desktop/docs/SHARING-AND-RIGHTS.md).
 

@@ -1,0 +1,54 @@
+{
+  "Version": "0.5.16",
+  "SourceCommit": "0123bb8044a112873c2ff0746f10bba6445b8427",
+  "Passed": true,
+  "Error": null,
+  "DecodedFormats": 4,
+  "FixtureOrigin": "Generated PCM encoded by Windows Media Foundation",
+  "ExternalVoiceRecordingsTested": false,
+  "Checks": [
+    {
+      "SourcePath": "fixtures/fixture-0.mp3",
+      "NativeDecodePassed": true,
+      "Frames": 134217,
+      "EstimatedRootHz": 110.00036649246265,
+      "Confidence": 0.9999532860296104,
+      "OutputHz": 112.13035948450064,
+      "PitchAccuracyPassed": true,
+      "LoopFrames": 80065
+    },
+    {
+      "SourcePath": "fixtures/fixture-1.mp3",
+      "NativeDecodePassed": true,
+      "Frames": 134256,
+      "EstimatedRootHz": 97.99318846739828,
+      "Confidence": 0.999980811367054,
+      "OutputHz": 99.91318060356771,
+      "PitchAccuracyPassed": true,
+      "LoopFrames": 80085
+    },
+    {
+      "SourcePath": "fixtures/fixture-2.mp3",
+      "NativeDecodePassed": true,
+      "Frames": 133931,
+      "EstimatedRootHz": 110.00038656502399,
+      "Confidence": 0.999952348482858,
+      "OutputHz": 112.13113023179928,
+      "PitchAccuracyPassed": true,
+      "LoopFrames": 79883
+    },
+    {
+      "SourcePath": "fixtures/fixture-3.mp3",
+      "NativeDecodePassed": true,
+      "Frames": 134256,
+      "EstimatedRootHz": 219.97748130952004,
+      "Confidence": 0.9998830310889509,
+      "OutputHz": 224.31039926493804,
+      "PitchAccuracyPassed": true,
+      "LoopFrames": 80081
+    }
+  ],
+  "HumanListeningTested": false,
+  "PhysicalAudioTested": false,
+  "PrivateSamplesBundled": false
+}
