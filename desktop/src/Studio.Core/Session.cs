@@ -27,7 +27,7 @@ public sealed class Session
     }
     public void Clear() { Current = null; answered = false; }
 }
-public sealed record Preferences(Settings Settings, string? SoundFontPath = null, int Bank = 0, int Preset = 0, string? DeviceId = null, bool CancelNvdaSpeech = false, bool AutomaticPractice = false, int AutomaticDelaySeconds = 10);
+public sealed record Preferences(Settings Settings, string? SoundFontPath = null, int Bank = 0, int Preset = 0, string? DeviceId = null, bool CancelNvdaSpeech = false, bool AutomaticPractice = false, int AutomaticDelaySeconds = 10, bool AutomaticExams = true);
 public sealed class ProgressStore
 {
     private readonly string directory;

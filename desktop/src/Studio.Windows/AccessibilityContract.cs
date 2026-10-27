@@ -58,6 +58,8 @@ public static class AccessibilityContract
         result["ExamBoundaryRegression"]=form.AuditExamBoundaries();
         result["AudioDiagnosticRegression"]=form.AuditAudioDiagnostic();
         result["AutomaticPracticeRegression"]=form.AuditAutomaticPractice();
+        result["AutomaticExamRegression"]=form.AuditAutomaticExam();
+        result["Curriculum"]=form.AuditCurriculum();
         result["NewStudyFeatures"]=form.AuditNewStudy();
         using(var isokratis=new MainForm(true,true)){result["Isokratis"]=isokratis.AuditIson();}
         using var installer=new PianoSetupDialog(Path.Combine(Path.GetTempPath(),"studio-audit-unused"));

@@ -28,12 +28,12 @@ internal static class AutomaticPracticeProbe
         using var output=new AudioOutput((_,_)=>new(new ProbePlayer(nonzero=>{plays++;if(nonzero)nonzeroPlays++;})));
         using var form=new MainForm(true,output,true);
         form.Shown+=async(_,_)=>{
-            try{await form.ProbeAutomaticPractice(manifest,()=>plays);if(plays!=2||nonzeroPlays!=2)throw new InvalidOperationException("Two real Maestro PCM examples did not reach the byte output adapter.");}
+            try{await form.ProbeAutomaticPractice(manifest,()=>plays);await form.ProbeAutomaticExam(()=>plays);if(plays!=4||nonzeroPlays!=4)throw new InvalidOperationException("Four real Maestro PCM examples did not reach the byte output adapter.");}
             catch(Exception ex){error=ex.ToString();}
             finally{form.Close();}
         };
         Application.Run(form);
-        File.WriteAllText(report,JsonSerializer.Serialize(new{Version=typeof(MainForm).Assembly.GetName().Version!.ToString(3),SourceCommit=Environment.GetEnvironmentVariable("GITHUB_SHA"),Passed=error is null,Error=error,AutomaticExamples=plays,NonzeroMaestroExamples=nonzeroPlays,ManualReplayCalls=0,RealDelayCancellationPassed=error is null,PhysicalAudioTested=false,SimulatedOutputDevice=true},new JsonSerializerOptions{WriteIndented=true}));
+        File.WriteAllText(report,JsonSerializer.Serialize(new{Version=typeof(MainForm).Assembly.GetName().Version!.ToString(3),SourceCommit=Environment.GetEnvironmentVariable("GITHUB_SHA"),Passed=error is null,Error=error,AutomaticExamples=2,NonzeroMaestroExamples=2,AutomaticExamExamples=2,TotalAudioExamples=plays,ExamContinuationPassed=error is null,ManualReplayCalls=0,RealDelayCancellationPassed=error is null,PhysicalAudioTested=false,SimulatedOutputDevice=true},new JsonSerializerOptions{WriteIndented=true}));
         return error is null?0:1;
     }
 }

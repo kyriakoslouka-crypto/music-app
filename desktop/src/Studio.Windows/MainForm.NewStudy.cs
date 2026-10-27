@@ -33,7 +33,7 @@ public sealed partial class MainForm
     {
         if(exam is not null&&exam.State.Finished is null)throw new InvalidOperationException("Ολοκλήρωσε πρώτα την εξέταση.");
         if(piano is null)throw new InvalidOperationException("Εγκατάστησε πρώτα το πιάνο.");
-        var target=StudyCoach.Target(history,ReadSettings());ExitExam();ApplyTrainingSettings(target);await PresentExercise(generator.Next(target),target);
+        var target=StudyCoach.Target(TrainingCatalog.ActiveHistory(history),ReadSettings());ExitExam();ApplyTrainingSettings(target);await PresentExercise(generator.Next(target),target);
     }
     private void BuildSurprise()
     {

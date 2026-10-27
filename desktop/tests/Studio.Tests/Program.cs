@@ -234,6 +234,7 @@ if (fontIndex >=0 && fontIndex+1<args.Length) {
 } else Console.WriteLine("NOT RUN: real SF2 render (provide --soundfont path). No Windows/NVDA/hardware tests run by this runner.");
 Studio.Tests.FreeTuningTests.Register(Test);
 Studio.Tests.IsonMigrationTests.Register(Test);
+Studio.Tests.TrainingCatalogTests.Register(Test);
 Studio.Tests.IntonationTests.Register(Test);
 Studio.Tests.LiveIsonTests.Register(Test);
 Studio.Tests.ResponseOptionTests.Register(Test);
