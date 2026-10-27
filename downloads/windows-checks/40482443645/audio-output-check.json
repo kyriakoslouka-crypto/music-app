@@ -1,0 +1,47 @@
+{
+  "Version": "0.5.16",
+  "SourceCommit": "9e5fcc45387f633848c28208755a3613b5f2863a",
+  "Passed": true,
+  "Executed": 9,
+  "Failed": 0,
+  "PhysicalAudioTested": false,
+  "SimulatedDriverFailures": true,
+  "Checks": [
+    {
+      "Name": "Live ison replaces looping PCM through the actual byte adapter without reopening a device",
+      "Passed": true
+    },
+    {
+      "Name": "Actual NAudio float-to-byte adapter preserves exact PCM at nonzero offsets and loop boundaries",
+      "Passed": true
+    },
+    {
+      "Name": "Asynchronous event-driven failure retries once on same device with fresh identical PCM",
+      "Passed": true
+    },
+    {
+      "Name": "Synchronous initialization failure uses compatible mode without losing original PCM",
+      "Passed": true
+    },
+    {
+      "Name": "Two driver failures produce one terminal callback retaining both original errors",
+      "Passed": true
+    },
+    {
+      "Name": "ASIO failure never silently switches to WASAPI or another output",
+      "Passed": true
+    },
+    {
+      "Name": "Stop cancels queued retry even when backend initialization was already entered",
+      "Passed": true
+    },
+    {
+      "Name": "Previous device callbacks cannot complete or interrupt a new example",
+      "Passed": true
+    },
+    {
+      "Name": "Driver cleanup exceptions do not prevent owned resource disposal or closing",
+      "Passed": true
+    }
+  ]
+}

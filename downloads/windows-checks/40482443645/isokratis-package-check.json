@@ -1,0 +1,11 @@
+{
+  "Version": "0.5.16",
+  "SourceCommit": "9e5fcc45387f633848c28208755a3613b5f2863a",
+  "Passed": true,
+  "InstallerPassed": true,
+  "PortablePassed": true,
+  "StandalonePassed": true,
+  "TrainingHasFiveTabs": true,
+  "IsokratisHasThreeTabs": true,
+  "UninstallPreservesUserFile": true
+}

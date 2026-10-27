@@ -1,0 +1,11 @@
+{
+  "Version": "0.5.16",
+  "SourceCommit": "9e5fcc45387f633848c28208755a3613b5f2863a",
+  "Passed": false,
+  "Error": "System.Exception: Source sample hash mismatch: voices_mmm/a3-hum.mp3\r\n   at WindowsIsonCheck.Run(String directory, String report) in D:\\a\\music-app\\music-app\\desktop\\tests\\Studio.UIAutomation\\WindowsIsonCheck.cs:line 22",
+  "DecodedFormats": 0,
+  "Checks": [],
+  "HumanListeningTested": false,
+  "PhysicalAudioTested": false,
+  "PrivateSamplesBundled": false
+}
